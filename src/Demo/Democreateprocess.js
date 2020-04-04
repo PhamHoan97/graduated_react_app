@@ -2,6 +2,7 @@ import React,{ Component } from "react";
 import BpmnModeler from 'bpmn-js/lib/Modeler';
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn.css';
 import 'bpmn-js/dist/assets/diagram-js.css';
+import Comments from "./Comments";
 
 class Democreateprocess extends Component{
 
@@ -33,7 +34,10 @@ class Democreateprocess extends Component{
     render(){
         return (
             <div>
+                <div className="content with-diagram" id="js-drop-zone">
                 <div id={this.generateId}></div>
+                </div>
+                <Comments></Comments>
                 <button onClick={this.exportDiagram}>Export XML</button>
                 <button onClick={this.downloadAsSVG}>Save SVG</button>
                 <button onClick={this.downloadAsImage}>Save Image</button>
@@ -46,6 +50,12 @@ class Democreateprocess extends Component{
         this.modeler.attachTo('#'+ this.generateId);
         this.modeler.importXML(this.initialDiagram, function(err) {
 
+        });
+
+        this.modeler.on('element.changed', function(event) {
+            var element = event.element;
+            console.log(element);
+            console.log(event);
         });
     }
 
@@ -90,7 +100,23 @@ class Democreateprocess extends Component{
         this.modeler.saveXML({ format: true }, function (error, xml) {
             if (error) {
                 return;
-            }                                      
+            } 
+            var bpmnBlob = new Blob([xml], {
+                type: 'xml'
+            });
+
+            var fileName = Math.random(36).toString().substring(7) + '.bpmn';
+        
+            var downloadLink = document.createElement('a');
+            downloadLink.download = fileName;
+            downloadLink.innerHTML = 'Get BPMN';
+            downloadLink.href = window.URL.createObjectURL(bpmnBlob);
+            downloadLink.onclick = function (event) {
+                document.body.removeChild(event.target);
+            };
+            downloadLink.style.visibility = 'hidden';
+            document.body.appendChild(downloadLink);
+            downloadLink.click();                                        
         });
     }
 
