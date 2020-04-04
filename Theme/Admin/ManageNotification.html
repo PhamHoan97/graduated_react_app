@@ -286,6 +286,7 @@
                                                     <a href="#">
                                                         <i class="zmdi zmdi-money-box"></i>Billing</a>
                                                 </div>
+                                                
                                             </div>
                                             <div class="account-dropdown__footer">
                                                 <a href="#">
@@ -405,6 +406,10 @@
                                                             data-placement="top" title="Reject">
                                                             <i class="zmdi zmdi-xbox"></i>
                                                         </button>
+                                                        <button class="item"  data-toggle="modal" data-target="#scrollmodal"
+                                                            data-placement="top" title="New Account Admin">
+                                                            <i class="zmdi zmdi-account-add"></i>
+                                                        </button>
                                                         <button class="item" data-toggle="tooltip"
                                                             data-placement="top" title="Delete">
                                                             <i class="zmdi zmdi-delete"></i>
@@ -436,65 +441,48 @@
             <!-- END MAIN CONTENT-->
             <!-- END PAGE CONTAINER-->
         </div>
-                <!-- Model add item -->
-                <div class="modal fade" id="scrollmodal" tabindex="-1" role="dialog" aria-labelledby="scrollmodalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="scrollmodalLabel">New user</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="card-body card-block">
-                                    <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-                                        <div class="row form-group">
-                                            <div class="col col-md-3">
-                                                <label for="text-input" class=" form-control-label">Name</label>
-                                            </div>
-                                            <div class="col-12 col-md-9">
-                                                <input type="text" id="text-input" name="text-input" placeholder="Text" class="form-control">
-                                                <small class="form-text text-muted">This is a help text</small>
-                                            </div>
-                                        </div>
-                                        <div class="row form-group">
-                                            <div class="col col-md-3">
-                                                <label for="text-input" class=" form-control-label">Phone</label>
-                                            </div>
-                                            <div class="col-12 col-md-9">
-                                                <input class="form-control" type="number" value="42" id="example-number-input">
-                                            </div>
-                                        </div>
-                                        <div class="row form-group">
-                                            <div class="col col-md-3">
-                                                <label for="email-input" class=" form-control-label">Email Input</label>
-                                            </div>
-                                            <div class="col-12 col-md-9">
-                                                <input type="email" id="email-input" name="email-input" placeholder="Enter Email" class="form-control">
-                                                <small class="help-block form-text">Please enter your email</small>
-                                            </div>
-                                        </div>
-                                        <div class="row form-group">
-                                            <div class="col col-md-3">
-                                                <label for="password-input" class=" form-control-label">Password</label>
-                                            </div>
-                                            <div class="col-12 col-md-9">
-                                                <input type="password" id="password-input" name="password-input" placeholder="Password" class="form-control">
-                                                <small class="help-block form-text">Please enter a complex password</small>
-                                            </div>
-                                        </div>
-                                    </form>
+        <!-- Model add item -->
+        <div class="modal fade" id="scrollmodal" tabindex="-1" role="dialog" aria-labelledby="scrollmodalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="scrollmodalLabel">New Account Admin</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card-body card-block">
+                            <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="text-input" class=" form-control-label">Username</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <input type="text" id="text-input" name="text-input" placeholder="Text" class="form-control">
+                                        <small class="form-text text-muted">This is a help text</small>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn btn-primary">Confirm</button>
-                            </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="text-input" class=" form-control-label">Email</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <input type="email" id="text-input" name="text-input" placeholder="Text" class="form-control">
+                                        <small class="form-text text-muted">This is a help text</small>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary">Send</button>
+                    </div>
                 </div>
-                <!-- end modal scroll -->
+            </div>
+        </div>
+        <!-- end modal scroll -->
 
     </div>
 
