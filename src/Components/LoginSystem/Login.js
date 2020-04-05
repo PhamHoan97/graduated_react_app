@@ -15,6 +15,7 @@ import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import CheckButton from 'react-validation/build/button';
 import { isEmail, isEmpty } from 'validator';
+import axios from 'axios';
 
 const required = (value) => {
     if (isEmpty(value)) {
@@ -55,6 +56,21 @@ class Login extends Component{
     handleSubmit = event => {
         console.log(1);
         event.preventDefault();
+        var account = {
+            email: this.state.email,
+            password: this.state.password,
+        };
+
+        axios.post(`http://127.0.0.1:8000/api/login/system`, account)
+          .then(res => {
+            if(res.data.error != null){
+                console.log(res.data.error);
+            }else{
+                console.log(res.data.message);
+            }
+          }).catch(function (error) {
+            alert(error);
+          })
     }
 
 
