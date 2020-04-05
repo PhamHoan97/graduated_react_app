@@ -12,8 +12,11 @@
     "camunda-bpmn-moddle": "^4.4.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0",
-    "redux": "^4.0.5"
+    "react-validation": "^3.0.7",
+    "redux": "^4.0.5",
+    "validator": "^13.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
