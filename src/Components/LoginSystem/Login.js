@@ -54,7 +54,6 @@ class Login extends Component{
     }
 
     handleSubmit = event => {
-        console.log(1);
         event.preventDefault();
         var account = {
             email: this.state.email,
@@ -67,12 +66,27 @@ class Login extends Component{
                 console.log(res.data.error);
             }else{
                 console.log(res.data.message);
+                localStorage.setItem('system', JSON.stringify(res.data.system));
             }
           }).catch(function (error) {
             alert(error);
           })
     }
 
+    handleLogout = event => {
+        event.preventDefault();
+
+        axios.post(`http://127.0.0.1:8000/api/logout/system`)
+          .then(res => {
+            if(res.data.error != null){
+                console.log(res.data.error);
+            }else{
+                console.log(res.data.message);
+            }
+          }).catch(function (error) {
+            alert(error);
+          })
+    }
 
     onSubmit(e){
         e.preventDefault();
