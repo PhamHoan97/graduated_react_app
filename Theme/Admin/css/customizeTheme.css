@@ -1,0 +1,48 @@
+.btn--detail__process{
+    color: white;
+    text-decoration: none;
+}
+.avatar--user{
+    height: 300px;
+    width: 300px;
+}
+.image--user{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+.information--user{
+    border: 1px solid #c5bfbf;
+}
+.btn--edit_user{
+    padding: 7px 40px;
+}
+.section__content--p30{
+    padding: 0;
+    margin: 0;
+}
+.navbar__sub-list li a{
+    font-size: 14px !important;
+}
+.navbar__list li a{
+    font-weight: 700;
+}
+.content__organization{
+    margin-top: -39px;
+}
+.manage__process--title,
+.dashboard__title--process,
+.dashboard__title--company,
+.manage__company--notification,
+.manage__account--information,
+.dashboard__name--company,
+.detail--company__title{
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.detail--company__page{
+    margin-top: -30px;
+}
+.register--page{
+    height: 800px;
+}
