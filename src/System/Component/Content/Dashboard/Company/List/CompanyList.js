@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import company from '../../../../Images/Company/company1.jpg'
+import company from '../../../../../Images/Company/company1.jpg'
 export default class CompanyList extends Component {
     render() {
         return (
