@@ -64,7 +64,7 @@ export default class Intro extends Component {
                       </li>
                       <li className="nav-item">
                         <a
-                          href="#a"
+                          href="/register"
                           className="btn btn-primary btn-lg active btn--get__started"
                           role="button"
                           aria-pressed="true"
@@ -90,7 +90,7 @@ export default class Intro extends Component {
                   <h1>Fearless leaders know</h1>
                   <h1> they can win</h1>
                   <a
-                    href="2aesn"
+                    href="/register"
                     className="btn btn-primary btn-lg active btn--get__started btn-intro"
                     role="button"
                     aria-pressed="true"

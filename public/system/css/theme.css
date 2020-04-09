@@ -382,7 +382,12 @@ section {
 
 .login-form .form-group label {
     display: block;
+    text-align: left;
 }
+
+.required .control-label:after {
+    content:" *";color:red;
+  }  
 
 .login-content {
     background: #fff;
