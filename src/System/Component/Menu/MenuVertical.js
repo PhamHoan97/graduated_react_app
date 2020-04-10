@@ -101,7 +101,7 @@ export default class MenuVertical extends Component {
                           <span className="email">johndoe@example.com</span>
                         </div>
                       </div>
-                      <div className="account-dropdown__body">
+                      <div className="account-dropdown__body text-left">
                         <div className="account-dropdown__item">
                           <a href="2AESN">
                             <i className="zmdi zmdi-account" />

@@ -12,9 +12,9 @@ export default class CompanyList extends Component {
                     alt="AAA"
                   />
                   <div className="card-body">
-                    <h4 className="card-title mb-3 dashboard__name--company">
+                    <h6 className="card-title mb-3 dashboard__name--company">
                       Cong ty 1
-                    </h4>
+                    </h6>
                     <p className="card-text">
                       Some quick example text to build on the card title and
                       make up the bulk of the card's content.

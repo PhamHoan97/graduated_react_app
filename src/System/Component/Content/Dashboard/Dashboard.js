@@ -14,8 +14,8 @@ export default class Dashboard extends Component {
                 Popular companies
               </h3>
             </div>
-            <div className="col-md-7"></div>
-            <div className="col-md-2">
+            <div className="col-md-5"></div>
+            <div className="col-md-4">
                <PopularField/>
             </div>
           </div>

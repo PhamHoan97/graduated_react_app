@@ -17,17 +17,17 @@ export default class MenuHorizontal extends Component {
   };
   render() {
     return (
-      <aside className="menu-sidebar d-none d-lg-block">
+      <aside className="menu-sidebar d-none d-lg-block text-left">
         <div className="logo">
           <a href="4a">
             <img src={logo} alt="Cool Admin" />
           </a>
         </div>
-        <div className="menu-sidebar__content">
+        <div className="menu-sidebar__content js-scrollbar1">
           <nav className="navbar-sidebar">
             <ul className="list-unstyled navbar__list">
               <li className="has-sub">
-                <NavLink to="/system" exact activeClassName="selected" activeStyle={{
+                <NavLink to="/system/dashboard" exact activeClassName="selected" activeStyle={{
                       fontWeight: "bold",
                       color: "#0074D9"
                     }}>

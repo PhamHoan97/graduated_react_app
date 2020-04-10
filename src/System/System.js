@@ -20,6 +20,7 @@ export default class System extends Component {
                     <MenuVertical />
                     <div className="main-content">
                         <Route path="/system" exact component={Dashboard}/>
+                        <Route path="/system/dashboard" exact component={Dashboard}/>
                         <Route path="/system/organization" component={Organization}/>
                         <Route path="/system/process" component={Process}/>
                         <Route path="/system/account/notification" component={ManageAccount}/>
