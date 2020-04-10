@@ -88,8 +88,8 @@ class Login extends Component{
           })
     }
 
-    onSubmit(e){
-        e.preventDefault();
+    onSubmit = event => {
+        event.preventDefault();
         this.form.validateAll();
     }
 

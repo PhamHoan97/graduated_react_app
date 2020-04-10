@@ -1,0 +1,10 @@
+.login-checkbox {
+    display : block;
+    float : left;
+    margin-bottom: 10px;
+}
+
+.error{
+    text-align: left;
+}
+

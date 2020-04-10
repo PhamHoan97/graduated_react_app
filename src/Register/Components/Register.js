@@ -1,5 +1,24 @@
 import React, { Component } from 'react';
 import Image from '../Image/logo.png';
+import Form from 'react-validation/build/form';
+import Input from 'react-validation/build/input';
+import CheckButton from 'react-validation/build/button';
+import { isEmail} from 'validator';
+import axios from 'axios';
+import Select from 'react-validation/build/select';
+import '../Css/register.css';
+
+const required = (value) => {
+  if (!value.toString().trim().length) {
+      return <small className="form-text text-danger error">This field is required</small>;
+  }
+}
+
+const email = (value) => {
+  if (!isEmail(value)) {
+      return <small className="form-text text-danger error">Invalid email format</small>;
+  }
+}
 
 class Register extends Component {
     constructor(props) {
@@ -10,13 +29,76 @@ class Register extends Component {
             ceo:'',
             signature:'',
             field: '',   
-            people:'',
+            workforce:'',
             address:'',
             emailContact:'',
-
         }
     }
 
+  handleChangeCompany = event => {
+    this.setState({ name: event.target.value });
+  }
+  handleChangeSignature = event => {
+    this.setState({ signature: event.target.value });
+  }
+  handleChangeCeo = event => {
+    this.setState({ ceo: event.target.value });
+  }
+  handleChangeField = event => {
+    this.setState({ field: event.target.value });
+  }
+  handleChangeWorkforce = event => {
+    this.setState({ workforce: event.target.value });
+  }
+  handleChangeAddress = event => {
+    this.setState({ address: event.target.value });
+  }
+  handleChangeContact = event => {
+    this.setState({ emailContact: event.target.value });
+  }
+  handleSubmit = event => {
+    event.preventDefault();
+    var checkBox = document.getElementById("agree");
+    if(!checkBox.checked){
+      var message = '<small class="form-text text-danger">You must agree with our terms and policy</small>';
+      document.getElementById("show-error").innerHTML = message;
+    }else{
+      var company = {
+        name: this.state.name,
+        signature: this.state.signature,
+        address: this.state.address,
+        field: this.state.field,
+        workforce: this.state.workforce,
+        ceo: this.state.ceo,
+        contact: this.state.emailContact,
+    };
+
+    axios.post(`http://127.0.0.1:8000/api/company/register`, company)
+      .then(res => {
+        if(res.data.error != null){
+            console.log(res.data.error);
+        }else{
+            console.log(res.data.message);
+        }
+      }).catch(function (error) {
+        alert(error);
+      });
+
+    }
+  }
+
+  clickCheckBox = event =>{
+    var checkBox = document.getElementById("agree");
+    if(checkBox){
+        document.getElementById("show-error").innerHTML = '';
+    }
+  }
+
+  onSubmit = event => {
+      event.preventDefault();
+      this.form.validateAll();
+  }
+  
     render() {
         return (
           <div className="page-wrapper register--page">
@@ -30,58 +112,64 @@ class Register extends Component {
                       </a>
                     </div>
                     <div className="login-form">
-                      <form method="post">
+                      <Form method="post" onSubmit={e => this.onSubmit(e)} ref={c => { this.form = c }}>
                         <div className="form-group required">
                           <label className="control-label">Company</label>
-                          <input className="au-input au-input--full" type="text" name="name-company" placeholder="Công ty trách nghiệm hữu hạn Kinh Đô" />
+                          <Input validations={[required]} onChange={this.handleChangeCompany} className="au-input au-input--full" type="text" name="name-company" placeholder="Công ty trách nghiệm hữu hạn Kinh Đô" />
                         </div>
                         <div className="form-group required">
                           <label className="control-label">Signature</label>
-                          <input className="au-input au-input--full" type="text" name="name-company" placeholder="CTTNHH KĐ" />
+                          <Input validations={[required]} onChange={this.handleChangeSignature} className="au-input au-input--full" type="text" name="name-company" placeholder="CTTNHH KĐ" />
                         </div>
                         <div className="form-group required">
                           <label className="control-label">Ceo</label>
-                          <input className="au-input au-input--full" type="text" name="ceo-company" placeholder="Sam Smith" />
+                          <Input validations={[required]} onChange={this.handleChangeCeo} className="au-input au-input--full" type="text" name="ceo-company" placeholder="Sam Smith" />
                         </div>
-                        <div className="form-group">
-                          <label>Field</label>
-                          <select className="form-control" name="field-company" id="field-company">
+                        <div className="form-group required">
+                          <label value="" className="control-label">Field</label>
+                          <Select validations={[required]} onChange={this.handleChangeField} className="form-control" name="field-company" id="field-company">
+                            <option value="">Select a field</option>
                             <option value="Sale">Sale</option>
                             <option value="Delivery">Delivery</option>
                             <option value="IT">Information Technology</option>
                             <option value="Manufactory">Manufactory</option>
                             <option value="Others">Others</option>
-                          </select>
+                          </Select>
                         </div>
-                        <div className="form-group">
-                          <label htmlFor="exampleFormControlSelect1">Workforce</label>
-                          <select className="form-control" name="people-company" id="workforce-company">
+                        <div className="form-group required">
+                          <label className="control-label">Workforce</label>
+                          <Select validations={[required]} onChange={this.handleChangeWorkforce} className="form-control" name="people-company" id="workforce-company">
+                          <option value="">Select workforce range of company</option>
                             <option value="1">Less than 50 employees</option>
                             <option value="2">From 50 to 100 employees</option>
                             <option value="2">From 150 to 200 employees</option>
                             <option value="3">From 200 to 300 employees</option>
                             <option value="4">More than 300 employees</option>
-                          </select>
+                          </Select>
                         </div>
                         <div className="form-group required">
-                          <label className="control-label">Address</label>
-                          <input className="au-input au-input--full" type="text" name="address-company" placeholder="Đê La Thành" />
+                          <label validations={[required]} className="control-label">Address</label>
+                          <Input onChange={this.handleChangeAddress} className="au-input au-input--full" type="text" name="address-company" placeholder="Đê La Thành" />
                         </div>
                         <div className="form-group required">
                           <label className="control-label">Email Contact</label>
-                          <input className="au-input au-input--full" type="email" name="email" placeholder="jsmith@example.com" />
+                          <Input validations={[required, email]} onChange={this.handleChangeContact} className="au-input au-input--full" type="email" name="email" placeholder="jsmith@example.com" />
                         </div>
                         <div className="login-checkbox">
-                          <label>
-                            <input type="checkbox" name="aggree" />Agree the terms and policy
-                          </label>
+                          <div>
+                            <input onClick={this.clickCheckBox} type="checkbox" name="aggree" id="agree"/> 
+                            Agree the terms and policy
+                          </div>
+                          <div className="show-error-checkbox" id="show-error">
+                          {/* <small className="form-text text-danger">You must agree with our terms and policy</small> */}
+                          </div>
                         </div>
-                        <button className="au-btn au-btn--block au-btn--green m-b-20" type="submit">register</button>
-                      </form>
+                        <CheckButton onClick={this.handleSubmit} ref={c => { this.checkBtn = c }} className="au-btn au-btn--block au-btn--green m-b-20 submit-register" type="submit">register</CheckButton>
+                      </Form>
                       <div className="register-link">
                         <p>
                           Already have account? 
-                          <a href="/"> Sign In</a>
+                          <a href="/company/login"> Sign In</a>
                         </p>
                       </div>
                     </div>
