@@ -2,17 +2,26 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter as Router } from "react-router-dom";
 import ListUrl from './Routes/ListUrl';
-// import Intro from './Intro/Component/Intro';
+import System from './System/System';
+
 
 function App() {
-  return (
-    <Router>
-        <div className="App">
-          <ListUrl></ListUrl>
-        </div>
-    </Router>
-    // <Intro />
-  );
+  // set biến  localStorage để điều hướng route
+  var idUser = '0';
+  // var idUser = '1'
+  if(idUser === '1'){
+    return (
+      <Router>
+          <div className="App">
+            <ListUrl></ListUrl>
+          </div>
+      </Router>
+    );
+  }else{
+    return (
+      <System/>
+    );
+  }
 }
 
 export default App;
