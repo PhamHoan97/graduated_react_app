@@ -58,7 +58,7 @@ export default class Intro extends Component {
                         </a>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link" href="../Admin/login.html">
+                        <a className="nav-link" href="/company/login">
                           Login
                         </a>
                       </li>
