@@ -63,7 +63,8 @@ html,body{
 .feature--description__content{
     position: absolute;
     z-index: 1;
-    top: 50%;
+    top: 20%;
+    text-align: left;
 }
 .page-footer{
     background-color: #f3f3f3 !important;

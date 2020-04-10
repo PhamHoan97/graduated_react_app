@@ -58,13 +58,13 @@ export default class Intro extends Component {
                         </a>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link" href="../Admin/login.html">
+                        <a className="nav-link" href="/company/login">
                           Login
                         </a>
                       </li>
                       <li className="nav-item">
                         <a
-                          href="#a"
+                          href="/register"
                           className="btn btn-primary btn-lg active btn--get__started"
                           role="button"
                           aria-pressed="true"
@@ -90,7 +90,7 @@ export default class Intro extends Component {
                   <h1>Fearless leaders know</h1>
                   <h1> they can win</h1>
                   <a
-                    href="2aesn"
+                    href="/register"
                     className="btn btn-primary btn-lg active btn--get__started btn-intro"
                     role="button"
                     aria-pressed="true"
@@ -109,13 +109,15 @@ export default class Intro extends Component {
           <div className="jumbotron jumbotron-fluid">
             <div className="container">
               <div className="row">
-                <div className="col-md-8">
-                  <h1 className="display-4">See the big picture at a glance</h1>
+                <div className="col-md-1"></div>
+                <div className="col-md-10">
+                  <h1 className="display-5">See the big picture at a glance</h1>
                   <p className="lead">
                     Gain key insights across multiple boards from your projects,
                     teams, and processes.
                   </p>
                 </div>
+                <div className="col-md-1"></div>
               </div>
             </div>
           </div>
@@ -144,11 +146,17 @@ export default class Intro extends Component {
             <div className="row">
               <div className="col-md-5 text-center feature--description">
                 <div className="feature--description__content">
-                  <h2>Make decisions with confidence</h2>
+                  <h2>How to Make Business Decisions with Purpose</h2>
                   <div>
-                    Act on real-time data, not guesses. monday.com gives you a
-                    high-level overview of where things stand at glance so you
-                    know your team is moving in the right direction.
+                  You’ve heard the old saying: “If it ain’t broke, don’t fix it.” 
+                  But with process management, you may want to throw that saying out the window. 
+                  In business, things don’t have to be broken in order to benefit from regular 
+                  and even constant improvement. In fact, constant improvement is often the best 
+                  way for businesses to grow and streamline operations.
+                  By implementing process management, businesses are persistently evaluating and 
+                  re-evaluating the status quo, leading to short- and long-term process improvement. 
+                  So what is process management, and how can you use it to improve processes now and 
+                  in the future?
                   </div>
                 </div>
               </div>
@@ -269,10 +277,10 @@ export default class Intro extends Component {
                 </h5>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="#!">Đại Cồ Việt Giải Phóng </a>
+                    <a href="#!">Số 1, Đại Cồ Việt Giải Phóng </a>
                   </li>
                   <li>
-                    <a href="#!">2015</a>
+                    <a href="#!">2020</a>
                   </li>
                 </ul>
               </div>
