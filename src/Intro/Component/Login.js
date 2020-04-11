@@ -31,11 +31,11 @@ export default class Login extends Component {
                             <a href="/company/forgetpassword">Forgotten Password?</a>
                           </label>
                         </div>
-                        <button className="au-btn au-btn--block au-btn--green m-b-20" type="submit"><i class="fas fa-sign-in-alt"></i> sign in</button>
+                        <button className="au-btn au-btn--block au-btn--green m-b-20" type="submit"><i className="fas fa-sign-in-alt"></i> sign in</button>
                         <div className="social-login-content">
                             <div className="social-button">
-                                <button className="au-btn au-btn--block au-btn--blue m-b-20"><i class="fab fa-facebook-square"></i> sign in with facebook</button>
-                                <button className="au-btn au-btn--block au-btn--blue2"><i class="fab fa-twitter-square"></i> sign in with twitter</button>
+                                <button className="au-btn au-btn--block au-btn--blue m-b-20"><i className="fab fa-facebook-square"></i> sign in with facebook</button>
+                                <button className="au-btn au-btn--block au-btn--blue2"><i className="fab fa-twitter-square"></i> sign in with twitter</button>
                             </div>
                         </div>
                       </form>

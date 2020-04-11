@@ -300,7 +300,7 @@ class Alert extends Component {
                                       <td>
                                         <div style={{textAlign: 'center'}}>
                                           {/* <div style={{fontFamily: 'Arial, Helvetica, sans-serif', color: '#888888', opacity: '0.8'}}>Sent by</div> */}
-                                          <a onClick={this.backToHome}><img border={0} hspace={0} vspace={0} width={200} height={50} alt="Backtohome" style={{margin: 'auto'}} src={BackImage} /></a>
+                                          <button onClick={this.backToHome}><img border={0} hspace={0} vspace={0} width={200} height={50} alt="Backtohome" style={{margin: 'auto'}} src={BackImage} /></button>
                                         </div>
                                       </td>
                                     </tr>
