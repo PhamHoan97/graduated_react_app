@@ -14,6 +14,9 @@ import FaceBookImage from '../Image/vnl5jkte62ve.png';
 import TwiterImage from '../Image/vnl5kd9e62ve.png';
 import InImage from '../Image/vnl5mqle62ve.png';
 import YoutubeImage from '../Image/vnl5nj1e62ve.png';
+import {connect} from 'react-redux';
+import {deleteCompanyInformationAfterRegisterInStore} from '../Actions/RegisterActions';
+import { Redirect } from 'react-router-dom';
 
 
 class Alert extends Component {
@@ -21,11 +24,47 @@ class Alert extends Component {
         super(props)
 
         this.state = {
-                 
+            company: '', 
+            backToHome: false,
         }
     }
 
+    //WARNING! To be deprecated in React v17. Use componentDidMount instead.
+    componentWillMount() {
+      if(this.props.company !== ''){
+        switch (this.props.company.field) {
+          case "1":
+            this.props.company.field = "Less than 50 employees";
+            break;
+          case "2":
+            this.props.company.field = "From 50 to 100 employees";
+          break;
+          case "3":
+          this.props.company.field = "From 150 to 200 employees";
+          break;
+          case "4":
+            this.props.company.field = "From 200 to 300 employees";
+            break;
+          case "5":
+            this.props.company.field = "More than 300 employees";
+            break;
+          default:
+            break;
+        }
+
+         this.setState({company: this.props.company});
+      }
+    }
+
+    backToHome = event =>{
+      this.props.deleteCompanyInformation();
+      this.setState({backToHome: true});
+    }
+
     render() {
+        if(this.state.backToHome){
+          return <Redirect to='/' />;
+        }
         return (
             <div>
           <table border={0} align="center" width="100%" cellPadding={0} cellSpacing={0} className="main-template" bgcolor="#e8e8e8" style={{backgroundColor: 'white'}}>
@@ -132,12 +171,12 @@ class Alert extends Component {
                                                               <td valign="middle" align="left" style={{fontSize: '14px', fontFamily: '"Montserrat","Arial",Helvetica,sans-serif', color: '#888888'}} className="rnb-text-center">
                                                                 <div>
                                                                   <div style={{lineHeight: '24px'}}>Company Name
-                                                                    <br/>Ceo
-                                                                    <br/>Sinature
-                                                                    <br/>Field
-                                                                    <br/>Workforce
-                                                                    <br/>Address
-                                                                    <br/>Contact: <span style={{textDecoration: 'underline', color: 'rgb(20, 160, 193)'}}>contact@company.com</span>
+                                                                    <br/>Ceo: {this.state.company.name}
+                                                                    <br/>Sinature: {this.state.company.signature}
+                                                                    <br/>Field: {this.state.company.field}
+                                                                    <br/>Workforce: {this.state.company.workforce}
+                                                                    <br/>Address: {this.state.company.address}
+                                                                    <br/>Contact: <span style={{textDecoration: 'underline', color: 'rgb(20, 160, 193)'}}>{this.state.company.contact}</span>
                                                                   </div>
                                                                 </div>
                                                               </td>
@@ -261,7 +300,7 @@ class Alert extends Component {
                                       <td>
                                         <div style={{textAlign: 'center'}}>
                                           {/* <div style={{fontFamily: 'Arial, Helvetica, sans-serif', color: '#888888', opacity: '0.8'}}>Sent by</div> */}
-                                          <a href="/" target="_blank"><img border={0} hspace={0} vspace={0} width={200} height={50} alt="Backtohome" style={{margin: 'auto'}} src={BackImage} /></a>
+                                          <a onClick={this.backToHome}><img border={0} hspace={0} vspace={0} width={200} height={50} alt="Backtohome" style={{margin: 'auto'}} src={BackImage} /></a>
                                         </div>
                                       </td>
                                     </tr>
@@ -314,4 +353,18 @@ class Alert extends Component {
     }
 }
 
-export default Alert
+const mapStateToProps = (state, ownProps) => {
+  return {
+    company: state.registerReducers.companyRegister
+  }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    deleteCompanyInformation: () => {
+      dispatch(deleteCompanyInformationAfterRegisterInStore());
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Alert);

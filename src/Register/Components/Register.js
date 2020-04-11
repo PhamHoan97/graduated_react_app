@@ -7,6 +7,9 @@ import { isEmail} from 'validator';
 import axios from 'axios';
 import Select from 'react-validation/build/select';
 import '../Css/register.css';
+import { connect } from 'react-redux'; 
+import {updateCompanyInformationAfterRegisterInStore} from '../Actions/RegisterActions';
+import  { Redirect } from 'react-router-dom';
 
 const required = (value) => {
   if (!value.toString().trim().length) {
@@ -32,6 +35,7 @@ class Register extends Component {
             workforce:'',
             address:'',
             emailContact:'',
+            redirectAlert:'',
         }
     }
 
@@ -78,7 +82,9 @@ class Register extends Component {
         if(res.data.error != null){
             console.log(res.data.error);
         }else{
-            console.log(res.data.message);
+            console.log(res.data);
+            this.props.updateCompanyInformation(company);
+            this.setState({redirectAlert: true});
         }
       }).catch(function (error) {
         alert(error);
@@ -100,6 +106,9 @@ class Register extends Component {
   }
   
     render() {
+        if(this.state.redirectAlert){
+          return <Redirect to='/newletter'  />;
+        }
         return (
           <div className="page-wrapper register--page">
             <div className="page-content--bge5">
@@ -142,9 +151,9 @@ class Register extends Component {
                           <option value="">Select workforce range of company</option>
                             <option value="1">Less than 50 employees</option>
                             <option value="2">From 50 to 100 employees</option>
-                            <option value="2">From 150 to 200 employees</option>
-                            <option value="3">From 200 to 300 employees</option>
-                            <option value="4">More than 300 employees</option>
+                            <option value="3">From 150 to 200 employees</option>
+                            <option value="4">From 200 to 300 employees</option>
+                            <option value="5">More than 300 employees</option>
                           </Select>
                         </div>
                         <div className="form-group required">
@@ -182,4 +191,19 @@ class Register extends Component {
     }
 }
 
-export default Register;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    companyRegister: state.registerReducers.companyRegister,
+  }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    updateCompanyInformation: (company) => {
+      dispatch(updateCompanyInformationAfterRegisterInStore(company));
+    }
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Register);
+
