@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Modal} from 'react-bootstrap'
-import DepartmentContainer from '../../../../Container/ManageOrganization/Manage/DepartmentContainer'
+import DepartmentContainer from '../../../Container/ManageOrganization/Manage/DepartmentContainer'
 export default class ModalDepartment extends Component {
     render() {
         return (

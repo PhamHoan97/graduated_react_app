@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import organizationReducer from './Organization/OrganizationReducer'
-const appReducers = combineReducers({
+const systemReducers = combineReducers({
     organizationReducer
 })
-export default appReducers;
+export default systemReducers;

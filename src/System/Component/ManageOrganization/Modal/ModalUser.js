@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Modal} from 'react-bootstrap'
-import UserContainer from '../../../../Container/ManageOrganization/Manage/UserContainer'
+import UserContainer from '../../../Container/ManageOrganization/Manage/UserContainer'
 export default class ModalUser extends Component {
     render() {
         return (

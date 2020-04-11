@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
-import Department from '../../../Component/Content/ManageOrganization/ManageDepartment/Department'
+import Department from '../../../Component/ManageOrganization/ManageDepartment/Department'
 import {connect} from  'react-redux';
-import DepartmentItem from '../../../Component/Content/ManageOrganization/ManageDepartment/DepartmentItem';
+import DepartmentItem from '../../../Component/ManageOrganization/ManageDepartment/DepartmentItem';
 import {detailDepartment} from '../../../Action/Organization/Department/Index'
 import {showEditDepartment} from '../../../Action/Organization/Department/Index'
 import {hideEditDepartment} from '../../../Action/Organization/Department/Index'
 import {showNewDepartment} from '../../../Action/Organization/Department/Index'
 import {hideNewDepartment} from '../../../Action/Organization/Department/Index'
-import EditDepartment from '../../../Component/Content/ManageOrganization/ManageDepartment/EditDepartment';
-import NewDepartment from '../../../Component/Content/ManageOrganization/ManageDepartment/NewDepartment';
+import EditDepartment from '../../../Component/ManageOrganization/ManageDepartment/EditDepartment';
+import NewDepartment from '../../../Component/ManageOrganization/ManageDepartment/NewDepartment';
 class DepartmentContainer extends Component {
     render() {
         return (
@@ -61,10 +61,10 @@ class DepartmentContainer extends Component {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        listDepartment : state.organizationReducer.departmentReducer["department"],
-        isDisplayEditForm : state.organizationReducer.showHideReducer.showHideEditDepartment,
-        isDisplayNewForm : state.organizationReducer.showHideReducer.showHideNewDepartment,
-        idEditDepartment : state.organizationReducer.departmentReducer.idEditDepartment
+        listDepartment : state.systemReducers.organizationReducer.departmentReducer["department"],
+        isDisplayEditForm : state.systemReducers.organizationReducer.showHideReducer.showHideEditDepartment,
+        isDisplayNewForm : state.systemReducers.organizationReducer.showHideReducer.showHideNewDepartment,
+        idEditDepartment : state.systemReducers.organizationReducer.departmentReducer.idEditDepartment
     }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {

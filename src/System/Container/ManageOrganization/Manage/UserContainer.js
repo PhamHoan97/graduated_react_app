@@ -1,17 +1,16 @@
 import React, { Component } from 'react'
-import User from '../../../Component/Content/ManageOrganization/ManageUser/User'
+import User from '../../../Component/ManageOrganization/ManageUser/User'
 import {connect} from  'react-redux';
-import UserItem from '../../../Component/Content/ManageOrganization/ManageUser/UserItem';
+import UserItem from '../../../Component/ManageOrganization/ManageUser/UserItem';
 import {detailUser} from '../../../Action/Organization/User/Index'
 import {showEditUser} from '../../../Action/Organization/User/Index'
 import {hideEditUser} from '../../../Action/Organization/User/Index'
 import {showNewUser} from '../../../Action/Organization/User/Index'
 import {hideNewUser} from '../../../Action/Organization/User/Index'
-import EditUser from '../../../Component/Content/ManageOrganization/ManageUser/EditUser';
-import NewUser from '../../../Component/Content/ManageOrganization/ManageUser/NewUser';
+import EditUser from '../../../Component/ManageOrganization/ManageUser/EditUser';
+import NewUser from '../../../Component/ManageOrganization/ManageUser/NewUser';
 class UserContainer extends Component {
     render() {
-        console.log(this.props.test.organizationReducer.departmentReducer.idEditDepartment);
         return (
             <>
                 <div className="btn--new__user text-right mr-5">
@@ -63,10 +62,10 @@ class UserContainer extends Component {
 const mapStateToProps = (state, ownProps) => {
     return {
         test : state,
-        listUser : state.organizationReducer.userReducer["user"],
-        isDisplayEditForm : state.organizationReducer["showHideReducer"].showHideEditUser,
-        isDisplayNewForm : state.organizationReducer["showHideReducer"].showHideNewUser,
-        idEditUser : state.organizationReducer.userReducer.idEditUser
+        listUser : state.systemReducers.organizationReducer.userReducer["user"],
+        isDisplayEditForm : state.systemReducers.organizationReducer["showHideReducer"].showHideEditUser,
+        isDisplayNewForm : state.systemReducers.organizationReducer["showHideReducer"].showHideNewUser,
+        idEditUser : state.systemReducers.organizationReducer.userReducer.idEditUser
     }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
