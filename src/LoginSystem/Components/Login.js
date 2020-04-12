@@ -16,6 +16,7 @@ import Input from 'react-validation/build/input';
 import CheckButton from 'react-validation/build/button';
 import { isEmail, isEmpty } from 'validator';
 import axios from 'axios';
+import  { Redirect } from 'react-router-dom';
 
 const required = (value) => {
     if (isEmpty(value)) {
@@ -42,6 +43,7 @@ class Login extends Component{
         this.state = {
             email: '',
             password: '',
+            redirectSystem: false,
         };
     }
 
@@ -63,10 +65,11 @@ class Login extends Component{
         axios.post(`http://127.0.0.1:8000/api/login/system`, account)
           .then(res => {
             if(res.data.error != null){
-                console.log(res.data.error);
+                console.log(res.data.message);
             }else{
                 console.log(res.data.message);
                 localStorage.setItem('system', JSON.stringify(res.data.system));
+                this.setState({redirectSystem:true});
             }
           }).catch(function (error) {
             alert(error);
@@ -94,6 +97,9 @@ class Login extends Component{
     }
 
     render(){
+        if(this.state.redirectSystem){
+            return <Redirect to='/system'/>;
+        }
         return (
             <div>
                 <div className="limiter">

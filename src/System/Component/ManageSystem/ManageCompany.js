@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import "../../Style/Account/account.css";
 import MenuVertical from "../Menu/MenuVertical";
 import MenuHorizontal from "../Menu/MenuHorizontal";
-// import AdminAcountTable from "./AdminAcountTable";
-export default class ManageAccount extends Component {
+import CreateAdminAccountModal from "./CreateAdminAccountModal";
+import CompanyInformation from "./CompanyInformation";
+
+export default class ManageCompany extends Component {
   render() {
     return (
     <div className="page-wrapper">
@@ -14,20 +16,18 @@ export default class ManageAccount extends Component {
             <div>
                 <div className="section__content section__content--p30">
                     <div className="container-fluid">
-                    {/* <div className="row">
+                    <div className="row">
                         <div className="col-md-12">
-                        <h1 className="title-4">
-                            Welcome
-                            <span>Admin !</span>
-                        </h1>
-                        <hr className="line-seprate" />
+                        <h3 className="title-5 m-b-35 manage__company--notification">
+                            Statistic
+                        </h3>
                         </div>
-                    </div> */}
-                    {/* <div className="row">
+                    </div>
+                    <div className="row">
                         <div className="col-md-4">
                         <div className="statistic__item statistic__item--green">
                             <h2 className="number">10,368</h2>
-                            <span className="desc">Companys</span>
+                            <span className="desc">departments</span>
                             <div className="icon">
                             <i className="zmdi zmdi-account-o" />
                             </div>
@@ -51,12 +51,12 @@ export default class ManageAccount extends Component {
                             </div>
                         </div>
                         </div>
-                    </div> */}
+                    </div>
                     {/* MANAGER Company*/}
                     <div className="row">
                         <div className="col-md-12">
                         <h3 className="title-5 m-b-35 manage__company--notification">
-                            Manager Registration
+                            Manager Company
                         </h3>
                         <div className="table-data__tool">
                             <div className="table-data__tool-left">
@@ -65,7 +65,7 @@ export default class ManageAccount extends Component {
                                 className="js-select2 select--today__adminAccount"
                                 name="time"
                                 >
-                                <option defaultValue>Today</option>
+                                <option selected="selected">Today</option>
                                 <option value>3 Days</option>
                                 <option value>1 Week</option>
                                 <option value>1 Month</option>
@@ -84,11 +84,11 @@ export default class ManageAccount extends Component {
                                 <tr>
                                 <th />
                                 <th>Name</th>
-                                <th>Contact</th>
+                                <th>Email</th>
                                 <th>Address</th>
-                                <th>Field</th>
-                                <th>Workforce</th>
-                                <th>Ceo</th>
+                                <th>Phone</th>
+                                <th>Logo</th>
+                                <th>Status</th>
                                 <th />
                                 </tr>
                             </thead>
@@ -103,7 +103,7 @@ export default class ManageAccount extends Component {
                                 <td>Công ty mua đi bán lại</td>
                                 <td>
                                     <span className="block-email">
-                                        lori@example.com
+                                    lori@example.com
                                     </span>
                                 </td>
                                 <td className="desc">Cát Quế Hà Nội</td>
@@ -119,29 +119,30 @@ export default class ManageAccount extends Component {
                                     <div className="table-data-feature">
                                     <button
                                         className="item"
-                                        data-toggle="tooltip"
+                                        data-toggle="modal"
+                                        data-target="#infomodal"
                                         data-placement="top"
-                                        title="Approve"
+                                        title="Information"
                                     >
                                         <i className="zmdi zmdi-notifications-add" />
                                     </button>
-                                    <button
+                                    {/* <button
                                         className="item"
                                         data-toggle="tooltip"
                                         data-placement="top"
                                         title="Reject"
                                     >
                                         <i className="zmdi zmdi-xbox" />
-                                    </button>
-                                    {/* <button
+                                    </button> */}
+                                    <button
                                         className="item"
                                         data-toggle="modal"
                                         data-target="#scrollmodal"
                                         data-placement="top"
-                                        title="New Account"
+                                        title="New Admin Account"
                                     >
                                         <i className="zmdi zmdi-account-add" />
-                                    </button> */}
+                                    </button>
                                     <button
                                         className="item"
                                         data-toggle="tooltip"
@@ -172,7 +173,7 @@ export default class ManageAccount extends Component {
                         <div className="col-md-12">
                         <div className="copyright">
                             <p>
-                            Copyright © 2020 Colorlib. All rights reserved.
+                            Copyright © 2018 Colorlib. All rights reserved.
                             Template by{" "}
                             <a href="https://colorlib.com">Colorlib</a>.
                             </p>
@@ -181,112 +182,12 @@ export default class ManageAccount extends Component {
                     </div>
                     </div>
                 </div>
-                {/* Model add item */}
-                {/* <div
-                    className="modal fade"
-                    id="scrollmodal"
-                    tabIndex={-1}
-                    role="dialog"
-                    aria-labelledby="scrollmodalLabel"
-                    aria-hidden="true"
-                >
-                    <div className="modal-dialog modal-lg" role="document">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                        <h5 className="modal-title" id="scrollmodalLabel">
-                            New Admin Account
-                        </h5>
-                        <button
-                            type="button"
-                            className="close"
-                            data-dismiss="modal"
-                            aria-label="Close"
-                        >
-                            <span aria-hidden="true">×</span>
-                        </button>
-                        </div>
-                        <div className="modal-body">
-                        <div className="card-body card-block">
-                            <form
-                            method="post"
-                            encType="multipart/form-data"
-                            className="form-horizontal"
-                            >
-                            <div className="row form-group">
-                                <div className="col col-md-3">
-                                <label
-                                    htmlFor="text-input"
-                                    className=" form-control-label"
-                                >
-                                    Username
-                                </label>
-                                </div>
-                                <div className="col-12 col-md-6">
-                                    <input
-                                        type="text"
-                                        id="username"
-                                        name="username"
-                                        placeholder="Example: Tbxkdrld12"
-                                        className="form-control"
-                                    />
-                                    <small className="form-text text-muted">
-                                    </small>
-                                </div>
-                                <div className="col-12 col-md-3" style={{display: 'none'}}>
-                                    <i className="far fa-check-circle fa-2x" style={{float:'left',color:'green'}}></i>
-                                </div>
-                            </div>
-                            <div className="row form-group">
-                                <div className="col col-md-3">
-                                <label
-                                    htmlFor="text-input"
-                                    className=" form-control-label"
-                                >
-                                    Password
-                                </label>
-                                </div>
-                                <div className="col-12 col-md-6">
-                                    <input
-                                        type="password"
-                                        id="password"
-                                        name="password"
-                                        placeholder="Example: Abcdxyz123"
-                                        className="form-control"
-                                    />
-                                    <small className="form-text text-muted">
-                                    </small>
-                                </div>
-                                <div className="col-12 col-md-3" style={{display: 'none'}}>
-                                    <i className="far fa-check-circle fa-2x" style={{float:'left',color:'green'}}></i>
-                                </div>
-                            </div>
-                            <div className="row form-group">
-                                <div className="col col-md-3">
-    
-                                </div>
-                                <div className="col-12 col-md-9">
-                                    <button type="button" style={{float: 'left',}} className="btn btn-success">Generate Account</button>
-                                    <button type="button" style={{float: 'left', marginLeft: '10px'}} className="btn btn-primary">Send</button>
-                                </div>
-                            </div>
-                            <div className="row form-group">
-                                <AdminAcountTable/>
-                            </div>
-                            </form>
-                        </div>
-                        </div>
-                        <div className="modal-footer">
-                        <button
-                            type="button"
-                            className="btn btn-secondary"
-                            data-dismiss="modal"
-                        >
-                            Cancel
-                        </button>
-                        </div>
-                    </div>
-                    </div>
-                </div> */}
+                {/* Modal add item */}
+                <CreateAdminAccountModal/>                    
+                {/* End Modal add item */}
+                {/* Modal Infomation Company */}
+                <CompanyInformation/>                    
+                {/* End Modal Information company */}
                 </div>
             </div>
         </div>

@@ -57,17 +57,26 @@ export default class MenuHorizontal extends Component {
                   <a href="##" onClick={(e) => {
                     this.collapseMenu(e);
                   }} className="js-arrow">
-                  <i className="fas fa-tachometer-alt" />
+                  <i className="fas fa-assistive-listening-systems" />
                       Manager System
                 </a>
                 <ul className="list-unstyled navbar__sub-list js-sub-list">
-                  <li>
-                    <NavLink to="/system/account/notification" activeClassName="selected"  activeStyle={{
+                <li>
+                    <NavLink to="/system/company" activeClassName="selected"  activeStyle={{
                       fontWeight: "bold",
                       color: "#0074D9"
                     }}>
-                      <i className="fas fa-star" />
-                        Manager Notification
+                      <i className="fas fa-building"/>
+                        Manager Company
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/system/registration" activeClassName="selected"  activeStyle={{
+                      fontWeight: "bold",
+                      color: "#0074D9"
+                    }}>
+                      <i className="fas fa-bell-slash" />
+                        Manager Registration
                     </NavLink>
                   </li>
                 </ul>

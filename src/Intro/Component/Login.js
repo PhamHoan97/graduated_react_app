@@ -28,7 +28,7 @@ export default class Login extends Component {
                             <input type="checkbox" name="remember" />Remember Me
                           </label>
                           <label>
-                            <a href="/company/forgetpassword">Forgotten Password?</a>
+                            <a href="/company/forgetpassword"> Forgotten Password?</a>
                           </label>
                         </div>
                         <button className="au-btn au-btn--block au-btn--green m-b-20" type="submit"><i className="fas fa-sign-in-alt"></i> sign in</button>
@@ -42,7 +42,7 @@ export default class Login extends Component {
                       <div className="register-link">
                         <p>
                           Don't you have account?
-                          <a href="register.html">Sign Up Here</a>
+                          <a href="register.html"> Sign Up Here</a>
                         </p>
                       </div>
                     </div>
