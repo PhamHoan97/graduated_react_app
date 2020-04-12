@@ -40,7 +40,7 @@ class Alert extends Component {
             this.props.company.field = "From 50 to 100 employees";
           break;
           case "3":
-          this.props.company.field = "From 150 to 200 employees";
+          this.props.company.field = "From 100 to 200 employees";
           break;
           case "4":
             this.props.company.field = "From 200 to 300 employees";

@@ -151,7 +151,7 @@ class Register extends Component {
                           <option value="">Select workforce range of company</option>
                             <option value="1">Less than 50 employees</option>
                             <option value="2">From 50 to 100 employees</option>
-                            <option value="3">From 150 to 200 employees</option>
+                            <option value="3">From 100 to 200 employees</option>
                             <option value="4">From 200 to 300 employees</option>
                             <option value="5">More than 300 employees</option>
                           </Select>
@@ -164,7 +164,7 @@ class Register extends Component {
                           <label className="control-label">Email Contact</label>
                           <Input validations={[required, email]} onChange={this.handleChangeContact} className="au-input au-input--full" type="email" name="email" placeholder="jsmith@example.com" />
                         </div>
-                        <div className="login-checkbox">
+                        <div className="login-checkbox-register">
                           <div>
                             <input onClick={this.clickCheckBox} type="checkbox" name="aggree" id="agree"/> 
                             Agree the terms and policy

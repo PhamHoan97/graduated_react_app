@@ -5001,7 +5001,7 @@ section {
     font-size: 18px;
     text-transform: uppercase;
     font-weight: 300;
-    color: rgba(128, 128, 128, 0.6);
+    color: #ffffff;
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {
