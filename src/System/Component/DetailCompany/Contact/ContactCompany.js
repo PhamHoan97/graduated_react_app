@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import comany from '../../../Images/Company/company1.jpg'
 
-export default class MapCompany extends Component {
+export default class ContactCompany extends Component {
   render() {
     return (
       <div className="map-data m-b-40">
@@ -9,8 +10,8 @@ export default class MapCompany extends Component {
           map data
         </h3>
         {/* Map Company */}
-        <div className="map-wrap m-t-45 m-b-80">
-          <div id="vmap" style={{ height: "284px" }} />
+        <div className="map-wrap m-t-40 m-b-60">
+          <img src={comany} style={{ height: "284px"}} alt="img-company"></img>
         </div>
         <div className="table-wrap">
           <div className="table-responsive table-style1">

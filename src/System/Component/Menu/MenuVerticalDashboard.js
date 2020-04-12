@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Avatar from "../../Images/Account/Avatar-01.jpg";
-import PopularField from "../Dashboard/Company/PopularField";
 
 export default class MenuVerticalDashboard extends Component {
   collapseMenuAccount = (e) => {
@@ -19,15 +18,12 @@ export default class MenuVerticalDashboard extends Component {
         <div className="section__content section__content--p30">
           <div className="container-fluid">
             <div className="header-wrap">
-                <div className="form-header">
-                    <PopularField/>
-                </div>
                 <form className="form-header" method="POST">
                     <input
-                    className="au-input au-input--xl"
-                    type="text"
-                    name="search"
-                    placeholder="Search for datas and reports..."
+                      className="au-input au-input--xl"
+                      type="text"
+                      name="search"
+                      placeholder="Search for datas and reports..."
                     />
                     <button className="au-btn--submit" type="submit">
                     <i className="zmdi zmdi-search" />

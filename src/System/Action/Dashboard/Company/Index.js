@@ -1,8 +1,8 @@
 import * as types from '../../../Constants/Dashboard/ActionType'
 
-
-export const listPopulalCompany = () =>{
+export const listFieldCompany = (field) =>{
     return {
-        type:types.LIST_POPULAR_COMPANY
+        type:types.LIST_FIELD_COMPANY,
+        field
     }
 }
