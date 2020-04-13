@@ -1,6 +1,8 @@
 import { combineReducers } from "redux";
-import organizationReducer from './Organization/OrganizationReducer'
+import organizationReducer from './Organization/OrganizationReducer';
+import manageSystemReducer from './System/ManagementSystemReducer';
 const systemReducers = combineReducers({
-    organizationReducer
+    organizationReducer,
+    manageSystemReducer,
 })
 export default systemReducers;
