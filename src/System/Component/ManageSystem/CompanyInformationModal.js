@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-class CompanyInformation extends Component {
+class CompanyInformationModal extends Component {
     constructor(props) {
         super(props)
 
@@ -227,4 +227,4 @@ class CompanyInformation extends Component {
     }
 }
 
-export default CompanyInformation
+export default CompanyInformationModal;

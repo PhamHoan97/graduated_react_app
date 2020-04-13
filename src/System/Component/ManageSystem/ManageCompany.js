@@ -3,7 +3,7 @@ import "../../Style/Account/account.css";
 import MenuVertical from "../Menu/MenuVertical";
 import MenuHorizontal from "../Menu/MenuHorizontal";
 import CreateAdminAccountModal from "./CreateAdminAccountModal";
-import CompanyInformation from "./CompanyInformation";
+import CompanyInformationModal from "./CompanyInformationModal";
 
 export default class ManageCompany extends Component {
   render() {
@@ -65,7 +65,7 @@ export default class ManageCompany extends Component {
                                 className="js-select2 select--today__adminAccount"
                                 name="time"
                                 >
-                                <option selected="selected">Today</option>
+                                <option defaultValue>Today</option>
                                 <option value>3 Days</option>
                                 <option value>1 Week</option>
                                 <option value>1 Month</option>
@@ -186,7 +186,7 @@ export default class ManageCompany extends Component {
                 <CreateAdminAccountModal/>                    
                 {/* End Modal add item */}
                 {/* Modal Infomation Company */}
-                <CompanyInformation/>                    
+                <CompanyInformationModal/>                    
                 {/* End Modal Information company */}
                 </div>
             </div>
