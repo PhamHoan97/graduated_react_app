@@ -15,8 +15,52 @@ class ManageRegistration extends Component {
             registration: '',  
             activePage: 1,
             clickedCompany: "",
+            approvedCompany: ""
         }
     } 
+
+    approveCompany(event, id){
+        event.preventDefault();
+        var token = localStorage.getItem('token');
+        var data = {
+            idCompany : id,
+            tokenData: token,
+        };
+
+        axios.post(`http://127.0.0.1:8000/api/system/registration/approve`,data,
+        {
+            headers: { 'Authorization': 'Bearer ' + token }
+        })
+        .then(res => {
+          if(res.data.error != null){
+              console.log(res.data.message);
+          }else{
+            console.log(res.data);
+            this.setState({approvedCompany: id});
+          }
+        }).catch(function (error) {
+          alert(error);
+        })
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        var token = localStorage.getItem('token');
+        axios.get(`http://127.0.0.1:8000/api/system/registration`,
+        {
+             headers: { 'Authorization': 'Bearer ' + token }
+        })
+        .then(res => {
+          if(res.data.error != null){
+              console.log(res.data.message);
+          }else{
+              if(JSON.stringify(this.state.registration) !== JSON.stringify(res.data.registrations)){
+                this.setState({registration:res.data.registrations});
+              }
+          }
+        }).catch(function (error) {
+          alert(error);
+        })
+    }
 
     getCompanyRegisterInformation = (event, id) => {
        event.preventDefault();
@@ -29,7 +73,6 @@ class ManageRegistration extends Component {
          if(res.data.error != null){
              console.log(res.data.message);
          }else{
-            console.log(res.data);
             this.setState({clickedCompany:res.data.information});
             document.getElementById("cloneinfo"+ res.data.information.id).click();    
          }
@@ -206,6 +249,7 @@ class ManageRegistration extends Component {
                             data-toggle="tooltip"
                             data-placement="top"
                             title="Approve"
+                            onClick={(e)=> this.approveCompany(e,value.id)}
                         >
                             <i className="zmdi zmdi-notifications-add" />
                         </button>
@@ -249,7 +293,6 @@ class ManageRegistration extends Component {
           if(res.data.error != null){
               console.log(res.data.message);
           }else{
-              console.log(res.data);
               this.setState({registration:res.data.registrations});
           }
         }).catch(function (error) {
