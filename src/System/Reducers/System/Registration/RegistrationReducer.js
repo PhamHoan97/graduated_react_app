@@ -1,4 +1,4 @@
-import {PASS_COMPANY_ID_TO_MODAL} from '../../../Constants/System/ActionTypes';
+import {PASS_COMPANY_ID_FROM_FORM_TO_MODAL_IN_CREATE_ACCOUNT_ADMIN} from '../../../Constants/System/ActionTypes';
 
 const initialState = {
     idCompany: '',
@@ -6,7 +6,7 @@ const initialState = {
 
 var idCompanyReducers = (state = initialState, action) => {
     switch (action.type) {
-        case PASS_COMPANY_ID_TO_MODAL:
+        case PASS_COMPANY_ID_FROM_FORM_TO_MODAL_IN_CREATE_ACCOUNT_ADMIN:
             return {...state, idCompany:action.idCompany}
 
         default:

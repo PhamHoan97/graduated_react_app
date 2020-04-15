@@ -32,21 +32,21 @@ class Alert extends Component {
     //WARNING! To be deprecated in React v17. Use componentDidMount instead.
     componentWillMount() {
       if(this.props.company !== ''){
-        switch (this.props.company.field) {
+        switch (this.props.company.workforce) {
           case "1":
-            this.props.company.field = "Less than 50 employees";
+            this.props.company.workforce = "Less than 50 employees";
             break;
           case "2":
-            this.props.company.field = "From 50 to 100 employees";
+            this.props.company.workforce = "From 50 to 100 employees";
           break;
           case "3":
-          this.props.company.field = "From 100 to 200 employees";
+          this.props.company.workforce = "From 100 to 200 employees";
           break;
           case "4":
-            this.props.company.field = "From 200 to 300 employees";
+            this.props.company.workforce = "From 200 to 300 employees";
             break;
           case "5":
-            this.props.company.field = "More than 300 employees";
+            this.props.company.workforce = "More than 300 employees";
             break;
           default:
             break;

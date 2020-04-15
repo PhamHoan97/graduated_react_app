@@ -47,6 +47,7 @@ class RegisterInformationModal extends Component {
     }
 
     render() {
+    if(this.props.currentCompany){
         return (
             <div
             className="modal fade"
@@ -223,7 +224,9 @@ class RegisterInformationModal extends Component {
             </div>
             </div>
         </div>
-        )
+        )}else{
+            return (<div></div>)
+        }
     }
 }
 

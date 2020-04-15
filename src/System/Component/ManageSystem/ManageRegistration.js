@@ -5,8 +5,7 @@ import MenuHorizontal from "../Menu/MenuHorizontal";
 import RejectReasonModal from "./RejectReasonModal";
 import axios from 'axios';
 import RegisterInformationModal from "./RegisterInformationModal";
-import { connect } from 'react-redux'; 
-import {passCompanyIdToModal} from '../../Action/System/Index';
+import CreateAdminAccountModal from "./CreateAdminAccountModal";
 
 class ManageRegistration extends Component {
     constructor(props) {
@@ -19,28 +18,31 @@ class ManageRegistration extends Component {
         }
     } 
 
-    approveCompany(event, id){
-        event.preventDefault();
-        var token = localStorage.getItem('token');
-        var data = {
-            idCompany : id,
-            tokenData: token,
-        };
+    approveCompany = (id) => {
+        if(this.state.approveCompany !== id ){
+            console.log("approve" + id);
+            var token = localStorage.getItem('token');
+            var data = {
+                idRegistration : id,
+                tokenData: token,
+            };
 
-        axios.post(`http://127.0.0.1:8000/api/system/registration/approve`,data,
-        {
-            headers: { 'Authorization': 'Bearer ' + token }
-        })
-        .then(res => {
-          if(res.data.error != null){
-              console.log(res.data.message);
-          }else{
-            console.log(res.data);
-            this.setState({approvedCompany: id});
-          }
-        }).catch(function (error) {
-          alert(error);
-        })
+            axios.post(`http://127.0.0.1:8000/api/system/registration/approve`,data,
+            {
+                headers: { 'Authorization': 'Bearer ' + token }
+            })
+            .then(res => {
+            if(res.data.error != null){
+                console.log(res.data.message);
+            }else{
+                console.log(res.data);
+                this.setState({approvedCompany: id});
+                document.getElementById("clone_create_admin_account"+ id).click();
+            }
+            }).catch(function (error) {
+            alert(error);
+            })
+        }
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -162,11 +164,11 @@ class ManageRegistration extends Component {
                 if(key<(count/8)){
                     if(key===0){
                         return (
-                            <li className="paginate_button page-item page active"><a href="#4AE" aria-controls="dataTable" data-dt-idx={key+1} tabIndex={key} className="page-link" onClick={(e)=>{this.handlePageChange(e,key+1)}}>{key+1}</a></li>
+                            <li key={key+1} className="paginate_button page-item page active"><a href="#4AE" aria-controls="dataTable" data-dt-idx={key+1} tabIndex={key} className="page-link" onClick={(e)=>{this.handlePageChange(e,key+1)}}>{key+1}</a></li>
                         );
                     }else{
                         return (
-                            <li className="paginate_button page-item page "><a href="#4AE" aria-controls="dataTable" data-dt-idx={key+1} tabIndex={key} className="page-link" onClick={(e)=>{this.handlePageChange(e,key+1)}}>{key+1}</a></li>
+                            <li key={key+1} className="paginate_button page-item page "><a href="#4AE" aria-controls="dataTable" data-dt-idx={key+1} tabIndex={key} className="page-link" onClick={(e)=>{this.handlePageChange(e,key+1)}}>{key+1}</a></li>
                         );
                     }
                 }
@@ -204,7 +206,7 @@ class ManageRegistration extends Component {
         return Object.values(registration).map((value, key) => {
             if ((key >= locationStart)&&(key<= (locationStart + 7))){
                 return (
-                <>
+                <React.Fragment key={key}>
                 <tr className="tr-shadow">
                     <td>
                         <label className="au-checkbox">
@@ -245,11 +247,22 @@ class ManageRegistration extends Component {
                             <i className="fas fa-eye"></i>
                         </button>
                         <button
+                            id={"clone_create_admin_account" + value.id}
+                            className="item"
+                            data-toggle="modal"
+                            data-placement="top"
+                            title="Clone Create Admin Account"
+                            data-target="#createaccountadmin"
+                            style={{display:'none'}}
+                        >
+                            <i className="fas fa-eye"></i>
+                        </button>
+                        <button
                             className="item"
                             data-toggle="tooltip"
                             data-placement="top"
                             title="Approve"
-                            onClick={(e)=> this.approveCompany(e,value.id)}
+                            onClick={this.approveCompany.bind(this,value.id)}
                         >
                             <i className="zmdi zmdi-notifications-add" />
                         </button>
@@ -274,10 +287,10 @@ class ManageRegistration extends Component {
                     </td>
                     </tr>
                     <tr className="spacer" ></tr>
-                    </>
+                </React.Fragment>
                 )
             }else{
-                return <tr></tr>;
+                return <tr key={key}></tr>;
             }
         })
     }
@@ -396,6 +409,9 @@ class ManageRegistration extends Component {
                 {/* Modal Infomation Company Register*/}
                     <RegisterInformationModal currentCompany={this.state.clickedCompany} />                    
                 {/* End Modal Information company Register*/}
+                {/* Modal create admin acount for company */}
+                    <CreateAdminAccountModal currentCompany = {this.state.approvedCompany}/>
+                {/* End modal create admin acount for company */}
                 </div>
             </div>
         </div>
@@ -404,18 +420,4 @@ class ManageRegistration extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-    return {
-      idCurrentCompany: state.systemReducers.manageSystemReducer.registrationReducer.idCompany,
-    }
-  }
-  
-  const mapDispatchToProps = (dispatch, ownProps) => {
-    return {
-      passCompanyIdToModal: (idCompany) => {
-        dispatch(passCompanyIdToModal(idCompany));
-      }
-    }
-  }
-  
-  export default connect(mapStateToProps,mapDispatchToProps)(ManageRegistration);
+export default ManageRegistration;
