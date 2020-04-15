@@ -66,7 +66,6 @@ class ManageRegistration extends Component {
 
     getCompanyRegisterInformation = (event, id) => {
        event.preventDefault();
-       this.props.passCompanyIdToModal(id);
        var token = localStorage.getItem('token');
        axios.get(`http://127.0.0.1:8000/api/system/registration/information/`+ id,
        {
