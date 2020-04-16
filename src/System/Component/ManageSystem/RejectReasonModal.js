@@ -1,12 +1,79 @@
 import React, { Component } from 'react'
+import {isEmpty } from 'validator';
+import axios from 'axios';
+import {loadTableAfterReject} from '../../Action/System/Index'
+import { connect } from 'react-redux';
 
 class RejectReasonModal extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-                 
+            idRegistration : "",
+            reason: ""
         }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        var id = nextProps.currentCompany;
+        document.getElementById("reason-reject-textarea").value = "";
+        this.setState({idRegistration: id});
+    }
+
+    validateForm(reason){
+        var check = true;
+        if(isEmpty(reason)){
+            document.getElementById("error-reason-required").style.display = "block";
+            document.getElementById("error-reason-length").style.display = "none";
+            check =false;
+        }else{
+            if(reason.trim().length < 30){
+                document.getElementById("error-reason-length").style.display = "block";
+                document.getElementById("error-reason-required").style.display = "none";
+                check = false;
+            }
+        }
+
+        if(check){
+            document.getElementById("error-reason-required").style.display = "none";
+            document.getElementById("error-reason-length").style.display = "none";
+        }
+
+        return check;
+    }
+
+    sendRejectEmail = () =>{
+        var reasonReject = this.state.reason;
+        if(this.validateForm(reasonReject)){
+            var id = this.state.idRegistration;
+            var token = localStorage.getItem('token');
+            var data = {
+                idRegistration : id,
+                reason: reasonReject,
+                tokenData: token,
+            };
+    
+            axios.post(`http://127.0.0.1:8000/api/system/send/email/reject`,data,
+            {
+                headers: { 'Authorization': 'Bearer ' + token }
+            })
+            .then(res => {
+                if(res.data.error != null){
+                    console.log(res.data.message);
+                }else{
+                    console.log(res.data);
+                    this.props.loadDataAfterReject(true);
+                    document.getElementById("cancel-reject-modal").click();
+                }
+            }).catch(function (error) {
+            alert(error);
+            })
+        }
+    }
+
+    changeReasonContent = event => {
+        this.setState({reason: event.target.value});
+        this.validateForm(this.state.reason);
     }
 
     render() {
@@ -37,9 +104,8 @@ class RejectReasonModal extends Component {
                 <div className="modal-body">
                 <div className="card-body card-block">
                     <form
-                    method="post"
-                    encType="multipart/form-data"
-                    className="form-horizontal"
+                        encType="multipart/form-data"
+                        className="form-horizontal"
                     >
                     <div className="row form-group">
                         <div className="col col-md-3">
@@ -51,7 +117,11 @@ class RejectReasonModal extends Component {
                         </label>
                         </div>
                         <div className="col-12 col-md-8">
-                            <textarea rows="10" className="form-control" id="reason" name="reason"></textarea>
+                            <div>
+                                <textarea onChange={this.changeReasonContent} rows="10" className="form-control" id="reason-reject-textarea" name="reason"></textarea>
+                                <small id="error-reason-required" className="form-text text-danger" style={{display:'none'}}>This field is required</small>
+                                <small id="error-reason-length" className="form-text text-danger" style={{display:'none'}}>Reason must be at least 30 characters long</small>
+                            </div>
                             <small className="form-text text-muted">
                             </small>
                         </div>
@@ -59,7 +129,7 @@ class RejectReasonModal extends Component {
                     <div className="row form-group">
                         <div className="col col-md-3"></div>
                         <div className="col-12 col-md-9">
-                            <button type="button" style={{float: 'left',}} className="btn btn-success">Send to Email</button>
+                            <button onClick={this.sendRejectEmail.bind(this)} type="button" style={{float: 'left',}} className="btn btn-success">Send Email</button>
                         </div>
                     </div>
                     </form>
@@ -70,6 +140,7 @@ class RejectReasonModal extends Component {
                     type="button"
                     className="btn btn-secondary"
                     data-dismiss="modal"
+                    id="cancel-reject-modal"
                 >
                     Cancel
                 </button>
@@ -81,4 +152,18 @@ class RejectReasonModal extends Component {
     }
 }
 
-export default RejectReasonModal;
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        loadDataAfterReject: (loadDataTable) => {
+            dispatch(loadTableAfterReject(loadDataTable))
+        }
+    }
+}
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RejectReasonModal);

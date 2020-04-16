@@ -111,7 +111,6 @@ class CreateAdminAccountModal extends Component {
                 username: usernameA,
                 password: passwordA,
             };
-            console.log(account);
             var token = localStorage.getItem('token');
             axios.post(`http://127.0.0.1:8000/api/system/create/admin`, account,
             {
@@ -131,6 +130,15 @@ class CreateAdminAccountModal extends Component {
                 alert(error);
             })
         }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        document.getElementById("usernameGenerate").value = "";
+        document.getElementById("passwordGenerate").value = "";
+        document.getElementById("error-username-required").style.display = "none";
+        document.getElementById("error-username-length").style.display = "none";
+        document.getElementById("error-password-required").style.display = "none";
+        document.getElementById("error-password-length").style.display = "none";
     }
 
     render() {

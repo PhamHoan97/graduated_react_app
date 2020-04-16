@@ -6,20 +6,28 @@ import RejectReasonModal from "./RejectReasonModal";
 import axios from 'axios';
 import RegisterInformationModal from "./RegisterInformationModal";
 import CreateAdminAccountModal from "./CreateAdminAccountModal";
+import { connect } from "react-redux";
 
 class ManageRegistration extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            registration: '',  
+            registration: "",  
             activePage: 1,
             clickedCompany: "",
-            approvedCompany: ""
+            approvedCompany: "",
+            rejectedCompany:"",
+            loadTableData: false,
         }
     } 
 
+    rejectCompany = (id) => {
+        this.setState({rejectedCompany: id});
+        document.getElementById("clone_reject"+ id).click();
+    }
+
     approveCompany = (id) => {
-        if(this.state.approveCompany !== id ){
+        if(this.state.approvedCompany !== id ){
             var token = localStorage.getItem('token');
             var data = {
                 idRegistration : id,
@@ -31,16 +39,23 @@ class ManageRegistration extends Component {
                 headers: { 'Authorization': 'Bearer ' + token }
             })
             .then(res => {
-            if(res.data.error != null){
-                console.log(res.data.message);
-            }else{
-                console.log(res.data);
-                this.setState({approvedCompany: id});
-                document.getElementById("clone_create_admin_account"+ id).click();
-            }
+                if(res.data.error != null){
+                    console.log(res.data.message);
+                }else{
+                    console.log(res.data);
+                    this.setState({approvedCompany: id});
+                    document.getElementById("clone_create_admin_account"+ id).click();
+                }
             }).catch(function (error) {
             alert(error);
             })
+        }
+    }
+
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.loadDataTable){
+            this.setState({loadDataTable: nextProps.loadDataTable});
         }
     }
 
@@ -267,11 +282,22 @@ class ManageRegistration extends Component {
                         <button
                             className="item"
                             data-toggle="modal"
-                            data-target="#rejectmodal"
                             data-placement="top"
                             title="Reject"
+                            onClick={this.rejectCompany.bind(this,value.id)}
                         >
                             <i className="zmdi zmdi-xbox" />
+                        </button>
+                        <button
+                            id={"clone_reject" + value.id}
+                            className="item"
+                            data-toggle="modal"
+                            data-placement="top"
+                            title="reject"
+                            data-target="#rejectmodal"
+                            style={{display:'none'}}
+                        >
+                            <i className="fas fa-eye"></i>
                         </button>
                         <button
                             className="item"
@@ -402,7 +428,7 @@ class ManageRegistration extends Component {
                     </div>
                 </div>
                 {/* Modal Reject Reason  */}
-                    <RejectReasonModal/>
+                    <RejectReasonModal currentCompany={this.state.rejectedCompany}/>
                 {/* End Modal Reject Reason */}
                 {/* Modal Infomation Company Register*/}
                     <RegisterInformationModal currentCompany={this.state.clickedCompany} />                    
@@ -418,4 +444,10 @@ class ManageRegistration extends Component {
   }
 }
 
-export default ManageRegistration;
+const mapStateToProps = (state, ownProps) => {
+    return {
+        loadTableData: state.systemReducers.manageSystemReducer.registrationReducer.loadDataTable,
+    }
+}
+
+export default connect(mapStateToProps,)(ManageRegistration);
