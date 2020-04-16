@@ -169,25 +169,25 @@ class ManageRegistration extends Component {
             this.setState({activePage: pageNumber});
         }
         
-        // Hàm hiện thị html cho phân trang 
-        displayPaging =()=>{
-            var registration = this.state.registration;
-            var count = registration.length;
-            return Object.values(registration).map((value, key) => {
-                if(key<(count/8)){
-                    if(key===0){
-                        return (
-                            <li key={key+1} className="paginate_button page-item page active"><a href="#4AE" aria-controls="dataTable" data-dt-idx={key+1} tabIndex={key} className="page-link" onClick={(e)=>{this.handlePageChange(e,key+1)}}>{key+1}</a></li>
-                        );
-                    }else{
-                        return (
-                            <li key={key+1} className="paginate_button page-item page "><a href="#4AE" aria-controls="dataTable" data-dt-idx={key+1} tabIndex={key} className="page-link" onClick={(e)=>{this.handlePageChange(e,key+1)}}>{key+1}</a></li>
-                        );
-                    }
+    // Hàm hiện thị html cho phân trang 
+    displayPaging =()=>{
+        var registration = this.state.registration;
+        var count = registration.length;
+        return Object.values(registration).map((value, key) => {
+            if(key<(count/8)){
+                if(key===0){
+                    return (
+                        <li key={key+1} className="paginate_button page-item page active"><a href="#4AE" aria-controls="dataTable" data-dt-idx={key+1} tabIndex={key} className="page-link" onClick={(e)=>{this.handlePageChange(e,key+1)}}>{key+1}</a></li>
+                    );
+                }else{
+                    return (
+                        <li key={key+1} className="paginate_button page-item page "><a href="#4AE" aria-controls="dataTable" data-dt-idx={key+1} tabIndex={key} className="page-link" onClick={(e)=>{this.handlePageChange(e,key+1)}}>{key+1}</a></li>
+                    );
                 }
-                return '';
-            });
-        }
+            }
+            return '';
+        });
+    }
 
     convertWorkforceCompany = (workforce) => {
         var result;

@@ -79,37 +79,44 @@ class AdminAcountTable extends Component {
         }
     }
 
-        // Hàm xử lí khi nhấn vào các vị trí các trang 
-        handlePageChange(e,pageNumber) {
-            e.preventDefault();
-            var currentPage= e.target.getAttribute('data-dt-idx');
-            this.handleCssPage(e,0,currentPage);
-            this.getRowsOfTable(pageNumber);
-            this.setState({activePage: pageNumber});
-        }
-        
-        // Hàm hiện thị html cho phân trang 
-        displayPaging =()=>{
-            var admins = this.state.admins;
-            var count = admins.length;
-            return Object.values(admins).map((value, key) => {
-                if(key<(count/8)){
-                    if(key===0){
-                        return (
-                            <li key={key+1} className="paginate_button page-item page active"><a href="#4AE" aria-controls="dataTable" data-dt-idx={key+1} tabIndex={key} className="page-link" onClick={(e)=>{this.handlePageChange(e,key+1)}}>{key+1}</a></li>
-                        );
-                    }else{
-                        return (
-                            <li key={key+1} className="paginate_button page-item page "><a href="#4AE" aria-controls="dataTable" data-dt-idx={key+1} tabIndex={key} className="page-link" onClick={(e)=>{this.handlePageChange(e,key+1)}}>{key+1}</a></li>
-                        );
-                    }
+    // Hàm xử lí khi nhấn vào các vị trí các trang 
+    handlePageChange(e,pageNumber) {
+        e.preventDefault();
+        var currentPage= e.target.getAttribute('data-dt-idx');
+        this.handleCssPage(e,0,currentPage);
+        this.getRowsOfTable(pageNumber);
+        this.setState({activePage: pageNumber});
+    }
+    
+    // Hàm hiện thị html cho phân trang 
+    displayPaging =()=>{
+        var admins = this.state.admins;
+        var count = admins.length;
+        return Object.values(admins).map((value, key) => {
+            if(key<(count/8)){
+                if(key===0){
+                    return (
+                        <li key={key+1} className="paginate_button page-item page active"><a href="#4AE" aria-controls="dataTable" data-dt-idx={key+1} tabIndex={key} className="page-link" onClick={(e)=>{this.handlePageChange(e,key+1)}}>{key+1}</a></li>
+                    );
+                }else{
+                    return (
+                        <li key={key+1} className="paginate_button page-item page "><a href="#4AE" aria-controls="dataTable" data-dt-idx={key+1} tabIndex={key} className="page-link" onClick={(e)=>{this.handlePageChange(e,key+1)}}>{key+1}</a></li>
+                    );
                 }
-                return '';
-            });
-        }
+            }
+            return '';
+        });
+    }
+
     componentWillReceiveProps(nextProps) {
-        var idCompany = nextProps.idCompany;
-        if(idCompany){
+        var idCompany = nextProps.currentCompany;
+        var initCompany = nextProps.initCompany;
+        console.log(idCompany);
+        if(idCompany || initCompany){
+            if(!idCompany){
+                idCompany = initCompany;
+            }
+
             var token = localStorage.getItem('token');
             axios.get(`http://127.0.0.1:8000/api/system/company/`+ idCompany + `/admin/accounts`,
             {
