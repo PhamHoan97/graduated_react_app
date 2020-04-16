@@ -20,7 +20,6 @@ class ManageRegistration extends Component {
 
     approveCompany = (id) => {
         if(this.state.approveCompany !== id ){
-            console.log("approve" + id);
             var token = localStorage.getItem('token');
             var data = {
                 idRegistration : id,

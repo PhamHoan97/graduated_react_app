@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AdminAcountTable from "./AdminAcountTable";
 import axios from 'axios';
 import {isEmpty } from 'validator';
-import {passCompanyIdFromFormToModalInCreateAccountAdmin} from "../../Action/System/Index";
+import {passDataFromFormToModalInCreateAccountAdmin} from "../../Action/System/Index";
 import {connect} from 'react-redux';
 
 
@@ -11,12 +11,11 @@ class CreateAdminAccountModal extends Component {
         super(props)
 
         this.state = {
-
+            clickCreate: 1,
         }
     }
 
     generateAdminAccount = event => {
-        console.log(123)
         var usernameR = Math.random().toString(36).substring(7) + Math.random().toString(36).substring(7);
         var passwordR = Math.random().toString(36).substring(7) + Math.random().toString(36).substring(7);
         document.getElementById("usernameGenerate").value = usernameR;
@@ -124,7 +123,9 @@ class CreateAdminAccountModal extends Component {
                     console.log(res.data.message);
                 }else{
                     console.log(res.data);
-                    this.props.passIdFromFormToTable(res.data.admin.company_id);
+                    this.props.passDataFromFormToTable(res.data.admin.company_id,this.state.clickCreate);
+                    var numberClick = this.state.clickCreate + 1;
+                    this.setState({clickCreate: numberClick});
                 }
             }).catch(function (error) {
                 alert(error);
@@ -232,7 +233,7 @@ class CreateAdminAccountModal extends Component {
                         </div>
                     </div>
                     <div className="row form-group">
-                        <AdminAcountTable admins = {this.props.currentCompany}/>
+                        <AdminAcountTable/>
                     </div>
                     </form>
                 </div>
@@ -256,13 +257,14 @@ class CreateAdminAccountModal extends Component {
 const mapStateToProps = (state, ownProps) => {
     return {
         id: state.systemReducers.manageSystemReducer.registrationReducer.idCompany,
+        clickCreate: state.systemReducers.manageSystemReducer.registrationReducer.clickCreate
     }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        passIdFromFormToTable: (idCompany) => {
-            dispatch(passCompanyIdFromFormToModalInCreateAccountAdmin(idCompany));
+        passDataFromFormToTable: (idCompany,clickCreate) => {
+            dispatch(passDataFromFormToModalInCreateAccountAdmin(idCompany,clickCreate));
         }
     }
 }
