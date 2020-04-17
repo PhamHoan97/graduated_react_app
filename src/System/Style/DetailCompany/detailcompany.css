@@ -1,0 +1,6 @@
+.select--department__detail_company,.select--time__detail_company{
+    border: none;
+    height: 43px;
+    border-radius: 5px;
+    width: 150px;
+}

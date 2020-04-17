@@ -5,10 +5,10 @@ export default class PopularField extends Component {
     return (
       <div className="rs-select2--light rs-select2--sm">
         <select className="js-select2 select--field__dashboard" name="time">
-          <option value>Field</option>
-          <option value>IT</option>
-          <option value>Marketing-Online</option>
-          <option value>Real Estate</option>
+          <option value=''>Field</option>
+          <option value='IT'>IT</option>
+          <option value='Marketing-Online'>Marketing-Online</option>
+          <option value='Real Estate'>Real Estate</option>
         </select>
         <div className="dropDownSelect2" />
       </div>

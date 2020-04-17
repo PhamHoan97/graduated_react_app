@@ -1,0 +1,121 @@
+[
+    {
+        "id":1,
+        "field":"IT",
+        "name":"CTY 1",
+        "img":"/images/company1.jpg",
+        "description":"Mua đi bán lại các mặt hàng sai trái"
+    },
+    {
+        "id":2,
+        "field":"IT",
+        "name":"CTY 2",
+        "img":"../../../../Images/Company/company1.jpg",
+        "description":"Mua đi bán lại các mặt hàng sai trái"
+    },
+    {
+        "id":3,
+        "field":"IT",
+        "name":"CTY 3",
+        "img":"../../../../Images/Company/company1.jpg",
+        "description":"Mua đi bán lại các mặt hàng sai trái"
+    },
+    {
+        "id":4,
+        "field":"IT",
+        "name":"CTY 4",
+        "img":"../../../../Images/Company/company1.jpg",
+        "description":"Mua đi bán lại các mặt hàng sai trái"
+    },
+    {
+        "id":5,
+        "field":"SALE",
+        "name":"CTY 5",
+        "img":"../../../../Images/Company/company1.jpg",
+        "description":"Mua đi bán lại các mặt hàng sai trái"
+    },
+    {
+        "id":6,
+        "field":"SALE",
+        "name":"CTY 6",
+        "img":"../../../../Images/Company/company1.jpg",
+        "description":"Mua đi bán lại các mặt hàng sai trái"
+    },
+    {
+        "id":7,
+        "field":"SALE",
+        "name":"CTY 7",
+        "img":"../../../../Images/Company/company1.jpg",
+        "description":"Mua đi bán lại các mặt hàng sai trái"
+    },
+    {
+        "id":8,
+        "field":"SALE",
+        "name":"CTY 8",
+        "img":"../../../../Images/Company/company1.jpg",
+        "description":"Mua đi bán lại các mặt hàng sai trái"
+    },
+    {
+        "id":9,
+        "field":"SALE",
+        "name":"CTY 9",
+        "img":"../../../../Images/Company/company1.jpg",
+        "description":"Mua đi bán lại các mặt hàng sai trái"
+    },
+    {
+        "id":10,
+        "field":"SALE",
+        "name":"CTY 10",
+        "img":"../../../../Images/Company/company1.jpg",
+        "description":"Mua đi bán lại các mặt hàng sai trái"
+    },
+    {
+        "id":11,
+        "field":"MARKETING_ONLINE",
+        "name":"CTY 11",
+        "img":"../../../../Images/Company/company1.jpg",
+        "description":"Mua đi bán lại các mặt hàng sai trái"
+    },
+    {
+        "id":12,
+        "field":"MARKETING_ONLINE",
+        "name":"CTY 12",
+        "img":"system/images/company1.jpg",
+        "description":"Mua đi bán lại các mặt hàng sai trái"
+    },
+    {
+        "id":13,
+        "field":"MARKETING_ONLINE",
+        "name":"CTY 13",
+        "img":"../../../../Images/Company/company1.jpg",
+        "description":"Mua đi bán lại các mặt hàng sai trái"
+    },
+    {
+        "id":14,
+        "field":"MARKETING_ONLINE",
+        "name":"CTY 14",
+        "img":"../../../../Images/Company/company1.jpg",
+        "description":"Mua đi bán lại các mặt hàng sai trái"
+    },
+    {
+        "id":15,
+        "field":"MARKETING_ONLINE",
+        "name":"CTY 15",
+        "img":"../../../../Images/Company/company1.jpg",
+        "description":"Mua đi bán lại các mặt hàng sai trái"
+    },
+    {
+        "id":16,
+        "field":"MARKETING_ONLINE",
+        "name":"CTY 16",
+        "img":"../../../../Images/Company/company1.jpg",
+        "description":"Mua đi bán lại các mặt hàng sai trái"
+    },
+    {
+        "id":17,
+        "field":"MARKETING_ONLINE",
+        "name":"CTY 17",
+        "img":"../../../../Images/Company/company1.jpg",
+        "description":"Mua đi bán lại các mặt hàng sai trái"
+    }
+]
