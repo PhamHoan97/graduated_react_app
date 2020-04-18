@@ -68,7 +68,7 @@ class Login extends Component{
                 console.log(res.data.message);
             }else{
                 console.log(res.data.message);
-                localStorage.setItem('system', JSON.stringify(res.data.system));
+                localStorage.setItem('token', res.data.token);
                 this.setState({redirectSystem:true});
             }
           }).catch(function (error) {

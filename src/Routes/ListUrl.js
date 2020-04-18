@@ -9,11 +9,13 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Dashboard from '../System/Component/Dashboard/Dashboard';
 import Information from '../System/Component/PersonalInformation/Information';
 import Process from '../System/Component/ManageProcess/Process';
-import ManageAccount from '../System/Component/ManageSystem/ManageAccount';
+import ManageRegistration from '../System/Component/ManageSystem/ManageRegistration';
 import Organization from '../System/Component/ManageOrganization/Organization';
 import ManageCompany from '../System/Component/ManageSystem/ManageCompany';
 import DetailCompany from "../System/Component/DetailCompany/DetailCompany";
 import CreatFormEvaluate from '../System/Component/ManageFormEvaluate/CreatFormEvaluate';
+import CreateProcess from '../Process/Components/CreateProcess';
+
 
 class ListUrl extends Component {
     render() {
@@ -26,16 +28,16 @@ class ListUrl extends Component {
                         <Route path="/register" exact component={Register} />
                         <Route path="/newletter" exact component={Alert} />
                         <Route path="/company/login" exact component={LoginCompany} />
-
                         <Route path="/system" exact component={Dashboard} />
                         <Route path="/system/dashboard" exact component={Dashboard}/>
                         <Route path="/system/personal" exact component={Information}/>
                         <Route path="/system/evaluate" exact component={CreatFormEvaluate}/>
                         <Route path="/system/process" exact component={Process}/>
-                        <Route path="/system/registration" exact component={ManageAccount}/>
+                        <Route path="/system/registration" component={ManageRegistration}/>
                         <Route path="/system/company" exact component={ManageCompany}/>
                         <Route path="/system/organization" exact component={Organization}/>
                         <Route path="/system/organization/company/:id" exact component={DetailCompany}/>
+                        <Route path="/process/new" exact component={CreateProcess} />
                     </div>
                 </Router>
            </>

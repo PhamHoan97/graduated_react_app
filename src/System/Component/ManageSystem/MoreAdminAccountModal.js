@@ -6,7 +6,7 @@ import {passDataFromFormToModalInCreateAccountAdmin} from "../../Action/System/I
 import {connect} from 'react-redux';
 
 
-class CreateAdminAccountModal extends Component {
+class MoreAdminAccountModal extends Component {
     constructor(props) {
         super(props)
 
@@ -107,12 +107,12 @@ class CreateAdminAccountModal extends Component {
 
         if(this.validateForm(usernameA,passwordA)){
             var account = {
-                idRegistration: this.props.currentCompany,
+                idCompany: this.props.currentCompany,
                 username: usernameA,
                 password: passwordA,
             };
             var token = localStorage.getItem('token');
-            axios.post(`http://127.0.0.1:8000/api/system/create/admin`, account,
+            axios.post(`http://127.0.0.1:8000/api/system/more/admin`, account,
             {
                 headers: { 'Authorization': 'Bearer ' + token }
             }
@@ -122,7 +122,7 @@ class CreateAdminAccountModal extends Component {
                     console.log(res.data.message);
                 }else{
                     console.log(res.data);
-                    this.props.passDataFromFormToTable(res.data.admin.company_id,this.state.clickCreate);
+                    this.props.passDataFromFormToTable(this.props.currentCompany,this.state.clickCreate);
                     var numberClick = this.state.clickCreate + 1;
                     this.setState({clickCreate: numberClick});
                 }
@@ -145,7 +145,7 @@ class CreateAdminAccountModal extends Component {
         return (
             <div
             className="modal fade"
-            id="createaccountadmin"
+            id="more-admin-account-modal"
             tabIndex={-1}
             role="dialog"
             aria-labelledby="scrollmodalLabel"
@@ -241,7 +241,7 @@ class CreateAdminAccountModal extends Component {
                         </div>
                     </div>
                     <div className="row form-group">
-                        <AdminAcountTable/>
+                        <AdminAcountTable initCompany= {this.props.currentCompany}/>
                     </div>
                     </form>
                 </div>
@@ -277,4 +277,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateAdminAccountModal)
+export default connect(mapStateToProps, mapDispatchToProps)(MoreAdminAccountModal);

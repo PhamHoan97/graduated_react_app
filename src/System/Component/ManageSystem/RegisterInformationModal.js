@@ -1,14 +1,14 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
-class CompanyInformation extends Component {
+class RegisterInformationModal extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-                 
+
         }
     }
-    
+
     convertFieldOfCompany = (field) => {
         var result;
         switch (field) {
@@ -25,19 +25,19 @@ class CompanyInformation extends Component {
     convertWorkforceCompany = (workforce) => {
         var result;
         switch (workforce) {
-            case "1":
+            case 1:
                 result = "Less than 50 employees";   
                 break; 
-            case "2":
+            case 2:
                 result = "From 50 to 100 employees";   
                 break;  
-            case "3":
+            case 3:
                 result = "From 100 to 200 employees";   
                 break;  
-            case "4":
+            case 4:
                 result = "From 200 to 300 employees";   
                 break;  
-            case "5":
+            case 5:
                 result = "Less More than 300 employees";   
                 break;                                                          
             default:
@@ -47,10 +47,11 @@ class CompanyInformation extends Component {
     }
 
     render() {
+    if(this.props.currentCompany){
         return (
             <div
             className="modal fade"
-            id="infomodal"
+            id="registerinfomodal"
             tabIndex={-1}
             role="dialog"
             aria-labelledby="scrollmodalLabel"
@@ -88,7 +89,7 @@ class CompanyInformation extends Component {
                         </label>
                         </div>
                         <div className="col-12 col-md-6">
-                            <p>Công ty trách nghiệm hữu hạn Kinh Đô</p>
+                            <p>{this.props.currentCompany.name}</p>
                             <small className="form-text text-muted">
                             </small>
                         </div>
@@ -103,7 +104,7 @@ class CompanyInformation extends Component {
                         </label>
                         </div>
                         <div className="col-12 col-md-6">
-                            <p>CTTNHH KĐ</p>
+                            <p>{this.props.currentCompany.signature}</p>
                             <small className="form-text text-muted">
                             </small>
                         </div>
@@ -118,7 +119,7 @@ class CompanyInformation extends Component {
                         </label>
                         </div>
                         <div className="col-12 col-md-6">
-                            <p>Đê La Thành</p>
+                            <p>{this.props.currentCompany.address}</p>
                             <small className="form-text text-muted">
                             </small>
                         </div>
@@ -133,7 +134,7 @@ class CompanyInformation extends Component {
                         </label>
                         </div>
                         <div className="col-12 col-md-6">
-                            <p> {this.convertFieldOfCompany("IT")} </p>
+                            <p> {this.convertFieldOfCompany(this.props.currentCompany.field)} </p>
                             <small className="form-text text-muted">
                             </small>
                         </div>
@@ -148,7 +149,7 @@ class CompanyInformation extends Component {
                         </label>
                         </div>
                         <div className="col-12 col-md-6">
-                            <p>{this.convertWorkforceCompany("1")} </p>
+                            <p>{this.convertWorkforceCompany(this.props.currentCompany.workforce)} </p>
                             <small className="form-text text-muted">
                             </small>
                         </div>
@@ -163,7 +164,7 @@ class CompanyInformation extends Component {
                         </label>
                         </div>
                         <div className="col-12 col-md-6">
-                            <p>Sam Smith</p>
+                            <p>{this.props.currentCompany.ceo}</p>
                             <small className="form-text text-muted">
                             </small>
                         </div>
@@ -179,12 +180,12 @@ class CompanyInformation extends Component {
                         </label>
                         </div>
                         <div className="col-12 col-md-6">
-                            <p>huytran161297@gmail.com</p>
+                            <p>{this.props.currentCompany.contact}</p>
                             <small className="form-text text-muted">
                             </small>
                         </div>
                     </div>
-                    <div className="row form-group">
+                    {/* <div className="row form-group">
                         <div className="col col-md-3">
                         <label
                             htmlFor="text-input"
@@ -198,7 +199,7 @@ class CompanyInformation extends Component {
                             <small className="form-text text-muted">
                             </small>
                         </div>
-                    </div>
+                    </div> */}
                     {/* <div className="row form-group">
                         <div className="col col-md-3">
 
@@ -223,8 +224,10 @@ class CompanyInformation extends Component {
             </div>
             </div>
         </div>
-        )
+        )}else{
+            return (<div></div>)
+        }
     }
 }
 
-export default CompanyInformation
+export default RegisterInformationModal;

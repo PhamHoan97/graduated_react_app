@@ -1,0 +1,139 @@
+.bjs-powered-by{
+    visibility:hidden;
+}
+
+.process-interact-area{
+    width: 100%;
+    height: 100%;
+}
+
+.process-interact{
+    width: 100%;
+    height: auto;
+}
+
+.right-column-popup{
+    width: 400px;
+    position: fixed;
+    margin-top: 0px;
+    z-index: 3;
+    right: 0px;
+    border-left: 1px solid #d9d9d9;
+    height: auto;
+}
+
+.note-title{
+    color: hsl(0,0%,33%);
+    background-color: #f2f2f2;
+    font-size: 14px;
+    margin-top: 1px;
+    height: 40px;
+    line-height: 40px;
+    text-align: left;
+    padding-left: 10px;
+    font-style: normal;
+    border-bottom: 1px solid #d9d9d9;
+}
+
+.note-content{
+    width: 100%;
+    height: 300px;
+    padding: 10px;
+}
+.comment-element{
+    width: 100%;
+    height: auto;
+    border-top: 1px solid #d9d9d9;
+    border-bottom: 1px solid #d9d9d9;
+}
+
+.comment-title{
+    color: hsl(0,0%,33%);
+    background-color: #f2f2f2;
+    font-size: 14px;
+    margin-top: 1px;
+    height: 40px;
+    line-height: 40px;
+    text-align: left;
+    padding-left: 10px;
+    font-style: normal;
+    border-bottom: 1px solid #d9d9d9;
+}
+
+.comment-content{
+    width: 100%;
+    height: 300px;
+    padding: 10px;
+}
+
+.conversation-content{
+    width: 100%;
+    height: 200px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.no-conversation{
+    width: 100%;
+    display: flex;
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+
+.title-add-comments{
+    padding-left: 10px;
+    text-align: left;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.content-add-comments{
+    padding-left: 10px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.form-comment-area{
+    display: flex;
+    width: 100%;
+    height: auto;
+}
+
+.input-comment{
+    width: 320px;
+    height: 40px;
+}
+
+.button-send-comment{
+    margin-left: 10px;
+    height: 40px;
+}
+
+.date-comment {
+    text-align: left;
+    font-size: 14px;
+}
+
+.article-area{
+    display: flex;
+    margin-top: 10px;
+}
+
+.record-message{
+    display: flex;
+    margin-left: 20px;
+}
+
+.record-message .content{
+    font-size: 13px;
+    width: 250px;
+    text-align: left;
+}
+
+.record-message .content .name-and-time{
+    font-weight: bold;
+}
+
+.button-group-menu{
+    width: 100px;
+}
