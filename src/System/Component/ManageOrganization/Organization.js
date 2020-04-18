@@ -4,18 +4,44 @@ import ModalDepartment from "./Modal/ModalDepartment";
 import ModalUser from "./Modal/ModalUser";
 import MenuVertical from "../Menu/MenuVertical";
 import MenuHorizontal from "../Menu/MenuHorizontal";
-
+import ChartOranization from './ChartOranization';
+import axios from "axios";
+import * as host from '../../Constants/Url'
 export default class Organization extends Component {
   constructor(props) {
     super(props);
     this.state = {
       showModalDepartment: false,
       showModalUser: false,
+      dataChart:[]
     };
   }
 
+  getDataOrganization = () =>{
+      var self = this;
+      axios.post(host.URL_BACKEND+'/api/system/organization/chart', {
+          idCompany:1
+      })
+      .then(function (response) {
+          self.setState({
+            dataChart:response.data.dataOrganization,
+            showModalDepartment: false,
+            showModalUser: false,
+          })
+      })
+      .catch(function (error) {
+          console.log(error);
+      });
+  }
+
+  //WARNING! To be deprecated in React v17. Use componentDidMount instead.
+  componentWillMount() {
+    this.getDataOrganization();
+  }
+
   closeDepartment = () => {
-    this.setState({ showModalDepartment: false });
+    // connect database to get new json of organization and update state 
+    this.getDataOrganization();
   };
 
   openDepartment = (e) => {
@@ -25,7 +51,7 @@ export default class Organization extends Component {
   };
 
   closeUser = () => {
-    this.setState({ showModalUser: false });
+    this.getDataOrganization();
   };
 
   openUser = (e) => {
@@ -35,6 +61,7 @@ export default class Organization extends Component {
   };
 
   render() {
+    console.log(this.state.dataChart);
     return (
       <div className="page-wrapper">
         <MenuHorizontal />
@@ -86,7 +113,19 @@ export default class Organization extends Component {
                           </div>
                         </div>
                       </div>
-                      <div>Do thi</div>
+                      <div>
+                      <div className="org-chart text-left">
+                          <div className="container-fluid">
+                              <div className="row">
+                                  <div className="col-md-12">
+                                  <div style={{height: '100%'}}>
+                                  <ChartOranization nodes={this.state.dataChart} />
+                                  </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      </div>
                     </div>
                   </div>
                   <div className="row">

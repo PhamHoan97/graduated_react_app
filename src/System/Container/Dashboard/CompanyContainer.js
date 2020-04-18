@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import Company from '../../Component/Dashboard/Company/Company'
-import PopularField from '../../Component/Dashboard/Company/PopularField'
 import ReactPaginate from 'react-paginate';
 import '../../Style/Dashboard/paginate.css'
-import companyData from '../../Style/Dashboard/company.json'
 import CompanyItem from '../../Component/Dashboard/Company/CompanyItem';
+import axios from 'axios'
+import * as host from '../../Constants/Url'
 export default class CompanyContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
           offset: 0,
-          data: [],
+          listCompany: [],
           perPage: 4,
           currentPage: 0,
           pageCount: 0
@@ -18,18 +18,19 @@ export default class CompanyContainer extends Component {
         this.handlePageClick = this.handlePageClick.bind(this);
     }
 
-    receivedDatatoDisplay =() =>{
-        const slice = this.state.data.slice(this.state.offset, this.state.offset + this.state.perPage)
-        var result = "Không có phong ban nào";
+    getListCompanyPagination =() =>{
+        const slice = this.state.listCompany.slice(this.state.offset, this.state.offset + this.state.perPage)
+        var result = "";
         if(slice.length > 0){
             result = slice.map((item,index)=>{
                 return (
                     <CompanyItem
                         key={index}
+                        id = {item.id}
                         name={item.name}
                         field={item.field}
-                        description={item.description}
-                        img={item.img}
+                        address={item.address}
+                        // img={item.img}
                     />
                 )
             })
@@ -42,12 +43,21 @@ export default class CompanyContainer extends Component {
     }
 
     getListCompany =()=>{
-        // get field from store
-        // connect database to get all company
-        this.setState({
-            data:companyData,
-            pageCount: Math.ceil(companyData.length / this.state.perPage),
+        var self =  this;
+        axios.get(host.URL_BACKEND+'/api/system/dashboard/company')
+        .then(function (response) {
+            if (response.data.error != null) {
+            } else {
+                var listCompany = response.data.companies;
+                self.setState({
+                    listCompany: listCompany,
+                    pageCount: Math.ceil(listCompany.length / self.state.perPage),
+                });
+            }
         })
+        .catch(function (error) {
+            console.log(error);
+        });
     }
 
     handlePageClick = (e) => {
@@ -72,12 +82,12 @@ export default class CompanyContainer extends Component {
                     </div>
                     <div className="col-md-6"></div>
                     <div className="col-md-3 text-center">
-                        <PopularField />
+                        {/* <PopularField /> */}
                     </div>
                 </div>
                 <Company>
                     {
-                        this.receivedDatatoDisplay()
+                        this.getListCompanyPagination()
                     }
                 </Company>
                 <div className="row">

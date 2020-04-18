@@ -15,6 +15,7 @@ export default class MenuHorizontal extends Component {
       menu.setAttribute("style", "display:block");
     }
   };
+
   render() {
     return (
       <aside className="menu-sidebar d-none d-lg-block text-left">
@@ -41,16 +42,25 @@ export default class MenuHorizontal extends Component {
                       color: "#0074D9"
                     }}>
                   <i className="fas fa-cog" />
-                  Manager Process
+                  Manage Process
                 </NavLink>
               </li>
+              {/* <li>
+                <NavLink to="/system/evaluate" activeClassName="selected"  activeStyle={{
+                      fontWeight: "bold",
+                      color: "#0074D9"
+                    }}>
+                  <i className="fas fa-cog" />
+                  Manage Form Evaluate
+                </NavLink>
+              </li> */}
               <li>
-                <NavLink to="/system/organization"  activeClassName="selected"  activeStyle={{
+                <NavLink to="/system/organization" activeClassName="selected"  activeStyle={{
                       fontWeight: "bold",
                       color: "#0074D9"
                     }}>
                   <i className="fa fa-sitemap" />
-                    Manager Organization
+                    Manage Organization
                 </NavLink>
               </li>
               <li>
@@ -58,7 +68,7 @@ export default class MenuHorizontal extends Component {
                     this.collapseMenu(e);
                   }} className="js-arrow">
                   <i className="fas fa-assistive-listening-systems" />
-                      Manager System
+                      Manage System
                 </a>
                 <ul className="list-unstyled navbar__sub-list js-sub-list">
                 <li>
@@ -67,7 +77,7 @@ export default class MenuHorizontal extends Component {
                       color: "#0074D9"
                     }}>
                       <i className="fas fa-building"/>
-                        Manager Company
+                        Manage Company
                     </NavLink>
                   </li>
                   <li>
@@ -76,19 +86,19 @@ export default class MenuHorizontal extends Component {
                       color: "#0074D9"
                     }}>
                       <i className="fas fa-bell-slash" />
-                        Manager Registration
+                        Manage Registration
                     </NavLink>
                   </li>
                 </ul>
               </li>
               <li>
-                  <NavLink to="/system/personal"  activeClassName="selected"  activeStyle={{
-                      fontWeight: "bold",
-                      color: "#0074D9"
-                    }}>
-                    <i className="fas fa-users" />
-                      Account
-                  </NavLink>
+                <NavLink to="/system/personal"  activeClassName="selected"  activeStyle={{
+                    fontWeight: "bold",
+                    color: "#0074D9"
+                  }}>
+                  <i className="fas fa-users" />
+                    Account
+                </NavLink>
               </li>
             </ul>
           </nav>

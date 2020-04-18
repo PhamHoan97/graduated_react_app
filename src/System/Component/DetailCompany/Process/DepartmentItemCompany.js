@@ -4,7 +4,7 @@ class DepartmentItemCompany extends Component {
     render() {
         return (
             <>
-               <option value="1">Department 1</option>
+               <option value={this.props.value}>{this.props.name}</option>
             </>
         );
     }

@@ -40,3 +40,27 @@ html,body{
     text-decoration: none;
     color: rgb(51, 36, 182);
 }
+
+#tree{
+    height: 500px;
+    /* background-color: rgb(88, 86, 86); */
+}
+[node-id] rect {
+    fill: #169c43;
+}
+[node-id] circle {
+    fill: #bff10b;
+}
+
+/* [node-id='3'] rect {
+    fill: #750000;
+} */
+
+[link-id] path {
+    stroke: #750000;
+}
+
+[control-expcoll-id] circle {
+    fill: #750000;
+}
+

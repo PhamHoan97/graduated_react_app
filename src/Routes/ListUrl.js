@@ -6,13 +6,14 @@ import Register from '../Register/Components/Register';
 import Alert from '../Register/Components/Alert';
 import LoginCompany from '../Intro/Component/Login';
 import { BrowserRouter as Router } from "react-router-dom";
-// import System from '../System/System';
 import Dashboard from '../System/Component/Dashboard/Dashboard';
 import Information from '../System/Component/PersonalInformation/Information';
 import Process from '../System/Component/ManageProcess/Process';
 import ManageAccount from '../System/Component/ManageSystem/ManageAccount';
 import Organization from '../System/Component/ManageOrganization/Organization';
 import ManageCompany from '../System/Component/ManageSystem/ManageCompany';
+import DetailCompany from "../System/Component/DetailCompany/DetailCompany";
+import CreatFormEvaluate from '../System/Component/ManageFormEvaluate/CreatFormEvaluate';
 
 class ListUrl extends Component {
     render() {
@@ -28,14 +29,15 @@ class ListUrl extends Component {
 
                         <Route path="/system" exact component={Dashboard} />
                         <Route path="/system/dashboard" exact component={Dashboard}/>
-                        <Route path="/system/personal" component={Information}/>
-                        <Route path="/system/process" component={Process}/>
-                        <Route path="/system/registration" component={ManageAccount}/>
-                        <Route path="/system/company" component={ManageCompany}/>
-                        <Route path="/system/organization" component={Organization}/>
+                        <Route path="/system/personal" exact component={Information}/>
+                        <Route path="/system/evaluate" exact component={CreatFormEvaluate}/>
+                        <Route path="/system/process" exact component={Process}/>
+                        <Route path="/system/registration" exact component={ManageAccount}/>
+                        <Route path="/system/company" exact component={ManageCompany}/>
+                        <Route path="/system/organization" exact component={Organization}/>
+                        <Route path="/system/organization/company/:id" exact component={DetailCompany}/>
                     </div>
                 </Router>
-                {/* <System/> */}
            </>
         );
     }

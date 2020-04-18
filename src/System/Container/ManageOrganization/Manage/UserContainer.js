@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import User from '../../../Component/ManageOrganization/ManageUser/User'
 import {connect} from  'react-redux';
 import UserItem from '../../../Component/ManageOrganization/ManageUser/UserItem';
 import {detailUser} from '../../../Action/Organization/User/Index'
@@ -20,11 +19,33 @@ class UserContainer extends Component {
                     hideNewUser = {this.props.hideNewUser}
                     isDisplayNewForm = {this.props.isDisplayNewForm}
                 />
-                <User>
-                    {
-                        this.showItemUser(this.props.listUser)
-                    }
-                </User>
+                <div className="form-group">
+                    <div className="container-fluid">
+                        <div className="row mt-5">
+                            <div className="col-md-12">
+                                <div className="table-responsive">
+                                    <table className="table table-stripe list-member">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Phone</th>
+                                                <th scope="col">Role</th>
+                                                <th scope="col">Department</th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                this.showItemUser(this.props.listUser)
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <EditUser
                     hideEditUser = {this.props.hideEditUser}
                     isDisplayEditForm = {this.props.isDisplayEditForm}

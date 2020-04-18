@@ -1,32 +1,32 @@
 import React, { Component } from "react";
 import MenuHorizontal from "../Menu/MenuHorizontal";
-import MenuVerticalDashboardContainer from "../../Container/Dashboard/MenuVerticalDashboardContainer";
-import CompanyContainer from "../../Container/Dashboard/CompanyContainer";
-import ProcessDashboardContainer from "../../Container/Dashboard/ProcessDashboardContainer";
+import MenuVertical from "../Menu/MenuVertical";
 
-export default class Dashboard extends Component {
+export default class CreatFormEvaluate extends Component {
+  componentDidMount() {
+    window.builtformio()
+  }
+
+  getDataForm = () => {
+     var dataSchemaForm = localStorage.getItem("dataSchemaForm");
+     console.log(dataSchemaForm);
+  }
   render() {
-    console.log('render dashboard');
+    console.log('Render create form evaluete ');
     return (
       <div className="page-wrapper">
         <MenuHorizontal/>
         <div className="page-container">
-          <MenuVerticalDashboardContainer/>
+          <MenuVertical />
           <div className="main-content">
             <div className="section__content section__content--p30">
               <div className="container-fluid">
-                <CompanyContainer/>
-                <div className="row text-left">
-                  <div className="col-md-12">
-                    <h3 className="title-5 m-b-35 dashboard__title--process">
-                      Process
-                    </h3>
-                  </div>
-                </div>
                 <div className="row">
-                  <div className="col-md-12">
-                     <ProcessDashboardContainer/>
-                  </div>
+                    <div className="col-xl-12">
+                        <div id='builder'>
+                        </div>
+                        <button type="button" className="btn btn-primary" id="submitSchema" onClick={()=>this.getDataForm()}>Submit</button>
+                    </div>
                 </div>
                 <div className="row">
                   <div className="col-md-12">

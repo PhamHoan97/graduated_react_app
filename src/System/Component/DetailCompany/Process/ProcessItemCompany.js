@@ -6,19 +6,16 @@ class ProcessItemCompany extends Component {
         <tr>
             <td>
             <span className="table-data__info">
-                <h6> Quy trình quản lí nhân sự </h6>
+                <h6> {this.props.name} </h6>
             </span>
             </td>
             <td>
             <div className="table-data__info">
-                <h6>lori lynch</h6>
-                <span>
-                <a href="##">johndoe@gmail.com</a>
-                </span>
+                <h6>{this.props.employee}</h6>
             </div>
             </td>
             <td>
-            <span className="date">20/10/2020</span>
+            <span className="date">{this.props.date}</span>
             </td>
             <td>
             <span className="table-data__info">

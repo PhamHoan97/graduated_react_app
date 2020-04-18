@@ -18,11 +18,11 @@ export default class EditUser extends Component {
                     <input type="text" className="form-control" id="name" />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="field">Position</label>
+                    <label htmlFor="field">Role</label>
                     <input type="text" className="form-control" id="position" />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="field">Email</label>
+                    <label htmlFor="field">Phone</label>
                     <input type="email" className="form-control" id="email" />
                 </div>
                 <div className="form-group mb-3">

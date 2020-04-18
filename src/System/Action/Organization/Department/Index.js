@@ -1,55 +1,32 @@
 import * as types from '../../../Constants/Orgranization/ActionTypes'
 
-export const addDepartment = (text)=>{
+export const getDetailDepartment = (detailDepartment)=>{
     return {
-        type:types.ADD_DEPARMENT,
-        text
-    }
-}
-
-export const detailDepartment = (idDepartment)=>{
-    return {
-        type:types.DETAIL_DEPARMENT,
-        idDepartment
-    }
-}
-
-export const editDepartment = (idDepartment,text)=>{
-    return {
-        type:types.EDIT_DEPARMENT,
-        idDepartment,
-        text
-    }
-}
-
-export const deleteDepartment = (idDepartment,text)=>{
-    return {
-        type:types.DELETE_DEPARMENT,
-        idDepartment,
-        text
+        type:types.DETAIL_DEPARTMENT,
+        detailDepartment
     }
 }
 
 export const showEditDepartment = ()=>{
     return {
-        type:types.SHOW_EDIT_DEPARMENT,
+        type:types.SHOW_EDIT_DEPARTMENT,
     }
 }
 
 export const hideEditDepartment = (t)=>{
     return {
-        type:types.HIDE_EDIT_DEPARMENT,
+        type:types.HIDE_EDIT_DEPARTMENT,
     }
 }
 
 export const showNewDepartment = ()=>{
     return {
-        type:types.SHOW_NEW_DEPARMENT,
+        type:types.SHOW_NEW_DEPARTMENT,
     }
 }
 
 export const hideNewDepartment = ()=>{
     return {
-        type:types.HIDE_NEW_DEPARMENT,
+        type:types.HIDE_NEW_DEPARTMENT,
     }
 }
