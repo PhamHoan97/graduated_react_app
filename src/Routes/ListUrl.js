@@ -12,6 +12,7 @@ import Process from '../System/Component/ManageProcess/Process';
 import ManageRegistration from '../System/Component/ManageSystem/ManageRegistration';
 import Organization from '../System/Component/ManageOrganization/Organization';
 import ManageCompany from '../System/Component/ManageSystem/ManageCompany';
+import CreateProcess from '../Process/Components/CreateProcess';
 
 class ListUrl extends Component {
     render() {
@@ -24,7 +25,6 @@ class ListUrl extends Component {
                         <Route path="/register" exact component={Register} />
                         <Route path="/newletter" exact component={Alert} />
                         <Route path="/company/login" exact component={LoginCompany} />
-
                         <Route path="/system" exact component={Dashboard} />
                         <Route path="/system/dashboard" exact component={Dashboard}/>
                         <Route path="/system/personal" component={Information}/>
@@ -32,6 +32,7 @@ class ListUrl extends Component {
                         <Route path="/system/registration" component={ManageRegistration}/>
                         <Route path="/system/company" component={ManageCompany}/>
                         <Route path="/system/organization" component={Organization}/>
+                        <Route path="/process/new" exact component={CreateProcess} />
                     </div>
                 </Router>
            </>
