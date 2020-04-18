@@ -41,6 +41,21 @@ export default class MenuVerticalDashboard extends Component {
         alert(error);
       });
     }
+
+    if(localStorage.getItem("admin_id")){
+      localStorage.removeItem("admin_id");
+      axios.post(`http://127.0.0.1:8000/api/logout/company`)
+      .then(res => {
+        if(res.data.error != null){
+            console.log(res.data.error);
+        }else{
+            console.log(res.data.message);
+            this.setState({isLogout:true});
+        }
+      }).catch(function (error) {
+        alert(error);
+      });
+    }
   }
 
   render() {
