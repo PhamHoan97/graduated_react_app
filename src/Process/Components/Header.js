@@ -1,13 +1,28 @@
 import React, { Component } from 'react'
 import '../Css/Header.css';
+import Shortcut from './Shortcut';
+import Modal from 'react-bootstrap/Modal';
+import ModalHeader from 'react-bootstrap/ModalHeader';
+import ModalBody from 'react-bootstrap/ModalBody';
+import ModalFooter from 'react-bootstrap/ModalFooter';
+import Button from 'react-bootstrap/Button';
+import ModalTitle from 'react-bootstrap/ModalTitle';
 
 class Header extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-                 
+            isOpenShortcut: false,
         }
+    }
+
+    openShortcutModal = event =>{
+        this.setState({isOpenShortcut:true});
+    }
+
+    closeShortcutModal = event =>{
+        this.setState({isOpenShortcut:false});
     }
 
     render() {
@@ -22,7 +37,7 @@ class Header extends Component {
                         </button>
                         <div className="dropdown-menu">
                             <a className="dropdown-item" href="/process/new">
-                                <div className="action-title">
+                                <div className="action-title-left">
                                     Save and share
                                 </div>
                                 <div className="action-ilustration">
@@ -30,7 +45,7 @@ class Header extends Component {
                                 </div>
                             </a>
                             <a className="dropdown-item" href="/process/new">
-                                <div className="action-title">
+                                <div className="action-title-left">
                                     Export as PNG
                                 </div>
                                 <div className="action-ilustration">
@@ -38,15 +53,15 @@ class Header extends Component {
                                 </div>
                             </a>
                             <a className="dropdown-item" href="/process/new">
-                                <div className="action-title">
-                                        Export as SVG
-                                    </div>
-                                    <div className="action-ilustration">
-                                        Export the diagram as a SVG image
-                                    </div>
+                                <div className="action-title-left">
+                                    Export as SVG
+                                </div>
+                                <div className="action-ilustration">
+                                    Export the diagram as a SVG image
+                                </div>
                             </a>
                             <a className="dropdown-item" href="/process/new">
-                                <div className="action-title">
+                                <div className="action-title-left">
                                     Export as BPMN 2.0 XML
                                 </div>
                                 <div className="action-ilustration">
@@ -63,19 +78,34 @@ class Header extends Component {
                             </div>
                         </button>
                         <div className="dropdown-menu">
-                            <a className="dropdown-item" href="/process/new">
+                            <button className="dropdown-item"  onClick={this.openShortcutModal}>
                                 <div className="action-title">
-                                    Shortcuts
+                                    Keyboard Shortcuts
                                 </div>
-                            </a>
-                            <a className="dropdown-item" href="/process/new">
+                            </button>
+                            
+                            <button className="dropdown-item">
                                 <div className="action-title">
-                                    Guide
+                                    User guide
                                 </div>
-                            </a>   
+                            </button>   
                         </div>
                      </div>
                 </div>
+
+                <Modal size="lg" show={this.state.isOpenShortcut} onHide={this.closeShortcutModal}>
+                    <ModalHeader closeButton>
+                        <ModalTitle>Keyboard Shortcuts</ModalTitle>
+                    </ModalHeader>
+                    <ModalBody>
+                        <Shortcut />
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button variant="info" onClick={this.closeShortcutModal}>
+                            Close
+                        </Button>
+                    </ModalFooter>
+                </Modal>
             </div>
         )
     }

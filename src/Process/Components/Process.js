@@ -8,7 +8,13 @@ class Process extends Component {
     constructor(props) {
         super(props);
 
-        this.modeler = new BpmnModeler();
+        this.modeler = new BpmnModeler(
+          {
+            keyboard: {
+              bindTo: window
+            },
+          }
+        );
         this.initialDiagram = 
         '<?xml version="1.0" encoding="UTF-8"?>' +
         '<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +

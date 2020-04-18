@@ -75,9 +75,9 @@ class CompanyInformationModal extends Component {
                     <div className="modal-body">
                     <div className="card-body card-block">
                         <form
-                        method="post"
-                        encType="multipart/form-data"
-                        className="form-horizontal"
+                            method="post"
+                            encType="multipart/form-data"
+                            className="form-horizontal"
                         >
                         <div className="row form-group">
                             <div className="col col-md-3">
