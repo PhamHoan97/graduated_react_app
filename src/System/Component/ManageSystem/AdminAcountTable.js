@@ -112,6 +112,7 @@ class AdminAcountTable extends Component {
         var idCompany = nextProps.currentCompany;
         var initCompany = nextProps.initCompany;
         console.log(idCompany);
+        console.log(initCompany);
         if(idCompany || initCompany){
             if(!idCompany){
                 idCompany = initCompany;
