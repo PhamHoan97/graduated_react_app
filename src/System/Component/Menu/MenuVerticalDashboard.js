@@ -1,7 +1,17 @@
 import React, { Component } from "react";
 import Avatar from "../../Images/Account/Avatar-01.jpg";
+import axios from 'axios';
+import  { Redirect } from 'react-router-dom';
 
 export default class MenuVerticalDashboard extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLogout: false,
+    };
+  }
+
   collapseMenuAccount = (e) => {
     e.preventDefault();
     var prarentValueClassName = e.target.parentElement.parentElement.className;
@@ -12,7 +22,32 @@ export default class MenuVerticalDashboard extends Component {
       e.target.parentElement.parentElement.className += " show-dropdown";
     }
   };
+
+
+  handleLogout = (event) => {
+    event.preventDefault();
+    localStorage.removeItem("token");
+    if(localStorage.getItem("system_id")){
+      localStorage.removeItem("system_id");
+      axios.post(`http://127.0.0.1:8000/api/logout/system`)
+      .then(res => {
+        if(res.data.error != null){
+            console.log(res.data.error);
+        }else{
+            console.log(res.data.message);
+            this.setState({isLogout:true});
+        }
+      }).catch(function (error) {
+        alert(error);
+      });
+    }
+  }
+
   render() {
+    if(this.state.isLogout){
+      return <Redirect to='/'/>;
+    }
+
     return (
       <header className="header-desktop">
         <div className="section__content section__content--p30">
@@ -128,7 +163,7 @@ export default class MenuVerticalDashboard extends Component {
                         </div>
                       </div>
                       <div className="account-dropdown__footer">
-                        <a href="2AESN">
+                        <a href="/" onClick={(e) => this.handleLogout(e)}>
                           <i className="zmdi zmdi-power" />
                           Logout
                         </a>
