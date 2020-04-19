@@ -69,6 +69,9 @@ class Login extends Component{
             }else{
                 console.log(res.data.message);
                 localStorage.setItem('token', res.data.token);
+                if(res.data.isSystem){
+                    localStorage.setItem('system_id', res.data.id);
+                }
                 this.setState({redirectSystem:true});
             }
           }).catch(function (error) {
@@ -78,6 +81,8 @@ class Login extends Component{
 
     handleLogout = event => {
         event.preventDefault();
+        localStorage.removeItem("token");
+        localStorage.removeItem("system_id");
 
         axios.post(`http://127.0.0.1:8000/api/logout/system`)
           .then(res => {

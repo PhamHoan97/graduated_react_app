@@ -1,26 +1,28 @@
 import React, { Component } from "react";
-import Avatar from '../../Images/Account/Avatar-01.jpg';
+import Avatar from "../../Images/Account/Avatar-01.jpg";
 import axios from 'axios';
 import  { Redirect } from 'react-router-dom';
 
-export default class MenuVertical extends Component {
-  
+export default class MenuVerticalDashboard extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
       isLogout: false,
     };
   }
-  
+
   collapseMenuAccount = (e) => {
     e.preventDefault();
     var prarentValueClassName = e.target.parentElement.parentElement.className;
     if (prarentValueClassName.includes("show-dropdown")) {
-      e.target.parentElement.parentElement.className = "account-item clearfix js-item-menu";
+      e.target.parentElement.parentElement.className =
+        "account-item clearfix js-item-menu";
     } else {
       e.target.parentElement.parentElement.className += " show-dropdown";
     }
   };
+
 
   handleLogout = (event) => {
     event.preventDefault();
@@ -60,23 +62,24 @@ export default class MenuVertical extends Component {
     if(this.state.isLogout){
       return <Redirect to='/'/>;
     }
+
     return (
       <header className="header-desktop">
         <div className="section__content section__content--p30">
           <div className="container-fluid">
             <div className="header-wrap">
-              <form className="form-header" method="POST">
-                {/* <input
-                  className="au-input au-input--xl"
-                  type="text"
-                  name="search"
-                  placeholder="Search for datas and reports..."
-                />
-                <button className="au-btn--submit" type="submit">
-                  <i className="zmdi zmdi-search" />
-                </button> */}
-              </form>
-              <div className="header-button">
+                <form className="form-header" method="POST">
+                    <input
+                      className="au-input au-input--xl"
+                      type="text"
+                      name="search"
+                      placeholder="Search for datas and reports..."
+                    />
+                    <button className="au-btn--submit" type="submit">
+                    <i className="zmdi zmdi-search" />
+                    </button>
+                </form>
+                <div className="header-button">
                 <div className="noti-wrap">
                   <div className="noti__item js-item-menu">
                     <i className="zmdi zmdi-notifications" />
@@ -124,11 +127,19 @@ export default class MenuVertical extends Component {
                       <img
                         src={Avatar}
                         alt="John Doe"
-                        onClick={(e)=>{this.collapseMenuAccount(e)}}
+                        onClick={(e) => {
+                          this.collapseMenuAccount(e);
+                        }}
                       />
                     </div>
                     <div className="content">
-                      <a href="##" className="js-acc-btn" onClick={(e)=>{this.collapseMenuAccount(e)}}>
+                      <a
+                        href="##"
+                        className="js-acc-btn"
+                        onClick={(e) => {
+                          this.collapseMenuAccount(e);
+                        }}
+                      >
                         HoanPham
                       </a>
                     </div>
@@ -136,10 +147,7 @@ export default class MenuVertical extends Component {
                       <div className="info clearfix">
                         <div className="image">
                           <a href="2AESN">
-                            <img
-                              src={Avatar}
-                              alt="John Doe"
-                            />
+                            <img src={Avatar} alt="John Doe" />
                           </a>
                         </div>
                         <div className="content">

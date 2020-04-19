@@ -11,6 +11,7 @@ class CreateAdminAccountModal extends Component {
         super(props)
 
         this.state = {
+            idCompany: '',
             clickCreate: 1,
         }
     }
@@ -124,7 +125,7 @@ class CreateAdminAccountModal extends Component {
                     console.log(res.data);
                     this.props.passDataFromFormToTable(res.data.admin.company_id,this.state.clickCreate);
                     var numberClick = this.state.clickCreate + 1;
-                    this.setState({clickCreate: numberClick});
+                    this.setState({clickCreate: numberClick,idCompany:res.data.admin.company_id});
                 }
             }).catch(function (error) {
                 alert(error);
@@ -241,7 +242,7 @@ class CreateAdminAccountModal extends Component {
                         </div>
                     </div>
                     <div className="row form-group">
-                        <AdminAcountTable/>
+                        <AdminAcountTable initCompany={this.state.idCompany} />
                     </div>
                     </form>
                 </div>
@@ -264,7 +265,7 @@ class CreateAdminAccountModal extends Component {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        id: state.systemReducers.manageSystemReducer.registrationReducer.idCompany,
+        idCompany: state.systemReducers.manageSystemReducer.registrationReducer.idCompany,
         clickCreate: state.systemReducers.manageSystemReducer.registrationReducer.clickCreate
     }
 }
