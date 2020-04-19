@@ -13,18 +13,15 @@ const required = (value) => {
     );
   }
 };
-export default class NewUser extends Component {
+export default class NewRole extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            listRoleDepartment:[],
             listDepartment:[],
             isDisplayAlertSuccess: false,
             isDisplayAlertFail: false,
-            newNameEmployee: "",
-            newPhoneEmployee: "",
-            newRoleEmployee: 0,
-            newDepartmentEmployee: 0,
+            newNameRole: "",
+            newDepartmentRole: 0,
         };
         this.handleChange = this.handleChange.bind(this);
     }
@@ -54,31 +51,10 @@ export default class NewUser extends Component {
     handleChange(event) {
         const name = event.target.name;
         const value = event.target.value;
-        if(name === 'newDepartmentEmployee'){
-            var self =  this;
-            var token = localStorage.getItem('token');
-            axios.get(host.URL_BACKEND+'/api/system/organization/role/department/'+value,{
-                headers: { 'Authorization': 'Bearer ' + token }
-            })
-            .then(function (response) {
-                if (response.data.error != null) {
-                    console.log(response.data.error);
-                }else{
-                    console.log(response.data.roleDepartment);
-                    self.setState({
-                        [name]: value,
-                        listRoleDepartment:response.data.roleDepartment
-                    })
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-        }else{
-            this.setState({
-                [name]: value
-            })
-        }
+        this.setState({
+            [name]: value
+        })
+
     }
 
     onSubmit = (event) => {
@@ -100,24 +76,16 @@ export default class NewUser extends Component {
                     <label htmlFor="name">Name</label>
                     <Input type="text"
                         className="form-control"
-                        name="newNameEmployee"
+                        name="newNameRole"
                         validations={[required]}
                         onChange={(event)=>this.handleChange(event)
                         }
                     />
                 </div>
-                <div className="form-group">
-                    <label htmlFor="field">Phone</label>
-                    <Input type="number" className="form-control"
-                        name="newPhoneEmployee"
-                        validations={[required]}
-                        onChange={(event)=>this.handleChange(event)}
-                    />
-                </div>
                 <div className="form-group mb-3">
                 <label htmlFor="exampleFormControlSelect1">Department</label>
                 <br></br>
-                <select className="form-control"  name="newDepartmentEmployee" onChange={this.handleChange}>
+                <select className="form-control"  name="newDepartmentRole" onChange={this.handleChange}>
                     <option value={0}>Choose departments</option>
                     {
                         Object.values(this.state.listDepartment).map((department, key) => {
@@ -128,28 +96,14 @@ export default class NewUser extends Component {
                     }
                     </select>
                 </div>
-                <div className="form-group mb-3">
-                <label htmlFor="exampleFormControlSelect1">Roles</label>
-                <br></br>
-                <select className="form-control" name="newRoleEmployee"  onChange={this.handleChange}>
-                        <option value={0}>Choose roles</option>
-                        {
-                            Object.values(this.state.listRoleDepartment).map((role, key) => {
-                                return (
-                                <option value={role.id} key={key}>{role.name}</option>
-                                )
-                            })
-                        }
-                    </select>
-                </div>
                 <div className="form-group text-left">
-                    <CheckButton type="submit" className="btn btn-primary mb-2 mr-2" onClick={() => this.saveNewEmployee()} ref={c => { this.checkBtn = c }}>
+                    <CheckButton type="submit" className="btn btn-primary mb-2 mr-2" onClick={() => this.saveNewRole()} ref={c => { this.checkBtn = c }}>
                         Save
                     </CheckButton>
                 <button
                     type="submit"
                     className="btn btn-primary mb-2 mr-2"
-                    onClick={() => this.hideNewEmployee()}
+                    onClick={() => this.hideNewRole()}
                 >
                     Cancel
                 </button>
@@ -174,27 +128,25 @@ export default class NewUser extends Component {
 
     displayAlertFail = () => {
         if (this.state.isDisplayAlertFail) {
-            return <Alert severity="warning">You can choose roles and department </Alert>;
+            return <Alert severity="warning">You must choose department before save </Alert>;
         } else {
             return <div></div>;
         }
     };
 
-    saveNewEmployee = () => {
-        console.log(this.state);
+    saveNewRole = () => {
         var self =  this;
-        if(this.state.newDepartmentEmployee === 0 || this.state.newRoleEmployee === 0){
+        if(this.state.newDepartmentRole === 0){
             self.setState({
                 isDisplayAlertFail : true,
                 isDisplayAlertSuccess : false
             });
         }else{
+            console.log(this.state.newDepartmentRole);
             var token = localStorage.getItem('token');
-            axios.post(host.URL_BACKEND+'/api/system/organization/employee/new', {
-                newNameEmployee: this.state.newNameEmployee,
-                newRoleEmployee: this.state.newRoleEmployee,
-                newDepartmentEmployee:this.state.newDepartmentEmployee,
-                newPhoneEmployee:this.state.newPhoneEmployee,
+            axios.post(host.URL_BACKEND+'/api/system/organization/role/new', {
+                newNameRole: this.state.newNameRole,
+                newDepartmentRole:this.state.newDepartmentRole,
             },{
                 headers: { 'Authorization': 'Bearer ' + token }
             })
@@ -216,8 +168,8 @@ export default class NewUser extends Component {
     };
 
 
-    hideNewEmployee = () => {
-        this.props.hideNewEmployee();
+    hideNewRole = () => {
+        this.props.hideNewRole();
         this.setState({
             isDisplayAlertSuccess: false,
             isDisplayAlertFail: false,

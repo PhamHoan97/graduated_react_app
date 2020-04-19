@@ -1,10 +1,12 @@
 import { combineReducers } from "redux";
 import departmentReducer from './ManageDepartment/DeparmentReducer'
 import showHideReducer from './ShowHideEditReducer';
-import userReducer from './ManageUser/UserReducer';
+import employeeReducer from './ManageUser/UserReducer';
+import roleReducer from './ManageRole/RoleReducer';
 const organizationReducer = combineReducers({
     departmentReducer,
-    userReducer,
+    employeeReducer,
+    roleReducer,
     showHideReducer
 })
 export default organizationReducer;

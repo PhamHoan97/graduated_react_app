@@ -47,6 +47,7 @@ export default class EditDepartment extends Component {
         }
     }
 
+
     render() {
         if(this.props.isDisplayEditForm && this.props.detailDepartment !== null){
             return (
@@ -116,21 +117,43 @@ export default class EditDepartment extends Component {
 
     saveEditDepartment = () =>{
         var self = this;
+        var token = localStorage.getItem('token');
         axios.patch(host.URL_BACKEND+'/api/system/organization/department/update', {
             editNameDepartment: this.state.editNameDepartment,
             editRoleDepartment: this.state.editRoleDepartment,
             editDescriptionDepartment:this.state.editDescriptionDepartment,
             idDepartment:this.props.detailDepartment.id
+        },{
+            headers: { 'Authorization': 'Bearer ' + token }
         })
         .then(function (response) {
-            self.setState({
-                isDisplayAlert : true
-            })
-            self.props.rerenderParentCallback();
+            if (response.data.error != null) {
+                console.log(response.data.error);
+            }else{
+                self.setState({
+                    isDisplayAlert : true
+                })
+            }
         })
         .catch(function (error) {
             console.log(error);
         });
+        // update value edited department and display to form 
+        axios.get(host.URL_BACKEND+'/api/system/organization/department/detail/'+this.props.detailDepartment.id,{
+            headers: { 'Authorization': 'Bearer ' + token }
+        })
+        .then(function (response) {
+            if (response.data.error != null) {
+                console.log(response.data.error);
+            }else{
+                var detailDepartment =  JSON.parse(JSON.stringify(response.data.department));
+                self.props.showDetailDepartment(detailDepartment);
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+        self.props.rerenderParentCallback();
     }
 
     hideEditDepartment = () => {

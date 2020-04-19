@@ -2,32 +2,44 @@ import React, { Component } from "react";
 import "../../Style/Organization/orgChart.css";
 import ModalDepartment from "./Modal/ModalDepartment";
 import ModalUser from "./Modal/ModalUser";
+import ModalRole from "./Modal/ModalRole";
 import MenuVertical from "../Menu/MenuVertical";
 import MenuHorizontal from "../Menu/MenuHorizontal";
 import ChartOranization from './ChartOranization';
 import axios from "axios";
 import * as host from '../../Constants/Url'
+
 export default class Organization extends Component {
   constructor(props) {
     super(props);
     this.state = {
       showModalDepartment: false,
       showModalUser: false,
+      showModalRoler: false,
       dataChart:[]
     };
   }
 
   getDataOrganization = () =>{
       var self = this;
+      var idCompany = localStorage.getItem('company_id');
+      var token = localStorage.getItem('token');
       axios.post(host.URL_BACKEND+'/api/system/organization/chart', {
-          idCompany:1
+          idCompany:idCompany
+      },{
+        headers: { 'Authorization': 'Bearer ' + token }
       })
       .then(function (response) {
+        if(response.data.error != null){
+          console.log(response.data.error);
+        }else{
           self.setState({
             dataChart:response.data.dataOrganization,
             showModalDepartment: false,
+            showModalRole: false,
             showModalUser: false,
           })
+        }
       })
       .catch(function (error) {
           console.log(error);
@@ -50,6 +62,17 @@ export default class Organization extends Component {
     this.setState({ showModalDepartment: true });
   };
 
+  closeRole = () => {
+    // connect database to get new json of organization and update state 
+    this.getDataOrganization();
+  };
+
+  openRole = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    this.setState({ showModalRole: true });
+  };
+
   closeUser = () => {
     this.getDataOrganization();
   };
@@ -61,7 +84,6 @@ export default class Organization extends Component {
   };
 
   render() {
-    console.log(this.state.dataChart);
     return (
       <div className="page-wrapper">
         <MenuHorizontal />
@@ -76,7 +98,7 @@ export default class Organization extends Component {
                       <div className="org--chart_menu">
                         <div className="container-fluid">
                           <div className="row text-center">
-                            <div className="col-md-6">
+                            <div className="col-md-4">
                               <a
                                 href="##"
                                 className="org--chart_feature"
@@ -86,10 +108,23 @@ export default class Organization extends Component {
                                   className="fa fa-university fa-2x"
                                   aria-hidden="true"
                                 ></i>
-                                <p>Manager Department</p>
+                                <p>Manage Department</p>
                               </a>
                             </div>
-                            <div className="col-md-6">
+                            <div className="col-md-4">
+                              <a
+                                href="##"
+                                className="org--chart_feature"
+                                onClick={(e) => this.openRole(e)}
+                              >
+                                <i
+                                  className="fa fa-bar-chart fa-2x"
+                                  aria-hidden="true"
+                                ></i>
+                                <p>Manage Role</p>
+                              </a>
+                            </div>
+                            <div className="col-md-4">
                               <a
                                 href="##"
                                 className="org--chart_feature"
@@ -99,11 +134,15 @@ export default class Organization extends Component {
                                   className="fa fa-user-circle fa-2x"
                                   aria-hidden="true"
                                 ></i>
-                                <p>Manager User</p>
+                                <p>Manage Employee</p>
                               </a>
                               <ModalDepartment
                                 showModal={this.state.showModalDepartment}
                                 close={() => this.closeDepartment()}
+                              />
+                              <ModalRole
+                                showModal={this.state.showModalRole}
+                                close={() => this.closeRole()}
                               />
                               <ModalUser
                                 showModal={this.state.showModalUser}

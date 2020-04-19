@@ -101,17 +101,25 @@ export default class NewDepartment extends Component {
 
     saveNewDepartment = () => {
         var self = this;
+        var idCompany = localStorage.getItem('company_id');
+        var token = localStorage.getItem('token');
         axios.post(host.URL_BACKEND+'/api/system/organization/department/new', {
             newNameDepartment: this.state.newNameDepartment,
             newRoleDepartment: this.state.newRoleDepartment,
             newDescriptionDepartment:this.state.newDescriptionDepartment,
-            idCompany:1
+            idCompany:idCompany
+        },{
+            headers: { 'Authorization': 'Bearer ' + token }
         })
         .then(function (response) {
-            self.setState({
-                isDisplayAlert : true
-            })
-            self.props.rerenderParentCallback();
+            if (response.data.error != null) {
+                console.log(response.data.error);
+            }else{
+                self.setState({
+                    isDisplayAlert : true
+                })
+                self.props.rerenderParentCallback();
+            }
         })
         .catch(function (error) {
             console.log(error);

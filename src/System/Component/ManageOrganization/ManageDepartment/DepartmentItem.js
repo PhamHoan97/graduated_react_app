@@ -23,14 +23,20 @@ class DepartmentItem extends Component {
         )
     }
     showDetailDepartment = (e,idEditDepartment) =>{
-        console.log("Click show detail department ");
+        var token = localStorage.getItem('token');
         e.preventDefault();
         var self =  this;
-        axios.get(host.URL_BACKEND+'/api/system/organization/department/'+idEditDepartment)
+        axios.get(host.URL_BACKEND+'/api/system/organization/department/detail/'+idEditDepartment,{
+            headers: { 'Authorization': 'Bearer ' + token }
+        })
         .then(function (response) {
-            var detailDepartment =  JSON.parse(JSON.stringify(response.data.department));
-            self.props.showDetailDepartment(detailDepartment);
-            self.props.rerenderParentCallback();
+            if (response.data.error != null) {
+                console.log(response.data.error);
+            }else{
+                var detailDepartment =  JSON.parse(JSON.stringify(response.data.department));
+                self.props.showDetailDepartment(detailDepartment);
+                self.props.rerenderParentCallback();
+            }
         })
         .catch(function (error) {
             console.log(error);
@@ -42,8 +48,11 @@ class DepartmentItem extends Component {
         e.preventDefault();
         // connect database 
         let self = this;
+        var token = localStorage.getItem('token');
         axios.post(host.URL_BACKEND+'/api/system/organization/department/delete',{
             idDeleteDepartment:idDeleteDepartment,
+        },{
+            headers: { 'Authorization': 'Bearer ' + token }
         })
         .then(function (response) {
             if (response.data.error != null) {

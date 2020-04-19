@@ -2,15 +2,30 @@ import React, { Component } from "react";
 import Avatar from "../../Images/Account/Avatar-01.jpg";
 import axios from 'axios';
 import  { Redirect } from 'react-router-dom';
-
-export default class MenuVerticalDashboard extends Component {
+import {connect} from "react-redux"
+import {getTextSearchProcess} from "../../Action/Dashboard/Process/Index"
+class MenuVerticalDashboard extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       isLogout: false,
+      textSearch:""
     };
   }
+
+  handleChange(event){
+    var textSearch = event.target.value;
+    this.setState({
+    textSearch:textSearch
+    })
+  }
+
+  handleSubmitSearch(event){
+      event.preventDefault();
+      this.props.getTextSearchProcess(this.state.textSearch)
+  }
+
 
   collapseMenuAccount = (e) => {
     e.preventDefault();
@@ -44,6 +59,7 @@ export default class MenuVerticalDashboard extends Component {
 
     if(localStorage.getItem("admin_id")){
       localStorage.removeItem("admin_id");
+      localStorage.removeItem("company_id");
       axios.post(`http://127.0.0.1:8000/api/logout/company`)
       .then(res => {
         if(res.data.error != null){
@@ -68,17 +84,19 @@ export default class MenuVerticalDashboard extends Component {
         <div className="section__content section__content--p30">
           <div className="container-fluid">
             <div className="header-wrap">
-                <form className="form-header" method="POST">
-                    <input
+                  <form className="form-header" method="POST">
+                      <input
                       className="au-input au-input--xl"
                       type="text"
-                      name="search"
-                      placeholder="Search for datas and reports..."
-                    />
-                    <button className="au-btn--submit" type="submit">
-                    <i className="zmdi zmdi-search" />
-                    </button>
-                </form>
+                      name="textSearch"
+                      value = {this.state.textSearch}
+                      onChange={(event)=>this.handleChange(event)}
+                      placeholder="Search for process ..."
+                      />
+                      <button className="au-btn--submit btn--search__process" type="submit" onClick={(event)=>this.handleSubmitSearch(event)}>
+                      <i className="zmdi zmdi-search" />
+                      </button>
+                  </form>
                 <div className="header-button">
                 <div className="noti-wrap">
                   <div className="noti__item js-item-menu">
@@ -194,3 +212,12 @@ export default class MenuVerticalDashboard extends Component {
     );
   }
 }
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+      getTextSearchProcess: (textSearch) => {
+          dispatch(getTextSearchProcess(textSearch))
+      },
+  }
+}
+
+export default connect(null,mapDispatchToProps)(MenuVerticalDashboard)

@@ -1,55 +1,32 @@
 import * as types from '../../../Constants/Orgranization/ActionTypes'
 
-export const addUser = (text)=>{
+export const getDetailEmloyee = (detailEmployee)=>{
     return {
-        type:types.ADD_USER,
-        text
+        type:types.DETAIL_EMPLOYEE,
+        detailEmployee
     }
 }
 
-export const detailUser = (idUser)=>{
+export const showEditEmployee = ()=>{
     return {
-        type:types.DETAIL_USER,
-        idUser
+        type:types.SHOW_EDIT_EMPLOYEE,
     }
 }
 
-export const editUser = (idUser,text)=>{
+export const hideEditEmployee = ()=>{
     return {
-        type:types.EDIT_USER,
-        idUser,
-        text
+        type:types.HIDE_EDIT_EMPLOYEE,
     }
 }
 
-export const deleteUser = (idUser,text)=>{
+export const showNewEmployee = ()=>{
     return {
-        type:types.DELETE_USER,
-        idUser,
-        text
+        type:types.SHOW_NEW_EMPLOYEE,
     }
 }
 
-export const showEditUser = ()=>{
+export const hideNewEmployee = ()=>{
     return {
-        type:types.SHOW_EDIT_USER,
-    }
-}
-
-export const hideEditUser = (t)=>{
-    return {
-        type:types.HIDE_EDIT_USER,
-    }
-}
-
-export const showNewUser = ()=>{
-    return {
-        type:types.SHOW_NEW_USER,
-    }
-}
-
-export const hideNewUser = ()=>{
-    return {
-        type:types.HIDE_NEW_USER,
+        type:types.HIDE_NEW_EMPLOYEE,
     }
 }

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import MenuHorizontal from "../Menu/MenuHorizontal";
-import MenuVerticalDashboardContainer from "../../Container/Dashboard/MenuVerticalDashboardContainer";
+import MenuVerticalDashboard from "../Menu/MenuVerticalDashboard";
 import CompanyContainer from "../../Container/Dashboard/CompanyContainer";
 import ProcessDashboardContainer from "../../Container/Dashboard/ProcessDashboardContainer";
 
@@ -11,7 +11,7 @@ export default class Dashboard extends Component {
       <div className="page-wrapper">
         <MenuHorizontal/>
         <div className="page-container">
-          <MenuVerticalDashboardContainer/>
+          <MenuVerticalDashboard/>
           <div className="main-content">
             <div className="section__content section__content--p30">
               <div className="container-fluid">

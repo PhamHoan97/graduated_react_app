@@ -21,14 +21,19 @@ class DepartmentContainer extends Component {
     }
     //WARNING! To be deprecated in React v17. Use componentDidMount instead.
     componentWillMount() {
-        this.getListCompany();
+        this.getListDepartment();
     }
 
-    getListCompany = () =>{
+    getListDepartment = () =>{
         let self = this;
-        axios.put(host.URL_BACKEND+'/api/system/organization/department/1')
+        var idCompany = localStorage.getItem('company_id');
+        var token = localStorage.getItem('token');
+        axios.get(host.URL_BACKEND+'/api/system/organization/department/'+idCompany,{
+            headers: {'Authorization': 'Bearer '+token}
+        })
         .then(function (response) {
             if (response.data.error != null) {
+                console.log(response.data.error);
             } else {
                 self.setState({
                     listDepartment: JSON.parse(JSON.stringify(response.data.departmentCompany))
@@ -41,7 +46,7 @@ class DepartmentContainer extends Component {
     }
 
     rerenderParentCallback() {
-        this.getListCompany();
+        this.getListDepartment();
     }
     render() {
         return (
@@ -59,7 +64,7 @@ class DepartmentContainer extends Component {
                         <div className="row mt-5">
                             <div className="col-md-12">
                                 <div className="table-responsive">
-                                    <table className="table table-stripe list-member">
+                                    <table className="table table-stripe .list-employee">
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
@@ -83,6 +88,7 @@ class DepartmentContainer extends Component {
                 <EditDepartment
                     rerenderParentCallback={this.rerenderParentCallback}
                     detailDepartment = {this.props.detailDepartment}
+                    showDetailDepartment = {this.props.showDetailDepartment}
                     isDisplayEditForm = {this.props.isDisplayEditForm}
                     hideEditDepartment = {this.props.hideEditDepartment}
                 />

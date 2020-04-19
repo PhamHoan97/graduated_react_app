@@ -56,8 +56,11 @@ class ProcessDashboardContainer extends Component {
     getListProcess = (textSearch) => {
         // connect database to get all process
         var self =  this;
+        var token = localStorage.getItem('token');
         axios.post(host.URL_BACKEND+'/api/system/dashboard/process/',{
             textSearch:textSearch
+        },{
+            headers: { 'Authorization': 'Bearer ' + token }
         })
         .then(function (response) {
             if (response.data.error != null) {
