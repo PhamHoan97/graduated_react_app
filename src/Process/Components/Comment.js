@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../Css/Process.css';
+import Button from 'react-bootstrap/Button';
 
 class Comment extends Component {
     constructor(props) {
@@ -24,7 +25,7 @@ class Comment extends Component {
                             </div>
                         </div>
 
-                        <div className="conversation">
+                        {/* <div className="conversation">
                             <h6 className="date-comment">Today</h6>
                             <article className="article-area">
                                 <div><i className="far fa-user-circle fa-2x"></i></div>
@@ -40,7 +41,8 @@ class Comment extends Component {
                                     </div>
                                 </div>
                             </article>
-                        </div>
+                        </div> */}
+
                     </div>
 
                     <div className="form-send-comment">
@@ -50,7 +52,7 @@ class Comment extends Component {
                                     <input type="text" className="form-control" id="comment-element" placeholder="Reply..." />
                                 </div>
                                 <div className="button-send-comment">
-                                    <button title="Save"><i className="far fa-paper-plane fa-2x"></i></button>
+                                    <Button disabled= {true} title="Comment">Comment</Button>
                                 </div>
                             </div>
                         </form>

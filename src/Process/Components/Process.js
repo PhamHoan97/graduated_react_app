@@ -3,6 +3,11 @@ import '../Css/Process.css';
 import BpmnModeler from 'bpmn-js/lib/Modeler';
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn.css';
 import 'bpmn-js/dist/assets/diagram-js.css';
+import minimapModule from 'diagram-js-minimap';
+import '../Css/Minimap.css';
+import Action from './Action';
+import {connect} from 'react-redux';
+import * as actions from '../Actions/Index';
 
 class Process extends Component {
     constructor(props) {
@@ -11,10 +16,14 @@ class Process extends Component {
         this.modeler = new BpmnModeler(
           {
             keyboard: {
-              bindTo: window
+              bindTo: window,
             },
+            additionalModules: [
+              minimapModule
+            ]
           }
         );
+
         this.initialDiagram = 
         '<?xml version="1.0" encoding="UTF-8"?>' +
         '<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
@@ -24,7 +33,7 @@ class Process extends Component {
                           'targetNamespace="http://bpmn.io/schema/bpmn" ' +
                           'id="Definitions_1">' +
           '<bpmn:process id="Process_1" isExecutable="false">' +
-            // '<bpmn:startEvent id="StartEvent_1"/>' +
+  
           '</bpmn:process>' +
           '<bpmndi:BPMNDiagram id="BPMNDiagram_1">' +
             '<bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">' +
@@ -39,28 +48,55 @@ class Process extends Component {
                  
         }
     }
+    
+    interactPopup = (event) => {
+      var element = event.element;
+      if(element.type !== "bpmn:Process"){
+        this.props.passPopupStatus(true);
+        this.props.updateDataOfElement(element);
+      }  
+    }
 
     componentDidMount (){
-
         this.modeler.attachTo('#create-process-diagram');
         this.modeler.importXML(this.initialDiagram, function(err) {
 
         });
+        // var eventBus = this.modeler.get('eventBus');
+        // this.modeler.on('element.changed', function(event) {
+        //     var element = event.element;
+        //     console.log(element);
+        // });
 
-        this.modeler.on('element.changed', function(event) {
-            var element = event.element;
-            console.log(element);
-            console.log(event);
-        });
+        this.modeler.on('element.click',2000, (e) => this.interactPopup(e));
     }
 
     render() {
         return (
             <div className="process-interact-area">
                 <div id="create-process-diagram" className="process-interact"></div>
+                <Action modeler={this.modeler}/>
             </div>
         )
     }
 }
 
-export default Process
+const mapStateToProps = (state, ownProps) => {
+  return {
+      statusPopup: state.processReducers.popupReduders.status,
+      elements: state.processReducers.elementReducers.elements,
+  }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+      passPopupStatus: (status) => {
+          dispatch(actions.passPopupStatus(status));
+      },
+      updateDataOfElement: (element) => {
+        dispatch(actions.updateDataOfElements(element));
+      }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Process);

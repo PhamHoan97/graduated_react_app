@@ -166,7 +166,7 @@ class Shortcut extends Component {
                     </label>
                     </div>
                     <div className="col-md-6">
-                        <p> Search BPMN Symbol</p>
+                        <p> Ctrl + ⇧ + F</p>
                         <small className="form-text text-muted">
                         </small>
                     </div>
@@ -178,23 +178,7 @@ class Shortcut extends Component {
                         htmlFor="text-input"
                         className=" form-control-label"
                     >
-                        Search BPMN Symbol		
-                    </label>
-                    </div>
-                    <div className="col-md-6">
-                        <p> A</p>
-                        <small className="form-text text-muted">
-                        </small>
-                    </div>
-                </div>
-
-                <div className="row form-group">
-                    <div className="col col-md-6">
-                    <label
-                        htmlFor="text-input"
-                        className=" form-control-label"
-                    >
-                        Search BPMN Symbol		
+                       Attention Grabber			
                     </label>
                     </div>
                     <div className="col-md-6">
@@ -215,6 +199,22 @@ class Shortcut extends Component {
                     </div>
                     <div className="col-md-6">
                         <p> ⇧ + M</p>
+                        <small className="form-text text-muted">
+                        </small>
+                    </div>
+                </div>
+
+                <div className="row form-group">
+                    <div className="col col-md-6">
+                    <label
+                        htmlFor="text-input"
+                        className=" form-control-label"
+                    >
+                        Exit Fullscreen			
+                    </label>
+                    </div>
+                    <div className="col-md-6">
+                        <p> Esc</p>
                         <small className="form-text text-muted">
                         </small>
                     </div>

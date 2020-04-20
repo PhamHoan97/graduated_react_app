@@ -31,7 +31,7 @@ class Header extends Component {
                 <div className="button-group-header btn-group">
                     <div className="dropdown dropleft">
                         <button className="button-save-action" data-toggle="dropdown" title="Action">
-                            <div className="button-area" style={{fontSize: "28px"}}>
+                            <div className="button-area">
                                 <i className="fas fa-share-alt fa-sm icon"></i>
                             </div>
                         </button>
@@ -73,7 +73,7 @@ class Header extends Component {
 
                      <div className="dropdown dropleft">
                         <button className="button-support-action" data-toggle="dropdown" title="Help">
-                            <div className="button-area" style={{fontSize: "28px"}}>
+                            <div className="button-area">
                                 <i className="far fa-question-circle fa-sm icon"></i>
                             </div>
                         </button>
