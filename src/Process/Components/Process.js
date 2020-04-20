@@ -57,18 +57,25 @@ class Process extends Component {
       }  
     }
 
+    deleteElements = (event) =>{
+      console.log(event)
+      var element = event.element;
+      if(element.type !== "bpmn:Process"){
+        this.props.passPopupStatus(false);
+        this.props.deleteElement(element);
+      }  
+    }
+
     componentDidMount (){
         this.modeler.attachTo('#create-process-diagram');
         this.modeler.importXML(this.initialDiagram, function(err) {
 
         });
-        // var eventBus = this.modeler.get('eventBus');
-        // this.modeler.on('element.changed', function(event) {
-        //     var element = event.element;
-        //     console.log(element);
-        // });
+        var eventBus = this.modeler.get('eventBus');
+        console.log(eventBus);
+        this.modeler.on('element.click',1000, (e) => this.interactPopup(e));
 
-        this.modeler.on('element.click',2000, (e) => this.interactPopup(e));
+        this.modeler.on('shape.remove',1000, (e) => this.deleteElements(e));
     }
 
     render() {
@@ -95,6 +102,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       },
       updateDataOfElement: (element) => {
         dispatch(actions.updateDataOfElements(element));
+      },
+      deleteElement: (element) => {
+        dispatch(actions.deleteElement(element));
       }
   }
 }

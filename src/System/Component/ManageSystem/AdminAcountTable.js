@@ -158,7 +158,6 @@ class AdminAcountTable extends Component {
         var admins = this.state.admins;
         var locationStart = pageNumber * 8 - 8;
         return Object.values(admins).map((value, key) => {
-            console.log(value);
             if ((key >= locationStart)&&(key<= (locationStart + 7))){
                 return (
                 <React.Fragment key={key}>

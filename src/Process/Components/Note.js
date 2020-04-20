@@ -12,6 +12,7 @@ class Note extends Component {
         this.state = {
             currentElement: "",
             note: "",
+            savedNote: false,
         }
     }
 
@@ -49,15 +50,28 @@ class Note extends Component {
                 result =  "Collaboration";
                 break;                       
             default:
+                result =  "New Diagram";
                 break;
         }
         return result;
     }
 
     UNSAFE_componentWillReceiveProps (nextProps) {
-        this.setState({
-            currentElement: nextProps.currentElement,
-        });
+        if(nextProps.currentElement.note){
+            this.setState({
+                currentElement: nextProps.currentElement,
+                savedNote:true
+            });
+        }else{
+            this.setState({
+                currentElement: nextProps.currentElement,
+                savedNote:false,
+                note: ""
+            });
+            if(document.getElementById("note-element")){
+                document.getElementById("note-element").value = "";
+            }
+        }
     }
 
     changeNoteContent = event => {
@@ -65,38 +79,50 @@ class Note extends Component {
     } 
 
     allowSaveNote = function() {
-        if(!isEmpty(this.state.note)){
-            return false;
+        if((typeof this.state.currentElement.id === "undefined")){
+            return true;
+        }else if(isEmpty(this.state.note)){
+            return true;
         }
-        return true;
+        return false;
     }
     
     saveNoteForElement = (event) => {
         event.preventDefault();
         this.props.saveNoteForElement(this.state.note);
+        this.setState({savedNote:true});
     }
     
+    updateNoteForElement = (event) => {
+        event.preventDefault();
+        this.setState({savedNote:false});
+    }
+
     render() {
-        if(this.state.currentElement.id){
+        if(this.state.savedNote){
             return (
                 <section className="note-element">
                     <h4 className="note-title"> {this.convertTitleOfElement(this.state.currentElement)}</h4>
                     <div className="note-content form-group">
-                        <textarea onChange={this.changeNoteContent} className="note-content-textarea form-control" rows="12" 
-                            id="note" placeholder="note for element">
-
-                        </textarea>
-                        <Button onClick={(e) => this.saveNoteForElement(e)} disabled={this.allowSaveNote()} variant="primary" className="save-note-button">Save</Button>
+                        <div className="note-content-show">
+                            <p>{this.state.currentElement.note}</p>
+                        </div>
+                        <Button onClick={(e) => this.updateNoteForElement(e)} variant="primary" className="save-note-button">Update</Button>
                     </div>
                 </section>
             )
         }else{
             return (
                 <section className="note-element">
-                    <h4 className="note-title"> New Diagram</h4>
+                    <h4 className="note-title"> {this.convertTitleOfElement(this.state.currentElement)}</h4>
                     <div className="note-content form-group">
-                        <textarea className="note-content-textarea form-control" rows="12" id="note" placeholder="Note for element"></textarea>
-                        <Button disabled={true} variant="primary" className="save-note-button">Save</Button>
+                        <form>
+                            <textarea onChange={this.changeNoteContent} className="note-content-textarea form-control" rows="12" 
+                                id="note-element" defaultValue={this.state.currentElement.note} placeholder="Note...">
+                                            
+                            </textarea>
+                            <Button onClick={(e) => this.saveNoteForElement(e)} disabled={this.allowSaveNote()} variant="primary" className="save-note-button">Save</Button>
+                        </form>
                     </div>
                 </section>
             )
