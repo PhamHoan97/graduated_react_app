@@ -7,6 +7,9 @@ import ModalBody from 'react-bootstrap/ModalBody';
 import ModalFooter from 'react-bootstrap/ModalFooter';
 import Button from 'react-bootstrap/Button';
 import ModalTitle from 'react-bootstrap/ModalTitle';
+import {connect} from 'react-redux';
+import * as actions from '../Actions/Index';
+
 
 class Header extends Component {
     constructor(props) {
@@ -25,6 +28,25 @@ class Header extends Component {
         this.setState({isOpenShortcut:false});
     }
 
+    saveDiagram = (e) => {
+        e.preventDefault();
+    }
+
+    exportAsSVG = (e) => {
+        e.preventDefault();
+        this.props.exportDiagramAsSVG();
+    }
+
+    exportAsImage = (e) => {
+        e.preventDefault();
+        this.props.exportDiagramAsImage();
+    }
+
+    exportAsBPMN = (e) => {
+        e.preventDefault();
+        this.props.exportDiagramAsBPMN();
+    }
+
     render() {
         return (
             <div className="process-header">
@@ -36,7 +58,7 @@ class Header extends Component {
                             </div>
                         </button>
                         <div className="dropdown-menu">
-                            <a className="dropdown-item" href="/process/new">
+                            <a className="dropdown-item" href="/process/new" onClick={(e)=> this.saveDiagram(e) }>
                                 <div className="action-title-left">
                                     Save and share
                                 </div>
@@ -44,7 +66,7 @@ class Header extends Component {
                                     Save the diagram and share to employee
                                 </div>
                             </a>
-                            <a className="dropdown-item" href="/process/new">
+                            <a className="dropdown-item" href="/process/new" onClick={(e) => this.exportAsImage(e)}>
                                 <div className="action-title-left">
                                     Export as PNG
                                 </div>
@@ -52,7 +74,7 @@ class Header extends Component {
                                     Export the diagram as a PNG image
                                 </div>
                             </a>
-                            <a className="dropdown-item" href="/process/new">
+                            <a className="dropdown-item" href="/process/new" onClick={(e) => this.exportAsSVG(e)}>
                                 <div className="action-title-left">
                                     Export as SVG
                                 </div>
@@ -60,7 +82,7 @@ class Header extends Component {
                                     Export the diagram as a SVG image
                                 </div>
                             </a>
-                            <a className="dropdown-item" href="/process/new">
+                            <a className="dropdown-item" href="/process/new" onClick={(e)=>this.exportAsBPMN(e)}>
                                 <div className="action-title-left">
                                     Export as BPMN 2.0 XML
                                 </div>
@@ -111,4 +133,26 @@ class Header extends Component {
     }
 }
 
-export default Header
+const mapStateToProps = (state, ownProps) => {
+    return {
+    }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        saveDiagram: () => {
+            dispatch(actions.saveDiagram())
+        },
+        exportDiagramAsSVG: () => {
+            dispatch(actions.exportDiagramAsSVG())
+        },
+        exportDiagramAsImage: () => {
+            dispatch(actions.exportDiagramAsImage())
+        },
+        exportDiagramAsBPMN: () => {
+            dispatch(actions.exportDiagramAsBPMN())
+        },
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

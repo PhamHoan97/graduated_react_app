@@ -48,3 +48,33 @@ export const handleUndoAfterDeleteElement = (element)=>{
         element,
     }
 }
+
+export const saveDiagram = ()=> {
+    return {
+        type: types.SAVE_DIAGRAM,
+    }
+}
+
+export const exportDiagramAsSVG =()=> {
+    return {
+        type: types.EXPORT_DIAGRAM_AS_SVG,
+    }
+}
+
+export const exportDiagramAsImage =()=> {
+    return {
+        type: types.EXPORT_DIAGRAM_AS_IMAGE,
+    }
+}
+
+export const exportDiagramAsBPMN =()=> {
+    return {
+        type: types.EXPORT_DIAGRAM_AS_BPMN,
+    }
+}
+
+export const resetActionStatus =()=> {
+    return {
+        type: types.RESET_ACTION_STATES,
+    }
+}

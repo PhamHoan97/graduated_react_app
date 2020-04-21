@@ -45,7 +45,7 @@ class Process extends Component {
         '</bpmn:definitions>';
 
         this.state = {
-                 
+          reload: false,
         }
     }
     
@@ -70,6 +70,122 @@ class Process extends Component {
       this.props.handleUndoAfterDeleteElement(element);
     }
 
+    exportDiagram = () => {
+      this.modeler.saveXML({ format: true }, function (err, xml) {
+          if(err){
+              console.log(err);
+          }
+          else{
+              console.log(xml);
+          }
+      });
+   }
+
+  downloadAsSVG = () => {
+    this.modeler.saveSVG({ format: true }, function (error, svg) {
+        if (error) {
+            return;
+        }
+        var svgBlob = new Blob([svg], {
+            type: 'image/svg+xml'
+        });
+        var fileName = Math.random(36).toString().substring(7) + '.svg';
+        var downloadLink = document.createElement('a');
+        downloadLink.download = fileName;
+        downloadLink.innerHTML = 'Get BPMN SVG';
+        downloadLink.href = window.URL.createObjectURL(svgBlob);
+        downloadLink.onclick = function (event) {
+            document.body.removeChild(event.target);
+        };
+        downloadLink.style.visibility = 'hidden';
+        document.body.appendChild(downloadLink);
+        downloadLink.click();                                        
+    });
+  }
+
+  downloadAsBpmn = () =>{
+    this.modeler.saveXML({ format: true }, function (error, xml) {
+        if (error) {
+          return;
+        } 
+        var bpmnBlob = new Blob([xml], {
+            type: 'xml'
+        });
+        var fileName = Math.random(36).toString().substring(7) + '.bpmn';
+        var downloadLink = document.createElement('a');
+        downloadLink.download = fileName;
+        downloadLink.innerHTML = 'Get BPMN';
+        downloadLink.href = window.URL.createObjectURL(bpmnBlob);
+        downloadLink.onclick = function (event) {
+            document.body.removeChild(event.target);
+        };
+        downloadLink.style.visibility = 'hidden';
+        document.body.appendChild(downloadLink);
+        downloadLink.click();                                        
+    });
+  }
+
+  downloadAsImage = () =>{
+    this.modeler.saveSVG({ format: true }, function (error, svg) {
+      if (error) {
+        return;
+      }
+      function triggerDownload (imgURI) {
+          var evt = new MouseEvent('click', {
+            view: window,
+            bubbles: false,
+            cancelable: true
+          });
+        
+          var a = document.createElement('a');
+          var imageName = Math.random(36).toString().substring(7) + '.png';
+          a.setAttribute('download', imageName);
+          a.setAttribute('href', imgURI);
+          a.setAttribute('target', '_blank');
+        
+          a.dispatchEvent(evt);
+      }
+      var canvas = document.createElement("CANVAS");
+      var ctx = canvas.getContext('2d');
+      ctx.canvas.width  = window.innerWidth;
+      ctx.canvas.height = window.innerHeight;
+      var DOMURL = window.URL || window.webkitURL || window;
+    
+      var img = new Image();
+      var svgBlob = new Blob([svg], {type: 'image/svg+xml;charset=utf-8'});
+      var url = DOMURL.createObjectURL(svgBlob);
+    
+      img.onload = function () {
+
+        DOMURL.revokeObjectURL(url);
+        ctx.drawImage(img, 0, 0);
+        var imgURI = canvas
+            .toDataURL('image/png')
+            .replace('image/png', 'image/octet-stream');
+    
+        triggerDownload(imgURI);
+      };
+    
+      img.src = url;                                 
+    });
+  }
+
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        if(nextProps.isSave){
+          this.exportDiagram();
+          this.props.resetActionStatus();
+        }else if(nextProps.isExportImage){
+          this.downloadAsImage();
+          this.props.resetActionStatus();
+        }else if(nextProps.isExportSVG){
+          this.downloadAsSVG();
+          this.props.resetActionStatus();
+        }else if(nextProps.isExportBPMN){
+          this.downloadAsBpmn();
+          this.props.resetActionStatus();
+        }
+    }
+
     componentDidMount (){
         this.modeler.attachTo('#create-process-diagram');
         this.modeler.importXML(this.initialDiagram, function(err) {
@@ -81,8 +197,7 @@ class Process extends Component {
 
         this.modeler.on('shape.remove',1000, (e) => this.deleteElements(e));
 
-        this.modeler.on('commandStack.shape.delete.revert', (e) => this.handleUndoDeleteElement(e));
-
+        this.modeler.on('commandStack.shape.delete.revert', () => this.handleUndoDeleteElement());
     }
 
     render() {
@@ -99,13 +214,17 @@ const mapStateToProps = (state, ownProps) => {
   return {
       statusPopup: state.processReducers.popupReduders.status,
       elements: state.processReducers.elementReducers.elements,
+      isSave: state.processReducers.actionReducers.isSave,
+      isExportSVG: state.processReducers.actionReducers.isExportSVG,
+      isExportImage: state.processReducers.actionReducers.isExportImage,
+      isExportBPMN: state.processReducers.actionReducers.isExportBPMN,
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
       passPopupStatus: (status) => {
-          dispatch(actions.passPopupStatus(status));
+        dispatch(actions.passPopupStatus(status));
       },
       updateDataOfElement: (element) => {
         dispatch(actions.updateDataOfElements(element));
@@ -115,7 +234,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       },
       handleUndoAfterDeleteElement: (element) => {
         dispatch(actions.handleUndoAfterDeleteElement(element));
-      }
+      },
+      resetActionStatus: () => {
+        dispatch(actions.resetActionStatus());
+      },
   }
 }
 
