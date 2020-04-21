@@ -41,3 +41,10 @@ export const deleteElement = (element)=>{
         element,
     }
 }
+
+export const handleUndoAfterDeleteElement = (element)=>{
+    return {
+        type: types.HANDLE_UNDO_AFTER_DELETE_ELEMENT,
+        element,
+    }
+}

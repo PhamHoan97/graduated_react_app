@@ -58,12 +58,16 @@ class Process extends Component {
     }
 
     deleteElements = (event) =>{
-      console.log(event)
       var element = event.element;
       if(element.type !== "bpmn:Process"){
         this.props.passPopupStatus(false);
         this.props.deleteElement(element);
       }  
+    }
+
+    handleUndoDeleteElement = (event) => {
+      var element = event.context.shape;
+      this.props.handleUndoAfterDeleteElement(element);
     }
 
     componentDidMount (){
@@ -76,6 +80,9 @@ class Process extends Component {
         this.modeler.on('element.click',1000, (e) => this.interactPopup(e));
 
         this.modeler.on('shape.remove',1000, (e) => this.deleteElements(e));
+
+        this.modeler.on('commandStack.shape.delete.revert', (e) => this.handleUndoDeleteElement(e));
+
     }
 
     render() {
@@ -105,6 +112,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       },
       deleteElement: (element) => {
         dispatch(actions.deleteElement(element));
+      },
+      handleUndoAfterDeleteElement: (element) => {
+        dispatch(actions.handleUndoAfterDeleteElement(element));
       }
   }
 }

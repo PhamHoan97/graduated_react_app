@@ -22,7 +22,7 @@ function getCurrentElement(elements,element){
             return x;
         }
     }
-}
+};
 
 var elementReducers = (state = initialState, action) => {
     switch (action.type) {
@@ -145,7 +145,30 @@ var elementReducers = (state = initialState, action) => {
             }
             state.elements.splice(deleteIndexElement,1);
             state.current = "";
-            
+
+            return state;
+        case types.HANDLE_UNDO_AFTER_DELETE_ELEMENT:
+            var deletedElement = action.element;
+            var undoElement = {
+                id: deletedElement.id,
+                type: deletedElement.type,
+                note: "",
+                comments:[]
+            }
+            //undo note
+            for (var indexM = 0; indexM < state.notes.length; indexM++) {
+                if(state.notes[indexM].id === undoElement.id){
+                    undoElement.note = state.notes[indexM].note;
+                }
+            }
+            //undo comments
+            for (var indexN = 0; indexN < state.comments.length; indexN++) {
+                if(state.comments[indexN].id === undoElement.id){
+                    undoElement.comments = state.comments[indexN].comments;
+                }
+            }
+
+            state.elements.push(undoElement);
             return state;
         default:
             return state;
