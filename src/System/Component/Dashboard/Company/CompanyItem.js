@@ -5,7 +5,7 @@ export default class CompanyItem extends Component {
         return (
             <div className="col-md-3">
               <div className="card text-center">
-                <NavLink to={"/system/company/"+1} activeClassName="selected">
+                <NavLink to={"/system/organization/company/"+this.props.id} activeClassName="selected">
                   <img
                       className="card-img-top"
                       src={window.location.origin + '/system/images/company1.jpg'}
@@ -16,7 +16,7 @@ export default class CompanyItem extends Component {
                       {this.props.name}
                       </h6>
                       <p className="card-text">
-                      {this.props.description}
+                      {this.props.field}
                       </p>
                     </div>
                 </NavLink>

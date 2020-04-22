@@ -15,6 +15,8 @@ import ManageCompany from '../System/Component/ManageSystem/ManageCompany';
 import CreateProcess from '../Process/Components/Create/CreateProcess';
 import EditProcess from '../Process/Components/Create/EditProcess';
 import ViewProcess from '../Process/Components/View/ViewProcess';
+import DetailCompany from "../System/Component/DetailCompany/DetailCompany";
+import CreatFormEvaluate from '../System/Component/ManageFormEvaluate/CreatFormEvaluate';
 
 class ListUrl extends Component {
     render() {
@@ -29,11 +31,13 @@ class ListUrl extends Component {
                         <Route path="/company/login" exact component={LoginCompany} />
                         <Route path="/system" exact component={Dashboard} />
                         <Route path="/system/dashboard" exact component={Dashboard}/>
-                        <Route path="/system/personal" component={Information}/>
-                        <Route path="/system/process" component={Process}/>
+                        <Route path="/system/personal" exact component={Information}/>
+                        <Route path="/system/evaluate" exact component={CreatFormEvaluate}/>
+                        <Route path="/system/process" exact component={Process}/>
                         <Route path="/system/registration" component={ManageRegistration}/>
-                        <Route path="/system/company" component={ManageCompany}/>
-                        <Route path="/system/organization" component={Organization}/>
+                        <Route path="/system/company" exact component={ManageCompany}/>
+                        <Route path="/system/organization" exact component={Organization}/>
+                        <Route path="/system/organization/company/:id" exact component={DetailCompany}/>
                         <Route path="/process/new" exact component={CreateProcess} />
                         <Route path="/process/edit" exact component={EditProcess} />
                         <Route path="/process/view" exact component={ViewProcess} />

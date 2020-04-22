@@ -11,9 +11,11 @@ const store = createStore(
     appReducers
 );
 
+
 store.subscribe(()=>{
     console.log(JSON.stringify(store.getState()));
 });
+
 
 ReactDOM.render(
     <Provider store={store}>

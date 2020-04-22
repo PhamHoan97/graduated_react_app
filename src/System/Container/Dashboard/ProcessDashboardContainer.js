@@ -3,13 +3,15 @@ import Process from "../../Component/Dashboard/Process/Process";
 import ReactPaginate from "react-paginate";
 import ProcessItem from "../../Component/Dashboard/Process/ProcessItem"
 import "../../Style/Dashboard/paginate.css";
-import procesData from "../../Style/Dashboard/process.json"
+import * as host from '../../Constants/Url'
+import axios from 'axios'
+import {connect} from "react-redux"
 class ProcessDashboardContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
         offset: 0,
-        data: [],
+        listProcess: [],
         perPage: 4,
         currentPage: 0,
         pageCount: 0,
@@ -17,36 +19,60 @@ class ProcessDashboardContainer extends Component {
         this.handlePageClick = this.handlePageClick.bind(this);
     }
 
-    receivedProcesstoDisplay = () => {
-        const slice = this.state.data.slice(
+    getListProcessPagination = () => {
+        const slice = this.state.listProcess.slice(
             this.state.offset,
             this.state.offset + this.state.perPage
         );
-        var result = "Không có phong ban nào";
+        var result;
         if (slice.length > 0) {
             result = slice.map((item, index) => {
                 return <ProcessItem
                     key={index}
-                    name={item.name}
-                    department={item.department}
-                    date={item.date}
-                    company ={item.company}
+                    name={item.process_name}
+                    department={item.department_name}
+                    date={item.update_at}
+                    company ={item.company_name}
                 />;
             });
+        }else{
+            return (
+                <tr></tr>
+            )
         }
         return result;
     };
 
-    componentWillMount() {
-        // connect database and find search
-        this.getListProcess();
+    //WARNING! To be deprecated in React v17. Use new lifecycle static getDerivedStateFromProps instead.
+    componentWillReceiveProps(nextProps) {
+        this.getListProcess(nextProps.textSearch);
     }
 
-    getListProcess = () => {
+    componentWillMount() {
+        // connect database and find search
+        this.getListProcess(this.props.textSearch);
+    }
+
+    getListProcess = (textSearch) => {
         // connect database to get all process
-        this.setState({
-            data: procesData,
-            pageCount: Math.ceil(procesData.length / this.state.perPage),
+        var self =  this;
+        var token = localStorage.getItem('token');
+        axios.post(host.URL_BACKEND+'/api/system/dashboard/process/',{
+            textSearch:textSearch
+        },{
+            headers: { 'Authorization': 'Bearer ' + token }
+        })
+        .then(function (response) {
+            if (response.data.error != null) {
+            } else {
+                var listProcess = response.data.companies;
+                self.setState({
+                    listProcess: listProcess,
+                    pageCount: Math.ceil(listProcess.length / self.state.perPage),
+                });
+            }
+        }).catch(function (error) {
+            console.log(error);
         });
     };
 
@@ -62,7 +88,7 @@ class ProcessDashboardContainer extends Component {
         return (
             <>
                 <Process>
-                    {this.receivedProcesstoDisplay()}
+                    {this.getListProcessPagination()}
                 </Process>
                 <div className="row">
                     <div className="col-md-3"></div>
@@ -87,5 +113,9 @@ class ProcessDashboardContainer extends Component {
         );
     }
 }
-
-export default ProcessDashboardContainer;
+const mapStateToProps = (state, ownProps) => {
+    return {
+        textSearch : state.systemReducers.dashboardReducer.processReducer.textSearch,
+    }
+}
+export default connect(mapStateToProps,null)(ProcessDashboardContainer)

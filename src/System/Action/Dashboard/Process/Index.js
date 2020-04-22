@@ -1,7 +1,7 @@
 import * as types from '../../../Constants/Dashboard/ActionType'
-export const listProcessSearch = (textSearch) =>{
+export const getTextSearchProcess = (textSearch) =>{
     return {
-        type:types.LIST_PROCESS_SEARCH,
+        type:types.TEXT_SEARCH_PROCESS,
         textSearch
     }
 }

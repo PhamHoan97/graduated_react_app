@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import MenuHorizontal from "../Menu/MenuHorizontal";
-import MenuVerticalDashboard from "../Menu/MenuVerticalDashboard";
-import ContactCompany from "./Contact/ContactCompany";
-import ProcessCompany from "./Process/ProcessCompany";
+import MenuVertical from "../Menu/MenuVertical";
 import '../../Style/DetailCompany/detailcompany.css'
+import ContactCompanyContainer from "../../Container/DetailCompany/ContactCompanyContainer";
+import ProcessDetailCompanyContainer from "../../Container/DetailCompany/ProcessDetailCompanyContainer";
 
 export default class DetailCompany extends Component {
   render() {
@@ -12,16 +12,16 @@ export default class DetailCompany extends Component {
       <div className="page-wrapper">
         <MenuHorizontal/>
         <div className="page-container">
-          <MenuVerticalDashboard />
+          <MenuVertical />
           <div className="main-content">
             <div className="section__content section__content--p30">
               <div className="container-fluid">
                 <div className="row">
                     <div className="col-xl-8">
-                        <ProcessCompany idCompany = {this.props.match.params.id}/>
+                        <ProcessDetailCompanyContainer idCompany = {this.props.match.params.id} />
                     </div>
                     <div className="col-xl-4">
-                        <ContactCompany idCompany = {this.props.match.params.id}/>
+                        <ContactCompanyContainer idCompany = {this.props.match.params.id} />
                     </div>
                 </div>
                 <div className="row">

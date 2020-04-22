@@ -60,6 +60,7 @@ export default class Login extends Component {
             localStorage.setItem('token', res.data.token);
             if(res.data.isAdmin){
                 localStorage.setItem('admin_id', res.data.id);
+                localStorage.setItem('company_id', res.data.company_id);
             }
             this.setState({redirectAdmin:true});
         }

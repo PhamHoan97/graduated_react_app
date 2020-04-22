@@ -1,33 +1,33 @@
 import React, { Component } from 'react'
 import {connect} from  'react-redux';
-import UserItem from '../../../Component/ManageOrganization/ManageUser/UserItem';
-import {getDetailEmloyee} from '../../../Action/Organization/User/Index'
-import {showEditEmployee} from '../../../Action/Organization/User/Index'
-import {hideEditEmployee} from '../../../Action/Organization/User/Index'
-import {showNewEmployee} from '../../../Action/Organization/User/Index'
-import {hideNewEmployee} from '../../../Action/Organization/User/Index'
-import EditUser from '../../../Component/ManageOrganization/ManageUser/EditUser';
-import NewUser from '../../../Component/ManageOrganization/ManageUser/NewUser';
+import RoleItem from '../../../Component/ManageOrganization/ManageRole/RoleItem';
+import {getDetailRole} from '../../../Action/Organization/Role/Index'
+import {showEditRole} from '../../../Action/Organization/Role/Index'
+import {hideEditRole} from '../../../Action/Organization/Role/Index'
+import {showNewRole} from '../../../Action/Organization/Role/Index'
+import {hideNewRole} from '../../../Action/Organization/Role/Index'
+import EditRole from '../../../Component/ManageOrganization/ManageRole/EditRole';
+import NewRole from '../../../Component/ManageOrganization/ManageRole/NewRole';
 import axios from "axios";
 import * as host from '../../../Constants/Url'
-class UserContainer extends Component {
+class RoleContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            listUser: [],
+            listRole: [],
         }
         this.rerenderParentCallback = this.rerenderParentCallback.bind(this);
     }
     //WARNING! To be deprecated in React v17. Use componentDidMount instead.
     componentWillMount() {
-        this.getListUser();
+        this.getListRole();
     }
 
-    getListUser = () =>{
+    getListRole = () =>{
         let self = this;
         var idCompany = localStorage.getItem('company_id');
         var token = localStorage.getItem('token');
-        axios.get(host.URL_BACKEND+'/api/system/organization/company/'+idCompany+'/employee',{
+        axios.get(host.URL_BACKEND+'/api/system/organization/role/'+idCompany,{
             headers: {'Authorization': 'Bearer '+token}
         })
         .then(function (response) {
@@ -35,7 +35,7 @@ class UserContainer extends Component {
                 console.log(response.data.error);
             } else {
                 self.setState({
-                    listUser: JSON.parse(JSON.stringify(response.data.employees))
+                    listRole: JSON.parse(JSON.stringify(response.data.roles))
                 });
             }
         })
@@ -45,18 +45,19 @@ class UserContainer extends Component {
     }
 
     rerenderParentCallback() {
-        this.getListUser();
+        this.getListRole();
     }
 
     render() {
+
         return (
             <>
                 <div className="btn--new__user text-right mr-5">
-                    <button type="button" className="btn btn-primary" onClick={()=>this.props.showNewEmployee()}>New</button>
+                    <button type="button" className="btn btn-primary" onClick={()=>this.props.showNewRole()}>New</button>
                 </div>
-                <NewUser
+                <NewRole
                     rerenderParentCallback={this.rerenderParentCallback}
-                    hideNewEmployee = {this.props.hideNewEmployee}
+                    hideNewRole = {this.props.hideNewRole}
                     isDisplayNewForm = {this.props.isDisplayNewForm}
                 />
                 <div className="form-group">
@@ -64,20 +65,20 @@ class UserContainer extends Component {
                         <div className="row mt-5">
                             <div className="col-md-12">
                                 <div className="table-responsive">
-                                    <table className="table table-stripe list-employee">
+                                    <table className="table table-stripe list-employee text-center">
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
                                                 <th scope="col">Name</th>
-                                                <th scope="col">Phone</th>
-                                                <th scope="col">Role</th>
-                                                <th scope="col">Employee</th>
+                                                <th scope="col">Department</th>
+                                                <th scope="col">Company</th>
+                                                <th scope="col"></th>
                                                 <th scope="col"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {
-                                                this.showItemUser(this.state.listUser)
+                                                this.showItemRole(this.state.listRole)
                                             }
                                         </tbody>
                                     </table>
@@ -86,31 +87,31 @@ class UserContainer extends Component {
                         </div>
                     </div>
                 </div>
-                <EditUser
+                <EditRole
                     rerenderParentCallback={this.rerenderParentCallback}
-                    detailEmployee = {this.props.detailEmployee}
+                    detailRole = {this.props.detailRole}
                     isDisplayEditForm = {this.props.isDisplayEditForm}
-                    hideEditEmployee = {this.props.hideEditEmployee}
-                    showDetailEmployee = {this.props.showDetailEmployee}
+                    hideEditRole = {this.props.hideEditRole}
+                    showDetailRole = {this.props.showDetailRole}
                 />
             </>
         )
     }
 
-    showItemUser = (employees) => {
+    showItemRole = (roles) => {
         var result;
-        if(employees.length > 0){
-            var {showDetailEmployee} = this.props;
-            var {showEditEmployee} = this.props;
-            result = employees.map((item,index)=>{
+        if(roles.length > 0){
+            var {showDetailRole} = this.props;
+            var {showEditRole} = this.props;
+            result = roles.map((item,index)=>{
                 return (
-                    <UserItem
+                    <RoleItem
                         rerenderParentCallback={this.rerenderParentCallback}
                         key={index}
                         item={item}
                         index={index+1}
-                        showDetailEmployee={showDetailEmployee}
-                        showEditEmployee={showEditEmployee}
+                        showDetailRole={showDetailRole}
+                        showEditRole={showEditRole}
                     />
                 )
             })
@@ -121,37 +122,33 @@ class UserContainer extends Component {
             )
         }
     }
-
-    showNewUser = () =>{
-        this.props.showNewUser();
-    }
 }
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        isDisplayEditForm : state.systemReducers.organizationReducer.showHideReducer.showHideEditEmployee,
-        isDisplayNewForm : state.systemReducers.organizationReducer.showHideReducer.showHideNewEmployee,
-        detailEmployee : state.systemReducers.organizationReducer.employeeReducer.detailEmployee
+        isDisplayEditForm : state.systemReducers.organizationReducer.showHideReducer.showHideEditRole,
+        isDisplayNewForm : state.systemReducers.organizationReducer.showHideReducer.showHideNewRole,
+        detailRole : state.systemReducers.organizationReducer.roleReducer.detailRole
     }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        showDetailEmployee: (detailEmployee) => {
-            dispatch(getDetailEmloyee(detailEmployee))
+        showDetailRole: (detailRole) => {
+            dispatch(getDetailRole(detailRole))
         },
-        showEditEmployee:()=>{
-            dispatch(showEditEmployee())
+        showEditRole:()=>{
+            dispatch(showEditRole())
         },
-        hideEditEmployee:()=>{
-            dispatch(hideEditEmployee())
+        hideEditRole:()=>{
+            dispatch(hideEditRole())
         },
-        showNewEmployee:()=>{
-            dispatch(showNewEmployee())
+        showNewRole:()=>{
+            dispatch(showNewRole())
         },
-        hideNewEmployee:()=>{
-            dispatch(hideNewEmployee())
+        hideNewRole:()=>{
+            dispatch(hideNewRole())
         }
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(UserContainer)
+export default connect(mapStateToProps,mapDispatchToProps)(RoleContainer)
