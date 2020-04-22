@@ -14,13 +14,9 @@ class UserContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            listUser: [],
+            listUser: this.props.listUser,
         }
         this.rerenderParentCallback = this.rerenderParentCallback.bind(this);
-    }
-    //WARNING! To be deprecated in React v17. Use componentDidMount instead.
-    componentWillMount() {
-        this.getListUser();
     }
 
     getListUser = () =>{
@@ -57,6 +53,8 @@ class UserContainer extends Component {
                 <NewUser
                     rerenderParentCallback={this.rerenderParentCallback}
                     hideNewEmployee = {this.props.hideNewEmployee}
+                    listDepartment = {this.props.listDepartment}
+                    listRole = {this.props.listRole}
                     isDisplayNewForm = {this.props.isDisplayNewForm}
                 />
                 <div className="form-group">
@@ -64,7 +62,7 @@ class UserContainer extends Component {
                         <div className="row mt-5">
                             <div className="col-md-12">
                                 <div className="table-responsive">
-                                    <table className="table table-stripe list-employee">
+                                    <table className="table table-stripe">
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
@@ -87,15 +85,30 @@ class UserContainer extends Component {
                         </div>
                     </div>
                 </div>
-                <EditUser
-                    rerenderParentCallback={this.rerenderParentCallback}
-                    detailEmployee = {this.props.detailEmployee}
-                    isDisplayEditForm = {this.props.isDisplayEditForm}
-                    hideEditEmployee = {this.props.hideEditEmployee}
-                    showDetailEmployee = {this.props.showDetailEmployee}
-                />
+                {
+                    this.displayEditUser()
+                }
             </>
         )
+    }
+
+    displayEditUser =()=>{
+        if(this.props.isDisplayEditForm && this.props.detailEmployee !== null){
+           return(
+            <EditUser
+                rerenderParentCallback={this.rerenderParentCallback}
+                listDepartment={this.props.listDepartment}
+                listRole={this.props.listRole}
+                detailEmployee = {this.props.detailEmployee}
+                hideEditEmployee = {this.props.hideEditEmployee}
+                showDetailEmployee = {this.props.showDetailEmployee}
+            />
+           )
+        }else{
+            return(
+                <div></div>
+            )
+        }
     }
 
     showItemUser = (employees) => {

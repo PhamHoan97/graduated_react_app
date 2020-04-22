@@ -15,13 +15,9 @@ class DepartmentContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            listDepartment: [],
+            listDepartment: this.props.listDepartment,
         }
         this.rerenderParentCallback = this.rerenderParentCallback.bind(this);
-    }
-    //WARNING! To be deprecated in React v17. Use componentDidMount instead.
-    componentWillMount() {
-        this.getListDepartment();
     }
 
     getListDepartment = () =>{
@@ -49,6 +45,7 @@ class DepartmentContainer extends Component {
         this.getListDepartment();
     }
     render() {
+        console.log(this.props.isDisplayEditForm && this.props.detailDepartment !== null);
         return (
             <>
                 <div className="btn--new__department text-right mr-5">
@@ -85,15 +82,28 @@ class DepartmentContainer extends Component {
                         </div>
                     </div>
                 </div>
-                <EditDepartment
-                    rerenderParentCallback={this.rerenderParentCallback}
-                    detailDepartment = {this.props.detailDepartment}
-                    showDetailDepartment = {this.props.showDetailDepartment}
-                    isDisplayEditForm = {this.props.isDisplayEditForm}
-                    hideEditDepartment = {this.props.hideEditDepartment}
-                />
+                {
+                    this.displayEditDepartment()
+                }
             </>
         )
+    }
+
+    displayEditDepartment =()=>{
+        if(this.props.isDisplayEditForm && this.props.detailDepartment !== null){
+           return(
+            <EditDepartment
+                rerenderParentCallback={this.rerenderParentCallback}
+                detailDepartment = {this.props.detailDepartment}
+                showDetailDepartment = {this.props.showDetailDepartment}
+                hideEditDepartment = {this.props.hideEditDepartment}
+            />
+           )
+        }else{
+            return(
+                <div></div>
+            )
+        }
     }
 
     displayAlertDelete = () =>{

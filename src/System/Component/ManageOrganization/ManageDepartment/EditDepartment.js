@@ -17,9 +17,9 @@ export default class EditDepartment extends Component {
         super(props);
         this.state = {
             isDisplayAlert : false,
-            editNameDepartment:'',
-            editRoleDepartment:'',
-            editDescriptionDepartment:''
+            editNameDepartment:this.props.detailDepartment.name,
+            editRoleDepartment:this.props.detailDepartment.role,
+            editDescriptionDepartment:this.props.detailDepartment.description
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -35,76 +35,57 @@ export default class EditDepartment extends Component {
         event.preventDefault();
         this.form.validateAll();
     }
-
-    //WARNING! To be deprecated in React v17. Use new lifecycle static getDerivedStateFromProps instead.
-    componentWillReceiveProps(nextProps) {
-        if(this.props.detailDepartment.length !== 0 ){
-            this.setState({
-                editNameDepartment:this.props.detailDepartment.name,
-                editRoleDepartment:this.props.detailDepartment.role,
-                editDescriptionDepartment:this.props.detailDepartment.description
-            })
-        }
-    }
-
-
     render() {
-        if(this.props.isDisplayEditForm && this.props.detailDepartment !== null){
-            return (
-                <>
-                    <Form onSubmit={e => this.onSubmit(e)} ref={c => { this.form = c }}>
-                        <div className="form-group">
-                            <label htmlFor="name">Name</label>
-                            <Input type="text"
-                            className="form-control"
-                            name="editNameDepartment"
-                            validations={[required]}
-                            value={this.state.editNameDepartment}
-                            onChange={(event)=>this.handleChange(event)
-                            }
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="role">Role</label>
-                            <Input type="text" className="form-control"
-                            name="editRoleDepartment"
-                            validations={[required]}
-                            value={this.state.editRoleDepartment}
-                            onChange={(event)=>this.handleChange(event)}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="description">Description</label>
-                            <Textarea className="form-control"
-                            name="editDescriptionDepartment"
-                            validations={[required]}
-                            value={this.state.editDescriptionDepartment}
-                            onChange={(event)=>this.handleChange(event)}
-                            id="exampleFormControlTextarea1" rows="3"/>
-                        </div>
-                        <div className="form-group text-left">
-                            <CheckButton type="submit" className="btn btn-primary mb-2 mr-2" onClick={() => this.saveEditDepartment()} ref={c => { this.checkBtn = c }}>
-                            Save
-                            </CheckButton>
-                            <button
-                            type="submit"
-                            className="btn btn-primary mb-2 mr-2"
-                            onClick={() => this.hideEditDepartment()}
-                            >
-                            Cancel
-                            </button>
-                        </div>
-                    </Form>
-                    {
-                        this.displayAlert()
-                    }
-                </>
-             )
-        }else{
-            return (
-                <div></div>
-            )
-        }
+        return (
+            <>
+                <Form onSubmit={e => this.onSubmit(e)} ref={c => { this.form = c }}>
+                    <div className="form-group">
+                        <label htmlFor="name">Name</label>
+                        <Input type="text"
+                        className="form-control"
+                        name="editNameDepartment"
+                        validations={[required]}
+                        value={this.state.editNameDepartment}
+                        onChange={(event)=>this.handleChange(event)
+                        }
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="role">Role</label>
+                        <Input type="text" className="form-control"
+                        name="editRoleDepartment"
+                        validations={[required]}
+                        value={this.state.editRoleDepartment}
+                        onChange={(event)=>this.handleChange(event)}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="description">Description</label>
+                        <Textarea className="form-control"
+                        name="editDescriptionDepartment"
+                        validations={[required]}
+                        value={this.state.editDescriptionDepartment}
+                        onChange={(event)=>this.handleChange(event)}
+                        id="exampleFormControlTextarea1" rows="3"/>
+                    </div>
+                    <div className="form-group text-left">
+                        <CheckButton type="submit" className="btn btn-primary mb-2 mr-2" onClick={() => this.saveEditDepartment()} ref={c => { this.checkBtn = c }}>
+                        Save
+                        </CheckButton>
+                        <button
+                        type="submit"
+                        className="btn btn-primary mb-2 mr-2"
+                        onClick={() => this.hideEditDepartment()}
+                        >
+                        Cancel
+                        </button>
+                    </div>
+                </Form>
+                {
+                    this.displayAlert()
+                }
+            </>
+        )
     }
 
     displayAlert = () =>{

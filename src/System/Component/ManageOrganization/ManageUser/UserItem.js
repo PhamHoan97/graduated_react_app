@@ -41,13 +41,12 @@ export default class UserItem extends Component {
             }else{
                 var detailEmployee =  JSON.parse(JSON.stringify(response.data.employee));
                 self.props.showDetailEmployee(detailEmployee);
-                self.props.rerenderParentCallback();
+                self.props.showEditEmployee();
             }
         })
         .catch(function (error) {
             console.log(error);
         });
-        this.props.showEditEmployee();
     }
 
     deleteEmployee = (e,idDeleteEmployee) =>{

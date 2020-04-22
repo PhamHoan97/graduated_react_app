@@ -17,8 +17,8 @@ export default class NewUser extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            listRoleDepartment:[],
-            listDepartment:[],
+            listRoleDepartment:this.props.listRole,
+            listDepartment:this.props.listDepartment,
             isDisplayAlertSuccess: false,
             isDisplayAlertFailRequire: false,
             isDisplayAlertFailEmail: false,
@@ -29,28 +29,6 @@ export default class NewUser extends Component {
             newDepartmentEmployee: 0,
         };
         this.handleChange = this.handleChange.bind(this);
-    }
-
-    componentWillMount() {
-        var token = localStorage.getItem('token');
-        // get all department of company
-        var idCompany = localStorage.getItem('company_id');
-        var self =  this;
-        axios.get(host.URL_BACKEND+'/api/system/organization/department/'+idCompany,{
-            headers: { 'Authorization': 'Bearer ' + token }
-        })
-        .then(function (response) {
-            if (response.data.error != null) {
-                console.log(response.data.error);
-            }else{
-                self.setState({
-                    listDepartment:response.data.departmentCompany
-                })
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
     }
 
     handleChange(event) {
@@ -203,7 +181,6 @@ export default class NewUser extends Component {
 
 
     saveNewEmployee = () => {
-        console.log(this.state);
         var self =  this;
         if(this.state.newDepartmentEmployee === 0 || this.state.newRoleEmployee === 0){
             self.setState({

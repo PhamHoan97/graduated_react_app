@@ -39,13 +39,12 @@ export default class RoleItem extends Component {
             }else{
                 var detailRole =  JSON.parse(JSON.stringify(response.data.role));
                 self.props.showDetailRole(detailRole);
-                self.props.rerenderParentCallback();
+                self.props.showEditRole();
             }
         })
         .catch(function (error) {
             console.log(error);
         });
-        this.props.showEditRole();
     }
 
     deleteRole = (e,idDeleteRole) =>{
