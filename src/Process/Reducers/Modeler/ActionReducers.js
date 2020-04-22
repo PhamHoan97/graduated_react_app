@@ -18,7 +18,7 @@ var actionReducers = (state = initialState, action) => {
         case types.EXPORT_DIAGRAM_AS_BPMN:
             return {...state, isExportBPMN : true};   
         case types.RESET_ACTION_STATES:
-            return {...state, isSave : false, isExportSVG : false, isExportImage : false, isExportBPMN : false};           
+            return {...state, isSave : "", isExportSVG : "", isExportImage : "", isExportBPMN : ""};           
         default:
             return state;
     }

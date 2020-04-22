@@ -221,4 +221,9 @@ div.process-interact svg{
 .save-note-button{
     float: right;
     margin-top: 5px;
+    margin-right:5px;
+}
+.delete-note-button{
+    float: right;
+    margin-top: 5px;
 }

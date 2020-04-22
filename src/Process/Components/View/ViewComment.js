@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import '../Css/Process.css';
+import '../../Css/Process.css';
 import Button from 'react-bootstrap/Button';
 import {isEmpty} from 'validator';
-import * as actions from '../Actions/Index';
 import {connect} from 'react-redux';
 
 
@@ -32,7 +31,6 @@ class Comment extends Component {
 
     saveCommentElement = (event) =>{
         event.preventDefault();
-        this.props.saveCommentForElement(this.state.content);
         this.setState({reload:true});
     }
 
@@ -59,8 +57,6 @@ class Comment extends Component {
     }
 
     deleteComment = (comment) => {
-        console.log(1)
-        this.props.deleteCommentOfElement(comment);
         this.setState({reload:true});
     }
 
@@ -154,15 +150,5 @@ const mapStateToProps = (state, ownProps) => {
         currentElement: state.processReducers.elementReducers.current,
     }
 }
-const mapDispatchToProps = (dispatch, ownProps) => {
-    return {
-        saveCommentForElement: (comment) => {
-            dispatch(actions.saveCommentForElement(comment));
-        },
-        deleteCommentOfElement: (comment) => {
-            dispatch(actions.deleteCommentOfElemment(comment));
-        }
-    }
-}
 
-export default connect(mapStateToProps,mapDispatchToProps)(Comment);
+export default connect(mapStateToProps)(Comment);

@@ -12,7 +12,9 @@ import Process from '../System/Component/ManageProcess/Process';
 import ManageRegistration from '../System/Component/ManageSystem/ManageRegistration';
 import Organization from '../System/Component/ManageOrganization/Organization';
 import ManageCompany from '../System/Component/ManageSystem/ManageCompany';
-import CreateProcess from '../Process/Components/CreateProcess';
+import CreateProcess from '../Process/Components/Create/CreateProcess';
+import EditProcess from '../Process/Components/Create/EditProcess';
+import ViewProcess from '../Process/Components/View/ViewProcess';
 
 class ListUrl extends Component {
     render() {
@@ -33,6 +35,8 @@ class ListUrl extends Component {
                         <Route path="/system/company" component={ManageCompany}/>
                         <Route path="/system/organization" component={Organization}/>
                         <Route path="/process/new" exact component={CreateProcess} />
+                        <Route path="/process/edit" exact component={EditProcess} />
+                        <Route path="/process/view" exact component={ViewProcess} />
                     </div>
                 </Router>
            </>

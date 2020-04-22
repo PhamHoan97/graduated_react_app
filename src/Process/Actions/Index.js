@@ -21,6 +21,12 @@ export const saveNoteForElement = (note)=>{
     }
 }
 
+export const deleteNoteForElement = ()=>{
+    return {
+        type: types.DELETE_NOTE_FOR_ELEMENT,
+    }
+}
+
 export const saveCommentForElement = (comment)=>{
     return {
         type: types.SAVE_COMMENT_FOR_ELEMENT,

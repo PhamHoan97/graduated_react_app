@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import '../Css/Process.css';
+import '../../Css/Process.css';
 import {connect} from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import {isEmpty} from 'validator';
-import * as actions from '../Actions/Index';
+import * as actions from '../../Actions/Index';
 
 class Note extends Component {
     constructor(props) {
@@ -98,6 +98,12 @@ class Note extends Component {
         this.setState({savedNote:false});
     }
 
+    deleteNoteForElement = (event) => {
+        event.preventDefault();
+        this.props.deleteNoteForElement();
+        this.setState({savedNote:false});
+    }
+
     render() {
         if(this.state.savedNote){
             return (
@@ -107,6 +113,7 @@ class Note extends Component {
                         <div className="note-content-show">
                             <p>{this.state.currentElement.note}</p>
                         </div>
+                        <Button onClick={(e) => this.deleteNoteForElement(e)} variant="danger" className="delete-note-button">Delete</Button>
                         <Button onClick={(e) => this.updateNoteForElement(e)} variant="primary" className="save-note-button">Update</Button>
                     </div>
                 </section>
@@ -141,6 +148,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         saveNoteForElement: (note) => {
             dispatch(actions.saveNoteForElement(note));
+        },
+        deleteNoteForElement: () => {
+            dispatch(actions.deleteNoteForElement());
         },
     }
 }

@@ -3,9 +3,9 @@ import Process from './Process';
 import Note from './Note';
 import Comment from './Comment';
 import Header from './Header';
-import '../Css/Process.css';
+import '../../Css/Process.css';
 import {connect} from 'react-redux';
-import * as actions from '../Actions/Index';
+import * as actions from '../../Actions/Index';
 
 class CreateProcess extends Component {
     constructor(props) {

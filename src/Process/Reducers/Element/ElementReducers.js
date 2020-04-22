@@ -68,6 +68,26 @@ var elementReducers = (state = initialState, action) => {
                 state.notes.push({id:state.current.id, note: action.note});
             }
             return {...state, elements: updateNoteElements};
+        case types.DELETE_NOTE_FOR_ELEMENT:
+            var deleteNoteElements = [];
+            //delete note
+            for (var p of state.elements) {
+                if(state.current.id === p.id){
+                    p.note = "";
+                }
+                deleteNoteElements.push(p);
+            }
+
+            //get index of notes if delete note of element
+            var markDeleteNote;
+            for (var indexP = 0; indexP < state.notes.length; indexP++) {
+                if(state.notes[indexP].id === state.current.id){
+                    markDeleteNote = indexP;
+                }
+            }
+            //delete note in notes
+            state.notes.splice(markDeleteNote,1);
+            return {...state, elements: deleteNoteElements, notes:state.notes};
         case types.SAVE_COMMENT_FOR_ELEMENT:
             var updateCommentElements = [];
             var dataComment= {
