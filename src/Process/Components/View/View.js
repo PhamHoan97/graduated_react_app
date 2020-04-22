@@ -5,9 +5,11 @@ import 'bpmn-js/dist/assets/bpmn-font/css/bpmn.css';
 import 'bpmn-js/dist/assets/diagram-js.css';
 import minimapModule from 'diagram-js-minimap';
 import '../../Css/Minimap.css';
-import Action from '../Create/Action';
+import ViewAction from './ViewAction';
 import {connect} from 'react-redux';
 import * as actions from '../../Actions/Index';
+import Detail from './Detail';
+import IsoRule from './IsoRule';
 
 class View extends Component {
     constructor(props) {
@@ -184,7 +186,7 @@ class View extends Component {
     }
 
     componentDidMount (){
-        this.modeler.attachTo('#create-process-diagram');
+        this.modeler.attachTo('#view-process-diagram');
         this.modeler.importXML(this.initialDiagram, function(err) {
 
         });
@@ -201,8 +203,17 @@ class View extends Component {
     render() {
         return (
             <div className="process-interact-area">
-                <div id="create-process-diagram" className="process-interact"></div>
-                <Action modeler={this.modeler}/>
+                <div id="view-process-diagram" className="process-view"></div>
+                <ViewAction modeler={this.modeler}/>
+                <div className="row footer-view-process">  
+                    <div className="col-md-6">
+                        <Detail />
+                    </div>
+                    <div className="col-md-3">
+                      <IsoRule />
+                    </div>
+                </div>
+                <div className="space-area"></div>
             </div>
         )
     }

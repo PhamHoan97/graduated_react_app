@@ -156,7 +156,7 @@
 }
 
 .button-zoom-action-open{
-    position: fixed;
+    position: absolute;
     right: 0;
     margin-right: 500px;
     border-bottom: 1px solid #d9d9d9;
@@ -167,7 +167,7 @@
 }
 
 .button-zoom-action-close{
-    position: fixed;
+    position: absolute;
     right: 0;
     margin-right: 100px;
     border-bottom: 1px solid #d9d9d9;
@@ -186,6 +186,10 @@
 
 div.process-interact svg{
     height: 650px;
+}
+
+div.process-view svg{
+    height: 500px;
 }
 
 .button-details-right-open{
@@ -223,7 +227,38 @@ div.process-interact svg{
     margin-top: 5px;
     margin-right:5px;
 }
+
 .delete-note-button{
     float: right;
     margin-top: 5px;
 }
+
+.letf-colum-detail{
+    text-align: left;
+}
+
+.detail-area-view-process{
+    margin-left: 20px;
+}
+
+.footer-view-process{
+    margin-top: 40px;
+}
+
+.space-area{
+    height: 50px;
+}
+
+.title-footer h4{
+    text-align: left;
+    margin-bottom: 10px;;
+}
+
+.iso{
+    margin-top: 10px;
+}
+
+.iso-btn{
+    width: 92px;
+}
+

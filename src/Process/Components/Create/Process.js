@@ -8,6 +8,8 @@ import '../../Css/Minimap.css';
 import Action from './Action';
 import {connect} from 'react-redux';
 import * as actions from '../../Actions/Index';
+import Detail from "../View/Detail";
+import IsoRule from "../View/IsoRule";
 
 class Process extends Component {
     constructor(props) {
@@ -204,6 +206,15 @@ class Process extends Component {
             <div className="process-interact-area">
                 <div id="create-process-diagram" className="process-interact"></div>
                 <Action modeler={this.modeler}/>
+                <div className="row footer-view-process">  
+                    <div className="col-md-6">
+                        <Detail />
+                    </div>
+                    <div className="col-md-3">
+                      <IsoRule process={true} />
+                    </div>
+                </div>
+                <div className="space-area"></div>
             </div>
         )
     }
