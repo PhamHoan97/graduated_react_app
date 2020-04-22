@@ -69,6 +69,7 @@ class UserContainer extends Component {
                                             <tr>
                                                 <th scope="col">#</th>
                                                 <th scope="col">Name</th>
+                                                <th scope="col">Email</th>
                                                 <th scope="col">Phone</th>
                                                 <th scope="col">Role</th>
                                                 <th scope="col">Employee</th>

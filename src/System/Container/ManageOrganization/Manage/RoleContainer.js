@@ -65,7 +65,7 @@ class RoleContainer extends Component {
                         <div className="row mt-5">
                             <div className="col-md-12">
                                 <div className="table-responsive">
-                                    <table className="table table-stripe list-employee text-center">
+                                    <table className="table table-stripe ">
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>

@@ -7,6 +7,7 @@ export default class UserItem extends Component {
             <tr>
                 <th scope="row">{this.props.index}</th>
                 <td>{this.props.item.name}</td>
+                <td>{this.props.item.email}</td>
                 <td>{ this.props.item.phone}</td>
                 <td>
                 { this.props.item.role}

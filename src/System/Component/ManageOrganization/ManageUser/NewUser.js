@@ -20,8 +20,10 @@ export default class NewUser extends Component {
             listRoleDepartment:[],
             listDepartment:[],
             isDisplayAlertSuccess: false,
-            isDisplayAlertFail: false,
+            isDisplayAlertFailRequire: false,
+            isDisplayAlertFailEmail: false,
             newNameEmployee: "",
+            newEmailEmployee: "",
             newPhoneEmployee: "",
             newRoleEmployee: 0,
             newDepartmentEmployee: 0,
@@ -107,6 +109,16 @@ export default class NewUser extends Component {
                     />
                 </div>
                 <div className="form-group">
+                    <label htmlFor="name">Email</label>
+                    <Input type="email"
+                        className="form-control"
+                        name="newEmailEmployee"
+                        validations={[required]}
+                        onChange={(event)=>this.handleChange(event)
+                        }
+                    />
+                </div>
+                <div className="form-group">
                     <label htmlFor="field">Phone</label>
                     <Input type="number" className="form-control"
                         name="newPhoneEmployee"
@@ -156,7 +168,8 @@ export default class NewUser extends Component {
                 </div>
             </Form>
             {this.displayAlertSuccess()}
-            {this.displayAlertFail()}
+            {this.displayAlertFailRequire()}
+            {this.displayAlertFailEmail()}
             </>
         );
         } else {
@@ -172,26 +185,37 @@ export default class NewUser extends Component {
         }
     };
 
-    displayAlertFail = () => {
-        if (this.state.isDisplayAlertFail) {
+    displayAlertFailRequire = () => {
+        if (this.state.isDisplayAlertFailRequire) {
             return <Alert severity="warning">You can choose roles and department </Alert>;
         } else {
             return <div></div>;
         }
     };
 
+    displayAlertFailEmail = () => {
+        if (this.state.isDisplayAlertFailEmail) {
+            return <Alert severity="warning">Email existed in company</Alert>;
+        } else {
+            return <div></div>;
+        }
+    };
+
+
     saveNewEmployee = () => {
         console.log(this.state);
         var self =  this;
         if(this.state.newDepartmentEmployee === 0 || this.state.newRoleEmployee === 0){
             self.setState({
-                isDisplayAlertFail : true,
+                isDisplayAlertFailRequire : true,
+                isDisplayAlertFailEmail : false,
                 isDisplayAlertSuccess : false
             });
         }else{
             var token = localStorage.getItem('token');
             axios.post(host.URL_BACKEND+'/api/system/organization/employee/new', {
                 newNameEmployee: this.state.newNameEmployee,
+                newEmailEmployee: this.state.newEmailEmployee,
                 newRoleEmployee: this.state.newRoleEmployee,
                 newDepartmentEmployee:this.state.newDepartmentEmployee,
                 newPhoneEmployee:this.state.newPhoneEmployee,
@@ -199,12 +223,18 @@ export default class NewUser extends Component {
                 headers: { 'Authorization': 'Bearer ' + token }
             })
             .then(function (response) {
-                if (response.data.error != null) {
+                if (response.data.error != null && response.status === 200) {
                     console.log(response.data.error);
+                    self.setState({
+                        isDisplayAlertSuccess :false,
+                        isDisplayAlertFailRequire : false,
+                        isDisplayAlertFailEmail : true
+                    })
                 }else{
                     self.setState({
                         isDisplayAlertSuccess : true,
-                        isDisplayAlertFail : false
+                        isDisplayAlertFailRequire : false,
+                        isDisplayAlertFailEmail : false
                     })
                     self.props.rerenderParentCallback();
                 }
@@ -220,7 +250,8 @@ export default class NewUser extends Component {
         this.props.hideNewEmployee();
         this.setState({
             isDisplayAlertSuccess: false,
-            isDisplayAlertFail: false,
+            isDisplayAlertFailRequire: false,
+            isDisplayAlertFailEmail: false,
         });
     };
 }

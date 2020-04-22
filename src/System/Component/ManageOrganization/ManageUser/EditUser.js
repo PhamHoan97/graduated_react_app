@@ -21,9 +21,12 @@ export default class EditUser extends Component {
             listDepartment:[],
             isDisplayAlert: false,
             editNameEmployee: "",
+            editEmailEmployee: "",
             editPhoneEmployee: "",
             editRoleEmployee: 0,
             editDepartmentEmployee: 0,
+            isDisplayAlertSuccess:false,
+            isDisplayAlertFailEmail:false
         };
         this.handleChange = this.handleChange.bind(this);
     }
@@ -100,6 +103,7 @@ export default class EditUser extends Component {
             });
             this.setState({
                 editNameEmployee: this.props.detailEmployee.name,
+                editEmailEmployee: this.props.detailEmployee.email,
                 editPhoneEmployee: this.props.detailEmployee.phone,
                 editRoleEmployee: this.props.detailEmployee.role_id,
                 editDepartmentEmployee: this.props.detailEmployee.department_id,
@@ -124,6 +128,17 @@ export default class EditUser extends Component {
                     name="editNameEmployee"
                     validations={[required]}
                     value={this.state.editNameEmployee}
+                    onChange={(event)=>this.handleChange(event)
+                    }
+                />
+            </div>
+            <div className="form-group">
+                <label htmlFor="name">Email</label>
+                <Input type="text"
+                    className="form-control"
+                    name="editEmailEmployee"
+                    validations={[required]}
+                    value={this.state.editEmailEmployee}
                     onChange={(event)=>this.handleChange(event)
                     }
                 />
@@ -176,7 +191,8 @@ export default class EditUser extends Component {
               </button>
             </div>
           </Form>
-          {this.displayAlert()}
+          {this.displayAlertSuccess()}
+          {this.isDisplayAlertFailEmail()}
         </>
       );
     } else {
@@ -184,9 +200,16 @@ export default class EditUser extends Component {
     }
   }
 
-  displayAlert = () => {
-    if (this.state.isDisplayAlert) {
+  displayAlertSuccess = () => {
+    if (this.state.isDisplayAlertSuccess) {
       return <Alert severity="success">Edit success !!!</Alert>;
+    } else {
+      return <div></div>;
+    }
+  };
+  isDisplayAlertFailEmail = () => {
+    if (this.state.isDisplayAlertFailEmail) {
+      return <Alert severity="warning">Email existed in company </Alert>;
     } else {
       return <div></div>;
     }
@@ -197,6 +220,7 @@ export default class EditUser extends Component {
     var token = localStorage.getItem('token');
     axios.post(host.URL_BACKEND+'/api/system/organization/employee/update', {
         editNameEmployee: this.state.editNameEmployee,
+        editEmailEmployee: this.state.editEmailEmployee,
         editPhoneEmployee: this.state.editPhoneEmployee,
         idChooseRole:this.state.editRoleEmployee,
         idChooseEmployee:this.props.detailEmployee.id,
@@ -205,11 +229,18 @@ export default class EditUser extends Component {
         headers: { 'Authorization': 'Bearer ' + token }
     })
     .then(function (response) {
-        if (response.data.error != null) {
+        if (response.data.error != null && response.status === 200) {
+            console.log(response.data.error);
+            self.setState({
+                isDisplayAlertSuccess : false,
+                isDisplayAlertFailEmail : true
+            })
+        }else if(response.data.error != null && response.status === 400){
             console.log(response.data.error);
         }else{
             self.setState({
-                isDisplayAlert : true
+                isDisplayAlertSuccess : true,
+                isDisplayAlertFailEmail : false,
             })
         }
     })
@@ -217,7 +248,6 @@ export default class EditUser extends Component {
         console.log(error);
     });
 
-    // 
     axios.get(host.URL_BACKEND+'/api/system/organization/employee/detail/'+this.props.detailEmployee.id,{
         headers: { 'Authorization': 'Bearer ' + token }
     })
@@ -239,7 +269,8 @@ export default class EditUser extends Component {
   hideEditEmployee = () => {
     this.props.hideEditEmployee();
     this.setState({
-      isDisplayAlert: false,
+      isDisplayAlertSuccess: false,
+      isDisplayAlertFailEmail: false,
     });
   };
 }

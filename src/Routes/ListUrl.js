@@ -15,6 +15,9 @@ import ManageCompany from '../System/Component/ManageSystem/ManageCompany';
 import DetailCompany from "../System/Component/DetailCompany/DetailCompany";
 import CreatFormEvaluate from '../System/Component/ManageFormEvaluate/CreatFormEvaluate';
 import CreateProcess from '../Process/Components/CreateProcess';
+import AccountEmployee from '../System/Component/ManageAccountEmployee/AccountEmployee';
+import A from '../System/Component/ManageA/A';
+import B from '../System/Component/ManageB/B';
 
 
 class ListUrl extends Component {
@@ -38,6 +41,9 @@ class ListUrl extends Component {
                         <Route path="/system/organization" exact component={Organization}/>
                         <Route path="/system/organization/company/:id" exact component={DetailCompany}/>
                         <Route path="/process/new" exact component={CreateProcess} />
+                        <Route path="/system/employee/account" exact component={AccountEmployee} />
+                        <Route path="/system/a" exact component={A} />
+                        <Route path="/system/b" exact component={B} />
                     </div>
                 </Router>
            </>
