@@ -14,15 +14,11 @@ class RoleContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            listRole: [],
+            listRole: this.props.listRole,
         }
         this.rerenderParentCallback = this.rerenderParentCallback.bind(this);
     }
-    //WARNING! To be deprecated in React v17. Use componentDidMount instead.
-    componentWillMount() {
-        this.getListRole();
-    }
-
+    
     getListRole = () =>{
         let self = this;
         var idCompany = localStorage.getItem('company_id');
@@ -49,7 +45,6 @@ class RoleContainer extends Component {
     }
 
     render() {
-
         return (
             <>
                 <div className="btn--new__user text-right mr-5">
@@ -58,6 +53,7 @@ class RoleContainer extends Component {
                 <NewRole
                     rerenderParentCallback={this.rerenderParentCallback}
                     hideNewRole = {this.props.hideNewRole}
+                    listDepartment = {this.props.listDepartment}
                     isDisplayNewForm = {this.props.isDisplayNewForm}
                 />
                 <div className="form-group">
@@ -65,7 +61,7 @@ class RoleContainer extends Component {
                         <div className="row mt-5">
                             <div className="col-md-12">
                                 <div className="table-responsive">
-                                    <table className="table table-stripe list-employee text-center">
+                                    <table className="table table-stripe ">
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
@@ -87,15 +83,29 @@ class RoleContainer extends Component {
                         </div>
                     </div>
                 </div>
-                <EditRole
-                    rerenderParentCallback={this.rerenderParentCallback}
-                    detailRole = {this.props.detailRole}
-                    isDisplayEditForm = {this.props.isDisplayEditForm}
-                    hideEditRole = {this.props.hideEditRole}
-                    showDetailRole = {this.props.showDetailRole}
-                />
+                {
+                    this.displayEditRole()
+                }
             </>
         )
+    }
+
+    displayEditRole =()=>{
+        if(this.props.isDisplayEditForm && this.props.detailRole !== null){
+           return(
+            <EditRole
+                rerenderParentCallback={this.rerenderParentCallback}
+                detailRole = {this.props.detailRole}
+                listDepartment = {this.props.listDepartment}
+                hideEditRole = {this.props.hideEditRole}
+                showDetailRole = {this.props.showDetailRole}
+            />
+           )
+        }else{
+            return(
+                <div></div>
+            )
+        }
     }
 
     showItemRole = (roles) => {

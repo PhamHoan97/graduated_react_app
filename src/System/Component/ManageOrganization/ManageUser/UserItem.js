@@ -7,6 +7,7 @@ export default class UserItem extends Component {
             <tr>
                 <th scope="row">{this.props.index}</th>
                 <td>{this.props.item.name}</td>
+                <td>{this.props.item.email}</td>
                 <td>{ this.props.item.phone}</td>
                 <td>
                 { this.props.item.role}
@@ -40,13 +41,12 @@ export default class UserItem extends Component {
             }else{
                 var detailEmployee =  JSON.parse(JSON.stringify(response.data.employee));
                 self.props.showDetailEmployee(detailEmployee);
-                self.props.rerenderParentCallback();
+                self.props.showEditEmployee();
             }
         })
         .catch(function (error) {
             console.log(error);
         });
-        this.props.showEditEmployee();
     }
 
     deleteEmployee = (e,idDeleteEmployee) =>{

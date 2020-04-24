@@ -17,10 +17,10 @@ export default class EditRole extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            listDepartment:[],
+            listDepartment:this.props.listDepartment,
             isDisplayAlert: false,
-            editNameRole: "",
-            editDepartmentRole: 0,
+            editNameRole: this.props.detailRole.name,
+            editDepartmentRole: this.props.detailRole.department_id,
         };
         this.handleChange = this.handleChange.bind(this);
     }
@@ -35,37 +35,7 @@ export default class EditRole extends Component {
         event.preventDefault();
         this.form.validateAll();
     };
-    //WARNING! To be deprecated in React v17. Use new lifecycle static getDerivedStateFromProps instead.
-    componentWillReceiveProps(nextProps) {
-        if (this.props.detailRole.length !== 0) {
-            var token = localStorage.getItem('token');
-            // get all department of company
-            var self =  this;
-            var idCompany = localStorage.getItem('company_id');
-            axios.get(host.URL_BACKEND+'/api/system/organization/department/'+idCompany,{
-                headers: { 'Authorization': 'Bearer ' + token }
-            })
-            .then(function (response) {
-                if (response.data.error != null) {
-                    console.log(response.data.error);
-                }else{
-                    self.setState({
-                        listDepartment:response.data.departmentCompany
-                    })
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-            this.setState({
-                editNameRole: this.props.detailRole.name,
-                editDepartmentRole: this.props.detailRole.department_id,
-            });
-        }
-    }
-
   render() {
-    if (this.props.isDisplayEditForm && this.props.detailRole !== null) {
       return (
         <>
           <Form
@@ -113,10 +83,7 @@ export default class EditRole extends Component {
           </Form>
           {this.displayAlert()}
         </>
-      );
-    } else {
-      return <div></div>;
-    }
+    );
   }
 
   displayAlert = () => {

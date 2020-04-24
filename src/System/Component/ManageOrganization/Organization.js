@@ -16,6 +16,9 @@ export default class Organization extends Component {
       showModalDepartment: false,
       showModalUser: false,
       showModalRoler: false,
+      listRole:[],
+      listUser: [],
+      listDepartment: [],
       dataChart:[]
     };
   }
@@ -46,6 +49,72 @@ export default class Organization extends Component {
       });
   }
 
+  getAllDataDepartment =()=>{
+    let self = this;
+    var idCompany = localStorage.getItem('company_id');
+    var token = localStorage.getItem('token');
+    axios.get(host.URL_BACKEND+'/api/system/organization/department/'+idCompany,{
+        headers: {'Authorization': 'Bearer '+token}
+    })
+    .then(function (response) {
+        if (response.data.error != null) {
+            console.log(response.data.error);
+        } else {
+            self.setState({
+                showModalDepartment: true,
+                listDepartment: JSON.parse(JSON.stringify(response.data.departmentCompany))
+            });
+        }
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+  }
+
+  getAllDataRole =() =>{
+    let self = this;
+    var idCompany = localStorage.getItem('company_id');
+    var token = localStorage.getItem('token');
+    axios.get(host.URL_BACKEND+'/api/system/organization/role/'+idCompany,{
+        headers: {'Authorization': 'Bearer '+token}
+    })
+    .then(function (response) {
+        if (response.data.error != null) {
+            console.log(response.data.error);
+        } else {
+            self.setState({
+                showModalRole: true,
+                listRole: JSON.parse(JSON.stringify(response.data.roles))
+            });
+        }
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+  }
+
+  getAllDataEmployee = () =>{
+    let self = this;
+    var idCompany = localStorage.getItem('company_id');
+    var token = localStorage.getItem('token');
+    axios.get(host.URL_BACKEND+'/api/system/organization/company/'+idCompany+'/employee',{
+        headers: {'Authorization': 'Bearer '+token}
+    })
+    .then(function (response) {
+        if (response.data.error != null) {
+            console.log(response.data.error);
+        } else {
+            self.setState({
+                showModalUser: true,
+                listUser: JSON.parse(JSON.stringify(response.data.employees))
+            });
+        }
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+  }
+
   //WARNING! To be deprecated in React v17. Use componentDidMount instead.
   componentWillMount() {
     this.getDataOrganization();
@@ -59,7 +128,7 @@ export default class Organization extends Component {
   openDepartment = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    this.setState({ showModalDepartment: true });
+    this.getAllDataDepartment();
   };
 
   closeRole = () => {
@@ -70,7 +139,7 @@ export default class Organization extends Component {
   openRole = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    this.setState({ showModalRole: true });
+    this.getAllDataRole();
   };
 
   closeUser = () => {
@@ -80,7 +149,7 @@ export default class Organization extends Component {
   openUser = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    this.setState({ showModalUser: true });
+    this.getAllDataEmployee();
   };
 
   render() {
@@ -137,14 +206,17 @@ export default class Organization extends Component {
                                 <p>Manage Employee</p>
                               </a>
                               <ModalDepartment
+                                listDepartment = {this.state.listDepartment}
                                 showModal={this.state.showModalDepartment}
                                 close={() => this.closeDepartment()}
                               />
                               <ModalRole
+                                listRole = {this.state.listRole}
                                 showModal={this.state.showModalRole}
                                 close={() => this.closeRole()}
                               />
                               <ModalUser
+                                listUser = {this.state.listUser}
                                 showModal={this.state.showModalUser}
                                 close={() => this.closeUser()}
                               />

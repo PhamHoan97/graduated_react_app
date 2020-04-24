@@ -35,13 +35,14 @@ class DepartmentItem extends Component {
             }else{
                 var detailDepartment =  JSON.parse(JSON.stringify(response.data.department));
                 self.props.showDetailDepartment(detailDepartment);
-                self.props.rerenderParentCallback();
+                self.props.showEditDepartment();
+                // self.props.rerenderParentCallback();
             }
         })
         .catch(function (error) {
             console.log(error);
         });
-        this.props.showEditDepartment();
+        //this.props.showEditDepartment();
     }
 
     deleteDepartment = (e,idDeleteDepartment) =>{

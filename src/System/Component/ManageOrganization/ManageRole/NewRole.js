@@ -17,35 +17,13 @@ export default class NewRole extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            listDepartment:[],
+            listDepartment:this.props.listDepartment,
             isDisplayAlertSuccess: false,
             isDisplayAlertFail: false,
             newNameRole: "",
             newDepartmentRole: 0,
         };
         this.handleChange = this.handleChange.bind(this);
-    }
-
-    componentWillMount() {
-        var token = localStorage.getItem('token');
-        // get all department of company
-        var idCompany = localStorage.getItem('company_id');
-        var self =  this;
-        axios.get(host.URL_BACKEND+'/api/system/organization/department/'+idCompany,{
-            headers: { 'Authorization': 'Bearer ' + token }
-        })
-        .then(function (response) {
-            if (response.data.error != null) {
-                console.log(response.data.error);
-            }else{
-                self.setState({
-                    listDepartment:response.data.departmentCompany
-                })
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
     }
 
     handleChange(event) {

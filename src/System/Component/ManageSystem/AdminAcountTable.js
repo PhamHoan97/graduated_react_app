@@ -115,7 +115,6 @@ class AdminAcountTable extends Component {
             if(!idCompany){
                 idCompany = initCompany;
             }
-
             var token = localStorage.getItem('token');
             axios.get(`http://127.0.0.1:8000/api/system/company/`+ idCompany + `/admin/accounts`,
             {
@@ -135,7 +134,6 @@ class AdminAcountTable extends Component {
     
     sendEmailHandle = (id) => {
         var token = localStorage.getItem('token');
-        console.log("send");
         axios.post(`http://127.0.0.1:8000/api/system/send/email/admin/account`, 
         {
             idAdmin: id,

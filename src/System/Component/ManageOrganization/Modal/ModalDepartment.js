@@ -16,7 +16,7 @@ export default class ModalDepartment extends Component {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <DepartmentContainer/>
+                    <DepartmentContainer  listDepartment = {this.props.listDepartment}/>
                 </Modal.Body>
             </Modal>
         )

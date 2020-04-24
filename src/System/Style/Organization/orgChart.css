@@ -42,7 +42,7 @@ html,body{
 }
 
 #tree{
-    height: 500px;
+    height: 600px;
     /* background-color: rgb(88, 86, 86); */
 }
 [node-id] rect {
