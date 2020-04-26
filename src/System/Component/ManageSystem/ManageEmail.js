@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import MenuVertical from "../Menu/MenuVertical";
 import MenuHorizontal from "../Menu/MenuHorizontal";
-// import { connect } from "react-redux";
 import axios from 'axios';
 import EmailInformationModal from './EmailInformationModal'
 

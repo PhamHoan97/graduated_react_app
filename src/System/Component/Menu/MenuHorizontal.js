@@ -55,12 +55,12 @@ export default class MenuHorizontal extends Component {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/system/a" activeClassName="selected"  activeStyle={{
+                <NavLink to="/system/iso" activeClassName="selected"  activeStyle={{
                       fontWeight: "bold",
                       color: "#0074D9"
                     }}>
-                  <i className="fa fa-user-circle" />
-                  Manage A
+                  <i className="fab fa-tripadvisor"></i>
+                    Iso
                 </NavLink>
               </li>
               <li>

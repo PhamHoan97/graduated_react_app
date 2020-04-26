@@ -27,7 +27,6 @@ class AdminAcountTable extends Component {
         }else{
             btnPage[currentPage-1].classList.add('active');
         }
-
         // Ẩn nút previous 
         var btnPrevious = document.getElementsByClassName('paginate_button page-item previous');
         if(currentPage> 1){
@@ -35,8 +34,6 @@ class AdminAcountTable extends Component {
         }else{
             btnPrevious[0].classList.add('disabled');
         }
-
-
         // Ẩn nút next
         var count = this.state.admins.length;
         var btnNext = document.getElementsByClassName('paginate_button page-item next');

@@ -19,7 +19,7 @@ class Detail extends Component {
                 >
                     <div className="row">
                         <div className="col-md-5 title-footer">
-                            <h4>Information</h4>
+                            <h4>Thông tin</h4>
                         </div>
                     </div>
                     <div className="row">
@@ -28,7 +28,7 @@ class Detail extends Component {
                             htmlFor="text-input"
                             className=" form-control-label"
                         >
-                            Created By
+                            Tạo bởi
                         </label>
                         </div>
                         <div className="col-md-10 letf-colum-detail">
@@ -41,7 +41,7 @@ class Detail extends Component {
                             htmlFor="text-input"
                             className=" form-control-label"
                         >
-                            Time
+                            Thời gian
                         </label>
                         </div>
                         <div className="col-md-10 letf-colum-detail">
@@ -54,7 +54,7 @@ class Detail extends Component {
                             htmlFor="text-input"
                             className=" form-control-label"
                         >
-                            Assign to
+                            Giao cho
                         </label>
                         </div>
                         <div className="col-md-10 letf-colum-detail form">
@@ -67,7 +67,7 @@ class Detail extends Component {
                             htmlFor="text-input"
                             className=" form-control-label"
                         >
-                            Description
+                            Mô tả
                         </label>
                         </div>
                         <div className="col-md-10 letf-colum-detail">
