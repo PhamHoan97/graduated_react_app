@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import IsoModalInfomation from './IsoModalInfomation';
 
 class TableIso extends Component {
     constructor(props) {
@@ -7,8 +8,14 @@ class TableIso extends Component {
 
         this.state = {
             isos: '',
-            activePage: 1, 
+            activePage: 1,
+            currentIso: '',
         }
+    }
+
+    openInfoIso = (e, value) => {
+        e.preventDefault();
+        this.setState({currentIso : value});
     }
 
     downloadDocumentFile = (e, nameFile) => {
@@ -22,12 +29,12 @@ class TableIso extends Component {
                 console.log(res.data.message);
             }else{
                 console.log(res);
-                // var url = window.URL.createObjectURL(new Blob([res.data]));
-                // var linkTag = document.createElement('a');
-                // linkTag.href = url;
-                // linkTag.setAttribute('download', nameFile);
-                // document.body.appendChild(linkTag);
-                // linkTag.click();
+                var url = window.URL.createObjectURL(new Blob([res.data]));
+                var linkTag = document.createElement('a');
+                linkTag.href = url;
+                linkTag.setAttribute('download', nameFile);
+                document.body.appendChild(linkTag);
+                linkTag.click();
             }
         }).catch(function (error) {
           alert(error);
@@ -76,10 +83,12 @@ class TableIso extends Component {
                             <td >
                                 <div className="table-data-feature">
                                     <button
+                                        id={"infoIsoButton" + value.id}
                                         className="item"
                                         data-toggle="modal"
                                         data-placement="top"
                                         title="Detail"
+                                        onClick = {(e) => this.openInfoIso(e,value)}
                                     >
                                         <i className="fas fa-eye"></i>
                                     </button>
@@ -183,6 +192,7 @@ class TableIso extends Component {
                         {this.loadDataToTable(this.state.activePage)}
                     </tbody>
                 </table>
+                <IsoModalInfomation currentIso={this.state.currentIso} />
             </div>
         )
     }
