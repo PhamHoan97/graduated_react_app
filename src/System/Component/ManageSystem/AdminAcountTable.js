@@ -16,7 +16,6 @@ class AdminAcountTable extends Component {
     }
 
     handleCssPage =(e,type,currentPage)=>{
-
         // Xử lí css cho nút vị trí trang 
         var btnPage = document.getElementsByClassName('paginate_button page-item page');
         for (let i = 0; i < btnPage.length; i++) {

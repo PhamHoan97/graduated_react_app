@@ -129,10 +129,9 @@ class IsoModalInfomation extends Component {
                 </Modal.Footer>
               </Modal>
             )
-            }else{
-                return (<div></div>)
-            }
-        
+        }else{
+            return (<div></div>)
+        }
     }
 }
 

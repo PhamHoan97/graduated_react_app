@@ -19,7 +19,7 @@ import DetailCompany from "../System/Component/DetailCompany/DetailCompany";
 import CreatFormEvaluate from '../System/Component/ManageFormEvaluate/CreatFormEvaluate';
 import AccountEmployee from '../System/Component/ManageAccountEmployee/AccountEmployee';
 import Iso from '../System/Component/ManageIso/Iso';
-import B from '../System/Component/ManageB/B';
+import SystemProcess from '../System/Component/ManageSystemProcess/SystemProcess';
 import ManageEmail from '../System/Component/ManageSystem/ManageEmail';
 
 class ListUrl extends Component {
@@ -47,7 +47,7 @@ class ListUrl extends Component {
                         <Route path="/process/view" exact component={ViewProcess} />
                         <Route path="/system/employee/account" exact component={AccountEmployee} />
                         <Route path="/system/iso" exact component={Iso} />
-                        <Route path="/system/b" exact component={B} />
+                        <Route path="/system/manage/process" exact component={SystemProcess} />
                         <Route path="/system/email" component={ManageEmail}/>
                     </div>
                 </Router>

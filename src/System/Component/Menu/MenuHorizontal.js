@@ -64,12 +64,12 @@ export default class MenuHorizontal extends Component {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/system/b" activeClassName="selected"  activeStyle={{
+                <NavLink to="/system/manage/process" activeClassName="selected"  activeStyle={{
                       fontWeight: "bold",
                       color: "#0074D9"
                     }}>
                   <i className="fa fa-user-circle" />
-                  Manage B
+                  Process
                 </NavLink>
               </li>
               <li>

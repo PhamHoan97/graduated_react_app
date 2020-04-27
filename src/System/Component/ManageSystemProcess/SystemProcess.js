@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import MenuHorizontal from "../Menu/MenuHorizontal";
 import MenuVertical from "../Menu/MenuVertical";
 
-export default class B extends Component {
+class SystemProcess extends Component {
   render() {
     return (
       <div className="page-wrapper">
@@ -35,3 +35,5 @@ export default class B extends Component {
     );
   }
 }
+
+export default SystemProcess;
