@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 class Detail extends Component {
     constructor(props) {
@@ -8,6 +9,14 @@ class Detail extends Component {
                  
         }
     }
+
+    renderEmployee = (employees) =>{
+        var content = '';
+        for (let index = 0; index < employees.length; index++) {
+            content += '<p>' + employees[index].label + '</p>';
+        }
+        return content;
+    } 
 
     render() {
         return (
@@ -21,20 +30,7 @@ class Detail extends Component {
                         <div className="col-md-5 title-footer">
                             <h4>Thông tin</h4>
                         </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-md-2">
-                        <label
-                            htmlFor="text-input"
-                            className=" form-control-label"
-                        >
-                            Tạo bởi
-                        </label>
-                        </div>
-                        <div className="col-md-10 letf-colum-detail">
-                            <p> Trần Viết Huy</p>
-                        </div>
-                    </div>             
+                    </div>            
                     <div className="row">
                         <div className="col-md-2">
                         <label
@@ -45,7 +41,7 @@ class Detail extends Component {
                         </label>
                         </div>
                         <div className="col-md-10 letf-colum-detail">
-                            <p> 16-12-1997</p>
+                            <p> {this.props.detail.time}</p>
                         </div>
                     </div>
                     <div className="row">
@@ -57,8 +53,8 @@ class Detail extends Component {
                             Giao cho
                         </label>
                         </div>
-                        <div className="col-md-10 letf-colum-detail form">
-                            <p> Phạm Hoàn</p>
+                        <div className="col-md-10 letf-colum-detail form"  
+                            dangerouslySetInnerHTML={{__html: this.renderEmployee(this.props.detail.assign)}}>
                         </div>
                     </div>
                     <div className="row">
@@ -71,12 +67,7 @@ class Detail extends Component {
                         </label>
                         </div>
                         <div className="col-md-10 letf-colum-detail">
-                            <p> In to am attended desirous raptures declared diverted confined at. 
-                                Collected instantly remaining up certainly to necessary as. Over walk 
-                                dull into son boy door went new. At or happiness commanded daughters as. 
-                                Is handsome an declared at received in extended vicinity subjects. 
-                                Into miss on he over been late pain an. Only week bore boy what fat case left use.
-                                Match round scale now sex style far times. Your me past an much. </p>
+                            <p> {this.props.detail.description}. </p>
                         </div>
                     </div>
                 </form>
@@ -85,4 +76,10 @@ class Detail extends Component {
     }
 }
 
-export default Detail
+const mapStateToProps = (state, ownProps) => {
+    return {
+        detail: state.systemReducers.manageSystemReducer.informationProcessReducer.information,
+    }
+}
+
+export default connect(mapStateToProps)(Detail)

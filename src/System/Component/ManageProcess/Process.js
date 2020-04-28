@@ -7,6 +7,7 @@ import axios from 'axios';
 import FormAddProcessModal from "./FormAddProcessModal";
 import DetailEmployeeModal from "./DetailEmployeeModal";
 import {connect} from 'react-redux';
+import * as actions from '../../Action/System/Index';
 
 class Process extends Component {
 
@@ -107,6 +108,9 @@ class Process extends Component {
           return '';
       });
   }
+  UNSAFE_componentWillMount() {
+    window.onbeforeunload = function () {return false;}  
+  }
 
   componentDidMount() {
     var token = localStorage.getItem('token');
@@ -118,7 +122,7 @@ class Process extends Component {
       if(res.data.error != null){
           console.log(res.data.message);
       }else{
-          console.log(res.data); 
+          console.log(res.data);
           this.setState({employees: res.data.employees});
       }
     }).catch(function (error) {
@@ -230,6 +234,12 @@ class Process extends Component {
     }
   }
 
+  handleOpenAddNewProcessModal = (e) => {
+    e.preventDefault();
+    this.props.resetProcessInformation();
+    document.getElementById('clone-button-add-new-process').click();
+  }
+
   render() {
     return (
       <div className="page-wrapper">
@@ -276,7 +286,17 @@ class Process extends Component {
                                   <button
                                     className="au-btn au-btn-icon au-btn--green au-btn--small"
                                     data-toggle="modal"
-                                    data-target="#scrollmodal"
+                                    onClick={(e) => this.handleOpenAddNewProcessModal(e)}
+                                  >
+                                    <i className="zmdi zmdi-plus" />
+                                    add item
+                                  </button>
+                                  <button
+                                    id="clone-button-add-new-process"
+                                    className="au-btn au-btn-icon au-btn--green au-btn--small"
+                                    data-toggle="modal"
+                                    data-target="#form-add-new-process"
+                                    style={{display:"none"}}
                                   >
                                     <i className="zmdi zmdi-plus" />
                                     add item
@@ -360,4 +380,11 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps)(Process)
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    resetProcessInformation: () => {
+      dispatch(actions.resetProcessInformation());
+    }
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Process)

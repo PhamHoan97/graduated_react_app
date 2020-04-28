@@ -19,7 +19,7 @@ class DetailEmployeeModal extends Component {
         this.setState({show: true});
     };
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         if(nextProps.currentEmployee){
             this.setState({show: true});
         }

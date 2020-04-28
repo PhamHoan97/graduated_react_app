@@ -2,26 +2,59 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import * as actions from '../../Action/System/Index';
 import {connect} from 'react-redux';
+import Select from 'react-select';
+
+const groupStyles = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+};
+
+const groupBadgeStyles = {
+backgroundColor: '#EBECF0',
+borderRadius: '2em',
+color: '#172B4D',
+display: 'inline-block',
+fontSize: 12,
+fontWeight: 'normal',
+lineHeight: '1',
+minWidth: 1,
+padding: '0.16666666666667em 0.5em',
+textAlign: 'center',
+};
+
+const formatGroupLabel = data => (
+    <div style={groupStyles}>
+      <span>{data.label}</span>
+      <span style={groupBadgeStyles}>{data.options.length}</span>
+    </div>
+);
 
 class SelectDepartmentToAssign extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-                 
+            options : '',     
         }
     }
 
     changeDepartmentOptionAssign = (event) => {
-        event.preventDefault();
-        var currentSelect = event.target.value;
+        var currentSelect = event.value;
         this.props.updateIdDepartmentAssign(currentSelect);
     }
     
+    convertToOptionsSelect(data){
+        var options = [{value: '', label: 'Select...'}];
+        for (let index = 0; index < data.length; index++) {
+            options.push({value: data[index].id, label: data[index].name});    
+        }
+        return options;
+    }
+
     componentDidMount() {
         var token = localStorage.getItem('token');
         var company_id = localStorage.getItem('company_id');
-        var option = '<option value="">Select...</option>';
         axios.get(`http://127.0.0.1:8000/api/system/organization/department/` + company_id,
         {
             headers: { 'Authorization': 'Bearer ' + token}
@@ -31,10 +64,8 @@ class SelectDepartmentToAssign extends Component {
           }else{
               console.log(res.data); 
               var data = res.data.departmentCompany;
-              for (let index = 0; index < data.length; index++) {
-                option += '<option value="'+ data[index].id +'">'+ data[index].name +'</option>';
-              }
-              document.getElementById('department-to-assign').innerHTML = option;
+              var optionsData = this.convertToOptionsSelect(data);
+              this.setState({options:optionsData});
           }
         }).catch(function (error) {
           alert(error);
@@ -43,14 +74,12 @@ class SelectDepartmentToAssign extends Component {
 
     render() {
         return (
-            <select
-            id="department-to-assign"
-            name="department"
-            className="form-control"
+            <Select
+            defaultValue={this.state.options[0]}
+            options={this.state.options}
+            formatGroupLabel={formatGroupLabel}
             onChange={(e) => this.changeDepartmentOptionAssign(e)}
-          >
-
-          </select>
+          />
         )
     }
 }
