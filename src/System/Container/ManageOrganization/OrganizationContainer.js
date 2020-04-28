@@ -1,15 +1,21 @@
 import React, { Component } from "react";
 import "../../Style/Organization/orgChart.css";
-import ModalDepartment from "./Modal/ModalDepartment";
-import ModalUser from "./Modal/ModalUser";
-import ModalRole from "./Modal/ModalRole";
-import MenuVertical from "../Menu/MenuVertical";
-import MenuHorizontal from "../Menu/MenuHorizontal";
-import ChartOranization from './ChartOranization';
+import ModalDepartment from "../../Component/ManageOrganization/Modal/ModalDepartment";
+import ModalUser from "../../Component/ManageOrganization/Modal/ModalUser";
+import ModalRole from "../../Component/ManageOrganization/Modal/ModalRole";
+import MenuVertical from "../../Component/Menu/MenuVertical";
+import MenuHorizontal from "../../Component/Menu/MenuHorizontal";
+import ChartOranization from '../../Component/ManageOrganization/ChartOranization';
 import axios from "axios";
 import * as host from '../../Constants/Url'
-
-export default class Organization extends Component {
+import {connect} from  'react-redux';
+import {hideEditDepartment} from '../../Action/Organization/Department/Index';
+import {hideNewDepartment} from '../../Action/Organization/Department/Index';
+import {hideEditRole} from '../../Action/Organization/Role/Index';
+import {hideNewRole} from '../../Action/Organization/Role/Index';
+import {hideEditEmployee} from '../../Action/Organization/User/Index';
+import {hideNewEmployee} from '../../Action/Organization/User/Index';
+class OrganizationContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -123,6 +129,8 @@ export default class Organization extends Component {
   closeDepartment = () => {
     // connect database to get new json of organization and update state 
     this.getDataOrganization();
+    this.props.hideEditDepartment();
+    this.props.hideNewDepartment();
   };
 
   openDepartment = (e) => {
@@ -134,6 +142,8 @@ export default class Organization extends Component {
   closeRole = () => {
     // connect database to get new json of organization and update state 
     this.getDataOrganization();
+    this.props.hideEditRole();
+    this.props.hideNewRole();
   };
 
   openRole = (e) => {
@@ -144,6 +154,8 @@ export default class Organization extends Component {
 
   closeUser = () => {
     this.getDataOrganization();
+    this.props.hideEditEmployee();
+    this.props.hideNewEmployee();
   };
 
   openUser = (e) => {
@@ -259,3 +271,26 @@ export default class Organization extends Component {
     );
   }
 }
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        hideEditDepartment:()=>{
+            dispatch(hideEditDepartment())
+        },
+        hideNewDepartment:()=>{
+            dispatch(hideNewDepartment())
+        },
+        hideEditRole:()=>{
+            dispatch(hideEditRole())
+        },
+        hideNewRole:()=>{
+            dispatch(hideNewRole())
+        },
+        hideEditEmployee:()=>{
+            dispatch(hideEditEmployee())
+        },
+        hideNewEmployee:()=>{
+            dispatch(hideNewEmployee())
+        }
+    }
+}
+export default connect(null,mapDispatchToProps)(OrganizationContainer)

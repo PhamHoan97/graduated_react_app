@@ -20,13 +20,14 @@ export default class EditRole extends Component {
             listDepartment:this.props.listDepartment,
             isDisplayAlert: false,
             editNameRole: this.props.detailRole.name,
+            editIsProcessRole: this.props.detailRole.is_process,
             editDepartmentRole: this.props.detailRole.department_id,
         };
         this.handleChange = this.handleChange.bind(this);
     }
     handleChange(event) {
         const name = event.target.name;
-        const value = event.target.value;
+        const value = event.target.name === 'editIsProcessRole' ?event.target.checked  : event.target.value;
         this.setState({
             [name]: value
         })
@@ -68,6 +69,15 @@ export default class EditRole extends Component {
                     }
                 </select>
             </div>
+            <div className="form-group">
+                    <label htmlFor="name">Permit to creat process</label>
+                    <Input type="checkbox"
+                        name="editIsProcessRole"
+                        checked={this.state.editIsProcessRole}
+                        onChange={(event)=>this.handleChange(event)
+                    }
+                    />
+                </div>
             <div className="form-group text-left">
                <CheckButton type="submit" className="btn btn-primary mb-2 mr-2" onClick={() => this.saveEditRole()} ref={c => { this.checkBtn = c }}>
                 Save
@@ -99,6 +109,7 @@ export default class EditRole extends Component {
     var token = localStorage.getItem('token');
     axios.post(host.URL_BACKEND+'/api/system/organization/role/update', {
         editNameRole: this.state.editNameRole,
+        editIsProcessRole: this.state.editIsProcessRole,
         idChooseRole:this.props.detailRole.id,
         idChooseDepartment:this.state.editDepartmentRole
     },{
@@ -108,9 +119,13 @@ export default class EditRole extends Component {
         if (response.data.error != null) {
             console.log(response.data.error);
         }else{
-            self.setState({
-                isDisplayAlert : true
-            })
+          self.setState({
+            isDisplayAlert : true
+          })
+          setTimeout(() => {
+              self.setState({isDisplayAlert : false});
+              self.props.hideEditRole();
+          }, 5000);
         }
     })
     .catch(function (error) {

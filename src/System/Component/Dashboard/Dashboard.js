@@ -6,7 +6,6 @@ import ProcessDashboardContainer from "../../Container/Dashboard/ProcessDashboar
 
 export default class Dashboard extends Component {
   render() {
-    console.log('render dashboard');
     return (
       <div className="page-wrapper">
         <MenuHorizontal/>

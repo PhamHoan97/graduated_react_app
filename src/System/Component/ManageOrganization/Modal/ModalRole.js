@@ -10,8 +10,7 @@ export default class ModalRole extends Component {
             listDepartment: []
         }
     }
-
-    componentWillMount() {
+    componentWillReceiveProps(){
         let self = this;
         var idCompany = localStorage.getItem('company_id');
         var token = localStorage.getItem('token');
@@ -31,10 +30,9 @@ export default class ModalRole extends Component {
             console.log(error);
         });
     }
-
     render() {
         return (
-            <Modal 
+            <Modal
                 size="lg"
                 show={this.props.showModal}
                 onHide={this.props.close}

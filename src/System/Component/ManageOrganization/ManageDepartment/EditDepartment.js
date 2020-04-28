@@ -114,12 +114,16 @@ export default class EditDepartment extends Component {
                 self.setState({
                     isDisplayAlert : true
                 })
+                setTimeout(() => {
+                    self.setState({isDisplayAlert : false});
+                    self.props.hideEditDepartment();
+                }, 5000);
             }
         })
         .catch(function (error) {
             console.log(error);
         });
-        // update value edited department and display to form 
+        // update value edited department and display to form
         axios.get(host.URL_BACKEND+'/api/system/organization/department/detail/'+this.props.detailDepartment.id,{
             headers: { 'Authorization': 'Bearer ' + token }
         })

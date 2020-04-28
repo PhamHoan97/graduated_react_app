@@ -45,7 +45,6 @@ class DepartmentContainer extends Component {
         this.getListDepartment();
     }
     render() {
-        console.log(this.props.isDisplayEditForm && this.props.detailDepartment !== null);
         return (
             <>
                 <div className="btn--new__department text-right mr-5">

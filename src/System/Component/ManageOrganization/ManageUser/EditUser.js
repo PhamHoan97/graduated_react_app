@@ -185,6 +185,12 @@ export default class EditUser extends Component {
                     isDisplayAlertSuccess : false,
                     isDisplayAlertFailEmail : true
                 })
+                setTimeout(() => {
+                    self.setState({
+                        isDisplayAlertSuccess : false,
+                        isDisplayAlertFailEmail : false
+                    });
+                }, 5000);
             }else if(response.data.error != null && response.status === 400){
                 console.log(response.data.error);
             }else{
@@ -192,6 +198,13 @@ export default class EditUser extends Component {
                     isDisplayAlertSuccess : true,
                     isDisplayAlertFailEmail : false,
                 })
+                setTimeout(() => {
+                    self.setState({
+                        isDisplayAlertSuccess : false,
+                        isDisplayAlertFailEmail : false
+                    });
+                    self.props.hideEditEmployee();
+                }, 5000);
             }
         })
         .catch(function (error) {
