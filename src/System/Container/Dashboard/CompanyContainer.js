@@ -30,6 +30,7 @@ export default class CompanyContainer extends Component {
                         name={item.name}
                         field={item.field}
                         address={item.address}
+                        avatar={item.avatar}
                         // img={item.img}
                     />
                 )

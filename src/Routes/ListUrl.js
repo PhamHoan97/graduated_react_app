@@ -17,6 +17,7 @@ import AccountEmployee from '../System/Component/ManageAccountEmployee/AccountEm
 import A from '../System/Component/ManageA/A';
 import B from '../System/Component/ManageB/B';
 import OrganizationContainer from '../System/Container/ManageOrganization/OrganizationContainer';
+import CompanyInformation from '../System/Component/ManageInformationCompany/CompanyInformation';
 
 
 class ListUrl extends Component {
@@ -42,6 +43,7 @@ class ListUrl extends Component {
                         <Route path="/system/employee/account" exact component={AccountEmployee} />
                         <Route path="/system/a" exact component={A} />
                         <Route path="/system/b" exact component={B} />
+                        <Route path="/system/company/information" exact component={CompanyInformation} />
                     </div>
                 </Router>
            </>

@@ -22,7 +22,7 @@ export default class Information extends Component {
                     </div>
                     <div className="col-md-8">
                       <h2 className="mb-5 manage__account--information">
-                        Persional Information
+                        Personal Information
                       </h2>
                       <div className="information--user">
                         <table className="table">
