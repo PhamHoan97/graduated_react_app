@@ -6,6 +6,8 @@ import Header from './Header';
 import '../../Css/Process.css';
 import {connect} from 'react-redux';
 import * as actions from '../../Actions/Index';
+import Detail from "../View/Detail";
+import IsoRule from "../View/IsoRule";
 
 class CreateProcess extends Component {
     constructor(props) {
@@ -18,12 +20,14 @@ class CreateProcess extends Component {
 
     openPopUp = (event) => {
         event.preventDefault();
+        document.getElementsByClassName("djs-minimap")[0].style.visibility  = "hidden";
         this.setState({openDetails:true});
         this.props.passPopupStatus(true);
     }
 
     closePopup = (event) => {
         event.preventDefault();
+        document.getElementsByClassName("djs-minimap")[0].style.visibility  = "hidden";
         this.setState({openDetails:false});
         this.props.passPopupStatus(false);
     }
@@ -43,16 +47,27 @@ class CreateProcess extends Component {
                         <div className="col-md-9">
                             <Process />
                         </div>
-                        <div className="button-details-right-open">
-                            <button onClick={(e) => this.closePopup(e)}>
-                                <i className="fas fa-align-justify"></i> Details
-                            </button>
-                        </div>
-                        <div className="right-column-popup">
-                            <Note />
-                            <Comment />
+                        <div className="col-md-3">
+                            <div className="button-details-right-open">
+                                <button onClick={(e) => this.closePopup(e)}>
+                                    <i className="fas fa-align-justify"></i> Details
+                                </button>
+                            </div>
+                            <div className="right-column-popup">
+                                <Note />
+                                <Comment />
+                            </div>
                         </div>
                     </div>
+                    <div className="row footer-view-process">  
+                        <div className="col-md-6">
+                            <Detail />
+                        </div>
+                        <div className="col-md-3">
+                            <IsoRule process={true} />
+                        </div>
+                    </div>
+                    <div className="space-area"></div>
                 </React.Fragment>
             )
         }else{
@@ -64,13 +79,22 @@ class CreateProcess extends Component {
                     <div className="row">
                         <div className="col-md-12">
                             <Process />
-                        </div>
-                        <div className="button-details-right-close">
-                            <button onClick={(e) => this.openPopUp(e)}>
-                                <i className="fas fa-align-justify"></i> Details
-                            </button>
+                            <div className="button-details-right-close">
+                                <button onClick={(e) => this.openPopUp(e)}>
+                                    <i className="fas fa-align-justify"></i> Details
+                                </button>
+                            </div>
                         </div>
                     </div>
+                    <div className="row footer-view-process">  
+                        <div className="col-md-6">
+                            <Detail />
+                        </div>
+                        <div className="col-md-3">
+                            <IsoRule process={true} />
+                        </div>
+                    </div>
+                    <div className="space-area"></div>
                 </React.Fragment>
             )   
         }

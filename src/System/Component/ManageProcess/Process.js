@@ -108,10 +108,7 @@ class Process extends Component {
           return '';
       });
   }
-  UNSAFE_componentWillMount() {
-    window.onbeforeunload = function () {return false;}  
-  }
-
+  
   componentDidMount() {
     var token = localStorage.getItem('token');
     var company_id = localStorage.getItem('company_id');
@@ -289,7 +286,7 @@ class Process extends Component {
                                     onClick={(e) => this.handleOpenAddNewProcessModal(e)}
                                   >
                                     <i className="zmdi zmdi-plus" />
-                                    add item
+                                    add process
                                   </button>
                                   <button
                                     id="clone-button-add-new-process"

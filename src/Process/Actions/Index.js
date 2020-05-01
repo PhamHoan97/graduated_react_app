@@ -79,8 +79,21 @@ export const exportDiagramAsBPMN =()=> {
     }
 }
 
-export const resetActionStatus =()=> {
+export const extractDataElementWhenEdit = (elements, notes, comments)=> {
     return {
-        type: types.RESET_ACTION_STATES,
+        type: types.EXTRACTDATAELEMENTWHENEDIT,
+        elements, notes, comments
+    }
+}
+
+export const changeHeaderStatusToEdit = ()=> {
+    return {
+        type: types.CHANGEHEADERSTATUSTOEDIT,
+    }
+}
+
+export const editDiagram = ()=> {
+    return {
+        type: types.EDIT_DIAGRAM,
     }
 }

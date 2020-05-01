@@ -13,7 +13,7 @@ import ManageRegistration from '../System/Component/ManageSystem/ManageRegistrat
 import Organization from '../System/Component/ManageOrganization/Organization';
 import ManageCompany from '../System/Component/ManageSystem/ManageCompany';
 import CreateProcess from '../Process/Components/Create/CreateProcess';
-import EditProcess from '../Process/Components/Create/EditProcess';
+import EditProcess from '../Process/Components/Edit/EditProcess';
 import ViewProcess from '../Process/Components/View/ViewProcess';
 import DetailCompany from "../System/Component/DetailCompany/DetailCompany";
 import CreatFormEvaluate from '../System/Component/ManageFormEvaluate/CreatFormEvaluate';
@@ -43,7 +43,7 @@ class ListUrl extends Component {
                         <Route path="/system/organization" exact component={Organization}/>
                         <Route path="/system/organization/company/:id" exact component={DetailCompany}/>
                         <Route path="/process/new" exact component={CreateProcess} />
-                        <Route path="/process/edit" exact component={EditProcess} />
+                        <Route path="/process/edit/:id" exact component={EditProcess} />
                         <Route path="/process/view" exact component={ViewProcess} />
                         <Route path="/system/employee/account" exact component={AccountEmployee} />
                         <Route path="/system/iso" exact component={Iso} />

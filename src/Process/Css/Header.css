@@ -1,5 +1,5 @@
 .process-header{
-    display: flex;
+    display: block;
     flex-wrap: wrap;
     -webkit-box-pack: end;
     justify-content: flex-end;
@@ -15,9 +15,10 @@
 }
 
 .button-group-header{
-    right: 20px;
-    width: 100px;
+    float: left;
+    width: auto;
     height: 50px;
+    margin-left: 40px;
 }
 
 .button-support-action{
@@ -44,4 +45,16 @@
 
 .btn-actions, .btn-guide{
     height: 50px;
+}
+
+.go-back-button-header{
+    margin-right: 93%;
+}
+
+.button-area-go-back{
+    font-size: 28px;
+}
+
+.text-go-back{
+
 }

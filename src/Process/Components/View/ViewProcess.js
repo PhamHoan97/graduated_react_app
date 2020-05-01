@@ -6,6 +6,8 @@ import Header from '../Create/Header';
 import '../../Css/Process.css';
 import {connect} from 'react-redux';
 import * as actions from '../../Actions/Index';
+import Detail from './Detail';
+import IsoRule from './IsoRule';
 
 class ViewProcess extends Component {
     constructor(props) {
@@ -55,6 +57,15 @@ class ViewProcess extends Component {
                             <ViewComment />
                         </div>
                     </div>
+                    <div className="row footer-view-process">  
+                        <div className="col-md-6">
+                            <Detail />
+                        </div>
+                        <div className="col-md-3">
+                        <IsoRule />
+                        </div>
+                    </div>
+                    <div className="space-area"></div>
                 </React.Fragment>
             )
         }else{
@@ -73,6 +84,15 @@ class ViewProcess extends Component {
                             </button>
                         </div>
                     </div>
+                    <div className="row footer-view-process">  
+                        <div className="col-md-6">
+                            <Detail />
+                        </div>
+                        <div className="col-md-3">
+                        <IsoRule />
+                        </div>
+                    </div>
+                    <div className="space-area"></div>
                 </React.Fragment>
             )   
         }

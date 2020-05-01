@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import EditInformationProcessModal from './EditInformationProcessModal';
 
-class Detail extends Component {
+class EditDetail extends Component {
     constructor(props) {
         super(props)
 
@@ -12,8 +13,10 @@ class Detail extends Component {
 
     renderEmployee = (employees) =>{
         var content = '';
-        for (let index = 0; index < employees.length; index++) {
-            content += '<p>' + employees[index].label + '</p>';
+        if(Array.isArray(employees)){
+            for (let index = 0; index < employees.length; index++) {
+                content += '<p>' + employees[index].label + '</p>';
+            }
         }
         return content;
     } 
@@ -31,7 +34,7 @@ class Detail extends Component {
                             <div className="col-md-5 title-footer">
                                 <h4>Thông tin</h4>
                             </div>
-                        </div>
+                        </div>   
                         <div className="row">
                             <div className="col-md-2">
                             <label
@@ -42,9 +45,9 @@ class Detail extends Component {
                             </label>
                             </div>
                             <div className="col-md-10 letf-colum-detail">
-                                <p> {this.props.detail.name}</p>
+                                <p>{this.props.detail.name}</p>
                             </div>
-                        </div>           
+                        </div>         
                         <div className="row">
                             <div className="col-md-2">
                             <label
@@ -84,7 +87,21 @@ class Detail extends Component {
                                 <p> {this.props.detail.description}. </p>
                             </div>
                         </div>
+                        <div className="row" style={{marginTop:"10px"}}>
+                            <div className="col-md-2">
+                            </div>
+                            <div className="col-md-10 letf-colum-detail">
+                                <button 
+                                    type="button"
+                                    className="btn btn-primary iso-btn"                   
+                                    data-toggle="modal"
+                                    data-target="#form-edit-process">
+                                    Sửa
+                                </button>
+                            </div>
+                        </div>
                     </form>
+                    <EditInformationProcessModal />
                 </div>
             )
         }else{
@@ -99,19 +116,20 @@ class Detail extends Component {
                             <div className="col-md-5 title-footer">
                                 <h4>Thông tin</h4>
                             </div>
-                        </div> 
+                        </div>
                         <div className="row">
                             <div className="col-md-2">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
                             >
-                                Tên
+                                Tên 
                             </label>
                             </div>
-                            <div className="col-md-10 letf-colum-detail form"  >
+                            <div className="col-md-10 letf-colum-detail">
+                                <p></p>
                             </div>
-                        </div>           
+                        </div>            
                         <div className="row">
                             <div className="col-md-2">
                             <label
@@ -150,7 +168,15 @@ class Detail extends Component {
                                 <p> </p>
                             </div>
                         </div>
+                        <div className="row" style={{marginTop:"10px"}}>
+                            <div className="col-md-2">
+                            </div>
+                            <div className="col-md-10 letf-colum-detail">
+                                <button className="btn btn-primary iso-btn"> Sửa</button>
+                            </div>
+                        </div>
                     </form>
+                    <EditInformationProcessModal />
                 </div>
             )
         }
@@ -163,4 +189,4 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps)(Detail)
+export default connect(mapStateToProps)(EditDetail)

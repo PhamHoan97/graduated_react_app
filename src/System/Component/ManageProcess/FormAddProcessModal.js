@@ -71,6 +71,7 @@ class FormAddProcessModal extends Component {
         }
         return options;
     }
+    
     getCurrentTime (){
       var date = new Date();
       var yyyy = date.getFullYear();
@@ -254,7 +255,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     updateProcessInformation: (information) => {
       dispatch(actions.updateProcessInformation(information));
-    }
+    },
   }
 }
 

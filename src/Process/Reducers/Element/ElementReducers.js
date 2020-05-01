@@ -24,6 +24,33 @@ function getCurrentElement(elements,element){
     }
 };
 
+function getCurrentTime (){
+    var date = new Date();
+    var yyyy = date.getFullYear();
+    var dd = date.getDate();
+    var mm = (date.getMonth() + 1);
+    if (dd < 10){
+      dd = "0" + dd;
+    }
+    if (mm < 10){
+      mm = "0" + mm;
+    }
+    var current = dd + "-" + mm + "-" + yyyy;
+    var hours = date.getHours()
+    var minutes = date.getMinutes()
+    var seconds = date.getSeconds();
+    if (hours < 10){
+      hours = "0" + hours;
+    }
+    if (minutes < 10){
+      minutes = "0" + minutes;
+    }
+    if (seconds < 10){
+      seconds = "0" + seconds;
+    }
+    return current + " " + hours + ":" + minutes + ":" + seconds;
+}
+
 var elementReducers = (state = initialState, action) => {
     switch (action.type) {
         case types.ADD_AND_UPDATE_ELEMENTS:
@@ -52,7 +79,6 @@ var elementReducers = (state = initialState, action) => {
                 }
                 updateNoteElements.push(x);
             }
-
             //get index of notes if update note for element
             var mark;
             for (var index = 0; index < state.notes.length; index++) {
@@ -77,7 +103,6 @@ var elementReducers = (state = initialState, action) => {
                 }
                 deleteNoteElements.push(p);
             }
-
             //get index of notes if delete note of element
             var markDeleteNote;
             for (var indexP = 0; indexP < state.notes.length; indexP++) {
@@ -91,8 +116,8 @@ var elementReducers = (state = initialState, action) => {
         case types.SAVE_COMMENT_FOR_ELEMENT:
             var updateCommentElements = [];
             var dataComment= {
-                time: new Date(),
-                admin_id: 1,
+                time: getCurrentTime(),
+                admin_id: localStorage.getItem('admin_id'),
                 content: action.comment,
             }
             //add comment to comments in element
@@ -102,7 +127,6 @@ var elementReducers = (state = initialState, action) => {
                 }
                 updateCommentElements.push(y);
             }
-            
             //add comment to comments
             if(!state.comments.length){
                 var subComment = [];
@@ -190,6 +214,8 @@ var elementReducers = (state = initialState, action) => {
 
             state.elements.push(undoElement);
             return state;
+        case types.EXTRACTDATAELEMENTWHENEDIT:
+            return {...state, elements: action.elements, notes: action.notes, comments: action.comments, current: ''};
         default:
             return state;
     }

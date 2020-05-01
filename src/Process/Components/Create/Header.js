@@ -18,6 +18,7 @@ class Header extends Component {
 
         this.state = {
             isOpenShortcut: false,
+            isEdit: '',
         }
     }
 
@@ -49,11 +50,55 @@ class Header extends Component {
         this.props.exportDiagramAsBPMN();
     }
 
+    editDiagram = (e) => {
+        e.preventDefault();
+        this.props.editDiagram()
+    }
+
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        if(nextProps.isEdit){
+            this.setState({isEdit:nextProps.isEdit});
+        }
+    }
+
+    renderSaveOrEdit = () => {
+        if(this.state.isEdit){
+            return (
+                <Dropdown.Item onClick={(e)=> this.editDiagram(e) }>
+                    <div className="action-title-left">
+                        Update and Share
+                    </div>
+                    <div className="action-ilustration">
+                        Save the diagram and share to employee
+                    </div>
+                </Dropdown.Item>
+            );
+        }else{
+            return (
+                <Dropdown.Item onClick={(e)=> this.saveDiagram(e) }>
+                    <div className="action-title-left">
+                        Save and share
+                    </div>
+                    <div className="action-ilustration">
+                        Save the diagram and share to employee
+                    </div>
+                </Dropdown.Item>
+            );
+        }
+    }
+
     render() {
         return (
             <div className="process-header">
                 <div className="button-group-header btn-group">
                 <Dropdown drop={"left"}>
+                    <Dropdown.Toggle id="dropdown-action" variant="actions" bsPrefix="dropdown">
+                        <div className="button-area-go-back">
+                            <i className="fas fa-undo"></i> <span className="text-go-back"> Go Back</span>
+                        </div>
+                    </Dropdown.Toggle>
+                </Dropdown>
+                <Dropdown drop={"left"} style={{marginLeft:"1250px"}}>
                     <Dropdown.Toggle id="dropdown-action" variant="actions" bsPrefix="dropdown">
                         <div className="button-area">
                             <i className="fas fa-share-alt fa-sm icon"></i>
@@ -61,14 +106,7 @@ class Header extends Component {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                        <Dropdown.Item onClick={(e)=> this.saveDiagram(e) }>
-                            <div className="action-title-left">
-                                Save and share
-                            </div>
-                            <div className="action-ilustration">
-                                Save the diagram and share to employee
-                            </div>
-                        </Dropdown.Item>
+                        {this.renderSaveOrEdit()}
                         <Dropdown.Item onClick={(e) => this.exportAsImage(e)}>
                             <div className="action-title-left">
                                 Export as PNG
@@ -138,6 +176,7 @@ class Header extends Component {
 
 const mapStateToProps = (state, ownProps) => {
     return {
+        isEdit: state.processReducers.headerReducers.isEdit,
     }
 }
 
@@ -154,6 +193,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         },
         exportDiagramAsBPMN: () => {
             dispatch(actions.exportDiagramAsBPMN())
+        },
+        editDiagram: () => {
+            dispatch(actions.editDiagram())
         },
     }
 }
