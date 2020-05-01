@@ -65,7 +65,7 @@ export default class NewUser extends Component {
         event.preventDefault();
         this.form.validateAll();
     };
- 
+
     render() {
         if (this.props.isDisplayNewForm) {
         return (
@@ -182,12 +182,19 @@ export default class NewUser extends Component {
 
     saveNewEmployee = () => {
         var self =  this;
-        if(this.state.newDepartmentEmployee === 0 || this.state.newRoleEmployee === 0){
+        if(parseInt(this.state.newDepartmentEmployee) === 0 || parseInt(this.state.newRoleEmployee) === 0){
             self.setState({
                 isDisplayAlertFailRequire : true,
                 isDisplayAlertFailEmail : false,
                 isDisplayAlertSuccess : false
             });
+            setTimeout(() => {
+                self.setState({
+                    isDisplayAlertFailRequire : false,
+                    isDisplayAlertFailEmail : false,
+                    isDisplayAlertSuccess : false
+                });
+            }, 2000);
         }else{
             var token = localStorage.getItem('token');
             axios.post(host.URL_BACKEND+'/api/system/organization/employee/new', {
@@ -203,16 +210,35 @@ export default class NewUser extends Component {
                 if (response.data.error != null && response.status === 200) {
                     console.log(response.data.error);
                     self.setState({
+                        newDepartmentEmployee:0,
+                        newRoleEmployee:0,
                         isDisplayAlertSuccess :false,
                         isDisplayAlertFailRequire : false,
                         isDisplayAlertFailEmail : true
                     })
+                    setTimeout(() => {
+                        self.setState({
+                            isDisplayAlertFailRequire : false,
+                            isDisplayAlertFailEmail : false,
+                            isDisplayAlertSuccess : false
+                        });
+                    }, 2000);
                 }else{
                     self.setState({
+                        newDepartmentEmployee:0,
+                        newRoleEmployee:0,
                         isDisplayAlertSuccess : true,
                         isDisplayAlertFailRequire : false,
                         isDisplayAlertFailEmail : false
                     })
+                    setTimeout(() => {
+                        self.setState({
+                            isDisplayAlertFailRequire : false,
+                            isDisplayAlertFailEmail : false,
+                            isDisplayAlertSuccess : false
+                        });
+                        self.props.hideNewEmployee();
+                    }, 2000);
                     self.props.rerenderParentCallback();
                 }
             })

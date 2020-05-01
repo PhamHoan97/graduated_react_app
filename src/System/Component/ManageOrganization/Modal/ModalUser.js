@@ -11,7 +11,8 @@ export default class ModalUser extends Component {
             listRole: []
         }
     }
-    componentWillMount() {
+    //WARNING! To be deprecated in React v17. Use new lifecycle static getDerivedStateFromProps instead.
+    componentWillReceiveProps(nextProps) {
         var idCompany = localStorage.getItem('company_id');
         var token = localStorage.getItem('token');
         var self = this;
@@ -49,9 +50,8 @@ export default class ModalUser extends Component {
         .catch(function (error) {
             console.log(error);
         });
-
     }
-
+   
     render() {
         return (
             <Modal
@@ -62,7 +62,7 @@ export default class ModalUser extends Component {
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="example-custom-modal-styling-title">
-                        Manage User
+                        Manage Employee
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>

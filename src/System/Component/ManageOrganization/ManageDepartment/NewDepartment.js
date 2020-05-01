@@ -118,6 +118,10 @@ export default class NewDepartment extends Component {
                 self.setState({
                     isDisplayAlert : true
                 })
+                setTimeout(() => {
+                    self.setState({isDisplayAlert : false});
+                    self.props.hideNewDepartment();
+                }, 2000);
                 self.props.rerenderParentCallback();
             }
         })

@@ -8,6 +8,7 @@ import "../../Style/AccountEmployee/util.css";
 import * as host from '../../Constants/Url'
 import Validator from '../../Utils/Validator';
 import axios from 'axios'
+import AccountItem from "./AccountItem";
 
 const colourStyles = {
     control: styles => ({ ...styles, backgroundColor: 'white' }),
@@ -36,45 +37,66 @@ export default class AccountEmployee extends Component {
     super(props, context);
     const rules = [
       {
-        field: 'userNameEmployee',
+        field: 'username',
         method: 'isEmpty',
         validWhen: false,
         message: 'The username field is required.',
       },
       {
-        field: 'userNameEmployee',
+        field: 'username',
         method: 'isLength',
         args: [{min: 7}],
         validWhen: true,
         message: 'The username must be at least 7 characters.',
       },
       {
-        field: 'passwordEmployee',
+        field: 'password',
         method: 'isEmpty',
         validWhen: false,
         message: 'The password field is required.',
       },
       {
-        field: 'passwordEmployee',
+        field: 'password',
         method: 'isLength',
         args: [{min: 7}],
         validWhen: true,
         message: 'The password must be at least 7 characters.',
       },
-      {
-        field: 'messageMailEmployee',
-        method: 'isEmpty',
-        validWhen: false,
-        message: 'The message field is required.',
-      }
+      // {
+      //   field: 'messageMailEmployee',
+      //   method: 'isEmpty',
+      //   validWhen: false,
+      //   message: 'The message field is required.',
+      // }
     ];
     this.validator = new Validator(rules);
+    this.rerenderParentCallback = this.rerenderParentCallback.bind(this);
+  }
+
+  state = {
+    selectedOption: null,
+    username:'',
+    password:'',
+    errors: {},
+    errorsSelect:{},
+    options:[],
+    listAccounts:[],
+    employees:[],
+  };
+
+  rerenderParentCallback() {
+    this.getAllEmployeeNoAccount();
+    this.getListAccounts();
   }
 
   handleSubmitCreateAccount = (e) => {
-    // console.log(isEmpty(this.validator.validate(this.state)));
     var errorNoEmployee = {};
-    if(this.state.selectedOption === null || !isEmpty(this.validator.validate(this.state)) ){
+    if(
+      this.state.selectedOption === null
+      ||!isEmpty(this.validator.validate(this.state).username)
+      ||!isEmpty(this.validator.validate(this.state).password)
+      )
+    {
       errorNoEmployee = {
         "selectedOption":"Select employee is required."
       }
@@ -83,26 +105,38 @@ export default class AccountEmployee extends Component {
         errorsSelect:errorNoEmployee
       });
     }else{
-      this.setState({
-        errors: {},
-        errorsSelect:{}
+      var self =  this;
+      var token = localStorage.getItem('token');
+      axios.post(host.URL_BACKEND+'/api/system/create/employee/account', {
+          username: this.state.username,
+          password: this.state.password,
+          idEmployee:this.state.selectedOption.value,
+      },{
+          headers: { 'Authorization': 'Bearer ' + token }
+      })
+      .then(function (response) {
+          if (response.data.error != null) {
+              console.log(response.data.error);
+          }else{
+            document.getElementById("inputUserNameGenerate").value = '';
+            document.getElementById("inputPasswordGenerate").value = '';
+            self.setState({
+                errors: {},
+                errorsSelect:{},
+                selectedOption: null,
+                username:'',
+                password:'',
+            });
+          }
+      })
+      .catch(function (error) {
+          console.log(error);
       });
-      console.log('Create account data');
+      this.getAllEmployeeNoAccount();
+      this.getListAccounts();
     }
   };
 
-  state = {
-    selectedOption: null,
-    email:'',
-    userNameEmployee:'',
-    passwordEmployee:'',
-    messageMailEmployee:'',
-    errors: {},
-    errorsSelect:{},
-    options:[],
-    listAccount:[],
-    employees:[],
-  };
 
   handleChange(event) {
     const name = event.target.name;
@@ -113,23 +147,12 @@ export default class AccountEmployee extends Component {
   }
 
   handleChangeEmployee = selectedOption => {
-    var employees = this.state.employees;
-    var value = selectedOption.value;
-    var emailChoose;
-    for(var i = 0;i<employees.length;i++){
-      if(employees[i].id === value){
-        emailChoose = employees[i].email;
-      }
-    }
     this.setState({
       selectedOption,
-      email:emailChoose
     });
   };
 
-  //WARNING! To be deprecated in React v17. Use componentDidMount instead.
-  componentWillMount() {
-    // get all employee no account
+  getAllEmployeeNoAccount=()=>{
     var self =  this;
     var token = localStorage.getItem('token');
     var idCompany = localStorage.getItem('company_id');
@@ -140,7 +163,6 @@ export default class AccountEmployee extends Component {
         if (response.data.error != null) {
             console.log(response.data.error);
         }else{
-          console.log(response.data.employees)
           var options =  [];
           var employees = response.data.employees;
           for(var i = 0;i<employees.length;i++){
@@ -160,23 +182,82 @@ export default class AccountEmployee extends Component {
     });
   }
 
+  getListAccounts = () =>{
+    var self =  this;
+    var token = localStorage.getItem('token');
+    var idCompany = localStorage.getItem('company_id');
+    axios.get(host.URL_BACKEND+'/api/system/account/list/'+idCompany,{
+      headers: { 'Authorization': 'Bearer ' + token }
+    })
+    .then(function (response) {
+        if (response.data.error != null) {
+            console.log(response.data.error);
+        }else{
+          self.setState({
+            listAccounts: response.data.accounts,
+          })
+        }
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+  }
+  //WARNING! To be deprecated in React v17. Use componentDidMount instead.
+  componentWillMount() {
+    // get all employee no account
+    this.getAllEmployeeNoAccount();
+    this.getListAccounts();
+  }
+
   generateAdminAccount = event => {
     var userNameEmployee = Math.random().toString(36).substring(7) + Math.random().toString(36).substring(7);
     var passwordEmployee = Math.random().toString(36).substring(7) + Math.random().toString(36).substring(7);
     document.getElementById("inputUserNameGenerate").value = userNameEmployee;
     document.getElementById("inputPasswordGenerate").value = passwordEmployee;
     this.setState({
-      userNameEmployee:userNameEmployee,
-      passwordEmployee:passwordEmployee
+      username:userNameEmployee,
+      password:passwordEmployee
     });
   }
 
+  showItemAccount = (accounts) => {
+    var result;
+    if(accounts.length > 0){
+        result = accounts.map((account,index)=>{
+            return (
+              <AccountItem
+                rerenderParentCallback={this.rerenderParentCallback}
+                key={index}
+                idEmployee={account.employee_id}
+                name={ account.name}
+                username={account.username}
+                email={account.email}
+                idAccount={account.id}
+                department_name = {account.department_name}
+                initial_password = {account.initial_password}
+              />
+            )
+        })
+        return result;
+    }else{
+        return (
+            <tr></tr>
+        )
+    }
+  }
+
+  sendEmailAccount = (e,email,password) =>{
+    e.preventDefault();
+    console.log(email);
+    console.log(password);
+  }
+
   render() {
+    console.log('Render account employee');
     const { selectedOption } = this.state;
     const { options } = this.state;
     const {errors} = this.state;
     const {errorsSelect} = this.state;
-    console.log(this.state);
     return (
       <div className="page-wrapper">
         <MenuHorizontal />
@@ -214,7 +295,7 @@ export default class AccountEmployee extends Component {
                                     type="text"
                                     className="form-control"
                                     id="inputUserNameGenerate"
-                                    name="userNameEmployee"
+                                    name="username"
                                     placeholder="username"
                                     onChange={(event)=>this.handleChange(event)}
                                   />
@@ -228,7 +309,7 @@ export default class AccountEmployee extends Component {
                                     type="password"
                                     className="form-control"
                                     id="inputPasswordGenerate"
-                                    name="passwordEmployee"
+                                    name="password"
                                     onChange={(event)=>this.handleChange(event)}
                                     placeholder="password"/>
                                   {errors.passwordEmployee && <div className="validation" style={{display: 'block'}}>{errors.passwordEmployee}</div>}
@@ -260,7 +341,7 @@ export default class AccountEmployee extends Component {
                                   {errorsSelect.selectedOption && <div className="validation" style={{display: 'block'}}>{errorsSelect.selectedOption}</div>}
                                 </div>
                                 <br></br>
-                                <div className="form-group">
+                                {/* <div className="form-group">
                                   <label htmlFor="description"> Message</label>
                                   <textarea
                                     className="form-control"
@@ -271,9 +352,9 @@ export default class AccountEmployee extends Component {
                                   />
                                   {errors.messageMailEmployee && <div className="validation" style={{display: 'block'}}>{errors.messageMailEmployee}</div>}
 
-                                </div>
+                                </div> */}
                                 <div>
-                                  <button
+                                  {/* <button
                                     type="button"
                                     className="btn btn-primary submit mr-5"
                                   >
@@ -282,7 +363,7 @@ export default class AccountEmployee extends Component {
                                       aria-hidden="true"
                                     />{" "}
                                     Send Email
-                                  </button>
+                                  </button> */}
                                   <button
                                     type="button"
                                     className="btn btn-primary submit create-account"
@@ -311,17 +392,14 @@ export default class AccountEmployee extends Component {
                               <table>
                                 <thead>
                                   <tr className="row100 head">
-                                    <th className="cell100 column1">
-                                      Employee name
-                                    </th>
+                                    <th className="cell100 column1">Email</th>
                                     <th className="cell100 column2">
                                       Username
                                     </th>
-                                    <th className="cell100 column3">Email</th>
-                                    <th className="cell100 column4">
-                                      Password
+                                    <th className="cell100 column3">Name</th>
+                                    <th className="cell100 column4">Department</th>
+                                    <th className="cell100 column5">
                                     </th>
-                                    <th className="cell100 column5">Role</th>
                                   </tr>
                                 </thead>
                               </table>
@@ -329,58 +407,7 @@ export default class AccountEmployee extends Component {
                             <div className="table100-body js-pscroll">
                               <table>
                                 <tbody>
-                                  <tr className="row100 body">
-                                    <td className="cell100 column1">
-                                      Like a butterfly
-                                    </td>
-                                    <td className="cell100 column2">Boxing</td>
-                                    <td className="cell100 column3">
-                                      9:00 AM - 11:00 AM
-                                    </td>
-                                    <td className="cell100 column4">
-                                      Aaron Chapman
-                                    </td>
-                                    <td className="cell100 column5">10</td>
-                                  </tr>
-                                  <tr className="row100 body">
-                                    <td className="cell100 column1">
-                                      Mind &amp; Body
-                                    </td>
-                                    <td className="cell100 column2">Yoga</td>
-                                    <td className="cell100 column3">
-                                      8:00 AM - 9:00 AM
-                                    </td>
-                                    <td className="cell100 column4">
-                                      Adam Stewart
-                                    </td>
-                                    <td className="cell100 column5">15</td>
-                                  </tr>
-                                  <tr className="row100 body">
-                                    <td className="cell100 column1">
-                                      Crit Cardio
-                                    </td>
-                                    <td className="cell100 column2">Gym</td>
-                                    <td className="cell100 column3">
-                                      9:00 AM - 10:00 AM
-                                    </td>
-                                    <td className="cell100 column4">
-                                      Aaron Chapman
-                                    </td>
-                                    <td className="cell100 column5">10</td>
-                                  </tr>
-                                  <tr className="row100 body">
-                                    <td className="cell100 column1">
-                                      Mind &amp; Body
-                                    </td>
-                                    <td className="cell100 column2">Yoga</td>
-                                    <td className="cell100 column3">
-                                      8:00 AM - 9:00 AM
-                                    </td>
-                                    <td className="cell100 column4">
-                                      Adam Stewart
-                                    </td>
-                                    <td className="cell100 column5">15</td>
-                                  </tr>
+                                    {this.showItemAccount(this.state.listAccounts)}
                                 </tbody>
                               </table>
                             </div>

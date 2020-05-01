@@ -21,6 +21,7 @@ export default class NewRole extends Component {
             isDisplayAlertSuccess: false,
             isDisplayAlertFail: false,
             newNameRole: "",
+            newIsProcessRole: true,
             newDepartmentRole: 0,
         };
         this.handleChange = this.handleChange.bind(this);
@@ -28,7 +29,7 @@ export default class NewRole extends Component {
 
     handleChange(event) {
         const name = event.target.name;
-        const value = event.target.value;
+        const value = event.target.name === 'newIsProcessRole' ?event.target.checked  : event.target.value;
         this.setState({
             [name]: value
         })
@@ -74,6 +75,15 @@ export default class NewRole extends Component {
                     }
                     </select>
                 </div>
+                <div className="form-group">
+                    <label htmlFor="name">Permit to creat process</label>
+                    <Input type="checkbox"
+                        name="newIsProcessRole"
+                        checked={this.state.newIsProcessRole}
+                        onChange={(event)=>this.handleChange(event)
+                    }
+                    />
+                </div>
                 <div className="form-group text-left">
                     <CheckButton type="submit" className="btn btn-primary mb-2 mr-2" onClick={() => this.saveNewRole()} ref={c => { this.checkBtn = c }}>
                         Save
@@ -114,16 +124,22 @@ export default class NewRole extends Component {
 
     saveNewRole = () => {
         var self =  this;
-        if(this.state.newDepartmentRole === 0){
+        if(parseInt(this.state.newDepartmentRole) === 0){
             self.setState({
                 isDisplayAlertFail : true,
                 isDisplayAlertSuccess : false
             });
+            setTimeout(() => {
+                self.setState({
+                    isDisplayAlertFail : false,
+                    isDisplayAlertSuccess : false
+                });
+            }, 2000);
         }else{
-            console.log(this.state.newDepartmentRole);
             var token = localStorage.getItem('token');
             axios.post(host.URL_BACKEND+'/api/system/organization/role/new', {
                 newNameRole: this.state.newNameRole,
+                newIsProcessRole: this.state.newIsProcessRole,
                 newDepartmentRole:this.state.newDepartmentRole,
             },{
                 headers: { 'Authorization': 'Bearer ' + token }
@@ -133,9 +149,14 @@ export default class NewRole extends Component {
                     console.log(response.data.error);
                 }else{
                     self.setState({
+                        newDepartmentRole:0,
                         isDisplayAlertSuccess : true,
                         isDisplayAlertFail : false
                     })
+                    setTimeout(() => {
+                        self.setState({isDisplayAlert : false});
+                        self.props.hideNewRole();
+                    }, 2000);
                     self.props.rerenderParentCallback();
                 }
             })

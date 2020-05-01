@@ -26,6 +26,18 @@ class ContactCompanyContainer extends Component {
         });
     };
 
+    displayImageCompany = () =>{
+        if(this.state.avatar === null){
+            return(
+                <img src={window.location.origin + '/system/images/company1.jpg'} style={{ height: "284px" }} alt="img-company"></img>
+            )
+        }else{
+            return(
+                <img src={host.URL_BACKEND + this.state.detailCompany.avatar} style={{ height: "284px" }} alt="img-company"></img>
+            )
+        }
+    }
+
     render() {
         return (
             <div className="map-data m-b-40">
@@ -35,7 +47,7 @@ class ContactCompanyContainer extends Component {
                 </h3>
                 {/* Map Company */}
                 <div className="map-wrap m-t-40 m-b-60">
-                <img src={window.location.origin + '/system/images/company1.jpg'} style={{ height: "284px" }} alt="img-company"></img>
+                    {this.displayImageCompany()}
                 </div>
                 <div className="table-wrap">
                 <div className="table-responsive table-style1">

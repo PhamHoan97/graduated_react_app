@@ -44,6 +44,7 @@ class MenuVerticalDashboard extends Component {
     localStorage.removeItem("token");
     if(localStorage.getItem("system_id")){
       localStorage.removeItem("system_id");
+      localStorage.removeItem("is_system");
       axios.post(`http://127.0.0.1:8000/api/logout/system`)
       .then(res => {
         if(res.data.error != null){
@@ -59,6 +60,7 @@ class MenuVerticalDashboard extends Component {
 
     if(localStorage.getItem("admin_id")){
       localStorage.removeItem("admin_id");
+      localStorage.removeItem("is_admin");
       localStorage.removeItem("company_id");
       axios.post(`http://127.0.0.1:8000/api/logout/company`)
       .then(res => {

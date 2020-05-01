@@ -10,17 +10,18 @@ import Dashboard from '../System/Component/Dashboard/Dashboard';
 import Information from '../System/Component/PersonalInformation/Information';
 import Process from '../System/Component/ManageProcess/Process';
 import ManageRegistration from '../System/Component/ManageSystem/ManageRegistration';
-import Organization from '../System/Component/ManageOrganization/Organization';
 import ManageCompany from '../System/Component/ManageSystem/ManageCompany';
 import CreateProcess from '../Process/Components/Create/CreateProcess';
 import EditProcess from '../Process/Components/Edit/EditProcess';
 import ViewProcess from '../Process/Components/View/ViewProcess';
 import DetailCompany from "../System/Component/DetailCompany/DetailCompany";
-import CreatFormEvaluate from '../System/Component/ManageFormEvaluate/CreatFormEvaluate';
-import AccountEmployee from '../System/Component/ManageAccountEmployee/AccountEmployee';
 import Iso from '../System/Component/ManageIso/Iso';
 import SystemProcess from '../System/Component/ManageSystemProcess/SystemProcess';
 import ManageEmail from '../System/Component/ManageSystem/ManageEmail';
+import AccountEmployee from '../System/Component/ManageAccountEmployee/AccountEmployee';
+import OrganizationContainer from '../System/Container/ManageOrganization/OrganizationContainer';
+import CompanyInformation from '../System/Component/ManageInformationCompany/CompanyInformation';
+
 
 class ListUrl extends Component {
     render() {
@@ -36,11 +37,10 @@ class ListUrl extends Component {
                         <Route path="/system" exact component={Dashboard} />
                         <Route path="/system/dashboard" exact component={Dashboard}/>
                         <Route path="/system/personal" exact component={Information}/>
-                        <Route path="/system/evaluate" exact component={CreatFormEvaluate}/>
                         <Route path="/system/process" exact component={Process}/>
                         <Route path="/system/registration" component={ManageRegistration}/>
                         <Route path="/system/company" exact component={ManageCompany}/>
-                        <Route path="/system/organization" exact component={Organization}/>
+                        <Route path="/system/organization" exact component={OrganizationContainer}/>
                         <Route path="/system/organization/company/:id" exact component={DetailCompany}/>
                         <Route path="/process/new" exact component={CreateProcess} />
                         <Route path="/process/edit/:id" exact component={EditProcess} />
@@ -49,6 +49,7 @@ class ListUrl extends Component {
                         <Route path="/system/iso" exact component={Iso} />
                         <Route path="/system/manage/process" exact component={SystemProcess} />
                         <Route path="/system/email" component={ManageEmail}/>
+                        <Route path="/system/company/information" exact component={CompanyInformation} />
                     </div>
                 </Router>
            </>

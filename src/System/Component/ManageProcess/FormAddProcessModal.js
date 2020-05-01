@@ -208,14 +208,14 @@ class FormAddProcessModal extends Component {
                              isMulti options={this.convertEmployeesToOptions()} onChange={this.handleChangeSelectEmployee} />
                           </div>
                         </div>
-                        <div className="row form-group">
+                        {/* <div className="row form-group">
                           <div className="col col-md-3">
                             <Form.Label>File Input</Form.Label>
                           </div>
                           <div className="col-12 col-md-9">
                             <Form.File.Input id="file-input" name="file-input"/>
                           </div>
-                        </div>
+                        </div> */}
                         <div className="row form-group">
                           <div className="col col-md-3">
                           </div>

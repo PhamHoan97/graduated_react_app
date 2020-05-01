@@ -71,6 +71,7 @@ class Login extends Component{
                 localStorage.setItem('token', res.data.token);
                 if(res.data.isSystem){
                     localStorage.setItem('system_id', res.data.id);
+                    localStorage.setItem('is_system', res.data.isSystem);
                 }
                 this.setState({redirectSystem:true});
             }
@@ -83,6 +84,7 @@ class Login extends Component{
         event.preventDefault();
         localStorage.removeItem("token");
         localStorage.removeItem("system_id");
+        localStorage.removeItem("is_system");
 
         axios.post(`http://127.0.0.1:8000/api/logout/system`)
           .then(res => {

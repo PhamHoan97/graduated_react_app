@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import logo from "../../Images/Logo.png";
-import {  NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default class MenuHorizontal extends Component {
   collapseMenu = (e) => {
@@ -15,8 +15,8 @@ export default class MenuHorizontal extends Component {
       menu.setAttribute("style", "display:block");
     }
   };
-
   render() {
+    console.log(localStorage.getItem("is_system") === null);
     return (
       <aside className="menu-sidebar d-none d-lg-block text-left">
         <div className="logo">
@@ -28,28 +28,41 @@ export default class MenuHorizontal extends Component {
           <nav className="navbar-sidebar">
             <ul className="list-unstyled navbar__list">
               <li className="has-sub">
-                <NavLink to="/system/dashboard" exact activeClassName="selected" activeStyle={{
-                      fontWeight: "bold",
-                      color: "#0074D9"
-                    }}>
+                <NavLink
+                  to="/system/dashboard"
+                  exact
+                  activeClassName="selected"
+                  activeStyle={{
+                    fontWeight: "bold",
+                    color: "#0074D9",
+                  }}
+                >
                   <i className="fas fa-tachometer-alt" />
                   Dashboard
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/system/process" activeClassName="selected"  activeStyle={{
-                      fontWeight: "bold",
-                      color: "#0074D9"
-                    }}>
+                <NavLink
+                  to="/system/process"
+                  activeClassName="selected"
+                  activeStyle={{
+                    fontWeight: "bold",
+                    color: "#0074D9",
+                  }}
+                >
                   <i className="fas fa-cog" />
                   Manage Process
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/system/employee/account" activeClassName="selected"  activeStyle={{
-                      fontWeight: "bold",
-                      color: "#0074D9"
-                    }}>
+                <NavLink
+                  to="/system/employee/account"
+                  activeClassName="selected"
+                  activeStyle={{
+                    fontWeight: "bold",
+                    color: "#0074D9",
+                  }}
+                >
                   <i className="fa fa-user-circle" />
                   Manage Account
                 </NavLink>
@@ -73,20 +86,41 @@ export default class MenuHorizontal extends Component {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/system/organization" activeClassName="selected"  activeStyle={{
-                      fontWeight: "bold",
-                      color: "#0074D9"
-                    }}>
+                <NavLink
+                  to="/system/organization"
+                  activeClassName="selected"
+                  activeStyle={{
+                    fontWeight: "bold",
+                    color: "#0074D9",
+                  }}
+                >
                   <i className="fa fa-sitemap" />
-                    Manage Organization
+                  Manage Organization
                 </NavLink>
               </li>
               <li>
-                  <a href="##" onClick={(e) => {
+                <NavLink
+                  to="/system/company/information"
+                  activeClassName="selected"
+                  activeStyle={{
+                    fontWeight: "bold",
+                    color: "#0074D9",
+                  }}
+                >
+                  <i className="fa fa-sitemap" />
+                  Manage Company
+                </NavLink>
+              </li>
+              <li>
+                <a
+                  href="##"
+                  onClick={(e) => {
                     this.collapseMenu(e);
-                  }} className="js-arrow">
+                  }}
+                  className="js-arrow"
+                >
                   <i className="fas fa-assistive-listening-systems" />
-                      Manage System
+                  Manage System
                 </a>
                 <ul className="list-unstyled navbar__sub-list js-sub-list">
                   <li>
@@ -99,10 +133,14 @@ export default class MenuHorizontal extends Component {
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink to="/system/registration" activeClassName="selected"  activeStyle={{
-                      fontWeight: "bold",
-                      color: "#0074D9"
-                    }}>
+                    <NavLink
+                      to="/system/registration"
+                      activeClassName="selected"
+                      activeStyle={{
+                        fontWeight: "bold",
+                        color: "#0074D9",
+                      }}
+                    >
                       <i className="fas fa-bell-slash" />
                         Registration
                     </NavLink>
@@ -119,12 +157,16 @@ export default class MenuHorizontal extends Component {
                 </ul>
               </li>
               <li>
-                <NavLink to="/system/personal"  activeClassName="selected"  activeStyle={{
+                <NavLink
+                  to="/system/personal"
+                  activeClassName="selected"
+                  activeStyle={{
                     fontWeight: "bold",
-                    color: "#0074D9"
-                  }}>
+                    color: "#0074D9",
+                  }}
+                >
                   <i className="fas fa-users" />
-                    Account
+                  Account
                 </NavLink>
               </li>
             </ul>
