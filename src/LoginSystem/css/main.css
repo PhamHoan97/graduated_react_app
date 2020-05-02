@@ -158,7 +158,7 @@ iframe {
 
 /*//////////////////////////////////////////////////////////////////
 [ login ]*/
-.limiter {
+.limiter-system-login {
   width: 100%;
   margin: 0 auto;
 }

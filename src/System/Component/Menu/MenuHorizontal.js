@@ -77,12 +77,12 @@ export default class MenuHorizontal extends Component {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/system/manage/process" activeClassName="selected"  activeStyle={{
+                <NavLink to="/employee/dashboard" activeClassName="selected"  activeStyle={{
                       fontWeight: "bold",
                       color: "#0074D9"
                     }}>
                   <i className="fa fa-user-circle" />
-                  Process
+                  Employee Information
                 </NavLink>
               </li>
               <li>
@@ -108,7 +108,7 @@ export default class MenuHorizontal extends Component {
                   }}
                 >
                   <i className="fa fa-sitemap" />
-                  Manage Company
+                  Company Information
                 </NavLink>
               </li>
               <li>

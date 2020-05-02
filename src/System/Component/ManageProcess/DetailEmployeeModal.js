@@ -131,7 +131,7 @@ class DetailEmployeeModal extends Component {
                             </div>
                         </div>
                         <div className="col col-md-3"> 
-                                <img src="/system/images/user-avatar-default.jpg" alt="Avatar" />
+                            <img src="/system/images/user-avatar-default.jpg" alt="Avatar" />
                         </div>
                     </div>
                 </Modal.Body>

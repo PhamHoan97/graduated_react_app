@@ -14,7 +14,7 @@ import Background from '../images/bg-01.jpg';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import CheckButton from 'react-validation/build/button';
-import { isEmail, isEmpty } from 'validator';
+import {isEmpty } from 'validator';
 import axios from 'axios';
 import  { Redirect } from 'react-router-dom';
 
@@ -24,31 +24,25 @@ const required = (value) => {
     }
   }
 
-  const email = (value) => {
-    if (!isEmail(value)) {
-        return <small className="form-text text-danger">Invalid email format</small>;
-    }
-  }
-
   const minLength = (value) => {
     if (value.trim().length < 8) {
         return <small className="form-text text-danger">Password must be at least 8 characters long</small>;
     }
   }
 
-class Login extends Component{
+class SystemLogin extends Component{
 
     constructor(props) {
         super(props);
         this.state = {
-            email: '',
+            username: '',
             password: '',
-            redirectSystem: false,
+            redirectEmployee: false,
         };
     }
 
-    handleChangeEmail = event => {
-        this.setState({ email: event.target.value });
+    handleChangeUsername = event => {
+        this.setState({ username: event.target.value });
     }
 
     handleChangePassword = event => {
@@ -58,22 +52,22 @@ class Login extends Component{
     handleSubmit = event => {
         event.preventDefault();
         var account = {
-            email: this.state.email,
+            username: this.state.username,
             password: this.state.password,
         };
 
-        axios.post(`http://127.0.0.1:8000/api/login/system`, account)
+        axios.post(`http://127.0.0.1:8000/api/login/employee`, account)
           .then(res => {
             if(res.data.error != null){
                 console.log(res.data.message);
             }else{
                 console.log(res.data.message);
                 localStorage.setItem('token', res.data.token);
-                if(res.data.isSystem){
-                    localStorage.setItem('system_id', res.data.id);
-                    localStorage.setItem('is_system', res.data.isSystem);
+                if(res.data.isEmployee){
+                    localStorage.setItem('employee_id', res.data.id);
+                    localStorage.setItem('isEmployee', res.data.isEmployee);
                 }
-                this.setState({redirectSystem:true});
+                this.setState({redirectEmployee:true});
             }
           }).catch(function (error) {
             alert(error);
@@ -83,10 +77,10 @@ class Login extends Component{
     handleLogout = event => {
         event.preventDefault();
         localStorage.removeItem("token");
-        localStorage.removeItem("system_id");
-        localStorage.removeItem("is_system");
+        localStorage.removeItem("employee_id");
+        localStorage.removeItem("isEmployee");
 
-        axios.post(`http://127.0.0.1:8000/api/logout/system`)
+        axios.post(`http://127.0.0.1:8000/api/logout/employee`)
           .then(res => {
             if(res.data.error != null){
                 console.log(res.data.error);
@@ -104,12 +98,12 @@ class Login extends Component{
     }
 
     render(){
-        if(this.state.redirectSystem){
-            return <Redirect to='/system'/>;
+        if(this.state.redirectEmployee){
+            return <Redirect to='/employee/dashboard'/>;
         }
         return (
             <div>
-                <div className="limiter">
+                <div className="limiter-system-login">
                 <div className="container-login100" style={{backgroundImage: "url(" + Background + ")"}}>
                     <div className="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
                     <Form className="login100-form validate-form" onSubmit={e => this.onSubmit(e)} ref={c => { this.form = c }}>
@@ -117,15 +111,15 @@ class Login extends Component{
                         Login
                         </span>
                         <div className="wrap-input100 validate-input m-b-23" data-validate="Username is required">
-                        <span className="label-input100">Email/Username</span>
-                        <Input className="input100" type="text" name="username" placeholder="Type your email or username" 
-                            validations={[required, email]} onChange={this.handleChangeEmail}
+                        <span className="label-input100">Username</span>
+                        <Input className="input100" type="text" name="username" placeholder="Username" 
+                            validations={[required]} onChange={this.handleChangeUsername}
                         />
                         <span className="focus-input100" data-symbol="" />
                         </div>
                         <div className="wrap-input100 validate-input" data-validate="Password is required">
                         <span className="label-input100">Password</span>
-                        <Input className="input100" type="password" name="password" placeholder="Type your password"
+                        <Input className="input100" type="password" name="password" placeholder="Password"
                             validations={[required, minLength]} onChange={this.handleChangePassword}
                         />
                         <span className="focus-input100" data-symbol="" />
@@ -143,22 +137,22 @@ class Login extends Component{
                             </CheckButton>
                         </div>
                         </div>
-                        <div className="txt1 text-center p-t-54 p-b-20">
-                        <span>
-                            Or Login Using
-                        </span>
+                        {/* <div className="txt1 text-center p-t-54 p-b-20">
+                            <span>
+                                Or Login Using
+                            </span>
                         </div>
                         <div className="flex-c-m">
-                        <a href="/" className="login100-social-item bg1">
-                            <i className="fa fa-facebook" />
-                        </a>
-                        <a href="/" className="login100-social-item bg2">
-                            <i className="fa fa-twitter" />
-                        </a>
-                        <a href="/" className="login100-social-item bg3">
-                            <i className="fa fa-google" />
-                        </a>
-                        </div>
+                            <a href="/" className="login100-social-item bg1">
+                                <i className="fa fa-facebook" />
+                            </a>
+                            <a href="/" className="login100-social-item bg2">
+                                <i className="fa fa-twitter" />
+                            </a>
+                            <a href="/" className="login100-social-item bg3">
+                                <i className="fa fa-google" />
+                            </a>
+                        </div> */}
                     </Form>
                     </div>
                 </div>
@@ -169,4 +163,4 @@ class Login extends Component{
     }
 }
 
-export default Login;
+export default SystemLogin;

@@ -24,19 +24,19 @@ const required = (value) => {
     }
   }
 
-export default class Login extends Component {
+export default class CompanyLogin extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-        account: '',
+        username: '',
         password: '',
         redirectAdmin: false,
     };
   }
 
   handleChangeAccount = event => {
-    this.setState({ account: event.target.value });
+    this.setState({ username: event.target.value });
   }
 
   handleChangePassword = event => {
@@ -46,7 +46,7 @@ export default class Login extends Component {
   handleSubmit = event => {
     event.preventDefault();
     var data = { 
-      account: this.state.account,
+      username: this.state.username,
       password: this.state.password,
       redirectAdmin: false,
     };
@@ -94,9 +94,9 @@ export default class Login extends Component {
                     <div className="login-form">
                       <Form method="post" onSubmit={e => this.onSubmit(e)} ref={c => { this.form = c }}>
                         <div className="form-group">
-                          <label>Account</label>
+                          <label>Username</label>
                           <Input validations={[required, minLengthAccount]} onChange={this.handleChangeAccount}
-                            className="au-input au-input--full" type="text" name="account" placeholder="Email or username" />
+                            className="au-input au-input--full" type="text" name="account" placeholder="Username" />
                         </div>
                         <div className="form-group">
                           <label>Password</label>
@@ -112,17 +112,17 @@ export default class Login extends Component {
                           </label>
                         </div>
                         <CheckButton onClick={this.handleSubmit} className="au-btn au-btn--block au-btn--green m-b-20" type="submit"><i className="fas fa-sign-in-alt"></i> sign in</CheckButton>
-                        <div className="social-login-content">
+                        {/* <div className="social-login-content">
                             <div className="social-button">
                                 <button className="au-btn au-btn--block au-btn--blue m-b-20"><i className="fab fa-facebook-square"></i> sign in with facebook</button>
                                 <button className="au-btn au-btn--block au-btn--blue2"><i className="fab fa-twitter-square"></i> sign in with twitter</button>
                             </div>
-                        </div>
+                        </div> */}
                       </Form>
                       <div className="register-link">
                         <p>
                           Don't you have account?
-                          <a href="/register"> Sign Up Here</a>
+                          <a href="/register"> Sign Up</a>
                         </p>
                       </div>
                     </div>
