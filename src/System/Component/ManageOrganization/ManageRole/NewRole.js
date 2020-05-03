@@ -154,7 +154,10 @@ export default class NewRole extends Component {
                         isDisplayAlertFail : false
                     })
                     setTimeout(() => {
-                        self.setState({isDisplayAlert : false});
+                        self.setState({
+                            isDisplayAlertSuccess : false,
+                            isDisplayAlertFail : false
+                        });
                         self.props.hideNewRole();
                     }, 2000);
                     self.props.rerenderParentCallback();

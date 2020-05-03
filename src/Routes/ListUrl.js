@@ -18,6 +18,11 @@ import A from '../System/Component/ManageA/A';
 import B from '../System/Component/ManageB/B';
 import OrganizationContainer from '../System/Container/ManageOrganization/OrganizationContainer';
 import CompanyInformation from '../System/Component/ManageInformationCompany/CompanyInformation';
+import CreateTemplateForm from '../System/Component/ManageNotification/CreateTemplateForm'
+import DetailCompanyNotification from "../System/Component/DetailNotification/DetailCompanyNotification";
+import ListCompanyNotification from "../System/Component/DetailNotification/ListCompanyNotification";
+import ManageNotification from '../System/Component/ManageNotification/ManageNotification'
+
 
 
 class ListUrl extends Component {
@@ -44,6 +49,10 @@ class ListUrl extends Component {
                         <Route path="/system/a" exact component={A} />
                         <Route path="/system/b" exact component={B} />
                         <Route path="/system/company/information" exact component={CompanyInformation} />
+                        <Route path="/system/notification/template" exact component={CreateTemplateForm} />
+                        <Route path="/system/notification/send" exact component={ManageNotification} />
+                        <Route path="/system/company/notification/list" exact component={ListCompanyNotification} />
+                        <Route path="/system/company/notification/detail/:id" exact component={DetailCompanyNotification}/>
                     </div>
                 </Router>
            </>

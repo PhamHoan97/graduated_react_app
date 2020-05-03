@@ -3,8 +3,9 @@
     text-decoration: none;
 }
 .avatar--user{
-    height: 300px;
-    width: 300px;
+    margin-top: 85px;
+    height: 200px;
+    width: 200px;
 }
 .image--user{
     width: 100%;
@@ -12,7 +13,19 @@
     border-radius: 50%;
 }
 .information--user{
-    border: 1px solid #c5bfbf;
+    font-size: 18px;
+    font-family: auto;
+    -moz-box-shadow:inset 0px -1px 4px #ccdde0;
+    -webkit-box-shadow:inset 0px -1px 4px #ccdde0;
+    box-shadow: inset 2px 4px -5px #e5e5e5;
+    padding: -7px;
+    background: white;
+    border-radius: 9px;
+    border: 1px solid #e4e4e4;
+}
+.information--user th{
+    font-weight: 600;
+    font-size:19px;
 }
 .btn--edit_user{
     padding: 7px 40px;
@@ -48,7 +61,7 @@
 }
 
 .select--field__dashboard{
-    height: 43px;
+    height: 42px;
     border: none;
     /* background-color: gray; */
 }
@@ -69,4 +82,7 @@
     display:table;
     width:100%;
     table-layout:fixed;
+}
+.header-button{
+    margin-right: 40px !important;
 }

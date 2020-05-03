@@ -1,0 +1,70 @@
+.container-contact100 {
+  width: 100%;
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  background: #1d4bb3;
+  background: -webkit-linear-gradient(45deg, #c77ff2, #2a3292);
+  background: -o-linear-gradient(45deg, #c77ff2, #e8519e);
+  background: -moz-linear-gradient(45deg, #c77ff2, #e8519e);
+  background: linear-gradient(45deg, #85559e, #3c3ba7);
+}
+.wrap-contact100 {
+  width: 600px;
+  background: #fff;
+  border-radius: 2px;
+  padding: 55px 95px 68px 95px;
+}
+
+.contact100-form {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.contact100-form-title {
+  width: 100%;
+  display: block;
+  font-weight: 700;
+  font-family: initial;
+  font-size: 30px;
+  color: #333333;
+  line-height: 1.2;
+  text-align: center;
+  padding-bottom: 45px;
+}
+.description {
+  width: 100%;
+  display: block;
+  font-family: initial;
+  font-weight: 500;
+  font-size: 25px;
+  color: #333333;
+  line-height: 1;
+  text-align: center;
+  padding-bottom: 45px;
+}
+.content-formio{
+    width: 100%;
+}
+#formio{
+    text-align:left;
+    font-weight: 600;
+    font-size: 15px;
+    font-family: initial;
+}
+#formio button{
+    margin-left: 180px;
+}

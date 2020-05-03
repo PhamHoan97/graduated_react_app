@@ -38,6 +38,16 @@ class MenuVerticalDashboard extends Component {
     }
   };
 
+  collapseMenuNotification = (e) => {
+    e.preventDefault();
+    var prarentValueClassName = e.target.parentElement.className;
+    if (prarentValueClassName.includes("show-dropdown")) {
+      e.target.parentElement.className = "noti__item js-item-menu";
+    } else {
+      e.target.parentElement.className += " show-dropdown";
+    }
+  };
+
 
   handleLogout = (event) => {
     event.preventDefault();
@@ -102,7 +112,7 @@ class MenuVerticalDashboard extends Component {
                 <div className="header-button">
                 <div className="noti-wrap">
                   <div className="noti__item js-item-menu">
-                    <i className="zmdi zmdi-notifications" />
+                    <i className="zmdi zmdi-notifications" onClick={(e)=>{this.collapseMenuNotification(e)}}/>
                     <span className="quantity">3</span>
                     <div className="notifi-dropdown js-dropdown">
                       <div className="notifi__title">

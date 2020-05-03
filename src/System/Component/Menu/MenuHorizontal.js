@@ -16,7 +16,7 @@ export default class MenuHorizontal extends Component {
     }
   };
   render() {
-    console.log(localStorage.getItem("is_system") === null);
+    //console.log(localStorage.getItem("is_system") === null);
     return (
       <aside className="menu-sidebar d-none d-lg-block text-left">
         <div className="logo">
@@ -39,32 +39,6 @@ export default class MenuHorizontal extends Component {
                 >
                   <i className="fas fa-tachometer-alt" />
                   Dashboard
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/system/process"
-                  activeClassName="selected"
-                  activeStyle={{
-                    fontWeight: "bold",
-                    color: "#0074D9",
-                  }}
-                >
-                  <i className="fas fa-cog" />
-                  Manage Process
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/system/employee/account"
-                  activeClassName="selected"
-                  activeStyle={{
-                    fontWeight: "bold",
-                    color: "#0074D9",
-                  }}
-                >
-                  <i className="fa fa-user-circle" />
-                  Manage Account
                 </NavLink>
               </li>
               <li>
@@ -94,30 +68,70 @@ export default class MenuHorizontal extends Component {
                 </NavLink>
               </li>
               <li>
-                <NavLink
-                  to="/system/organization"
-                  activeClassName="selected"
-                  activeStyle={{
-                    fontWeight: "bold",
-                    color: "#0074D9",
+                <a
+                  href="##"
+                  onClick={(e) => {
+                    this.collapseMenu(e);
                   }}
+                  className="js-arrow"
                 >
-                  <i className="fa fa-sitemap" />
-                  Manage Organization
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/system/company/information"
-                  activeClassName="selected"
-                  activeStyle={{
-                    fontWeight: "bold",
-                    color: "#0074D9",
-                  }}
-                >
-                  <i className="fa fa-sitemap" />
+                  <i className="fa fa-university" />
                   Manage Company
-                </NavLink>
+                </a>
+                <ul className="list-unstyled navbar__sub-list js-sub-list">
+                  <li>
+                      <NavLink
+                      to="/system/organization"
+                      activeClassName="selected"
+                      activeStyle={{
+                        fontWeight: "bold",
+                        color: "#0074D9",
+                      }}
+                    >
+                      <i className="fa fa-sitemap" />
+                      Organization
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/system/employee/account"
+                      activeClassName="selected"
+                      activeStyle={{
+                        fontWeight: "bold",
+                        color: "#0074D9",
+                      }}
+                    >
+                    <i className="fa fa-user-circle" />
+                      Employee
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/system/company/information"
+                      activeClassName="selected"
+                      activeStyle={{
+                        fontWeight: "bold",
+                        color: "#0074D9",
+                      }}
+                    >
+                      <i className="fa fa-bars" />
+                      Detail Company
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/system/company/notification/list"
+                      activeClassName="selected"
+                      activeStyle={{
+                        fontWeight: "bold",
+                        color: "#0074D9",
+                      }}
+                    >
+                      <i className="fa fa-bell" />
+                      Notification
+                    </NavLink>
+                  </li>
+                </ul>
               </li>
               <li>
                 <a
@@ -155,6 +169,46 @@ export default class MenuHorizontal extends Component {
                     >
                       <i className="fas fa-bell-slash" />
                       Manage Registration
+                    </NavLink>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a
+                  href="##"
+                  onClick={(e) => {
+                    this.collapseMenu(e);
+                  }}
+                  className="js-arrow"
+                >
+                  <i className="fa fa-bell-o" />
+                  Manage Notification
+                </a>
+                <ul className="list-unstyled navbar__sub-list js-sub-list">
+                  <li>
+                    <NavLink
+                      to="/system/notification/template"
+                      activeClassName="selected"
+                      activeStyle={{
+                        fontWeight: "bold",
+                        color: "#0074D9",
+                      }}
+                    >
+                      <i className="fa fa-list" />
+                      Manage Template
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/system/notification/send"
+                      activeClassName="selected"
+                      activeStyle={{
+                        fontWeight: "bold",
+                        color: "#0074D9",
+                      }}
+                    >
+                      <i className="fa fa-envelope-o" />
+                      Send Notification
                     </NavLink>
                   </li>
                 </ul>

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Avatar from '../../Images/Account/Avatar-01.jpg';
 import axios from 'axios';
 import  { Redirect } from 'react-router-dom';
-
 export default class MenuVertical extends Component {
   
   constructor(props) {
@@ -19,6 +18,16 @@ export default class MenuVertical extends Component {
       e.target.parentElement.parentElement.className = "account-item clearfix js-item-menu";
     } else {
       e.target.parentElement.parentElement.className += " show-dropdown";
+    }
+  };
+
+  collapseMenuNotification = (e) => {
+    e.preventDefault();
+    var prarentValueClassName = e.target.parentElement.className;
+    if (prarentValueClassName.includes("show-dropdown")) {
+      e.target.parentElement.className = "noti__item js-item-menu";
+    } else {
+      e.target.parentElement.className += " show-dropdown";
     }
   };
 
@@ -82,7 +91,7 @@ export default class MenuVertical extends Component {
               <div className="header-button">
                 <div className="noti-wrap">
                   <div className="noti__item js-item-menu">
-                    <i className="zmdi zmdi-notifications" />
+                    <i className="zmdi zmdi-notifications" onClick={(e)=>{this.collapseMenuNotification(e)}} />
                     <span className="quantity">3</span>
                     <div className="notifi-dropdown js-dropdown">
                       <div className="notifi__title">

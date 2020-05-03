@@ -57,14 +57,14 @@ class DetailInformation extends Component {
     render() {
         return (
            <>
-            <div className="col-md-4">
+            <div className="col-md-3">
                 <div className="avatar--user">
                     {
                         this.getImageCompany()
                     }
                 </div>
             </div>
-            <div className="col-md-8">
+            <div className="col-md-9">
                 <h2 className="mb-5 manage__account--information">
                     Company Information
                 </h2>
