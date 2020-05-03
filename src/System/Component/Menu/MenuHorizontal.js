@@ -41,32 +41,6 @@ export default class MenuHorizontal extends Component {
                 </NavLink>
               </li>
               <li>
-                <NavLink
-                  to="/system/process"
-                  activeClassName="selected"
-                  activeStyle={{
-                    fontWeight: "bold",
-                    color: "#0074D9",
-                  }}
-                >
-                  <i className="fas fa-cog" />
-                  Manage Process
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/system/employee/account"
-                  activeClassName="selected"
-                  activeStyle={{
-                    fontWeight: "bold",
-                    color: "#0074D9",
-                  }}
-                >
-                  <i className="fa fa-user-circle" />
-                  Manage Account
-                </NavLink>
-              </li>
-              <li>
                 <NavLink to="/system/iso" activeClassName="selected"  activeStyle={{
                       fontWeight: "bold",
                       color: "#0074D9"
