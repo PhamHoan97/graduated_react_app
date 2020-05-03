@@ -1,5 +1,5 @@
 .process-header{
-    display: flex;
+    display: block;
     flex-wrap: wrap;
     -webkit-box-pack: end;
     justify-content: flex-end;
@@ -7,7 +7,7 @@
     align-items: center;
     color: hsl(0,0%,50%);
     width: 100%;
-    height: 50px;
+    height: 53px;
     border-top: 1px solid #d9d9d9;
     border-bottom: 1px solid #d9d9d9;
     background-color:  #f2f2f2;
@@ -15,21 +15,14 @@
 }
 
 .button-group-header{
-    right: 0px;
-    width: 100px;
+    float: left;
+    width: auto;
+    height: 50px;
+    margin-left: 40px;
 }
 
 .button-support-action{
     margin-left: 20px;
-}
-
-.dropdown-menu{
-    margin-top: 42px;
-    position: absolute;
-    transform: translate3d(-162px, 0px, 0px);
-    top: 0px;
-    left: 0px;
-    will-change: transform;
 }
 
 .action-title{
@@ -46,3 +39,22 @@
     font-size: 12px;
 }
 
+.button-area{
+    font-size: 28px;
+}
+
+.btn-actions, .btn-guide{
+    height: 50px;
+}
+
+.go-back-button-header{
+    margin-right: 93%;
+}
+
+.button-area-go-back{
+    font-size: 28px;
+}
+
+.text-go-back{
+
+}

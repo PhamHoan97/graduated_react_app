@@ -97,7 +97,6 @@ class ManageRegistration extends Component {
     }
 
     handleCssPage =(e,type,currentPage)=>{
-
         // Xử lí css cho nút vị trí trang 
         var btnPage = document.getElementsByClassName('paginate_button page-item page');
         for (let i = 0; i < btnPage.length; i++) {
@@ -108,7 +107,6 @@ class ManageRegistration extends Component {
         }else{
             btnPage[currentPage-1].classList.add('active');
         }
-
         // Ẩn nút previous 
         var btnPrevious = document.getElementsByClassName('paginate_button page-item previous');
         if(currentPage> 1){
@@ -116,8 +114,6 @@ class ManageRegistration extends Component {
         }else{
             btnPrevious[0].classList.add('disabled');
         }
-
-
         // Ẩn nút next
         var count = this.state.registration.length;
         var btnNext = document.getElementsByClassName('paginate_button page-item next');
@@ -160,14 +156,14 @@ class ManageRegistration extends Component {
         }
     }
 
-        // Hàm xử lí khi nhấn vào các vị trí các trang 
-        handlePageChange(e,pageNumber) {
-            e.preventDefault();
-            var currentPage= e.target.getAttribute('data-dt-idx');
-            this.handleCssPage(e,0,currentPage);
-            this.getRowsOfTable(pageNumber);
-            this.setState({activePage: pageNumber});
-        }
+    // Hàm xử lí khi nhấn vào các vị trí các trang 
+    handlePageChange(e,pageNumber) {
+        e.preventDefault();
+        var currentPage= e.target.getAttribute('data-dt-idx');
+        this.handleCssPage(e,0,currentPage);
+        this.getRowsOfTable(pageNumber);
+        this.setState({activePage: pageNumber});
+    }
         
     // Hàm hiện thị html cho phân trang 
     displayPaging =()=>{

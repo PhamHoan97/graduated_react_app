@@ -58,6 +58,7 @@ class DetailInformation extends Component {
         return (
            <>
             <div className="col-md-3">
+
                 <div className="avatar--user">
                     {
                         this.getImageCompany()
@@ -65,6 +66,7 @@ class DetailInformation extends Component {
                 </div>
             </div>
             <div className="col-md-9">
+
                 <h2 className="mb-5 manage__account--information">
                     Company Information
                 </h2>

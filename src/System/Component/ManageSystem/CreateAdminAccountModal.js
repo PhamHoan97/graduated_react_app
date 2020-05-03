@@ -22,6 +22,7 @@ class CreateAdminAccountModal extends Component {
         document.getElementById("usernameGenerate").value = usernameR;
         document.getElementById("passwordGenerate").value = passwordR;
     }
+    
     handleChangeUsername = event => {
         event.preventDefault();
         var check = true;

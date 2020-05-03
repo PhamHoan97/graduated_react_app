@@ -14,12 +14,16 @@
 
 .right-column-popup{
     width: 400px;
-    position: fixed;
+    position: absolute;
     margin-top: 0px;
     z-index: 3;
     right: 0px;
     border-left: 1px solid #d9d9d9;
     height: auto;
+}
+.note-content-show{
+    height: auto;
+    text-align: left;
 }
 
 .note-title{
@@ -37,8 +41,9 @@
 
 .note-content{
     width: 100%;
-    height: 300px;
+    height: 310px;
     padding: 10px;
+    overflow-y: scroll;
 }
 .comment-element{
     width: 100%;
@@ -62,7 +67,7 @@
 
 .comment-content{
     width: 100%;
-    height: 300px;
+    height: 290px;
     padding: 10px;
 }
 
@@ -71,6 +76,18 @@
     height: 200px;
     padding-left: 10px;
     padding-right: 10px;
+}
+
+.conversation-content-has-comment{
+    width: 100%;
+    height: 240px;
+    padding-left: 10px;
+    padding-right: 10px;
+    overflow-y: scroll;
+}
+
+.form-send-comment-has-comment{
+    margin-top: 10px;
 }
 
 .no-conversation{
@@ -100,7 +117,7 @@
 }
 
 .input-comment{
-    width: 320px;
+    width: 250px;
     height: 40px;
 }
 
@@ -136,4 +153,115 @@
 
 .button-group-menu{
     width: 100px;
+}
+
+.button-zoom-action-open{
+    position: absolute;
+    right: 0;
+    margin-right: 230px;
+    border-bottom: 1px solid #d9d9d9;
+    border-left: 1px solid #d9d9d9;
+    border-right: 1px solid #d9d9d9;
+    width: 200px;
+    margin-top: 1px;
+}
+
+.button-zoom-action-close{
+    position: absolute;
+    right: 0;
+    margin-right: 100px;
+    border-bottom: 1px solid #d9d9d9;
+    border-left: 1px solid #d9d9d9;
+    border-right: 1px solid #d9d9d9;
+    width: 200px;
+    margin-top: 1px;
+}
+
+.button-zoom-in, .button-zoom-out, .button-full-screen, .button-toggle-minimap{
+    font-size: 10px;
+    height: 30px;
+    width: 50px;
+    border-right: 1px solid #f2f2f2;
+}
+
+div.process-interact svg{
+    height: 650px;
+}
+
+div.process-view svg{
+    height: 500px;
+}
+
+.button-details-right-open{
+    width: 100px;
+    position: absolute;
+    margin-top: 300px;
+    margin-right: 365px;
+    z-index: 3;
+    right: 0px;
+    border-left: 1px solid #d9d9d9;
+    border-right: 1px solid #d9d9d9;
+    border-top: 1px solid #d9d9d9;
+    height: 30px;
+    line-height: 30px;
+    transform: rotate(270deg);
+}
+
+.button-details-right-close{
+    width: 100px;
+    position: absolute;
+    margin-top: -360px;
+    margin-right: -20px;
+    z-index: 5;
+    right: 0px;
+    border-left: 1px solid #d9d9d9;
+    border-right: 1px solid #d9d9d9;
+    border-top: 1px solid #d9d9d9;
+    height: 30px;
+    line-height: 30px;
+    transform: rotate(270deg);
+}
+
+.save-note-button{
+    float: right;
+    margin-top: 5px;
+    margin-right:5px;
+}
+
+.delete-note-button{
+    float: right;
+    margin-top: 5px;
+}
+
+.letf-colum-detail{
+    text-align: left;
+}
+
+.detail-area-view-process{
+    margin-left: 20px;
+}
+
+.footer-view-process{
+    margin-top: 70px;
+}
+
+.space-area{
+    height: 50px;
+}
+
+.title-footer h4{
+    text-align: left;
+    margin-bottom: 10px;;
+}
+
+.iso{
+    margin-top: 10px;
+}
+
+.iso-btn{
+    width: 92px;
+}
+
+.download-area{
+    display: none;
 }

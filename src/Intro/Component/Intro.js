@@ -31,8 +31,8 @@ export default class Intro extends Component {
                     </a>
                     <ul className="navbar-nav mr-auto mt-2 mt-lg-0 menu-left">
                       <li className="nav-item active">
-                        <a className="nav-link" href="2aesn">
-                          Product <span className="sr-only">(current)</span>
+                        <a className="nav-link" href="/employee/login">
+                          Employee <span className="sr-only">(current)</span>
                         </a>
                       </li>
                       <li className="nav-item">

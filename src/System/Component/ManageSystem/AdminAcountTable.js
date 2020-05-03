@@ -16,7 +16,6 @@ class AdminAcountTable extends Component {
     }
 
     handleCssPage =(e,type,currentPage)=>{
-
         // Xử lí css cho nút vị trí trang 
         var btnPage = document.getElementsByClassName('paginate_button page-item page');
         for (let i = 0; i < btnPage.length; i++) {
@@ -27,7 +26,6 @@ class AdminAcountTable extends Component {
         }else{
             btnPage[currentPage-1].classList.add('active');
         }
-
         // Ẩn nút previous 
         var btnPrevious = document.getElementsByClassName('paginate_button page-item previous');
         if(currentPage> 1){
@@ -35,8 +33,6 @@ class AdminAcountTable extends Component {
         }else{
             btnPrevious[0].classList.add('disabled');
         }
-
-
         // Ẩn nút next
         var count = this.state.admins.length;
         var btnNext = document.getElementsByClassName('paginate_button page-item next');
@@ -115,7 +111,6 @@ class AdminAcountTable extends Component {
             if(!idCompany){
                 idCompany = initCompany;
             }
-
             var token = localStorage.getItem('token');
             axios.get(`http://127.0.0.1:8000/api/system/company/`+ idCompany + `/admin/accounts`,
             {
@@ -135,7 +130,6 @@ class AdminAcountTable extends Component {
     
     sendEmailHandle = (id) => {
         var token = localStorage.getItem('token');
-        console.log("send");
         axios.post(`http://127.0.0.1:8000/api/system/send/email/admin/account`, 
         {
             idAdmin: id,
@@ -158,7 +152,6 @@ class AdminAcountTable extends Component {
         var admins = this.state.admins;
         var locationStart = pageNumber * 8 - 8;
         return Object.values(admins).map((value, key) => {
-            console.log(value);
             if ((key >= locationStart)&&(key<= (locationStart + 7))){
                 return (
                 <React.Fragment key={key}>

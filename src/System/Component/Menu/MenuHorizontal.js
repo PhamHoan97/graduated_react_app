@@ -16,7 +16,6 @@ export default class MenuHorizontal extends Component {
     }
   };
   render() {
-    //console.log(localStorage.getItem("is_system") === null);
     return (
       <aside className="menu-sidebar d-none d-lg-block text-left">
         <div className="logo">
@@ -43,20 +42,20 @@ export default class MenuHorizontal extends Component {
               </li>
               <li>
                 <NavLink
-                  to="/system/a"
+                  to="/system/process"
                   activeClassName="selected"
                   activeStyle={{
                     fontWeight: "bold",
                     color: "#0074D9",
                   }}
                 >
-                  <i className="fa fa-user-circle" />
-                  Manage A
+                  <i className="fas fa-cog" />
+                  Manage Process
                 </NavLink>
               </li>
               <li>
                 <NavLink
-                  to="/system/b"
+                  to="/system/employee/account"
                   activeClassName="selected"
                   activeStyle={{
                     fontWeight: "bold",
@@ -64,7 +63,25 @@ export default class MenuHorizontal extends Component {
                   }}
                 >
                   <i className="fa fa-user-circle" />
-                  Manage B
+                  Manage Account
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/system/iso" activeClassName="selected"  activeStyle={{
+                      fontWeight: "bold",
+                      color: "#0074D9"
+                    }}>
+                  <i className="fab fa-tripadvisor"></i>
+                    Iso
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/employee/dashboard" activeClassName="selected"  activeStyle={{
+                      fontWeight: "bold",
+                      color: "#0074D9"
+                    }}>
+                  <i className="fa fa-user-circle" />
+                  Employee Information
                 </NavLink>
               </li>
               <li>
@@ -146,16 +163,12 @@ export default class MenuHorizontal extends Component {
                 </a>
                 <ul className="list-unstyled navbar__sub-list js-sub-list">
                   <li>
-                    <NavLink
-                      to="/system/company"
-                      activeClassName="selected"
-                      activeStyle={{
-                        fontWeight: "bold",
-                        color: "#0074D9",
-                      }}
-                    >
-                      <i className="fas fa-building" />
-                      Manage Company
+                    <NavLink to="/system/company" activeClassName="selected"  activeStyle={{
+                      fontWeight: "bold",
+                      color: "#0074D9"
+                    }}>
+                      <i className="fas fa-building"/>
+                        Company
                     </NavLink>
                   </li>
                   <li>
@@ -168,7 +181,16 @@ export default class MenuHorizontal extends Component {
                       }}
                     >
                       <i className="fas fa-bell-slash" />
-                      Manage Registration
+                        Registration
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/system/email" activeClassName="selected"  activeStyle={{
+                      fontWeight: "bold",
+                      color: "#0074D9"
+                    }}>
+                      <i className="fas fa-envelope" />
+                        Email
                     </NavLink>
                   </li>
                 </ul>
