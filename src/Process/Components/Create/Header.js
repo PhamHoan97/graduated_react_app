@@ -62,98 +62,106 @@ class Header extends Component {
     }
 
     renderSaveOrEdit = () => {
-        if(this.state.isEdit){
-            return (
-                <Dropdown.Item onClick={(e)=> this.editDiagram(e) }>
-                    <div className="action-title-left">
-                        Update and Share
-                    </div>
-                    <div className="action-ilustration">
-                        Save the diagram and share to employee
-                    </div>
-                </Dropdown.Item>
-            );
-        }else{
-            return (
-                <Dropdown.Item onClick={(e)=> this.saveDiagram(e) }>
-                    <div className="action-title-left">
-                        Save and share
-                    </div>
-                    <div className="action-ilustration">
-                        Save the diagram and share to employee
-                    </div>
-                </Dropdown.Item>
-            );
+        if(localStorage.getItem('isAdmin')){
+            if(this.state.isEdit){
+                return (
+                    <Dropdown.Item onClick={(e)=> this.editDiagram(e) }>
+                        <div className="action-title-left">
+                            Update and Share
+                        </div>
+                        <div className="action-ilustration">
+                            Save the diagram and share to employee
+                        </div>
+                    </Dropdown.Item>
+                );
+            }else{
+                return (
+                    <Dropdown.Item onClick={(e)=> this.saveDiagram(e) }>
+                        <div className="action-title-left">
+                            Save and share
+                        </div>
+                        <div className="action-ilustration">
+                            Save the diagram and share to employee
+                        </div>
+                    </Dropdown.Item>
+                );
+            }
         }
     }
 
     render() {
         return (
             <div className="process-header">
-                <div className="button-group-header btn-group">
-                <Dropdown drop={"left"}>
-                    <Dropdown.Toggle id="dropdown-action" variant="actions" bsPrefix="dropdown">
-                        <div className="button-area-go-back">
-                            <i className="fas fa-undo"></i> <span className="text-go-back"> Go Back</span>
+                <div className="container-fluid">
+                    <div className="row">
+                        <div className="col-md-10 text-left"> 
+                            <Dropdown drop={"left"}>
+                                <Dropdown.Toggle id="dropdown-action" variant="actions" bsPrefix="dropdown">
+                                    <div className="button-area-go-back">
+                                        <i className="fas fa-undo"></i> <span className="text-go-back"> Go Back</span>
+                                    </div>
+                                </Dropdown.Toggle>
+                            </Dropdown>
                         </div>
-                    </Dropdown.Toggle>
-                </Dropdown>
-                <Dropdown drop={"left"} style={{marginLeft:"1250px"}}>
-                    <Dropdown.Toggle id="dropdown-action" variant="actions" bsPrefix="dropdown">
-                        <div className="button-area">
-                            <i className="fas fa-share-alt fa-sm icon"></i>
+                        <div className="col-md-2" style={{display: "flex"}}> 
+                            <Dropdown drop={"left"}>
+                                <Dropdown.Toggle id="dropdown-action" variant="actions" bsPrefix="dropdown">
+                                    <div className="button-area">
+                                        <i className="fas fa-share-alt fa-sm icon"></i>
+                                    </div>
+                                </Dropdown.Toggle>
+
+                                <Dropdown.Menu>
+                                    {this.renderSaveOrEdit()}
+                                    <Dropdown.Item onClick={(e) => this.exportAsImage(e)}>
+                                        <div className="action-title-left">
+                                            Export as PNG
+                                        </div>
+                                        <div className="action-ilustration">
+                                            Export the diagram as a PNG image
+                                        </div>
+                                    </Dropdown.Item>
+                                    <Dropdown.Item onClick={(e) => this.exportAsSVG(e)}>
+                                        <div className="action-title-left">
+                                            Export as SVG
+                                        </div>
+                                        <div className="action-ilustration">
+                                            Export the diagram as a SVG image
+                                        </div>
+                                    </Dropdown.Item>
+                                    <Dropdown.Item onClick={(e)=>this.exportAsBPMN(e)}>
+                                        <div className="action-title-left">
+                                            Export as BPMN 2.0 XML
+                                        </div>
+                                        <div className="action-ilustration">
+                                            Export the diagram in the BPMN 2.0 document format
+                                        </div>
+                                    </Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+
+                            <Dropdown drop={"left"}>
+                                <Dropdown.Toggle id="dropdown-action" variant="guide" bsPrefix="dropdown">
+                                    <div className="button-area">
+                                        <i className="far fa-question-circle fa-sm icon"></i>
+                                    </div>
+                                </Dropdown.Toggle>
+
+                                <Dropdown.Menu>
+                                    <Dropdown.Item onClick={this.openShortcutModal}>
+                                        <div className="action-title">
+                                            Keyboard Shortcuts
+                                        </div>
+                                    </Dropdown.Item>
+                                    <Dropdown.Item>
+                                        <div className="action-title">
+                                            User guide
+                                        </div>
+                                    </Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
                         </div>
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu>
-                        {this.renderSaveOrEdit()}
-                        <Dropdown.Item onClick={(e) => this.exportAsImage(e)}>
-                            <div className="action-title-left">
-                                Export as PNG
-                            </div>
-                            <div className="action-ilustration">
-                                Export the diagram as a PNG image
-                            </div>
-                        </Dropdown.Item>
-                        <Dropdown.Item onClick={(e) => this.exportAsSVG(e)}>
-                            <div className="action-title-left">
-                                Export as SVG
-                            </div>
-                            <div className="action-ilustration">
-                                Export the diagram as a SVG image
-                            </div>
-                        </Dropdown.Item>
-                        <Dropdown.Item onClick={(e)=>this.exportAsBPMN(e)}>
-                            <div className="action-title-left">
-                                Export as BPMN 2.0 XML
-                            </div>
-                            <div className="action-ilustration">
-                                Export the diagram in the BPMN 2.0 document format
-                            </div>
-                        </Dropdown.Item>
-                    </Dropdown.Menu>
-                </Dropdown>
-
-                <Dropdown drop={"left"}>
-                    <Dropdown.Toggle id="dropdown-action" variant="guide" bsPrefix="dropdown">
-                        <div className="button-area">
-                            <i className="far fa-question-circle fa-sm icon"></i>
-                        </div>
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu>
-                        <Dropdown.Item onClick={this.openShortcutModal}>
-                            <div className="action-title">
-                                Keyboard Shortcuts
-                            </div>
-                        </Dropdown.Item>
-                        <Dropdown.Item>
-                            <div className="action-title">
-                                User guide
-                            </div>
-                        </Dropdown.Item>
-                    </Dropdown.Menu>
-                </Dropdown>
+                    </div>
             </div>
 
             <Modal size="lg" show={this.state.isOpenShortcut} onHide={this.closeShortcutModal}>

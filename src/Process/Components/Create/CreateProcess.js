@@ -40,61 +40,65 @@ class CreateProcess extends Component {
         if(this.state.openDetails){
             return(
                 <React.Fragment>
-                    <div className="row">
-                        <Header />
-                    </div>
-                    <div className="row">
-                        <div className="col-md-9">
-                            <Process />
+                    <div className="container-fluid">
+                        <div className="row">
+                            <Header />
                         </div>
-                        <div className="col-md-3">
-                            <div className="button-details-right-open">
-                                <button onClick={(e) => this.closePopup(e)}>
-                                    <i className="fas fa-align-justify"></i> Details
-                                </button>
+                        <div className="row">
+                            <div className="col-md-9">
+                                <Process />
                             </div>
-                            <div className="right-column-popup">
-                                <Note />
-                                <Comment />
+                            <div className="col-md-3">
+                                <div className="button-details-right-open">
+                                    <button onClick={(e) => this.closePopup(e)}>
+                                        <i className="fas fa-align-justify"></i> Details
+                                    </button>
+                                </div>
+                                <div className="right-column-popup">
+                                    <Note />
+                                    <Comment />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="row footer-view-process">  
-                        <div className="col-md-6">
-                            <Detail />
+                        <div className="row footer-view-process">  
+                            <div className="col-md-6">
+                                <Detail />
+                            </div>
+                            <div className="col-md-3">
+                                <IsoRule process={true} />
+                            </div>
                         </div>
-                        <div className="col-md-3">
-                            <IsoRule process={true} />
-                        </div>
+                        <div className="space-area"></div>
                     </div>
-                    <div className="space-area"></div>
                 </React.Fragment>
             )
         }else{
             return (
                 <React.Fragment>
-                    <div className="row">
-                        <Header />
-                    </div>
-                    <div className="row">
-                        <div className="col-md-12">
-                            <Process />
-                            <div className="button-details-right-close">
-                                <button onClick={(e) => this.openPopUp(e)}>
-                                    <i className="fas fa-align-justify"></i> Details
-                                </button>
+                    <div className="container-fluid">
+                        <div className="row">
+                            <Header />
+                        </div>
+                        <div className="row">
+                            <div className="col-md-12">
+                                <Process />
+                                <div className="button-details-right-close">
+                                    <button onClick={(e) => this.openPopUp(e)}>
+                                        <i className="fas fa-align-justify"></i> Details
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="row footer-view-process">  
-                        <div className="col-md-6">
-                            <Detail />
+                        <div className="row footer-view-process">  
+                            <div className="col-md-6">
+                                <Detail />
+                            </div>
+                            <div className="col-md-3">
+                                <IsoRule process={true} />
+                            </div>
                         </div>
-                        <div className="col-md-3">
-                            <IsoRule process={true} />
-                        </div>
+                        <div className="space-area"></div>
                     </div>
-                    <div className="space-area"></div>
                 </React.Fragment>
             )   
         }

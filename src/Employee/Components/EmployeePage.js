@@ -3,6 +3,7 @@ import ContentEmployeeInformation from './ContentEmployeeInformation';
 import HeaderEmployee from './HeaderEmployee';
 import axios from 'axios';
 import {connect} from 'react-redux';
+import * as actions from '../Actions/Index';
 
 class EmployeePage extends Component {
     constructor(props) {
@@ -24,10 +25,9 @@ class EmployeePage extends Component {
               if(res.data.error != null){
                   console.log(res.data.message);
               }else{
-                  console.log(res.data); 
                   var data = {...res.data.employee, company: res.data.company, department:res.data.department};
+                  this.props.updateEmployeeInformation(res.data.employee);
                   this.setState({employee: data});
-                  
               }
             }).catch(function (error) {
               alert(error);
@@ -46,6 +46,7 @@ class EmployeePage extends Component {
               console.log(res.data.message);
           }else{
               var data = {...res.data.employee, company: res.data.company, department:res.data.department};
+              this.props.updateEmployeeInformation(res.data.employee);
               this.setState({employee: data});
           }
         }).catch(function (error) {
@@ -71,4 +72,12 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps,)(EmployeePage)
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        updateEmployeeInformation: (employee) => {
+            dispatch(actions.updateEmployeeInformation(employee));
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EmployeePage)

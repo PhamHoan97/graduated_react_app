@@ -10,7 +10,7 @@ class ViewAction extends Component {
         }
     } 
     
-    fullScreen = (event) => {
+    fullScreen = () => {
         if (!document.fullscreenElement) {
             document.documentElement.requestFullscreen();
         } else {
@@ -49,16 +49,13 @@ class ViewAction extends Component {
     toggleMiniMap = (event) => {
         event.preventDefault();
         var miniMap = this.props.modeler.get('minimap');
-        console.log(miniMap);
         var state = miniMap._state.isOpen;
         if(!state){
-            miniMap.open();
             if(this.props.statusPopup){
-                document.getElementsByClassName("djs-minimap")[0].style.right  = "500px";
+                document.getElementsByClassName("djs-minimap")[0].style.right  = "215px";
             }else{
-                document.getElementsByClassName("djs-minimap")[0].style.right  = "100px";
+                document.getElementsByClassName("djs-minimap")[0].style.right  = "85px";
             }
-            document.getElementsByClassName("djs-minimap")[0].style.top  = "465px";
             document.getElementsByClassName("djs-minimap")[0].style.visibility  = "visible";
         }else{
             document.getElementsByClassName("djs-minimap")[0].style.visibility  = "hidden";
@@ -72,7 +69,7 @@ class ViewAction extends Component {
                 <div className="btn-group button-zoom-action-open"> 
                     <button className="button-zoom-in" onClick={(e) => this.zoomIn(e)} title="Zoom in"><i className="fas fa-plus"></i></button>
                     <button className="button-zoom-out" onClick={(e) => this.zoomOut(e)} title="Zoom out"><i className="fas fa-minus"></i></button>
-                    <button className="button-full-screen" onClick={(e) => this.fullScreen(e)} title="Full screen"><i className="fas fa-desktop"></i></button>
+                    <button className="button-full-screen" onClick={() => this.fullScreen()} title="Full screen"><i className="fas fa-desktop"></i></button>
                     <button className="button-toggle-minimap" onClick={(e) => this.toggleMiniMap(e)} title="Toggle minimap"><i className="far fa-map"></i></button>
                   </div>
                 )
@@ -81,7 +78,7 @@ class ViewAction extends Component {
                 <div className="btn-group button-zoom-action-close"> 
                     <button className="button-zoom-in" onClick={(e) => this.zoomIn(e)} title="Zoom in"><i className="fas fa-plus"></i></button>
                     <button className="button-zoom-out" onClick={(e) => this.zoomOut(e)} title="Zoom out"><i className="fas fa-minus"></i></button>
-                    <button className="button-full-screen" onClick={(e) => this.fullScreen(e)} title="Full screen"><i className="fas fa-desktop"></i></button>
+                    <button className="button-full-screen" onClick={() => this.fullScreen()} title="Full screen"><i className="fas fa-desktop"></i></button>
                     <button className="button-toggle-minimap" onClick={(e) => this.toggleMiniMap(e)} title="Toggle minimap"><i className="far fa-map"></i></button>
                   </div>
                 )

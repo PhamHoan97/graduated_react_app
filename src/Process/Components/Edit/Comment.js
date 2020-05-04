@@ -44,20 +44,6 @@ class Comment extends Component {
         document.getElementById("comment-element").value = "";
     }
 
-    convertDatetimeToDate(dateTime) {
-        var curr_date = dateTime.getDate();
-        var curr_month = dateTime.getMonth();
-        curr_month++;
-        var curr_year = dateTime.getFullYear();
-        var curr_hour = dateTime.getHours();
-        var curr_min = dateTime.getMinutes();
-        if(curr_min <10){
-            curr_min = '0' + curr_min;
-        }
-
-        return curr_date + "-" + curr_month + "-" + curr_year + ' ' + curr_hour + " : " + curr_min;
-    }
-
     deleteComment = (comment) => {
         this.props.deleteCommentOfElement(comment);
         this.setState({reload:true});

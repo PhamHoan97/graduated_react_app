@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import  { Redirect } from 'react-router-dom';
 
 class EmployeeProcess extends Component {
     constructor(props) {
@@ -7,6 +8,8 @@ class EmployeeProcess extends Component {
         this.state = {
             processes: '',
             activePage: 1,
+            click: '',
+            isRedirect: false,
         }
     }
 
@@ -107,6 +110,12 @@ class EmployeeProcess extends Component {
         }
     }
 
+    viewProcess = (e,id) => {
+        e.preventDefault();
+        console.log(id)
+        this.setState({click:id, isRedirect:true});
+    }
+
     renderProcessesRow = (pageNumber) =>{
         var processes = this.state.processes;
         var locationStart = pageNumber * 8 - 8;
@@ -127,18 +136,9 @@ class EmployeeProcess extends Component {
                                         data-toggle="modal"
                                         data-placement="top"
                                         title="Information"
+                                        onClick={(e) => this.viewProcess(e,value.id)}
                                     >
                                         <i className="fas fa-eye"></i>
-                                    </button>
-                                    <button
-                                        id={"info" + value.id}
-                                        className="item"
-                                        data-toggle="modal"
-                                        data-placement="top"
-                                        title="Detail"
-
-                                    >
-                                        <i className="fas fa-asterisk"></i>
                                     </button>
                                     <button
                                         className="item"
@@ -161,6 +161,9 @@ class EmployeeProcess extends Component {
     }
 
     render() {
+        if(this.state.isRedirect){
+            return <Redirect to={'/employee/view/process/' + this.state.click} />
+        }
         return (
             <div className="card">
                 <div className="card-header card-header-primary">
@@ -194,8 +197,8 @@ class EmployeeProcess extends Component {
                     </div>
                     {/* Paginate */}
                     <div className="row" style={{marginTop: "20px"}}>
-                        <div className="col-sm-12 col-md-3"></div>
-                        <div className="col-sm-12 col-md-6">
+                        <div className="col-md-3"></div>
+                        <div className="col-md-6">
                             <div className="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
                                 <ul className="pagination">
                                     <li className="paginate_button page-item previous disabled" id="dataTable_previous"><a href="#4AE" aria-controls="dataTable" data-dt-idx={0} tabIndex={0} className="page-link" onClick={(e) => this.handlePrevious(e)}>Previous</a>
@@ -207,7 +210,7 @@ class EmployeeProcess extends Component {
                                 </ul>
                             </div>
                         </div>
-                        <div className="col-sm-12 col-md-3"></div>
+                        <div className="col-md-3"></div>
                     </div>
                     {/* End Paginate */}
                 </div>
@@ -216,4 +219,4 @@ class EmployeeProcess extends Component {
     }
 }
 
-export default EmployeeProcess
+export default EmployeeProcess;

@@ -36,8 +36,8 @@ function getCurrentTime (){
       mm = "0" + mm;
     }
     var current = dd + "-" + mm + "-" + yyyy;
-    var hours = date.getHours()
-    var minutes = date.getMinutes()
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
     var seconds = date.getSeconds();
     if (hours < 10){
       hours = "0" + hours;
