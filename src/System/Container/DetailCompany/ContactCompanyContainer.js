@@ -27,7 +27,7 @@ class ContactCompanyContainer extends Component {
     };
 
     displayImageCompany = () =>{
-        if(this.state.avatar === null){
+        if(this.state.detailCompany === null){
             return(
                 <img src={window.location.origin + '/system/images/company1.jpg'} style={{ height: "284px" }} alt="img-company"></img>
             )
