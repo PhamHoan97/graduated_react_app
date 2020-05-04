@@ -59,6 +59,7 @@ class ListUrl extends Component {
                         <Route path="/system/email" component={ManageEmail}/>
                         <Route path="/system/company/information" exact component={CompanyInformation} />
                         <Route path="/employee/login" exact component={EmployeeLogin} />
+                        <Route path="/employee/view/process/:id" exact component={ViewProcess} />
                     </div>
                 </Router>
            </>

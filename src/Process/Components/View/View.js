@@ -10,79 +10,37 @@ import {connect} from 'react-redux';
 import * as actions from '../../Actions/Index';
 
 class View extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.modeler = new BpmnModeler(
-          {
-            keyboard: {
-              bindTo: window,
-            },
-            additionalModules: [
-              minimapModule
-            ]
-          }
-        );
-        if(this.props.init){
-          this.initialDiagram =this.props.init;
-        }else{
-          this.initialDiagram = 
-          '<?xml version="1.0" encoding="UTF-8"?>' +
-          '<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
-                            'xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" ' +
-                            'xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" ' +
-                            'xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" ' +
-                            'targetNamespace="http://bpmn.io/schema/bpmn" ' +
-                            'id="Definitions_1">' +
-            '<bpmn:process id="Process_1" isExecutable="false">' +
+    this.modeler = new BpmnModeler(
+      {
+        keyboard: {
+          bindTo: window,
+        },
+        additionalModules: [
+          minimapModule
+        ]
+      }
+    );
     
-            '</bpmn:process>' +
-            '<bpmndi:BPMNDiagram id="BPMNDiagram_1">' +
-              '<bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">' +
-                '<bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">' +
-                  '<dc:Bounds height="36.0" width="36.0" x="173.0" y="102.0"/>' +
-                '</bpmndi:BPMNShape>' +
-              '</bpmndi:BPMNPlane>' +
-            '</bpmndi:BPMNDiagram>' +
-          '</bpmn:definitions>'; 
-        }
+    this.initialDiagram ='';
 
-        this.state = {
-          reload: false,
-        }
+    this.state = {
+      reload: false,
+      isExportSVG: 0,
+      isExportImage: 0,
+      isExportBPMN: 0,
     }
+  }
     
-    interactPopup = (event) => {
-      var element = event.element;
-      if(element.type !== "bpmn:Process"){
-        this.props.passPopupStatus(true);
-        this.props.updateDataOfElement(element);
-      }  
-    }
-
-    deleteElements = (event) =>{
-      var element = event.element;
-      if(element.type !== "bpmn:Process"){
-        this.props.passPopupStatus(false);
-        this.props.deleteElement(element);
-      }  
-    }
-
-    handleUndoDeleteElement = (event) => {
-      var element = event.context.shape;
-      this.props.handleUndoAfterDeleteElement(element);
-    }
-
-    exportDiagram = () => {
-      this.modeler.saveXML({ format: true }, function (err, xml) {
-          if(err){
-              console.log(err);
-          }
-          else{
-              console.log(xml);
-          }
-      });
-    }
+  interactPopup = (event) => {
+    var element = event.element;
+    if(element.type !== "bpmn:Process"){
+      this.props.passPopupStatus(true);
+      this.props.updateDataOfElement(element);
+    }  
+  }
 
   downloadAsSVG = () => {
     this.modeler.saveSVG({ format: true }, function (error, svg) {
@@ -97,11 +55,6 @@ class View extends Component {
         downloadLink.download = fileName;
         downloadLink.innerHTML = 'Get BPMN SVG';
         downloadLink.href = window.URL.createObjectURL(svgBlob);
-        downloadLink.onclick = function (event) {
-            document.body.removeChild(event.target);
-        };
-        downloadLink.style.visibility = 'hidden';
-        document.body.appendChild(downloadLink);
         downloadLink.click();                                        
     });
   }
@@ -119,12 +72,7 @@ class View extends Component {
         downloadLink.download = fileName;
         downloadLink.innerHTML = 'Get BPMN';
         downloadLink.href = window.URL.createObjectURL(bpmnBlob);
-        downloadLink.onclick = function (event) {
-            document.body.removeChild(event.target);
-        };
-        downloadLink.style.visibility = 'hidden';
-        document.body.appendChild(downloadLink);
-        downloadLink.click();                                        
+        downloadLink.click();                                          
     });
   }
 
@@ -174,25 +122,40 @@ class View extends Component {
   }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
-        if(nextProps.isExportImage){
+      if(!nextProps.isExportSVG && !nextProps.isExportImage && !nextProps.isExportBPMN){
+
+      }else{
+       if(nextProps.isExportImage && nextProps.isExportImage !== this.state.isExportImage){
           this.downloadAsImage();
-        }else if(nextProps.isExportSVG){
+          this.setState({isExportImage: nextProps.isExportImage});
+        }else if(nextProps.isExportSVG && nextProps.isExportSVG !== this.state.isExportSVG){
           this.downloadAsSVG();
-        }else if(nextProps.isExportBPMN){
+          this.setState({isExportSVG: nextProps.isExportSVG});
+        }else if(nextProps.isExportBPMN && nextProps.isExportBPMN !== this.state.isExportBPMN){
           this.downloadAsBpmn();
+          this.setState({isExportBPMN: nextProps.isExportBPMN});
         }
+      }
     }
 
-    componentDidMount (){
+    shouldComponentUpdate(nextProps, nextState) {
+      if(nextProps.init && nextProps.init === this.initialDiagram){
+        return false;
+      }else{
+        this.initialDiagram = nextProps.init;
+      }
+      return true;
+    }
+
+    componentDidUpdate (){
         this.modeler.attachTo('#view-process-diagram');
+        console.log(this.initialDiagram)
         this.modeler.importXML(this.initialDiagram, function(err) {
 
         });
         var eventBus = this.modeler.get('eventBus');
         console.log(eventBus);
         this.modeler.on('element.click',1000, (e) => this.interactPopup(e));
-
-        this.modeler.on('shape.remove',1000, (e) => this.deleteElements(e));
 
         var tool = document.getElementsByClassName("djs-palette")[0];
         tool.style.visibility  = "hidden"; 
@@ -215,6 +178,7 @@ const mapStateToProps = (state, ownProps) => {
       isExportSVG: state.processReducers.actionReducers.isExportSVG,
       isExportImage: state.processReducers.actionReducers.isExportImage,
       isExportBPMN: state.processReducers.actionReducers.isExportBPMN,
+      detail: state.systemReducers.manageSystemReducer.informationProcessReducer.information,
   }
 }
 
@@ -225,12 +189,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       },
       updateDataOfElement: (element) => {
         dispatch(actions.updateDataOfElements(element));
-      },
-      deleteElement: (element) => {
-        dispatch(actions.deleteElement(element));
-      },
-      handleUndoAfterDeleteElement: (element) => {
-        dispatch(actions.handleUndoAfterDeleteElement(element));
       },
   }
 }

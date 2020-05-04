@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import  { Redirect } from 'react-router-dom';
+import {connect} from 'react-redux';
+import * as host from "../../System/Constants/Url"; 
 
-export default class HeaderEmployee extends Component {
+class HeaderEmployee extends Component {
   
   constructor(props) {
     super(props);
     this.state = {
       isLogout: false,
+      employee: '',
     };
   }
   
@@ -74,8 +77,18 @@ export default class HeaderEmployee extends Component {
     }
   }
 
+  UNSAFE_componentWillReceiveProps(nextProps){
+    if(nextProps.employee){
+      this.setState({employee: nextProps.employee});
+    }
+  }
+  
   renderAvatar = () =>{
-
+    if(this.state.employee && this.state.employee.avatar){
+      return <img className="img" src={host.URL_BACKEND + '/' + this.state.employee.avatar} alt="Avatar" />
+    }else{
+      return <img className="img" src="/system/images/user-avatar-default.jpg" alt="Avatar" />;
+    }
   }
   
   render() {
@@ -136,7 +149,7 @@ export default class HeaderEmployee extends Component {
                     </div>
                     <div className="content">
                       <a href="##" className="js-acc-btn" onClick={(e)=>{this.collapseMenuAccount(e)}}>
-                        HoanPham
+                        {this.state.employee.name}
                       </a>
                     </div>
                     <div className="account-dropdown js-dropdown">
@@ -148,9 +161,9 @@ export default class HeaderEmployee extends Component {
                         </div>
                         <div className="content">
                           <h5 className="name">
-                            <a href="2AESN">john doe</a>
+                            <a href="/employee/dashboard">{this.state.employee.name}</a>
                           </h5>
-                          <span className="email">johndoe@example.com</span>
+                          <span className="email">{this.state.employee.email}</span>
                         </div>
                       </div>
                       <div className="account-dropdown__body text-left">
@@ -190,3 +203,11 @@ export default class HeaderEmployee extends Component {
     );
   }
 }
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    employee: state.employeeReducers.employee,
+  }
+}
+
+export default connect(mapStateToProps, )(HeaderEmployee);

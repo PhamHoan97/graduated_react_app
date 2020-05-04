@@ -30,46 +30,7 @@ class IsoRule extends Component {
                                 <button className="btn btn-danger iso-btn" style={{marginLeft:'5px'}}>Xóa</button>
                             </div>
                         </div>
-                    </div>  
-                    <div className="row iso">
-                        <div className="col-md-6 letf-colum-detail">
-                            <p>
-                                ISO 9001
-                            </p>
-                        </div>
-                        <div className="col-md-6 letf-colum-detail">
-                            <div className="btn-group">
-                                <button className="btn btn-info iso-btn">Chi tiết</button>
-                                <button className="btn btn-danger iso-btn" style={{marginLeft:'5px'}}>Xóa</button>
-                            </div>
-                        </div>
-                    </div> 
-                    <div className="row iso">
-                        <div className="col-md-6 letf-colum-detail">
-                            <p>
-                                ISO 9002
-                            </p>
-                        </div>
-                        <div className="col-md-6 letf-colum-detail">
-                            <div className="btn-group">
-                                <button className="btn btn-info iso-btn">Chi tiết</button>
-                                <button className="btn btn-danger iso-btn" style={{marginLeft:'5px'}}>Xóa</button>
-                            </div>
-                        </div>
-                    </div> 
-                    <div className="row iso">
-                        <div className="col-md-6 letf-colum-detail">
-                            <p>
-                                ISO 9003
-                            </p>
-                        </div>
-                        <div className="col-md-6 letf-colum-detail">
-                            <div className="btn-group">
-                                <button className="btn btn-info iso-btn">Chi tiết</button>
-                                <button className="btn btn-danger iso-btn" style={{marginLeft:'5px'}}>Xóa</button>
-                            </div>
-                        </div>
-                    </div>
+                    </div>   
                     <div className="row iso">
                         <div className="col-md-6 letf-colum-detail">
         
@@ -99,37 +60,7 @@ class IsoRule extends Component {
                         <div className="col-md-4 letf-colum-detail">
                             <button className="btn btn-info">Chi tiết</button>
                         </div>
-                    </div>  
-                    <div className="row iso">
-                        <div className="col-md-8 letf-colum-detail">
-                            <p>
-                                ISO 9001
-                            </p>
-                        </div>
-                        <div className="col-md-4 letf-colum-detail">
-                            <button className="btn btn-info">Chi tiết</button>
-                        </div>
-                    </div> 
-                    <div className="row iso">
-                        <div className="col-md-8 letf-colum-detail">
-                            <p>
-                                ISO 9002
-                            </p>
-                        </div>
-                        <div className="col-md-4 letf-colum-detail">
-                            <button className="btn btn-info">Chi tiết</button>
-                        </div>
-                    </div> 
-                    <div className="row iso">
-                        <div className="col-md-8 letf-colum-detail">
-                            <p>
-                                ISO 9003
-                            </p>
-                        </div>
-                        <div className="col-md-4 letf-colum-detail">
-                            <button className="btn btn-info">Chi tiết</button>
-                        </div>
-                    </div>  
+                    </div>   
                 </div>
             )
         }

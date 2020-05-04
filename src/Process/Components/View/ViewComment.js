@@ -42,18 +42,24 @@ class Comment extends Component {
         document.getElementById("comment-element").value = "";
     }
 
-    convertDatetimeToDate(dateTime) {
-        var curr_date = dateTime.getDate();
-        var curr_month = dateTime.getMonth();
-        curr_month++;
-        var curr_year = dateTime.getFullYear();
-        var curr_hour = dateTime.getHours();
-        var curr_min = dateTime.getMinutes();
-        if(curr_min <10){
-            curr_min = '0' + curr_min;
+    renderDeleteButton = (value) => {
+        if(!value.employee_id){
+            return (<div></div>);
+        }else{
+            return (                                  
+                <button type="button" title="Delete" onClick={this.deleteComment.bind(this,value)}>
+                    <i className="far fa-trash-alt"></i>
+                </button>
+             );
         }
+    }
 
-        return curr_date + "-" + curr_month + "-" + curr_year + ' ' + curr_hour + " : " + curr_min;
+    renderNameComment = (value) => {
+        if(!value.employee_id){
+            return (<div className="name-and-time">Admin</div>);
+        }else{
+            return (<div className="name-and-time">You</div>);
+        }
     }
 
     deleteComment = (comment) => {
@@ -65,18 +71,16 @@ class Comment extends Component {
             return(
                 <React.Fragment key={key}>
                     <div className="conversation">
-                            <h6 className="date-comment">{this.convertDatetimeToDate(value.time)}</h6>
+                            <h6 className="date-comment">{value.time}</h6>
                             <article className="article-area">
                                 <div><i className="far fa-user-circle fa-2x"></i></div>
                                 <div className="record-message">
                                     <div className= "content">
-                                        <div className="name-and-time">You</div>
+                                        {this.renderNameComment(value)}
                                         <div className="content-message">{value.content}</div>
                                     </div>
                                     <div className="action-comment btn-group"> 
-                                        <button type="button" title="Delete" onClick={this.deleteComment.bind(this,value)}>
-                                            <i className="far fa-trash-alt"></i>
-                                        </button>
+                                        {this.renderDeleteButton(value)}
                                     </div>
                                 </div>
                             </article>

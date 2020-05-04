@@ -11,6 +11,7 @@
     width: 300px;
     height: 300px;
     margin-top: 10px;
+    border-radius: 50%;
 }
 
 .btn-round{
@@ -82,3 +83,15 @@
     border: 0;
     float: left;
 }
+
+a.page-link{
+    height: 35px;
+    line-height: 25px;
+}
+
+.pagination{
+    display: flex;
+    list-style: none;
+    outline: none;
+}
+

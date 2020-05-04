@@ -35,11 +35,11 @@ class ContentEmployeeInformation extends Component {
         return (
           <div className="container-fluid">
             <div className="row">
-              <div className="col-md-8">
+              <div className="col-md-9">
                   <EmployeeInformation employee={this.state.employee}/>
                   <EmployeeProcess processes={this.state.processes}/>
               </div>
-              <div className="col-md-4">
+              <div className="col-md-3">
                 <div className="card card-profile">
                   <div className="card-avatar">
                       <img className="img" src="/system/images/user-avatar-default.jpg" alt="Avatar" />
@@ -67,11 +67,11 @@ class ContentEmployeeInformation extends Component {
         return (
           <div className="container-fluid">
             <div className="row">
-              <div className="col-md-8">
+              <div className="col-md-9">
                   <EmployeeInformation employee={this.state.employee}/>
                   <EmployeeProcess processes={this.state.processes}/>
               </div>
-              <div className="col-md-4">
+              <div className="col-md-3">
                 <div className="card card-profile">
                   <div className="card-avatar">
                       <img className="img" src={host.URL_BACKEND + '/' + this.state.employee.avatar} alt="Avatar" />
