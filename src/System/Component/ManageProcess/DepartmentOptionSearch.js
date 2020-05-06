@@ -21,7 +21,7 @@ class DepartmentOptionSearch extends Component {
     componentDidMount() {
         var token = localStorage.getItem('token');
         var company_id = localStorage.getItem('company_id');
-        var option = '<option value="">Select...</option>';
+        var option = '<option value="">Chọn phòng ban</option>';
         axios.get(`http://127.0.0.1:8000/api/system/organization/department/` + company_id,
         {
             headers: { 'Authorization': 'Bearer ' + token}

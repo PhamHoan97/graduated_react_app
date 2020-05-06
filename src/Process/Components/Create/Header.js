@@ -10,7 +10,7 @@ import ModalTitle from 'react-bootstrap/ModalTitle';
 import {connect} from 'react-redux';
 import * as actions from '../../Actions/Index';
 import Dropdown from 'react-bootstrap/Dropdown';
-
+import {Redirect } from 'react-router-dom';
 
 class Header extends Component {
     constructor(props) {
@@ -19,6 +19,7 @@ class Header extends Component {
         this.state = {
             isOpenShortcut: false,
             isEdit: '',
+            isBackHome: false,
         }
     }
 
@@ -62,15 +63,15 @@ class Header extends Component {
     }
 
     renderSaveOrEdit = () => {
-        if(localStorage.getItem('isAdmin')){
+        if(localStorage.getItem('is_admin')){
             if(this.state.isEdit){
                 return (
                     <Dropdown.Item onClick={(e)=> this.editDiagram(e) }>
                         <div className="action-title-left">
-                            Update and Share
+                            Cập nhật và chia sẻ
                         </div>
                         <div className="action-ilustration">
-                            Save the diagram and share to employee
+                            Lưu quy trình và chia sẻ với nhân viên
                         </div>
                     </Dropdown.Item>
                 );
@@ -78,10 +79,10 @@ class Header extends Component {
                 return (
                     <Dropdown.Item onClick={(e)=> this.saveDiagram(e) }>
                         <div className="action-title-left">
-                            Save and share
+                            Lưu và chia sẻ
                         </div>
                         <div className="action-ilustration">
-                            Save the diagram and share to employee
+                            Lưu quy trình và chia sẻ với nhân viên
                         </div>
                     </Dropdown.Item>
                 );
@@ -89,7 +90,15 @@ class Header extends Component {
         }
     }
 
+    backToHomePage = (e) => {
+        e.preventDefault();
+        this.setState({isBackHome:true});
+    }
+
     render() {
+        if(this.state.isBackHome){
+            return <Redirect to={'/system/dashboard/'}/> 
+        }
         return (
             <div className="process-header">
                 <div className="container-fluid">
@@ -97,8 +106,8 @@ class Header extends Component {
                         <div className="col-md-10 text-left"> 
                             <Dropdown drop={"left"}>
                                 <Dropdown.Toggle id="dropdown-action" variant="actions" bsPrefix="dropdown">
-                                    <div className="button-area-go-back">
-                                        <i className="fas fa-undo"></i> <span className="text-go-back"> Go Back</span>
+                                    <div className="button-area-go-back" onClick={(e) => this.backToHomePage(e)}>
+                                        <i className="fas fa-undo"></i> <span className="text-go-back"> Trang chủ</span>
                                     </div>
                                 </Dropdown.Toggle>
                             </Dropdown>
@@ -115,26 +124,26 @@ class Header extends Component {
                                     {this.renderSaveOrEdit()}
                                     <Dropdown.Item onClick={(e) => this.exportAsImage(e)}>
                                         <div className="action-title-left">
-                                            Export as PNG
+                                            Xuất file PNG
                                         </div>
                                         <div className="action-ilustration">
-                                            Export the diagram as a PNG image
+                                            Xuất quy trình ra file PNG
                                         </div>
                                     </Dropdown.Item>
                                     <Dropdown.Item onClick={(e) => this.exportAsSVG(e)}>
                                         <div className="action-title-left">
-                                            Export as SVG
+                                            Xuất file SVG
                                         </div>
                                         <div className="action-ilustration">
-                                            Export the diagram as a SVG image
+                                            Xuất quy trình ra file SVG
                                         </div>
                                     </Dropdown.Item>
                                     <Dropdown.Item onClick={(e)=>this.exportAsBPMN(e)}>
                                         <div className="action-title-left">
-                                            Export as BPMN 2.0 XML
+                                            Xuất file BPMN 2.0 XML
                                         </div>
                                         <div className="action-ilustration">
-                                            Export the diagram in the BPMN 2.0 document format
+                                            Xuất quy trình ra dạng tài liệu BPMN 2.0 
                                         </div>
                                     </Dropdown.Item>
                                 </Dropdown.Menu>
@@ -150,12 +159,12 @@ class Header extends Component {
                                 <Dropdown.Menu>
                                     <Dropdown.Item onClick={this.openShortcutModal}>
                                         <div className="action-title">
-                                            Keyboard Shortcuts
+                                            Phím tắt
                                         </div>
                                     </Dropdown.Item>
                                     <Dropdown.Item>
                                         <div className="action-title">
-                                            User guide
+                                            Hướng dẫn
                                         </div>
                                     </Dropdown.Item>
                                 </Dropdown.Menu>
@@ -166,14 +175,14 @@ class Header extends Component {
 
             <Modal size="lg" show={this.state.isOpenShortcut} onHide={this.closeShortcutModal}>
                 <ModalHeader closeButton>
-                    <ModalTitle>Keyboard Shortcuts</ModalTitle>
+                    <ModalTitle>Phím tắt</ModalTitle>
                 </ModalHeader>
                 <ModalBody>
                     <Shortcut />
                 </ModalBody>
                 <ModalFooter>
                     <Button variant="info" onClick={this.closeShortcutModal}>
-                        Close
+                        Đóng
                     </Button>
                 </ModalFooter>
             </Modal>

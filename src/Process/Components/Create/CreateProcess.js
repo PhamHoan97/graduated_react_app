@@ -7,7 +7,6 @@ import '../../Css/Process.css';
 import {connect} from 'react-redux';
 import * as actions from '../../Actions/Index';
 import Detail from "../View/Detail";
-import IsoRule from "../View/IsoRule";
 
 class CreateProcess extends Component {
     constructor(props) {
@@ -51,7 +50,7 @@ class CreateProcess extends Component {
                             <div className="col-md-3">
                                 <div className="button-details-right-open">
                                     <button onClick={(e) => this.closePopup(e)}>
-                                        <i className="fas fa-align-justify"></i> Details
+                                        <i className="fas fa-align-justify"></i> Chi tiết
                                     </button>
                                 </div>
                                 <div className="right-column-popup">
@@ -65,7 +64,7 @@ class CreateProcess extends Component {
                                 <Detail />
                             </div>
                             <div className="col-md-3">
-                                <IsoRule process={true} />
+                                
                             </div>
                         </div>
                         <div className="space-area"></div>
@@ -84,7 +83,7 @@ class CreateProcess extends Component {
                                 <Process />
                                 <div className="button-details-right-close">
                                     <button onClick={(e) => this.openPopUp(e)}>
-                                        <i className="fas fa-align-justify"></i> Details
+                                        <i className="fas fa-align-justify"></i> Chi tiết
                                     </button>
                                 </div>
                             </div>
@@ -94,7 +93,7 @@ class CreateProcess extends Component {
                                 <Detail />
                             </div>
                             <div className="col-md-3">
-                                <IsoRule process={true} />
+                                
                             </div>
                         </div>
                         <div className="space-area"></div>

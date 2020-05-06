@@ -18,11 +18,23 @@ class ContentEmployeeInformation extends Component {
         }
     }
 
+    combineProcesses(array1, array2) {
+      var processes= [];
+      for (let index1 = 0; index1 < array1.length; index1++) {
+        processes.push(array1[index1]);
+      }
+      for (let index2 = 0; index2 < array2.length; index2++) {
+        processes.push(array2[index2]);
+      }
+      return processes;
+    }
+
     UNSAFE_componentWillReceiveProps(nextProps) {
       if(nextProps.employee){
+        var processes = this.combineProcesses(nextProps.employee.processes_employees,nextProps.employee.processes_roles);
         this.setState({
           employee: nextProps.employee, 
-          processes: nextProps.employee.processes,
+          processes: processes,
           department: nextProps.employee.department,
           role: nextProps.employee.role,
           company: nextProps.employee.company,
@@ -55,7 +67,7 @@ class ContentEmployeeInformation extends Component {
                       className="btn btn-primary btn-round"                                   
                       type="button"
                       data-toggle="modal"
-                      data-target="#update-information-employee"> Update</button>
+                      data-target="#update-information-employee"> Cập nhật</button>
                   </div>
                 </div>
               </div>
@@ -87,7 +99,7 @@ class ContentEmployeeInformation extends Component {
                       className="btn btn-primary btn-round"                                   
                       type="button"
                       data-toggle="modal"
-                      data-target="#update-information-employee"> Update</button>
+                      data-target="#update-information-employee"> Cập nhật</button>
                   </div>
                 </div>
               </div>

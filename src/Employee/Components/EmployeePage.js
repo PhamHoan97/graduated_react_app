@@ -45,6 +45,7 @@ class EmployeePage extends Component {
           if(res.data.error != null){
               console.log(res.data.message);
           }else{
+              console.log(res.data);
               var data = {...res.data.employee, company: res.data.company, department:res.data.department};
               this.props.updateEmployeeInformation(res.data.employee);
               this.setState({employee: data});

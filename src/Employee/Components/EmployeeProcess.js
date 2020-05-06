@@ -167,14 +167,14 @@ class EmployeeProcess extends Component {
         return (
             <div className="card">
                 <div className="card-header card-header-primary">
-                <h4 className="card-title title-employee">Process</h4>
-                <p className="card-category title-employee">Show your process</p>
+                <h4 className="card-title title-employee">Quy trình</h4>
+                <p className="card-category title-employee">Xem quy trình được giao</p>
                 </div>
                 <div className="card-body">
                     <div className="employee-search-process">
                         <div className= "search-process"> 
                             <form className="form-search-employee">
-                                <input className="form-control" placeholder="Search..." />
+                                <input className="form-control" placeholder="Tìm kiếm..." />
                                 <button className="employee-btn--search__process" type="button"><i className="zmdi zmdi-search"></i></button>
                             </form>
                         </div>
@@ -183,10 +183,10 @@ class EmployeeProcess extends Component {
                         <table className="table table-data2">
                             <thead>
                             <tr>
-                                <th>name</th>
-                                <th>description</th>
-                                <th>created at</th>
-                                <th>assigned by</th>
+                                <th>tên quy trình</th>
+                                <th>mô tả ngắn </th>
+                                <th>thời gian tạo</th>
+                                <th>giao bởi</th>
                                 <th></th>
                             </tr>
                             </thead>

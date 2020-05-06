@@ -45,7 +45,7 @@ class SelectDepartmentToAssign extends Component {
     }
     
     convertToOptionsSelect(data){
-        var options = [{value: '', label: 'Select...'}];
+        var options = [{value: '', label: 'Lựa chọn phòng ban'}];
         for (let index = 0; index < data.length; index++) {
             options.push({value: data[index].id, label: data[index].name});    
         }
@@ -78,6 +78,7 @@ class SelectDepartmentToAssign extends Component {
             options={this.state.options}
             formatGroupLabel={formatGroupLabel}
             onChange={(e) => this.changeDepartmentOptionAssign(e)}
+            placeholder="Lựa chọn phòng ban"
           />
         )
     }

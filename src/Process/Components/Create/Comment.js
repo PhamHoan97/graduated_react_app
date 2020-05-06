@@ -80,7 +80,7 @@ class Comment extends Component {
         if(Array.isArray(this.state.currentElement.comments) && this.state.currentElement.comments.length){
             return (
                 <section className="comment-element">
-                    <h4 className="comment-title"> Comments</h4>
+                    <h4 className="comment-title"> Bình luận</h4>
                     <div className="comment-content form-group">
                         <div className="conversation-content-has-comment">
                             {this.renderListComment(this.state.currentElement.comments)}
@@ -90,10 +90,10 @@ class Comment extends Component {
                             <form>
                                 <div className="form-comment-area">
                                     <div className="form-group input-comment">
-                                        <input type="text" onChange={this.changeComment} className="form-control" id="comment-element" placeholder="Reply..." />
+                                        <input type="text" onChange={this.changeComment} className="form-control" id="comment-element" placeholder="Trả lời..." />
                                     </div>
                                     <div className="button-send-comment">
-                                        <Button onClick={(e) => this.saveCommentElement(e)} disabled={this.allowComment()} title="Comment">Comment</Button>
+                                        <Button onClick={(e) => this.saveCommentElement(e)} disabled={this.allowComment()} title="Comment">Bình luận</Button>
                                     </div>
                                 </div>
                             </form>
@@ -111,8 +111,8 @@ class Comment extends Component {
                             <div className="no-conversation">
                                 <i className="fas fa-comments fa-3x"></i>
                                 <div className="no-conversation-message">
-                                    <div className="title-add-comments">Add comments</div>
-                                    <div className="content-add-comments">You can add comments about diagrams or specific BPMN elements.</div>
+                                    <div className="title-add-comments">Thêm mới</div>
+                                    <div className="content-add-comments">Bạn có thể thêm bình luận cho từng phần tử trên quy trình.</div>
                                 </div>
                             </div>
                         </div>
@@ -120,10 +120,10 @@ class Comment extends Component {
                             <form>
                                 <div className="form-comment-area">
                                     <div className="form-group input-comment">
-                                        <input type="text" onChange={this.changeComment} className="form-control" id="comment-element" placeholder="Reply..." />
+                                        <input type="text" onChange={this.changeComment} className="form-control" id="comment-element" placeholder="Trả lời..." />
                                     </div>
                                     <div className="button-send-comment">
-                                        <Button onClick={(e) => this.saveCommentElement(e)} disabled={this.allowComment()} title="Comment">Comment</Button>
+                                        <Button onClick={(e) => this.saveCommentElement(e)} disabled={this.allowComment()} title="Comment">Bình luận</Button>
                                     </div>
                                 </div>
                             </form>

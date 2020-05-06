@@ -32,7 +32,7 @@ class DetailEmployeeModal extends Component {
                 <Modal.Header closeButton>
                   <Modal.Title>
                     <h5 className="modal-title" id="scrollmodalLabel">
-                        Information 
+                        Thông tin nhân viên 
                     </h5>
                   </Modal.Title>
                 </Modal.Header>
@@ -45,7 +45,7 @@ class DetailEmployeeModal extends Component {
                                     htmlFor="text-input"
                                     className=" form-control-label"
                                 >
-                                    Name
+                                    Tên nhân viên
                                 </label>
                                 </div>
                                 <div className="col-12 col-md-9">
@@ -60,7 +60,7 @@ class DetailEmployeeModal extends Component {
                                     htmlFor="text-input"
                                     className=" form-control-label"
                                 >
-                                    Address
+                                    Địa chỉ 
                                 </label>
                                 </div>
                                 <div className="col-12 col-md-9">
@@ -75,7 +75,7 @@ class DetailEmployeeModal extends Component {
                                     htmlFor="text-input"
                                     className=" form-control-label"
                                 >
-                                    Birth
+                                    Ngày sinh
                                 </label>
                                 </div>
                                 <div className="col-12 col-md-9">
@@ -90,7 +90,7 @@ class DetailEmployeeModal extends Component {
                                     htmlFor="text-input"
                                     className=" form-control-label"
                                 >
-                                    Phone
+                                    Số điện thoại
                                 </label>
                                 </div>
                                 <div className="col-12 col-md-9">
@@ -105,7 +105,7 @@ class DetailEmployeeModal extends Component {
                                     htmlFor="text-input"
                                     className=" form-control-label"
                                 >
-                                    Department
+                                    Phòng ban
                                 </label>
                                 </div>
                                 <div className="col-12 col-md-9">
@@ -120,7 +120,7 @@ class DetailEmployeeModal extends Component {
                                     htmlFor="text-input"
                                     className=" form-control-label"
                                 >
-                                    Role
+                                    Vai trò
                                 </label>
                                 </div>
                                 <div className="col-12 col-md-9">
@@ -137,7 +137,7 @@ class DetailEmployeeModal extends Component {
                 </Modal.Body>
                 <Modal.Footer>
                   <Button variant="secondary" onClick={this.handleClose}>
-                    Close
+                    Đóng
                   </Button>
                 </Modal.Footer>
               </Modal>
