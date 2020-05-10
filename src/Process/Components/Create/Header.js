@@ -19,7 +19,8 @@ class Header extends Component {
         this.state = {
             isOpenShortcut: false,
             isEdit: '',
-            isBackHome: false,
+            isBackHomeCompany: false,
+            isBackHomeEmployee: false,
         }
     }
 
@@ -92,12 +93,19 @@ class Header extends Component {
 
     backToHomePage = (e) => {
         e.preventDefault();
-        this.setState({isBackHome:true});
+        if(localStorage.getItem('is_company')){
+            this.setState({isBackHomeCompany:true});
+        }else if(localStorage.getItem('is_employee')){
+            this.setState({isBackHomeEmployee:true});
+        }
     }
 
     render() {
-        if(this.state.isBackHome){
+        if(this.state.isBackHomeCompany){
             return <Redirect to={'/system/dashboard/'}/> 
+        }
+        if(this.state.isBackHomeEmployee){
+            return <Redirect to={'/employee/dashboard/'}/> 
         }
         return (
             <div className="process-header">

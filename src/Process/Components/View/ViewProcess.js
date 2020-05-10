@@ -47,7 +47,6 @@ class ViewProcess extends Component {
     }
 
     extractDataToComponent(process){
-        console.log(process);
         var detail = {
             id:process.id,
             name:process.name,

@@ -26,7 +26,7 @@ class ContentEmployeeInformation extends Component {
       for (let index2 = 0; index2 < array2.length; index2++) {
         processes.push(array2[index2]);
       }
-      return processes;
+      return processes.reverse();
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
@@ -42,8 +42,15 @@ class ContentEmployeeInformation extends Component {
       }
     }
 
+    renderAvatar = () =>{
+      if(this.state.employee && this.state.employee.avatar){
+        return(<img className="img" src={host.URL_BACKEND + '/' + this.state.employee.avatar} alt="Avatar" />)
+      }else{
+        return(<img className="img" src="/system/images/user-avatar-default.jpg" alt="Avatar" />);
+      }
+    }
+
     render() {
-      if(!this.state.employee.avatar){
         return (
           <div className="container-fluid">
             <div className="row">
@@ -75,39 +82,6 @@ class ContentEmployeeInformation extends Component {
             <EditInformationEmployeeModal employee={this.state.employee} />
           </div>
         )
-      }else{
-        return (
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col-md-9">
-                  <EmployeeInformation employee={this.state.employee}/>
-                  <EmployeeProcess processes={this.state.processes}/>
-              </div>
-              <div className="col-md-3">
-                <div className="card card-profile">
-                  <div className="card-avatar">
-                      <img className="img" src={host.URL_BACKEND + '/' + this.state.employee.avatar} alt="Avatar" />
-                  </div>
-                  <div className="card-body">
-                    <h6 className="card-category text-gray">{this.state.company.signature + ' / ' + this.state.department.name}</h6>
-                    <h6 className="card-category text-gray">{this.state.role.name}</h6>
-                    <h4 className="card-title-employee">{this.state.employee.name}</h4>
-                    <p className="card-description">
-                        {this.state.employee.about_me}
-                    </p>
-                    <button 
-                      className="btn btn-primary btn-round"                                   
-                      type="button"
-                      data-toggle="modal"
-                      data-target="#update-information-employee"> Cập nhật</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <EditInformationEmployeeModal employee={this.state.employee} />
-          </div>
-        )
-      }
     }
 }
 

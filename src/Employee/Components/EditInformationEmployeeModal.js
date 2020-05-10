@@ -187,7 +187,7 @@ class EditInformationEmployeeModal extends Component {
                         <div className="row form-group">
                           <div className="col col-md-3">
                             <label
-                              htmlFor="hf-email"
+                              htmlFor="hf-birth"
                               className=" form-control-label"
                             >
                               Ngày sinh
@@ -200,7 +200,7 @@ class EditInformationEmployeeModal extends Component {
                         <div className="row form-group">
                           <div className="col col-md-3">
                             <label
-                              htmlFor="hf-email"
+                              htmlFor="hf-phone"
                               className=" form-control-label"
                             >
                               Số điện thoại
@@ -209,8 +209,8 @@ class EditInformationEmployeeModal extends Component {
                           <div className="col-12 col-md-9">
                             <input
                               type="text"
-                              id="hf-email"
-                              name="hf-email"
+                              id="hf-phone"
+                              name="hf-phone"
                               className="form-control"
                               defaultValue={this.state.phone}
                               onChange={this.handleChangePhone}
@@ -220,7 +220,7 @@ class EditInformationEmployeeModal extends Component {
                         <div className="row form-group">
                           <div className="col col-md-3">
                             <label
-                              htmlFor="hf-email"
+                              htmlFor="hf-address"
                               className=" form-control-label"
                             >
                               Địa chỉ
@@ -229,8 +229,8 @@ class EditInformationEmployeeModal extends Component {
                           <div className="col-12 col-md-9">
                             <input
                               type="text"
-                              id="hf-email"
-                              name="hf-email"
+                              id="hf-address"
+                              name="hf-address"
                               className="form-control"
                               defaultValue={this.state.address}
                               onChange={this.handleChangeAddress}
@@ -240,7 +240,7 @@ class EditInformationEmployeeModal extends Component {
                         <div className="row form-group">
                           <div className="col col-md-3">
                             <label
-                              htmlFor="hf-email"
+                              htmlFor="hf-info"
                               className=" form-control-label"
                             >
                               Giới thiệu

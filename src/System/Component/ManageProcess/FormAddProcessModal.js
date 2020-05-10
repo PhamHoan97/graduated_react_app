@@ -41,7 +41,6 @@ class FormAddProcessModal extends Component {
             if(res.data.error != null){
                 console.log(res.data.message);
             }else{
-                console.log(res.data); 
                 this.setState({employeesFilter: res.data.employees, rolesFilter: res.data.roles, selected: '', assign: ''});
             }
           }).catch(function (error) {
@@ -60,7 +59,6 @@ class FormAddProcessModal extends Component {
         if(res.data.error != null){
             console.log(res.data.message);
         }else{
-            console.log(res.data); 
             this.setState({employeesFilter: res.data.employees, rolesFilter: res.data.roles});
         }
       }).catch(function (error) {
@@ -207,7 +205,6 @@ class FormAddProcessModal extends Component {
     }
 
     render() {
-      console.log(this.state)
         if(this.state.redirect){
           return <Redirect to={{ pathname: "/process/new"}}/> 
         }

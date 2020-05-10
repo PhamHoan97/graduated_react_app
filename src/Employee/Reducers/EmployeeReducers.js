@@ -10,7 +10,7 @@ var employeeReducers = (state = initState, action) => {
         case types.RELOAD_EMPLOYEE_PAGE:
             return {...state, reloadPage:true};
         case types.UPDATE_EMPLOYEE_INFORMATION:
-            return {...state, employee : action.employee};
+            return {...state, employee : action.employee};    
         default:
             return state;
     }

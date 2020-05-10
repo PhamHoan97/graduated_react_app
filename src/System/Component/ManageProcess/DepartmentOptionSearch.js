@@ -29,7 +29,6 @@ class DepartmentOptionSearch extends Component {
           if(res.data.error != null){
               console.log(res.data.message);
           }else{
-              console.log(res.data); 
               var data = res.data.departmentCompany;
               for (let index = 0; index < data.length; index++) {
                 option += '<option value="'+ data[index].id +'">'+ data[index].name +'</option>';

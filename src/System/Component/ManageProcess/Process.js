@@ -119,7 +119,6 @@ class Process extends Component {
       if(res.data.error != null){
           console.log(res.data.message);
       }else{
-          console.log(res.data);
           this.setState({employees: res.data.employees});
       }
     }).catch(function (error) {
@@ -137,7 +136,6 @@ class Process extends Component {
       if(res.data.error != null){
           console.log(res.data.message);
       }else{
-          console.log(res.data); 
           this.setState({currentEmployee: res.data.employee});
       }
     }).catch(function (error) {
@@ -161,7 +159,7 @@ class Process extends Component {
                         </td>
                         <td className="desc">{value.name}</td>
                         <td className="desc">{value.department_name}</td>
-                        <td className="desc">{value.role}</td>
+                        <td className="desc">{value.role_name}</td>
                         <td className="desc">{value.address}</td>
                         <td className="desc">{value.phone}</td>
                         <td >
@@ -222,7 +220,6 @@ class Process extends Component {
         if(res.data.error != null){
             console.log(res.data.message);
         }else{
-            console.log(res.data); 
             this.setState({employees: res.data.employees});
         }
       }).catch(function (error) {

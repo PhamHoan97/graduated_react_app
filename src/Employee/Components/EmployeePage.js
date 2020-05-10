@@ -17,17 +17,18 @@ class EmployeePage extends Component {
     UNSAFE_componentWillReceiveProps(nextProps){
         if(nextProps.reloadPage){
             var token = localStorage.getItem('token');
-            var idEmployee = localStorage.getItem('employee_id');
-            axios.get(`http://127.0.0.1:8000/api/employee/data/` + idEmployee,
+            axios.get(`http://127.0.0.1:8000/api/employee/data/` + token,
             {
                 headers: { 'Authorization': 'Bearer ' + token}
             }).then(res => {
               if(res.data.error != null){
                   console.log(res.data.message);
               }else{
-                  var data = {...res.data.employee, company: res.data.company, department:res.data.department};
-                  this.props.updateEmployeeInformation(res.data.employee);
-                  this.setState({employee: data});
+                    var data = {...res.data.employee, company: res.data.company, department:res.data.department};
+                    var employee = res.data.employee;
+                        employee.username_account = res.data.username_account;
+                    this.props.updateEmployeeInformation(res.data.employee);
+                    this.setState({employee: data});
               }
             }).catch(function (error) {
               alert(error);
@@ -37,19 +38,19 @@ class EmployeePage extends Component {
 
     componentDidMount() {
         var token = localStorage.getItem('token');
-        var idEmployee = localStorage.getItem('employee_id');
-        axios.get(`http://127.0.0.1:8000/api/employee/data/` + idEmployee,
+        axios.get(`http://127.0.0.1:8000/api/employee/data/` + token,
         {
             headers: { 'Authorization': 'Bearer ' + token}
         }).then(res => {
-          if(res.data.error != null){
-              console.log(res.data.message);
-          }else{
-              console.log(res.data);
-              var data = {...res.data.employee, company: res.data.company, department:res.data.department};
-              this.props.updateEmployeeInformation(res.data.employee);
-              this.setState({employee: data});
-          }
+            if(res.data.error != null){
+                console.log(res.data.message);
+            }else{
+                var data = {...res.data.employee, company: res.data.company, department:res.data.department};
+                var employee = res.data.employee;
+                    employee.username_account = res.data.username_account;
+                this.props.updateEmployeeInformation(employee);
+                this.setState({employee: data});
+            }
         }).catch(function (error) {
           alert(error);
         });

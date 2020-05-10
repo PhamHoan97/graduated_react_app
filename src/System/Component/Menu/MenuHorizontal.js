@@ -16,10 +16,6 @@ export default class MenuHorizontal extends Component {
     }
   };
   render() {
-    console.log(
-      localStorage.getItem("is_system") !== null &&
-        localStorage.getItem("is_system") === "true"
-    );
     return (
       <aside className="menu-sidebar d-none d-lg-block text-left">
         <div className="logo">

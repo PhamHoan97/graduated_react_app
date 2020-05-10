@@ -35,7 +35,7 @@ class Process extends Component {
                           'targetNamespace="http://bpmn.io/schema/bpmn" ' +
                           'id="Definitions_1">' +
           '<bpmn:process id="Process_1" isExecutable="false">' +
-  
+            '<bpmn:startEvent id="StartEvent_1"/>' +
           '</bpmn:process>' +
           '<bpmndi:BPMNDiagram id="BPMNDiagram_1">' +
             '<bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">' +
