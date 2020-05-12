@@ -26,6 +26,8 @@ import AccountEmployee from '../System/Component/ManageAccountEmployee/AccountEm
 import OrganizationContainer from '../System/Container/ManageOrganization/OrganizationContainer';
 import CompanyInformation from '../System/Component/ManageInformationCompany/CompanyInformation';
 import EmployeeLogin from '../LoginSystem/Components/EmployeeLogin';
+import ForgetPasswordEmployee from '../Employee/Components/ForgetPasswordEmployee';
+import FormResetPasswordEmployee from '../Employee/Components/FormResetPasswordEmployee';
 
 class ListUrl extends Component {
     render() {
@@ -60,6 +62,8 @@ class ListUrl extends Component {
                         <Route path="/system/company/information" exact component={CompanyInformation} />
                         <Route path="/employee/login" exact component={EmployeeLogin} />
                         <Route path="/employee/view/process/:id" exact component={ViewProcess} />
+                        <Route path="/employee/reset/password" exact component={ForgetPasswordEmployee} />
+                        <Route path="/employee/form/reset/password/:id" exact component={FormResetPasswordEmployee} />
                     </div>
                 </Router>
            </>

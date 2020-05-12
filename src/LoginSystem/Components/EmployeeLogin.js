@@ -20,13 +20,13 @@ import  { Redirect } from 'react-router-dom';
 
 const required = (value) => {
     if (isEmpty(value)) {
-        return <small className="form-text text-danger">This field is required</small>;
+        return <small className="form-text text-danger">Không được để trống</small>;
     }
   }
 
   const minLength = (value) => {
     if (value.trim().length < 8) {
-        return <small className="form-text text-danger">Password must be at least 8 characters long</small>;
+        return <small className="form-text text-danger">Mật khẩu phải có độ dài ít nhất 8</small>;
     }
   }
 
@@ -61,7 +61,6 @@ class SystemLogin extends Component{
             if(res.data.error != null){
                 console.log(res.data.message);
             }else{
-                console.log(res.data.message);
                 localStorage.setItem('token', res.data.token);
                 if(res.data.isEmployee){
                     localStorage.setItem('employee_id', res.data.id);
@@ -83,9 +82,9 @@ class SystemLogin extends Component{
         axios.post(`http://127.0.0.1:8000/api/logout/employee`)
           .then(res => {
             if(res.data.error != null){
-                console.log(res.data.error);
+                console.log(res.data.error);    
             }else{
-                console.log(res.data.message);
+
             }
           }).catch(function (error) {
             alert(error);
@@ -98,7 +97,7 @@ class SystemLogin extends Component{
     }
 
     render(){
-        if(this.state.redirectEmployee){
+        if(this.state.redirectEmployee || (localStorage.getItem('token') && localStorage.getItem("employee_id") && localStorage.getItem("is_employee"))){
             return <Redirect to='/employee/dashboard'/>;
         }
         return (
@@ -108,32 +107,32 @@ class SystemLogin extends Component{
                     <div className="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
                     <Form className="login100-form validate-form" onSubmit={e => this.onSubmit(e)} ref={c => { this.form = c }}>
                         <span className="login100-form-title p-b-49">
-                        Login
+                            Đăng nhập
                         </span>
-                        <div className="wrap-input100 validate-input m-b-23" data-validate="Username is required">
-                        <span className="label-input100">Username</span>
-                        <Input className="input100" type="text" name="username" placeholder="Username" 
+                        <div className="wrap-input100 validate-input m-b-23" data-validate="Tài khoản không được trống">
+                        <span className="label-input100">Tài khoản</span>
+                        <Input className="input100" type="text" name="username" placeholder="Tài khoản" 
                             validations={[required]} onChange={this.handleChangeUsername}
                         />
                         <span className="focus-input100" data-symbol="" />
                         </div>
-                        <div className="wrap-input100 validate-input" data-validate="Password is required">
-                        <span className="label-input100">Password</span>
-                        <Input className="input100" type="password" name="password" placeholder="Password"
+                        <div className="wrap-input100 validate-input" data-validate="Mật khẩu không được trống">
+                        <span className="label-input100">Mật khẩu</span>
+                        <Input className="input100" type="password" name="password" placeholder="Mật khẩu"
                             validations={[required, minLength]} onChange={this.handleChangePassword}
                         />
                         <span className="focus-input100" data-symbol="" />
                         </div>
                         <div className="text-right p-t-8 p-b-31">
-                        <a href="/">
-                            Forgot password?
+                        <a href="/employee/reset/password">
+                            Quên mật khẩu?
                         </a>
                         </div>
                         <div className="container-login100-form-btn">
                         <div className="wrap-login100-form-btn">
                             <div className="login100-form-bgbtn" />
                             <CheckButton className="login100-form-btn" onClick={this.handleSubmit} ref={c => { this.checkBtn = c }}>
-                            Login
+                                Đăng nhập
                             </CheckButton>
                         </div>
                         </div>
