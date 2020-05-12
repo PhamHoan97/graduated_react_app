@@ -19,6 +19,9 @@ class HeaderEmployee extends Component {
       password: '',
       newPassword: '',
       confirmPassword: '', 
+      notifications: '',
+      click: '',
+      isRedirectViewProcess: '',
     };
   }
   
@@ -29,6 +32,16 @@ class HeaderEmployee extends Component {
       e.target.parentElement.parentElement.className = "account-item clearfix js-item-menu";
     } else {
       e.target.parentElement.parentElement.className += " show-dropdown";
+    }
+  };
+  
+  collapseMenuNotification = (e) => {
+    e.preventDefault();
+    var prarentValueClassName = e.target.parentElement.className;
+    if (prarentValueClassName.includes("show-dropdown")) {
+      e.target.parentElement.className = "noti__item js-item-menu";
+    } else {
+      e.target.parentElement.className += " show-dropdown";
     }
   };
 
@@ -43,7 +56,6 @@ class HeaderEmployee extends Component {
         if(res.data.error != null){
             console.log(res.data.error);
         }else{
-            console.log(res.data.message);
             this.setState({isLogout:true});
         }
       }).catch(function (error) {
@@ -82,6 +94,21 @@ class HeaderEmployee extends Component {
       });
     }
   }
+  componentDidMount() {
+    var token = localStorage.getItem('token');
+    axios.get(`http://127.0.0.1:8000/api/employee/three/process/notification/` + token,
+    {
+        headers: { 'Authorization': 'Bearer ' + token}
+    }).then(res => {
+      if(res.data.error != null){
+          console.log(res.data.error);
+      }else{ 
+        this.setState({notifications: res.data.notifications});
+      }
+    }).catch(function (error) {
+      alert(error);
+    });
+  }
 
   UNSAFE_componentWillReceiveProps(nextProps){
     if(nextProps.employee){
@@ -98,6 +125,30 @@ class HeaderEmployee extends Component {
     }
   }
 
+  renderNotification = () => {
+    var notifications = this.state.notifications;
+    return Object.values(notifications).map((value, key) => {
+      return (
+        <React.Fragment key={key}>
+          <div className="notifi__item" onClick={(e) => this.viewProcess(e,value.id)}>
+            <div className="bg-c1 img-cir img-40">
+              <i className="zmdi zmdi-email-open" />
+            </div>
+            <div className="content">
+              <p>Quy trình mới: {value.name}</p>
+              <span className="date">{value.created_at}</span>
+            </div>
+          </div>
+        </React.Fragment>
+      )
+    })
+  }
+
+  viewProcess = (e,id) => {
+    e.preventDefault();
+    this.setState({click:id, isRedirectViewProcess:true});
+  } 
+
   handleClose = event => {
       this.setState({
           openModal:false,
@@ -111,7 +162,6 @@ class HeaderEmployee extends Component {
   handleChangePassword = event => {
       this.setState({password: event.target.value});
   }
-
 
   handleChangeNewPassword= event => {
       this.setState({newPassword: event.target.value});
@@ -143,38 +193,38 @@ class HeaderEmployee extends Component {
   }
 
   handleSubmitForm = (e) => {
-      e.preventDefault();
-      var token = localStorage.getItem('token');
-      var data = {
-          username: this.state.username,
-          password: this.state.password,
-          newPassword: this.state.newPassword,
-          confirmPassword: this.state.confirmPassword,
-          tokenData: token,
-      };
+    e.preventDefault();
+    var token = localStorage.getItem('token');
+    var data = {
+        username: this.state.username,
+        password: this.state.password,
+        newPassword: this.state.newPassword,
+        confirmPassword: this.state.confirmPassword,
+        tokenData: token,
+    };
 
-      axios.post(`http://127.0.0.1:8000/api/employee/update/account`,
-      data,
-      {
-          headers: { 'Authorization': 'Bearer ' + token}
-      }).then(res => {
-        if(res.data.error != null){
-          var alert = document.getElementById('alert-modal-error-update-account');
-              alert.style.display = "block";
-              if(res.data.password){
-                  alert.innerHTML = "Mật khẩu không đúng";
-              }else if(res.data.username){
-                  alert.innerHTML = "Tài khoản này đã có người dùng";
-              }else{
-                  alert.innerHTML = res.data.message;
-              }
-        }else{ 
-            document.getElementById("button-close-update-account").click(); 
-            this.props.reloadEmployeePage();
-        }
-      }).catch(function (error) {
-        alert(error);
-      });
+    axios.post(`http://127.0.0.1:8000/api/employee/update/account`,
+    data,
+    {
+        headers: { 'Authorization': 'Bearer ' + token}
+    }).then(res => {
+      if(res.data.error != null){
+        var alert = document.getElementById('alert-modal-error-update-account');
+            alert.style.display = "block";
+            if(res.data.password){
+                alert.innerHTML = "Mật khẩu không đúng";
+            }else if(res.data.username){
+                alert.innerHTML = "Tài khoản này đã có người dùng";
+            }else{
+                alert.innerHTML = res.data.message;
+            }
+      }else{ 
+          document.getElementById("button-close-update-account").click(); 
+          this.props.reloadEmployeePage();
+      }
+    }).catch(function (error) {
+      alert(error);
+    });
   }
 
   openUpdateAccount = (e) => {
@@ -186,6 +236,9 @@ class HeaderEmployee extends Component {
     if(this.state.isLogout){
       return <Redirect to='/'/>;
     }
+    if(this.state.isRedirectViewProcess){
+      return <Redirect to={'/employee/view/process/' + this.state.click} />
+    }
     return (
       <header className="header-desktop-employee">
         <div className="section__content section__content--p30">
@@ -194,13 +247,14 @@ class HeaderEmployee extends Component {
               <div className="header-button">
                 <div className="noti-wrap">
                   <div className="noti__item js-item-menu">
-                    <i className="zmdi zmdi-notifications" />
+                    <i className="zmdi zmdi-notifications" onClick={(e)=>{this.collapseMenuNotification(e)}} />
                     <span className="quantity">3</span>
                     <div className="notifi-dropdown js-dropdown">
                       <div className="notifi__title">
-                        <p>You have 3 Notifications</p>
+                        <p>Bạn có thêm một số thông báo</p>
                       </div>
-                      <div className="notifi__item">
+                      {this.renderNotification()}
+                      {/* <div className="notifi__item">
                         <div className="bg-c1 img-cir img-40">
                           <i className="zmdi zmdi-email-open" />
                         </div>
@@ -226,9 +280,9 @@ class HeaderEmployee extends Component {
                           <p>You got a new file</p>
                           <span className="date">April 12, 2018 06:50</span>
                         </div>
-                      </div>
+                      </div> */}
                       <div className="notifi__footer">
-                        <a href="2AESN">All notifications</a>
+                        <a href="2AESN">Xem tất cả thông báo</a>
                       </div>
                     </div>
                   </div>
