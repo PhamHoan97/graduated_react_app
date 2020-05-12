@@ -5,7 +5,46 @@ import Header from "../../Header";
 import LinkPage from "../../LinkPage";
 import Menu from "../../Menu";
 import CompanyInformation from "./CompanyInformation";
+import ChartOrganization from "./ChartOrganization";
+import axios from "axios";
+import * as host from "../../Url";
 export default class CompanyOrganization extends Component {
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      dataChart:[]
+    }
+  }
+  
+  //WARNING! To be deprecated in React v17. Use componentDidMount instead.
+  componentWillMount() {
+    this.getDataOrganization();
+  }
+  getDataOrganization = () =>{
+    var self = this;
+    var idCompany = localStorage.getItem('company_id');
+    var token = localStorage.getItem('token');
+    axios.post(host.URL_BACKEND+'/api/system/organization/chart', {
+        idCompany:idCompany
+    },{
+      headers: { 'Authorization': 'Bearer ' + token }
+    })
+    .then(function (response) {
+      if(response.data.error != null){
+        console.log(response.data.error);
+      }else{
+        self.setState({
+          dataChart:response.data.dataOrganization,
+          showModalDepartment: false,
+          showModalRole: false,
+          showModalUser: false,
+        })
+      }
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+  }
   render() {
     return (
       <div className="inner-wrapper manage-organization_template">
@@ -93,25 +132,7 @@ export default class CompanyOrganization extends Component {
                         <h4 className="card-title mb-0">Hình vẽ cơ cấu tổ chức</h4>
                       </div>
                       <div className="card-body">
-                        <div className="chartjs-size-monitor">
-                          <div className="chartjs-size-monitor-expand">
-                            <div />
-                          </div>
-                          <div className="chartjs-size-monitor-shrink">
-                            <div />
-                          </div>
-                        </div>
-                        <canvas
-                          id="pieChart"
-                          style={{
-                            display: "block",
-                            width: "423px",
-                            height: "211px",
-                          }}
-                          width={423}
-                          height={211}
-                          className="chartjs-render-monitor"
-                        />
+                        <ChartOrganization nodes={this.state.dataChart}/>
                       </div>
                     </div>
                   </div>
