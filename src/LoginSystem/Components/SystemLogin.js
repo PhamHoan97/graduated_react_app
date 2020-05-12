@@ -105,7 +105,7 @@ class SystemLogin extends Component{
 
     render(){
         if(this.state.redirectSystem){
-            return <Redirect to='/system'/>;
+            return <Redirect to={'/system/'}/>;
         }
         return (
             <div>

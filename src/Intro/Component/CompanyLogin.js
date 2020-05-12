@@ -61,7 +61,6 @@ export default class CompanyLogin extends Component {
             if(res.data.isAdmin){
                 localStorage.setItem('admin_id', res.data.id);
                 localStorage.setItem('company_id', res.data.company_id);
-                localStorage.setItem('is_admin', res.data.isAdmin);
             }
             this.setState({redirectAdmin:true});
         }
@@ -77,7 +76,7 @@ export default class CompanyLogin extends Component {
 
     render() {
         if(this.state.redirectAdmin){
-          return <Redirect to='/system'/>;
+          return <Redirect to='/company/'/>;
         }
 
         return (

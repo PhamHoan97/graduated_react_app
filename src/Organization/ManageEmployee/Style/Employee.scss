@@ -1,0 +1,229 @@
+.manage-employee_company{
+    .page-header_employee {
+        margin-top: 30px;
+        margin-bottom: 1.875rem;
+    }
+    .card-content_employee{
+        width: 100%;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .page-title_employee {
+        text-align: left;
+        color: #1f1f1f;
+        font-size: 26px;
+        font-weight: 500;
+        margin-bottom: 5px;
+    }
+    .view-icons {
+        float: right;
+        margin-right: 10px;
+    }
+    .view-icons .btn.active {
+        color: #333;
+    }
+    .view-icons .btn {
+        background-color: #fff;
+        border: 1px solid #e3e3e3;
+        color: #888;
+        font-size: 18px;
+        margin-right: 5px;
+        min-width: 40px;
+        padding: 4px;
+    }
+    .add-btn {
+        background-color: #ff9b44;
+        border: 1px solid #ff9b44;
+        border-radius: 50px;
+        color: #fff;
+        float: right;
+        font-weight: 500;
+        min-width: 140px;
+    }
+    .btn-link {
+        color: #333;
+    }
+    .btn {
+        border-radius: 5px;
+    }
+    .btn-link, .btn-link:hover, .btn-link:focus, .btn-link:active {
+        box-shadow: none;
+    }
+    .form-focus {
+        height: 50px;
+        position: relative;
+    }
+    .form-focus .form-control {
+        font-size: 16px;
+        font-weight: 400;
+        opacity: 0.4;
+        height: 50px !important;
+        padding: 21px 12px 6px;
+    }
+    input[type=text], input[type=password] {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+    .form-control {
+        border-color: #e3e3e3;
+        box-shadow: none;
+        font-size: 15px;
+        height: 44px;
+    }
+    .form-control option{
+        text-align: center;
+    }
+    .form-focus .focus-label {
+        font-size: 16px;
+        font-weight: 400;
+        opacity: 0.4;
+        pointer-events: none;
+        position: absolute;
+        -webkit-transform: translate3d(0, 22px, 0) scale(1);
+        -ms-transform: translate3d(0, 22px, 0) scale(1);
+        -o-transform: translate3d(0, 22px, 0) scale(1);
+        transform: translate3d(0, 22px, 0) scale(1);
+        transform-origin: left top;
+        transition: 240ms;
+        left: 12px;
+        top: -8px;
+        z-index: 1;
+        color: #888;
+        margin-bottom: 0;
+    }
+    .form-focus {
+        height: 50px;
+        position: relative;
+    }
+    .btn-success.active.focus, .btn-success.active:focus, .btn-success.active:hover, .btn-success.focus:active, .btn-success:active:focus, .btn-success:active:hover, .open > .dropdown-toggle.btn-success.focus, .open > .dropdown-toggle.btn-success:focus, .open > .dropdown-toggle.btn-success:hover {
+        background: #4ab657;
+        border: 1px solid #4ab657;
+    }
+    .filter-row .btn {
+        min-height: 50px;
+        padding: 12px;
+        text-transform: uppercase;
+    }
+    .btn-success:hover, .btn-success:focus, .btn-success.active, .btn-success:active, .open > .dropdown-toggle.btn-success {
+        background: #4ab657;
+        border: 1px solid #4ab657;
+        color: #fff;
+    }
+    .profile-widget {
+        background-color: #fff;
+        border: 1px solid #ededed;
+        border-radius: 4px;
+        margin-bottom: 30px;
+        padding: 20px;
+        text-align: center;
+        position: relative;
+        box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+    }
+    .profile-img {
+        cursor: pointer;
+        height: 80px;
+        margin: 0 auto;
+        position: relative;
+        width: 80px;
+    }
+    .profile-img .avatar {
+        font-size: 24px;
+        height: 80px;
+        line-height: 80px;
+        margin: 0;
+        width: 80px;
+    }
+    .avatar {
+        background-color: #aaa;
+        border-radius: 50%;
+        color: #fff;
+        display: inline-block;
+        font-weight: 500;
+        height: 38px;
+        line-height: 38px;
+        margin: 0 10px 0 0;
+        text-align: center;
+        text-decoration: none;
+        text-transform: uppercase;
+        vertical-align: middle;
+        width: 38px;
+        position: relative;
+        white-space: nowrap;
+    }
+    input, button, a {
+        transition: all 0.4s ease;
+        -moz-transition: all 0.4s ease;
+        -o-transition: all 0.4s ease;
+        -ms-transition: all 0.4s ease;
+        -webkit-transition: all 0.4s ease;
+    }
+    .dropdown.profile-action {
+        position: absolute;
+        right: 5px;
+        text-align: right;
+        top: 10px;
+    }
+    .action-icon {
+        color: #777;
+        font-size: 18px;
+        display: inline-block;
+    }
+    input, button, a {
+        transition: all 0.4s ease;
+        -moz-transition: all 0.4s ease;
+        -o-transition: all 0.4s ease;
+        -ms-transition: all 0.4s ease;
+        -webkit-transition: all 0.4s ease;
+    }
+    .material-icons {
+        font-family: 'Material Icons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 24px;
+        display: inline-block;
+        line-height: 1;
+        text-transform: none;
+        letter-spacing: normal;
+        word-wrap: normal;
+        white-space: nowrap;
+        direction: ltr;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        -moz-osx-font-smoothing: grayscale;
+        font-feature-settings: 'liga';
+    }
+    .user-name {
+        color: #333;
+    }
+    .profile-widget .user-name > a {
+        color: #333;
+    }
+    a:hover, a:active, a:focus {
+        text-decoration: none;
+        outline: none;
+    }
+    h4, .h4 {
+        font-size: 1.125rem;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        font-family: CircularStd;
+        margin-top: 0;
+        font-weight: 500;
+    }
+    .text-ellipsis {
+        display: block;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .m-t-10 {
+        margin-top: 10px !important;
+    }
+    .text-muted {
+        color: #8e8e8e !important;
+    }
+    
+}

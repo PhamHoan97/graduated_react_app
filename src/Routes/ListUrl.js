@@ -14,18 +14,26 @@ import ManageCompany from '../System/Component/ManageSystem/ManageCompany';
 import CreateProcess from '../Process/Components/Create/CreateProcess';
 import EditProcess from '../Process/Components/Edit/EditProcess';
 import ViewProcess from '../Process/Components/View/ViewProcess';
-import DetailCompany from "../System/Component/DetailCompany/DetailCompany";
-import CreateTemplateForm from '../System/Component/ManageNotification/CreateTemplateForm'
-import DetailCompanyNotification from "../System/Component/DetailNotification/DetailCompanyNotification";
-import ListCompanyNotification from "../System/Component/DetailNotification/ListCompanyNotification";
-import ManageNotification from '../System/Component/ManageNotification/ManageNotification'
-import Iso from '../System/Component/ManageIso/Iso';
 import EmployeePage from '../Employee/Components/EmployeePage';
 import ManageEmail from '../System/Component/ManageSystem/ManageEmail';
-import AccountEmployee from '../System/Component/ManageAccountEmployee/AccountEmployee';
-import OrganizationContainer from '../System/Container/ManageOrganization/OrganizationContainer';
-import CompanyInformation from '../System/Component/ManageInformationCompany/CompanyInformation';
 import EmployeeLogin from '../LoginSystem/Components/EmployeeLogin';
+import CompanyOrganization from '../Organization/ManageCompany/Component/CompanyOrganization';
+import DashboardCompany from '../Organization/ManageDashboard/Component/DashboardCompany';
+import EmployeeOrganization from '../Organization/ManageEmployee/Component/EmployeeOrganization';
+import DetailEmployeeOraganization from '../Organization/ManageEmployee/Component/DetailEmployeeOraganization';
+import DepartmentOrganization from '../Organization/ManageDepartment/Component/DepartmentOrganization';
+import DetailDepartmentOraganization from '../Organization/ManageDepartment/Component/DetailDepartmentOraganization';
+import RoleOraganization from '../Organization/ManageRole/Component/RoleOraganization';
+import DetailRole from '../Organization/ManageRole/Component/DetailRole';
+import Notification from '../Organization/ManageNotification/Component/Notification';
+import Template from '../Organization/ManageNotification/Component/Template';
+import Account from '../Organization/ManageAccount/Component/Account';
+import Form from '../Organization/ManageFormNotification/Component/Form';
+import ProcessCompany from '../Organization/ManageProcess/Component/ProcessCompany';
+import PersonalInformation from '../Organization/ManageInformation/Component/PersonalInformation';
+
+
+
 
 class ListUrl extends Component {
     render() {
@@ -37,29 +45,35 @@ class ListUrl extends Component {
                         <Route path="/" exact component={Intro} />
                         <Route path="/register" exact component={Register} />
                         <Route path="/newletter" exact component={Alert} />
-                        <Route path="/company/login" exact component={CompanyLogin} />
                         <Route path="/system" exact component={Dashboard} />
                         <Route path="/system/dashboard" exact component={Dashboard}/>
                         <Route path="/system/personal" exact component={Information}/>
                         <Route path="/system/process" exact component={Process}/>
                         <Route path="/system/registration" component={ManageRegistration}/>
                         <Route path="/system/company" exact component={ManageCompany}/>
-                        <Route path="/system/organization" exact component={OrganizationContainer}/>
-                        <Route path="/system/organization/company/:id" exact component={DetailCompany}/>
                         <Route path="/process/new" exact component={CreateProcess} />
                         <Route path="/process/edit/:id" exact component={EditProcess} />
                         <Route path="/process/view" exact component={ViewProcess} />
-                        <Route path="/system/employee/account" exact component={AccountEmployee} />
-                        <Route path="/system/notification/template" exact component={CreateTemplateForm} />
-                        <Route path="/system/notification/send" exact component={ManageNotification} />
-                        <Route path="/system/company/notification/list" exact component={ListCompanyNotification} />
-                        <Route path="/system/company/notification/detail/:id" exact component={DetailCompanyNotification}/>
-                        <Route path="/system/iso" exact component={Iso} />
                         <Route path="/employee/dashboard" exact component={EmployeePage} />
                         <Route path="/system/email" component={ManageEmail}/>
-                        <Route path="/system/company/information" exact component={CompanyInformation} />
                         <Route path="/employee/login" exact component={EmployeeLogin} />
                         <Route path="/employee/view/process/:id" exact component={ViewProcess} />
+                        <Route path="/company/login" exact component={CompanyLogin} />
+                        <Route path="/company/" exact component={DashboardCompany} />
+                        <Route path="/company/dashboard" exact component={DashboardCompany} />
+                        <Route path="/company/process" exact component={ProcessCompany} />
+                        <Route path="/company/detail" exact component={CompanyOrganization} />
+                        <Route path="/company/personal/information" exact component={PersonalInformation} />
+                        <Route path="/company/organization/employee" exact component={EmployeeOrganization} />
+                        <Route path="/company/organization/department/:idDepartment/role/:idRole/employee/:idEmployee" exact component={DetailEmployeeOraganization} />
+                        <Route path="/company/organization/department" exact component={DepartmentOrganization} />
+                        <Route path="/company/organization/department/:id" exact component={DetailDepartmentOraganization} />
+                        <Route path="/company/organization/role" exact component={RoleOraganization} />
+                        <Route path="/company/organization/department/:idDepartment/role/:idRole" exact component={DetailRole} />
+                        <Route path="/company/template" exact component={Template} />
+                        <Route path="/company/organization/account" exact component={Account} />
+                        <Route path="/company/notification" exact component={Notification} />
+                        <Route path="/company/form" exact component={Form} />
                     </div>
                 </Router>
            </>

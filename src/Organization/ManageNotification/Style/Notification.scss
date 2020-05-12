@@ -1,0 +1,21 @@
+.manage-notification_organization {
+  .table-notification_organization {
+    width: 100%;
+    border-collapse: collapse !important;
+    table-layout: fixed !important;
+  }
+
+  .table-notification_organization .cell-breakWord {
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+  }
+  .table-notification_organization th {
+    text-align: center;
+  }
+  .table-notification_organization td {
+    border-top: 1px solid #dee2e6;
+  }
+  .table-notification_organization .btn-sm {
+    margin-right: 10px;
+  }
+}
