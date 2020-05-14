@@ -211,12 +211,13 @@ div.process-view svg{
     width: 100px;
     position: absolute;
     margin-top: -360px;
-    margin-right: -20px;
+    margin-right: -35px;
     z-index: 5;
     right: 0px;
     border-left: 1px solid #d9d9d9;
     border-right: 1px solid #d9d9d9;
     border-top: 1px solid #d9d9d9;
+    border-bottom: 1px solid #d9d9d9;
     height: 30px;
     line-height: 30px;
     transform: rotate(270deg);
@@ -264,4 +265,10 @@ div.process-view svg{
 
 .download-area{
     display: none;
+}
+
+.link-download-document{
+    text-decoration: underline;
+    font-style: italic;
+    color: blueviolet;
 }

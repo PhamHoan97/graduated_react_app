@@ -19,7 +19,11 @@ class View extends Component {
           bindTo: window,
         },
         additionalModules: [
-          minimapModule
+          minimapModule,
+          {
+            contextPad: [ 'value', null ],
+            contextPadProvider: [ 'value', null ]
+          }
         ]
       }
     );
@@ -156,6 +160,9 @@ class View extends Component {
         var eventBus = this.modeler.get('eventBus');
         console.log(eventBus);
         this.modeler.on('element.click',1000, (e) => this.interactPopup(e));
+        this.modeler.on('element.dblclick',1500, function(event) {
+          event.stopPropagation();
+        });
 
         var tool = document.getElementsByClassName("djs-palette")[0];
         tool.style.visibility  = "hidden"; 

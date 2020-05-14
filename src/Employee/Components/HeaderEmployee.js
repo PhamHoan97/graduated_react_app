@@ -3,6 +3,9 @@ import axios from 'axios';
 import  { Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
 import * as host from "../../System/Constants/Url"; 
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 class HeaderEmployee extends Component {
   
@@ -11,6 +14,14 @@ class HeaderEmployee extends Component {
     this.state = {
       isLogout: false,
       employee: '',
+      openModal: false,
+      username: '',  
+      password: '',
+      newPassword: '',
+      confirmPassword: '', 
+      notifications: '',
+      click: '',
+      isRedirectViewProcess: '',
     };
   }
   
@@ -21,6 +32,16 @@ class HeaderEmployee extends Component {
       e.target.parentElement.parentElement.className = "account-item clearfix js-item-menu";
     } else {
       e.target.parentElement.parentElement.className += " show-dropdown";
+    }
+  };
+  
+  collapseMenuNotification = (e) => {
+    e.preventDefault();
+    var prarentValueClassName = e.target.parentElement.className;
+    if (prarentValueClassName.includes("show-dropdown")) {
+      e.target.parentElement.className = "noti__item js-item-menu";
+    } else {
+      e.target.parentElement.className += " show-dropdown";
     }
   };
 
@@ -35,7 +56,6 @@ class HeaderEmployee extends Component {
         if(res.data.error != null){
             console.log(res.data.error);
         }else{
-            console.log(res.data.message);
             this.setState({isLogout:true});
         }
       }).catch(function (error) {
@@ -52,7 +72,6 @@ class HeaderEmployee extends Component {
         if(res.data.error != null){
             console.log(res.data.error);
         }else{
-            console.log(res.data.message);
             this.setState({isLogout:true});
         }
       }).catch(function (error) {
@@ -61,14 +80,13 @@ class HeaderEmployee extends Component {
     }
 
     if(localStorage.getItem("employee_id")){
-      localStorage.removeItem("isEmployee");
+      localStorage.removeItem("is_employee");
       localStorage.removeItem("employee_id");
       axios.post(`http://127.0.0.1:8000/api/logout/employee`)
       .then(res => {
         if(res.data.error != null){
             console.log(res.data.error);
         }else{
-            console.log(res.data.message);
             this.setState({isLogout:true});
         }
       }).catch(function (error) {
@@ -76,11 +94,27 @@ class HeaderEmployee extends Component {
       });
     }
   }
+  componentDidMount() {
+    var token = localStorage.getItem('token');
+    axios.get(`http://127.0.0.1:8000/api/employee/three/process/notification/` + token,
+    {
+        headers: { 'Authorization': 'Bearer ' + token}
+    }).then(res => {
+      if(res.data.error != null){
+          console.log(res.data.error);
+      }else{ 
+        this.setState({notifications: res.data.notifications});
+      }
+    }).catch(function (error) {
+      alert(error);
+    });
+  }
 
   UNSAFE_componentWillReceiveProps(nextProps){
     if(nextProps.employee){
-      this.setState({employee: nextProps.employee});
+      this.setState({employee: nextProps.employee, username: nextProps.employee.username_account});
     }
+    this.setState({openModal:false});
   }
   
   renderAvatar = () =>{
@@ -90,10 +124,120 @@ class HeaderEmployee extends Component {
       return <img className="img" src="/system/images/user-avatar-default.jpg" alt="Avatar" />;
     }
   }
+
+  renderNotification = () => {
+    var notifications = this.state.notifications;
+    return Object.values(notifications).map((value, key) => {
+      return (
+        <React.Fragment key={key}>
+          <div className="notifi__item" onClick={(e) => this.viewProcess(e,value.id)}>
+            <div className="bg-c1 img-cir img-40">
+              <i className="zmdi zmdi-email-open" />
+            </div>
+            <div className="content">
+              <p>Quy trình mới: {value.name}</p>
+              <span className="date">{value.created_at}</span>
+            </div>
+          </div>
+        </React.Fragment>
+      )
+    })
+  }
+
+  viewProcess = (e,id) => {
+    e.preventDefault();
+    this.setState({click:id, isRedirectViewProcess:true});
+  } 
+
+  handleClose = event => {
+      this.setState({
+          openModal:false,
+      })
+  };
+
+  handleChangeUsername = event => {
+    this.setState({username: event.target.value});
+  }
+
+  handleChangePassword = event => {
+      this.setState({password: event.target.value});
+  }
+
+  handleChangeNewPassword= event => {
+      this.setState({newPassword: event.target.value});
+  }
+
+  handleChangeConfirmPassword= event => {
+      this.setState({confirmPassword: event.target.value});
+  }
+
+  handleValidateForm = (e) => {
+      var regex= "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$";
+      var alert = document.getElementById('alert-modal-error-update-account');
+      if(this.state.username.length <= 10){
+          alert.style.display = "block";
+          alert.innerHTML = "Tài khoản phải ít nhất 10 kí tự";
+          e.preventDefault();
+      }else if(!this.state.newPassword.match(regex)){
+          alert.style.display = "block";
+          alert.innerHTML = "Mật khẩu mới phải ít nhất 8 kí tự gồm chữ cái, số và ít nhất 1 chữ cái viết hoa";
+          e.preventDefault();
+      }else if(this.state.newPassword !== this.state.confirmPassword){
+          alert.style.display = "block";
+          alert.innerHTML = "Mật khẩu mới và xác nhận không giống nhau";
+          e.preventDefault();
+      }else{
+          alert.innerHTML = "";
+          alert.style.display= "none";
+      }
+  }
+
+  handleSubmitForm = (e) => {
+    e.preventDefault();
+    var token = localStorage.getItem('token');
+    var data = {
+        username: this.state.username,
+        password: this.state.password,
+        newPassword: this.state.newPassword,
+        confirmPassword: this.state.confirmPassword,
+        tokenData: token,
+    };
+
+    axios.post(`http://127.0.0.1:8000/api/employee/update/account`,
+    data,
+    {
+        headers: { 'Authorization': 'Bearer ' + token}
+    }).then(res => {
+      if(res.data.error != null){
+        var alert = document.getElementById('alert-modal-error-update-account');
+            alert.style.display = "block";
+            if(res.data.password){
+                alert.innerHTML = "Mật khẩu không đúng";
+            }else if(res.data.username){
+                alert.innerHTML = "Tài khoản này đã có người dùng";
+            }else{
+                alert.innerHTML = res.data.message;
+            }
+      }else{ 
+          document.getElementById("button-close-update-account").click(); 
+          this.props.reloadEmployeePage();
+      }
+    }).catch(function (error) {
+      alert(error);
+    });
+  }
+
+  openUpdateAccount = (e) => {
+    e.preventDefault();
+    this.setState({openModal:true});
+  }
   
   render() {
     if(this.state.isLogout){
       return <Redirect to='/'/>;
+    }
+    if(this.state.isRedirectViewProcess){
+      return <Redirect to={'/employee/view/process/' + this.state.click} />
     }
     return (
       <header className="header-desktop-employee">
@@ -103,13 +247,14 @@ class HeaderEmployee extends Component {
               <div className="header-button">
                 <div className="noti-wrap">
                   <div className="noti__item js-item-menu">
-                    <i className="zmdi zmdi-notifications" />
+                    <i className="zmdi zmdi-notifications" onClick={(e)=>{this.collapseMenuNotification(e)}} />
                     <span className="quantity">3</span>
                     <div className="notifi-dropdown js-dropdown">
                       <div className="notifi__title">
-                        <p>You have 3 Notifications</p>
+                        <p>Bạn có thêm một số thông báo</p>
                       </div>
-                      <div className="notifi__item">
+                      {this.renderNotification()}
+                      {/* <div className="notifi__item">
                         <div className="bg-c1 img-cir img-40">
                           <i className="zmdi zmdi-email-open" />
                         </div>
@@ -135,9 +280,9 @@ class HeaderEmployee extends Component {
                           <p>You got a new file</p>
                           <span className="date">April 12, 2018 06:50</span>
                         </div>
-                      </div>
+                      </div> */}
                       <div className="notifi__footer">
-                        <a href="2AESN">All notifications</a>
+                        <a href="2AESN">Xem tất cả thông báo</a>
                       </div>
                     </div>
                   </div>
@@ -168,28 +313,22 @@ class HeaderEmployee extends Component {
                       </div>
                       <div className="account-dropdown__body text-left">
                         <div className="account-dropdown__item">
-                          <a href="2AESN">
+                          <a href="/employee/dashboard" onClick={(e) => this.openUpdateAccount(e)}>
                             <i className="zmdi zmdi-account" />
-                            Change Password
+                              Cập nhật tài khoản
                           </a>
                         </div>
                         <div className="account-dropdown__item">
-                          <a href="2AESN">
+                          <a href="/employee/dashboard">
                             <i className="zmdi zmdi-settings" />
-                            Setting
-                          </a>
-                        </div>
-                        <div className="account-dropdown__item">
-                          <a href="2AESN">
-                            <i className="zmdi zmdi-money-box" />
-                            Language
+                            Ngôn ngữ
                           </a>
                         </div>
                       </div>
                       <div className="account-dropdown__footer">
                         <a href="/" onClick={(e) => this.handleLogout(e)}>
                           <i className="zmdi zmdi-power" />
-                          Logout
+                          Đăng xuất
                         </a>
                       </div>
                     </div>
@@ -199,6 +338,42 @@ class HeaderEmployee extends Component {
             </div>
           </div>
         </div>
+        <Modal show={this.state.openModal} onHide={this.handleClose}>
+            <Modal.Header closeButton>
+            <Modal.Title>Cập nhật tài khoản</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <div className="alert-error" id="alert-modal-error-update-account">
+                        
+                </div>
+                <Form onSubmit={(e) => this.handleSubmitForm(e)}>
+                    <Form.Group controlId="formGroupPassword1">
+                        <Form.Label>Mật khẩu hiện tại</Form.Label>
+                        <Form.Control type="password" onChange={this.handleChangePassword} required placeholder="Mật khẩu hiện tại" />
+                    </Form.Group>
+                    <Form.Group controlId="formGroupEmail-updateaccount">
+                        <Form.Label>Tài khoản mới</Form.Label>
+                        <Form.Control type="text" onChange={this.handleChangeUsername} required placeholder="Tài khoản mới" defaultValue={this.state.username}/>
+                    </Form.Group>
+                    <Form.Group controlId="formGroupPassword2">
+                        <Form.Label>Mật khẩu mới</Form.Label>
+                        <Form.Control type="password" onChange={this.handleChangeNewPassword} required placeholder="Mật khẩu mới" />
+                    </Form.Group>
+                    <Form.Group controlId="formGroupPassword3">
+                        <Form.Label>Nhập lại mật khẩu</Form.Label>
+                        <Form.Control type="password"  onChange={this.handleChangeConfirmPassword} required placeholder="Nhập lại" />
+                    </Form.Group>
+                    <Button variant="primary" type="submit" onClick={(e) => this.handleValidateForm(e)}>
+                        Cập nhật
+                    </Button>
+                </Form>
+            </Modal.Body>
+            <Modal.Footer>
+            <Button id="button-close-update-account" variant="secondary" onClick={this.handleClose}>
+                Đóng
+            </Button>
+            </Modal.Footer>
+        </Modal>
       </header>
     );
   }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import * as host from "../../../System/Constants/Url"; 
 
 class DetailEmployeeModal extends Component {
     constructor(props) {
@@ -19,10 +20,33 @@ class DetailEmployeeModal extends Component {
         this.setState({show: true});
     };
 
+    renderAvatar = () => {
+        if(this.props.currentEmployee && this.props.currentEmployee.avatar){
+            return (<img src={host.URL_BACKEND + '/' + this.props.currentEmployee.avatar} alt="Avatar" />);
+        }else{
+            return (<img src="/system/images/user-avatar-default.jpg" alt="Avatar" />);
+        }
+    }
+
     UNSAFE_componentWillReceiveProps(nextProps) {
         if(nextProps.currentEmployee){
             this.setState({show: true});
         }
+    }
+
+    convertBirth(str){
+        var date = new Date(str);
+        var yyyy = date.getFullYear();
+        var dd = date.getDate();
+        var mm = (date.getMonth() + 1);
+        if (dd < 10){
+          dd = "0" + dd;
+        }
+        if (mm < 10){
+          mm = "0" + mm;
+        }
+        var result = dd + "-" + mm + "-" + yyyy;
+        return result;
     }
 
     render() {
@@ -32,7 +56,7 @@ class DetailEmployeeModal extends Component {
                 <Modal.Header closeButton>
                   <Modal.Title>
                     <h5 className="modal-title" id="scrollmodalLabel">
-                        Information 
+                        Thông tin nhân viên 
                     </h5>
                   </Modal.Title>
                 </Modal.Header>
@@ -45,7 +69,7 @@ class DetailEmployeeModal extends Component {
                                     htmlFor="text-input"
                                     className=" form-control-label"
                                 >
-                                    Name
+                                    Tên nhân viên
                                 </label>
                                 </div>
                                 <div className="col-12 col-md-9">
@@ -60,7 +84,7 @@ class DetailEmployeeModal extends Component {
                                     htmlFor="text-input"
                                     className=" form-control-label"
                                 >
-                                    Address
+                                    Địa chỉ 
                                 </label>
                                 </div>
                                 <div className="col-12 col-md-9">
@@ -75,11 +99,11 @@ class DetailEmployeeModal extends Component {
                                     htmlFor="text-input"
                                     className=" form-control-label"
                                 >
-                                    Birth
+                                    Ngày sinh
                                 </label>
                                 </div>
                                 <div className="col-12 col-md-9">
-                                    <p>{this.props.currentEmployee.birth}</p>
+                                    <p>{this.convertBirth(this.props.currentEmployee.birth)}</p>
                                     <small className="form-text text-muted">
                                     </small>
                                 </div>
@@ -90,7 +114,7 @@ class DetailEmployeeModal extends Component {
                                     htmlFor="text-input"
                                     className=" form-control-label"
                                 >
-                                    Phone
+                                    Số điện thoại
                                 </label>
                                 </div>
                                 <div className="col-12 col-md-9">
@@ -105,11 +129,11 @@ class DetailEmployeeModal extends Component {
                                     htmlFor="text-input"
                                     className=" form-control-label"
                                 >
-                                    Department
+                                    Phòng ban
                                 </label>
                                 </div>
                                 <div className="col-12 col-md-9">
-                                    <p></p>
+                                    <p>{this.props.currentEmployee.department_name}</p>
                                     <small className="form-text text-muted">
                                     </small>
                                 </div>
@@ -120,24 +144,24 @@ class DetailEmployeeModal extends Component {
                                     htmlFor="text-input"
                                     className=" form-control-label"
                                 >
-                                    Role
+                                    Vai trò
                                 </label>
                                 </div>
                                 <div className="col-12 col-md-9">
-                                    <p></p>
+                                    <p>{this.props.currentEmployee.role_name}</p>
                                     <small className="form-text text-muted">
                                     </small>
                                 </div>
                             </div>
                         </div>
                         <div className="col col-md-3"> 
-                            <img src="/system/images/user-avatar-default.jpg" alt="Avatar" />
+                            {this.renderAvatar()}
                         </div>
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
                   <Button variant="secondary" onClick={this.handleClose}>
-                    Close
+                    Đóng
                   </Button>
                 </Modal.Footer>
               </Modal>

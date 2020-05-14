@@ -6,7 +6,6 @@ import Header from '../Create/Header';
 import '../../Css/Process.css';
 import {connect} from 'react-redux';
 import * as actions from '../../Actions/Index';
-import IsoRule from "../View/IsoRule";
 import axios from 'axios';
 import EditDetail from './EditDetail';
 import {updateProcessInformation} from '../../../System/Action/System/Index';
@@ -33,10 +32,16 @@ class EditProcess extends Component {
         this.props.passPopupStatus(false);
     }
     
-    convertToAssignInDataStore(employees){
+    convertToAssignInDataStore(type, employees, roles){
         var assign = [];
-        for (let index = 0; index < employees.length; index++) {
-            assign.push({'value': employees[index].id, 'label': employees[index].name});
+        if(type === 1){
+            for (let index = 0; index < employees.length; index++) {
+                assign.push({'value': employees[index].id, 'label': employees[index].name});
+            }
+        }else{
+            for (let index = 0; index < roles.length; index++) {
+                assign.push({'value': roles[index].id, 'label': roles[index].name});
+            }
         }
         return assign;
     }
@@ -47,7 +52,9 @@ class EditProcess extends Component {
             name:process.name,
             description: process.description,
             time: process.update_at,
-            assign: this.convertToAssignInDataStore(process.employees),
+            deadline: process.deadline,
+            assign: this.convertToAssignInDataStore(process.type,process.employees, process.roles),
+            type: process.type,
         }
 
         var notes = [];
@@ -130,61 +137,65 @@ class EditProcess extends Component {
         if(this.state.openDetails){
             return(
                 <React.Fragment>
-                    <div className="row">
-                        <Header />
-                    </div>
-                    <div className="row">
-                        <div className="col-md-9">
-                            <Process init={this.state.initDiagram}/>
+                    <div className="container-fluid">
+                        <div className="row">
+                            <Header />
                         </div>
-                        <div className="col-md-3">
-                            <div className="button-details-right-open">
-                                <button onClick={(e) => this.closePopup(e)}>
-                                    <i className="fas fa-align-justify"></i> Details
-                                </button>
+                        <div className="row">
+                            <div className="col-md-9">
+                                <Process init={this.state.initDiagram}/>
                             </div>
-                            <div className="right-column-popup">
-                                <Note />
-                                <Comment />
+                            <div className="col-md-3">
+                                <div className="button-details-right-open">
+                                    <button onClick={(e) => this.closePopup(e)}>
+                                        <i className="fas fa-align-justify"></i> Chi tiết
+                                    </button>
+                                </div>
+                                <div className="right-column-popup">
+                                    <Note />
+                                    <Comment />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="row footer-view-process">  
-                        <div className="col-md-6">
-                            <EditDetail />
+                        <div className="row footer-view-process">  
+                            <div className="col-md-6">
+                                <EditDetail />
+                            </div>
+                            <div className="col-md-3">
+
+                            </div>
                         </div>
-                        <div className="col-md-3">
-                            <IsoRule process={true} />
-                        </div>
+                        <div className="space-area"></div>
                     </div>
-                    <div className="space-area"></div>
                 </React.Fragment>
             )
         }else{
             return (
                 <React.Fragment>
-                    <div className="row">
-                        <Header />
-                    </div>
-                    <div className="row">
-                        <div className="col-md-12">
-                            <Process init={this.state.initDiagram}/>
-                            <div className="button-details-right-close">
-                                <button onClick={(e) => this.openPopUp(e)}>
-                                    <i className="fas fa-align-justify"></i> Details
-                                </button>
+                    <div className="container-fluid">
+                        <div className="row">
+                            <Header />
+                        </div>
+                        <div className="row">
+                            <div className="col-md-12">
+                                <Process init={this.state.initDiagram}/>
+                                <div className="button-details-right-close">
+                                    <button onClick={(e) => this.openPopUp(e)}>
+                                        <i className="fas fa-align-justify"></i> Chi tiết
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="row footer-view-process">  
-                        <div className="col-md-6">
-                            <EditDetail />
+                        <div className="row footer-view-process">  
+                            <div className="col-md-6">
+                                <EditDetail />
+                            </div>
+                            <div className="col-md-3">
+
+                            </div>
                         </div>
-                        <div className="col-md-3">
-                            <IsoRule process={true} />
-                        </div>
+                        <div className="space-area"></div>
                     </div>
-                    <div className="space-area"></div>
                 </React.Fragment>
             )   
         }

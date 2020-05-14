@@ -112,14 +112,13 @@ class Process extends Component {
   componentDidMount() {
     var token = localStorage.getItem('token');
     var company_id = localStorage.getItem('company_id');
-    axios.get(`http://127.0.0.1:8000/api/system/organization/company/`+ company_id + `/employee`,
+    axios.get(`http://127.0.0.1:8000/api/company/`+ company_id + `/employee/role`,
     {
         headers: { 'Authorization': 'Bearer ' + token}
     }).then(res => {
       if(res.data.error != null){
           console.log(res.data.message);
       }else{
-          console.log(res.data);
           this.setState({employees: res.data.employees});
       }
     }).catch(function (error) {
@@ -137,7 +136,6 @@ class Process extends Component {
       if(res.data.error != null){
           console.log(res.data.message);
       }else{
-          console.log(res.data); 
           this.setState({currentEmployee: res.data.employee});
       }
     }).catch(function (error) {
@@ -161,7 +159,7 @@ class Process extends Component {
                         </td>
                         <td className="desc">{value.name}</td>
                         <td className="desc">{value.department_name}</td>
-                        <td className="desc">{value.role}</td>
+                        <td className="desc">{value.role_name}</td>
                         <td className="desc">{value.address}</td>
                         <td className="desc">{value.phone}</td>
                         <td >
@@ -215,14 +213,13 @@ class Process extends Component {
     if(nextProps.idDepartmentSearch){
       var token = localStorage.getItem('token');
       console.log(nextProps.idDepartmentSearch)
-      axios.get(`http://127.0.0.1:8000/api/company/department/`+ nextProps.idDepartmentSearch + `/employee`,
+      axios.get(`http://127.0.0.1:8000/api/company/department/`+ nextProps.idDepartmentSearch + `/employee/role`,
       {
           headers: { 'Authorization': 'Bearer ' + token}
       }).then(res => {
         if(res.data.error != null){
             console.log(res.data.message);
         }else{
-            console.log(res.data); 
             this.setState({employees: res.data.employees});
         }
       }).catch(function (error) {
@@ -255,7 +252,7 @@ class Process extends Component {
                           <div className="row">
                             <div className="col-md-12">
                               <h3 className="title-5 m-b-35 manage__process--title">
-                                Manager Process
+                                Quản lý quy trình
                               </h3>
                               <div className="table-data__tool">
                                 <div className="table-data__tool-left">
@@ -268,15 +265,15 @@ class Process extends Component {
                                       className="js-select2 select--today__process"
                                       name="time"
                                     >
-                                      <option value>Today</option>
-                                      <option value>3 Days</option>
-                                      <option value>1 Week</option>
+                                      <option value>Hôm nay</option>
+                                      <option value>3 ngày gần đây</option>
+                                      <option value>1 tuần gần đây</option>
                                     </select>
                                     <div className="dropDownSelect2" />
                                   </div>
                                   <button className="au-btn-filter ml-5">
                                     <i className="zmdi zmdi-filter-list" />
-                                    filters
+                                    Lọc 
                                   </button>
                                 </div>
                                 <div className="table-data__tool-right">
@@ -286,7 +283,7 @@ class Process extends Component {
                                     onClick={(e) => this.handleOpenAddNewProcessModal(e)}
                                   >
                                     <i className="zmdi zmdi-plus" />
-                                    add process
+                                    Thêm quy trình
                                   </button>
                                   <button
                                     id="clone-button-add-new-process"
@@ -296,7 +293,7 @@ class Process extends Component {
                                     style={{display:"none"}}
                                   >
                                     <i className="zmdi zmdi-plus" />
-                                    add item
+                                    Thêm quy trình
                                   </button>
                                 </div>
                               </div>
@@ -310,11 +307,11 @@ class Process extends Component {
                                           <span className="au-checkmark" />
                                         </label>
                                       </th>
-                                      <th>name</th>
-                                      <th>department</th>
-                                      <th>role</th>
-                                      <th>address</th>
-                                      <th>phone</th>
+                                      <th>tên</th>
+                                      <th>phòng ban</th>
+                                      <th>vai trò</th>
+                                      <th>địa chỉ</th>
+                                      <th>số điện thoại</th>
                                       <th />
                                     </tr>
                                   </thead>

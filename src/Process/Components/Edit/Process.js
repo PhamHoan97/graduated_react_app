@@ -66,14 +66,14 @@ class Process extends Component {
     }
     else{
         var tokenData = localStorage.getItem('token');
-        console.log(this.props.detail)
-        var data = {
-          elements: this.props.elements,
-          xml: xmlRender,
-          information: this.props.detail,
-          token: tokenData,
-        }
-
+        console.log(this.props.detail);
+        let data = new FormData();
+        data.append('elements', JSON.stringify(this.props.elements));
+        data.append('xml', xmlRender);
+        data.append('information',  JSON.stringify(this.props.detail));
+        data.append('token', tokenData);
+        data.append('file',  this.props.detail.file);
+        
         axios.post(`http://127.0.0.1:8000/api/company/process/edit`,
         data,
         {

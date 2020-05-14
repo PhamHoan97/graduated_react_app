@@ -35,7 +35,7 @@ class Process extends Component {
                           'targetNamespace="http://bpmn.io/schema/bpmn" ' +
                           'id="Definitions_1">' +
           '<bpmn:process id="Process_1" isExecutable="false">' +
-  
+            '<bpmn:startEvent id="StartEvent_1"/>' +
           '</bpmn:process>' +
           '<bpmndi:BPMNDiagram id="BPMNDiagram_1">' +
             '<bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">' +
@@ -84,12 +84,12 @@ class Process extends Component {
     }
     else{
         var tokenData = localStorage.getItem('token');
-        var data = {
-          elements: this.props.elements,
-          xml: xmlRender,
-          information: this.props.detail,
-          token: tokenData,
-        }
+        let data = new FormData();
+        data.append('elements', JSON.stringify(this.props.elements));
+        data.append('xml', xmlRender);
+        data.append('information',  JSON.stringify(this.props.detail));
+        data.append('token', tokenData);
+        data.append('file',  this.props.detail.file);
 
         axios.post(`http://127.0.0.1:8000/api/company/process/new`,
         data,

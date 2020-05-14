@@ -113,8 +113,8 @@ class Note extends Component {
                         <div className="note-content-show">
                             <p>{this.state.currentElement.note}</p>
                         </div>
-                        <Button onClick={(e) => this.deleteNoteForElement(e)} variant="danger" className="delete-note-button">Delete</Button>
-                        <Button onClick={(e) => this.updateNoteForElement(e)} variant="primary" className="save-note-button">Update</Button>
+                        <Button onClick={(e) => this.deleteNoteForElement(e)} variant="danger" className="delete-note-button">Xóa ghi chú</Button>
+                        <Button onClick={(e) => this.updateNoteForElement(e)} variant="primary" className="save-note-button">Cập nhật</Button>
                     </div>
                 </section>
             )
@@ -125,10 +125,10 @@ class Note extends Component {
                     <div className="note-content form-group">
                         <form>
                             <textarea onChange={this.changeNoteContent} className="note-content-textarea form-control" rows="12" 
-                                id="note-element" defaultValue={this.state.currentElement.note} placeholder="Note...">
+                                id="note-element" defaultValue={this.state.currentElement.note} placeholder="Ghi chú...">
                                             
                             </textarea> 
-                            <Button onClick={(e) => this.saveNoteForElement(e)} disabled={this.allowSaveNote()} variant="primary" className="save-note-button">Save</Button>
+                            <Button onClick={(e) => this.saveNoteForElement(e)} disabled={this.allowSaveNote()} variant="primary" className="save-note-button">Lưu ghi chú</Button>
                         </form>
                     </div>
                 </section>

@@ -120,7 +120,7 @@ class EditInformationEmployeeModal extends Component {
               <div className="modal-content">
                 <div className="modal-header">
                   <h5 className="modal-title" id="scrollmodalLabel">
-                    Personal Information
+                    Thông tin cá nhân
                   </h5>
                   <button
                     type="button"
@@ -146,7 +146,7 @@ class EditInformationEmployeeModal extends Component {
                               htmlFor="text-input"
                               className=" form-control-label"
                             >
-                              Name
+                              Tên
                             </label>
                           </div>
                           <div className="col-12 col-md-9">
@@ -168,7 +168,7 @@ class EditInformationEmployeeModal extends Component {
                               htmlFor="hf-email"
                               className=" form-control-label"
                             >
-                              Email
+                              Địa chỉ Email
                             </label>
                           </div>
                           <div className="col-12 col-md-9">
@@ -187,10 +187,10 @@ class EditInformationEmployeeModal extends Component {
                         <div className="row form-group">
                           <div className="col col-md-3">
                             <label
-                              htmlFor="hf-email"
+                              htmlFor="hf-birth"
                               className=" form-control-label"
                             >
-                              Birth
+                              Ngày sinh
                             </label>
                           </div>
                           <div className="col-12 col-md-9">
@@ -200,17 +200,17 @@ class EditInformationEmployeeModal extends Component {
                         <div className="row form-group">
                           <div className="col col-md-3">
                             <label
-                              htmlFor="hf-email"
+                              htmlFor="hf-phone"
                               className=" form-control-label"
                             >
-                              Phone
+                              Số điện thoại
                             </label>
                           </div>
                           <div className="col-12 col-md-9">
                             <input
                               type="text"
-                              id="hf-email"
-                              name="hf-email"
+                              id="hf-phone"
+                              name="hf-phone"
                               className="form-control"
                               defaultValue={this.state.phone}
                               onChange={this.handleChangePhone}
@@ -220,17 +220,17 @@ class EditInformationEmployeeModal extends Component {
                         <div className="row form-group">
                           <div className="col col-md-3">
                             <label
-                              htmlFor="hf-email"
+                              htmlFor="hf-address"
                               className=" form-control-label"
                             >
-                              Address
+                              Địa chỉ
                             </label>
                           </div>
                           <div className="col-12 col-md-9">
                             <input
                               type="text"
-                              id="hf-email"
-                              name="hf-email"
+                              id="hf-address"
+                              name="hf-address"
                               className="form-control"
                               defaultValue={this.state.address}
                               onChange={this.handleChangeAddress}
@@ -240,10 +240,10 @@ class EditInformationEmployeeModal extends Component {
                         <div className="row form-group">
                           <div className="col col-md-3">
                             <label
-                              htmlFor="hf-email"
+                              htmlFor="hf-info"
                               className=" form-control-label"
                             >
-                              About me
+                              Giới thiệu
                             </label>
                           </div>
                           <div className="col-12 col-md-9">
@@ -277,7 +277,7 @@ class EditInformationEmployeeModal extends Component {
                           </div>
                           <div className="col-12 col-md-9">
                             <button type="button" className="btn btn-primary" style={{float:"left"}} onClick={(e) => this.handleUpdateEmployeeInformation(e)}>
-                              Save
+                              Lưu
                             </button>
                           </div>
                         </div>
@@ -291,7 +291,7 @@ class EditInformationEmployeeModal extends Component {
                     className="btn btn-secondary"
                     data-dismiss="modal"
                   >
-                    Cancel
+                    Đóng
                   </button>
                 </div>
               </div>

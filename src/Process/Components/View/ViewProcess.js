@@ -7,7 +7,6 @@ import '../../Css/Process.css';
 import {connect} from 'react-redux';
 import * as actions from '../../Actions/Index';
 import Detail from './Detail';
-import IsoRule from './IsoRule';
 import axios from 'axios';
 import {updateProcessInformation} from '../../../System/Action/System/Index';
 
@@ -33,22 +32,29 @@ class ViewProcess extends Component {
         this.props.passPopupStatus(false);
     }
 
-    convertToAssignInDataStore(employees){
+    convertToAssignInDataStore(type, employees, roles){
         var assign = [];
-        for (let index = 0; index < employees.length; index++) {
-            assign.push({'value': employees[index].id, 'label': employees[index].name});
+        if(type === 1){
+            for (let index = 0; index < employees.length; index++) {
+                assign.push({'value': employees[index].id, 'label': employees[index].name});
+            }
+        }else{
+            for (let index = 0; index < roles.length; index++) {
+                assign.push({'value': roles[index].id, 'label': roles[index].name});
+            }
         }
         return assign;
     }
 
     extractDataToComponent(process){
-        console.log(process);
         var detail = {
             id:process.id,
             name:process.name,
             description: process.description,
             time: process.update_at,
-            assign: this.convertToAssignInDataStore(process.employees),
+            assign: this.convertToAssignInDataStore(process.type, process.employees, process.roles),
+            deadline: process.deadline,
+            document: process.document,
         }
 
         var notes = [];
@@ -141,7 +147,7 @@ class ViewProcess extends Component {
                         </div>
                         <div className="button-details-right-open">
                             <button onClick={(e) => this.closePopup(e)}>
-                                <i className="fas fa-align-justify"></i> Details
+                                <i className="fas fa-align-justify"></i> Chi tiết
                             </button>
                         </div>
                         <div className="right-column-popup">
@@ -154,7 +160,7 @@ class ViewProcess extends Component {
                             <Detail />
                         </div>
                         <div className="col-md-3">
-                        <IsoRule />
+
                         </div>
                     </div>
                     <div className="space-area"></div>
@@ -172,7 +178,7 @@ class ViewProcess extends Component {
                         </div>
                         <div className="button-details-right-close">
                             <button onClick={(e) => this.openPopUp(e)}>
-                                <i className="fas fa-align-justify"></i> Details
+                                <i className="fas fa-align-justify"></i> Chi tiết
                             </button>
                         </div>
                     </div>
@@ -181,7 +187,7 @@ class ViewProcess extends Component {
                             <Detail />
                         </div>
                         <div className="col-md-3">
-                            <IsoRule />
+
                         </div>
                     </div>
                     <div className="space-area"></div>

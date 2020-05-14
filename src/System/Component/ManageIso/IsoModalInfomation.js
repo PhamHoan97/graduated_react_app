@@ -20,7 +20,7 @@ class IsoModalInfomation extends Component {
         this.setState({show: true});
     };
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         if(nextProps.currentIso){
             this.setState({show: true});
         }

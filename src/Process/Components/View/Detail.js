@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import * as host from "../../../System/Constants/Url"; 
 
 class Detail extends Component {
     constructor(props) {
@@ -17,6 +18,14 @@ class Detail extends Component {
         }
         return content;
     } 
+
+    renderLinkDownloadDocument(info) {
+        if(info && info.document){
+            return (<a className="link-download-document" href={host.URL_BACKEND + '/' + info.document}> Download document here</a>);
+        }else{
+            return (<></>)
+        }
+    }
 
     render() {
         if(this.props.detail && this.props.detail.time){
@@ -64,6 +73,19 @@ class Detail extends Component {
                                 htmlFor="text-input"
                                 className=" form-control-label"
                             >
+                                Deadline
+                            </label>
+                            </div>
+                            <div className="col-md-10 letf-colum-detail form">
+                                <p> {this.props.detail.deadline}</p>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-2">
+                            <label
+                                htmlFor="text-input"
+                                className=" form-control-label"
+                            >
                                 Giao cho
                             </label>
                             </div>
@@ -82,6 +104,19 @@ class Detail extends Component {
                             </div>
                             <div className="col-md-10 letf-colum-detail">
                                 <p> {this.props.detail.description}. </p>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-2">
+                            <label
+                                htmlFor="text-input"
+                                className=" form-control-label"
+                            >
+                                Tài liệu
+                            </label>
+                            </div>
+                            <div className="col-md-10 letf-colum-detail">
+                                <p> {this.renderLinkDownloadDocument(this.props.detail)}</p>
                             </div>
                         </div>
                     </form>
@@ -131,6 +166,18 @@ class Detail extends Component {
                                 htmlFor="text-input"
                                 className=" form-control-label"
                             >
+                                Deadline
+                            </label>
+                            </div>
+                            <div className="col-md-10 letf-colum-detail form"  >
+                            </div>
+                        </div> 
+                        <div className="row">
+                            <div className="col-md-2">
+                            <label
+                                htmlFor="text-input"
+                                className=" form-control-label"
+                            >
                                 Giao cho
                             </label>
                             </div>
@@ -144,6 +191,19 @@ class Detail extends Component {
                                 className=" form-control-label"
                             >
                                 Mô tả
+                            </label>
+                            </div>
+                            <div className="col-md-10 letf-colum-detail">
+                                <p> </p>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-2">
+                            <label
+                                htmlFor="text-input"
+                                className=" form-control-label"
+                            >
+                                Tài liệu
                             </label>
                             </div>
                             <div className="col-md-10 letf-colum-detail">

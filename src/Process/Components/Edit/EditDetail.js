@@ -11,11 +11,11 @@ class EditDetail extends Component {
         }
     }
 
-    renderEmployee = (employees) =>{
+    renderAssign = (data) =>{
         var content = '';
-        if(Array.isArray(employees)){
-            for (let index = 0; index < employees.length; index++) {
-                content += '<p>' + employees[index].label + '</p>';
+        if(Array.isArray(data)){
+            for (let index = 0; index < data.length; index++) {
+                content += '<p>' + data[index].label + '</p>';
             }
         }
         return content;
@@ -67,11 +67,24 @@ class EditDetail extends Component {
                                 htmlFor="text-input"
                                 className=" form-control-label"
                             >
+                                Deadline
+                            </label>
+                            </div>
+                            <div className="col-md-10 letf-colum-detail">
+                                <p> {this.props.detail.deadline}</p>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-2">
+                            <label
+                                htmlFor="text-input"
+                                className=" form-control-label"
+                            >
                                 Giao cho
                             </label>
                             </div>
                             <div className="col-md-10 letf-colum-detail form"  
-                                dangerouslySetInnerHTML={{__html: this.renderEmployee(this.props.detail.assign)}}>
+                                dangerouslySetInnerHTML={{__html: this.renderAssign(this.props.detail.assign)}}>
                             </div>
                         </div>
                         <div className="row">
@@ -137,6 +150,19 @@ class EditDetail extends Component {
                                 className=" form-control-label"
                             >
                                 Thời gian
+                            </label>
+                            </div>
+                            <div className="col-md-10 letf-colum-detail">
+                                <p></p>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-2">
+                            <label
+                                htmlFor="text-input"
+                                className=" form-control-label"
+                            >
+                                Deadline
                             </label>
                             </div>
                             <div className="col-md-10 letf-colum-detail">

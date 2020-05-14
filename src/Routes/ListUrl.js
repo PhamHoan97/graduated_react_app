@@ -17,6 +17,7 @@ import ViewProcess from '../Process/Components/View/ViewProcess';
 // import EmployeePage from '../Employee/Components/EmployeePage';
 import ManageEmail from '../System/Component/ManageSystem/ManageEmail';
 import EmployeeLogin from '../LoginSystem/Components/EmployeeLogin';
+
 import CompanyOrganization from '../Organization/ManageCompany/Component/CompanyOrganization';
 import DashboardCompany from '../Organization/ManageDashboard/Component/DashboardCompany';
 import EmployeeOrganization from '../Organization/ManageEmployee/Component/EmployeeOrganization';
@@ -36,6 +37,10 @@ import DashboardEmployee from '../EmployeeProcess/Component/DashboardEmployee'
 
 
 
+
+
+import ForgetPasswordEmployee from '../Employee/Components/ForgetPasswordEmployee';
+import FormResetPasswordEmployee from '../Employee/Components/FormResetPasswordEmployee';
 
 
 class ListUrl extends Component {
@@ -61,6 +66,7 @@ class ListUrl extends Component {
                         <Route path="/system/email" component={ManageEmail}/>
                         <Route path="/employee/login" exact component={EmployeeLogin} />
                         <Route path="/employee/view/process/:id" exact component={ViewProcess} />
+
                         <Route path="/company/login" exact component={CompanyLogin} />
                         <Route path="/company/" exact component={DashboardCompany} />
                         <Route path="/company/dashboard" exact component={DashboardCompany} />
@@ -80,6 +86,10 @@ class ListUrl extends Component {
                         <Route path="/employee/notification" exact component={NotificationEmployee} />
                         <Route path="/employee/" exact component={DashboardEmployee} />
                         <Route path="/employee/dashboard" exact component={DashboardEmployee} />
+
+                        <Route path="/employee/reset/password" exact component={ForgetPasswordEmployee} />
+                        <Route path="/employee/form/reset/password/:id" exact component={FormResetPasswordEmployee} />
+
                     </div>
                 </Router>
            </>
