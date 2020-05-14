@@ -143,7 +143,7 @@ class DepartmentOrganization extends Component {
                 <div className="quicklink-sidebar-menu ctm-border-radius shadow-sm bg-white card ">
                     <LinkPage linkPage="Phòng ban"/>
                 </div>
-                <div className="card shadow-sm ctm-border-radius grow manage-department_organization">
+                <div className="card shadow-sm ctm-border-radius  manage-department_organization">
                   <div className="card-header d-flex align-items-center justify-content-between">
                     <h4 className="card-title mb-0 d-inline-block">
                       Danh sách phòng ban

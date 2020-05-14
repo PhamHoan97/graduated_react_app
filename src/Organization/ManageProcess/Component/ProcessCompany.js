@@ -26,12 +26,12 @@ export default class ProcessCompany extends Component {
                 <Menu/>
               </div>
               <div className="col-xl-9 col-lg-8  col-md-12">
-                <div className="quicklink-sidebar-menu ctm-border-radius shadow-sm bg-white card grow">
+                <div className="quicklink-sidebar-menu ctm-border-radius shadow-sm bg-white card ">
                    <LinkPage linkPage=" Quản lí process"/>
                 </div>
                 <div className="row">
                   <div className="col-md-12 d-flex">
-                    <div className="card ctm-border-radius shadow-sm flex-fill grow">
+                    <div className="card ctm-border-radius shadow-sm flex-fill ">
                       <div className="card-header">
                         <h4 className="card-title mb-0">Quản lí process</h4>
                       </div>

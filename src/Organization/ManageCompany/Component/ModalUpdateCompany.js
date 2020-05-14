@@ -127,7 +127,7 @@ class ModalUpdateCompany extends Component {
         >
             <Modal.Header closeButton>
             <Modal.Title id="example-custom-modal-styling-title">
-                Company Information
+                Thông tin chi tiết công ty
             </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -142,7 +142,7 @@ class ModalUpdateCompany extends Component {
                     <div className="row form-group">
                     <div className="col col-md-3">
                         <label htmlFor="text-input" className=" form-control-label">
-                        Name
+                        Tên
                         </label>
                     </div>
                     <div className="col-12 col-md-9">
@@ -160,7 +160,7 @@ class ModalUpdateCompany extends Component {
                     <div className="row form-group">
                     <div className="col col-md-3">
                         <label htmlFor="hf-email" className=" form-control-label">
-                        Signature
+                        Viết tắt
                         </label>
                     </div>
                     <div className="col-12 col-md-9">
@@ -177,7 +177,7 @@ class ModalUpdateCompany extends Component {
                     <div className="row form-group">
                     <div className="col col-md-3">
                         <label htmlFor="hf-email" className=" form-control-label">
-                        Address
+                        Địa chỉ
                         </label>
                     </div>
                     <div className="col-12 col-md-9">
@@ -194,7 +194,7 @@ class ModalUpdateCompany extends Component {
                     <div className="row form-group">
                     <div className="col col-md-3">
                         <label htmlFor="hf-email" className=" form-control-label">
-                        Field
+                        Lĩnh vực
                         </label>
                     </div>
                     <div className="col-12 col-md-9">
@@ -214,7 +214,7 @@ class ModalUpdateCompany extends Component {
                         htmlFor="disabled-input"
                         className=" form-control-label"
                         >
-                        Contact
+                        Liên hệ
                         </label>
                     </div>
                     <div className="col-12 col-md-9">
@@ -231,7 +231,7 @@ class ModalUpdateCompany extends Component {
                     <div className="row form-group">
                     <div className="col col-md-3">
                         <label htmlFor="file-input" className=" form-control-label">
-                        Avatar
+                        Ảnh đại diện
                         </label>
                     </div>
                     <div className="col-12 col-md-9">
@@ -253,7 +253,7 @@ class ModalUpdateCompany extends Component {
                         this.checkBtn = c;
                         }}
                     >
-                        Confirm
+                        Lưu
                     </CheckButton>
                     </div>
                 </Form>

@@ -169,7 +169,7 @@ class Menu extends Component {
                       <span>Quyền</span>
                     </NavLink>
                   </div>
-                  <div className="col-6 align-items-center shadow-none text-center">
+                  {/* <div className="col-6 align-items-center shadow-none text-center">
                     <NavLink
                       to="/company/form"
                       exact
@@ -185,7 +185,7 @@ class Menu extends Component {
                       />
                       <span>Form thông báo</span>
                     </NavLink>
-                  </div>
+                  </div> */}
                   <div className="col-6 align-items-center shadow-none text-center">
                     <NavLink
                       to="/company/notification"
@@ -203,7 +203,7 @@ class Menu extends Component {
                       <span>Thông báo</span>
                     </NavLink>
                   </div>
-                  <div className="col-6 align-items-center shadow-none text-center">
+                  {/* <div className="col-6 align-items-center shadow-none text-center">
                     <NavLink
                       to="/company/template"
                       exact
@@ -219,7 +219,7 @@ class Menu extends Component {
                       ></i>
                       <span>Template form thông báo</span>
                     </NavLink>
-                  </div>
+                  </div> */}
                   <div className="col-6 align-items-center shadow-none text-center">
                     <NavLink
                       to="/company/process"

@@ -137,13 +137,13 @@ export default class Notification extends Component {
                 <Menu/>
               </div>
               <div className="col-xl-9 col-lg-8  col-md-12">
-                <div className="quicklink-sidebar-menu ctm-border-radius shadow-sm bg-white card grow">
+                <div className="quicklink-sidebar-menu ctm-border-radius shadow-sm bg-white card ">
                   <LinkPage linkPage=" Thông báo "/>
                 </div>
                 {this.state.isDisplayStatistic === true ? (
                   <div className="row ">
                     <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                      <div className="card dash-widget ctm-border-radius shadow-sm grow">
+                      <div className="card dash-widget ctm-border-radius shadow-sm ">
                         <div className="card-body">
                           <div className="card-icon bg-primary">
                             <i className="fa fa-users" aria-hidden="true" />
@@ -156,7 +156,7 @@ export default class Notification extends Component {
                       </div>
                     </div>
                     <div className="col-xl-6 col-lg-6 col-sm-6 col-12">
-                      <div className="card dash-widget ctm-border-radius shadow-sm grow">
+                      <div className="card dash-widget ctm-border-radius shadow-sm ">
                         <div className="card-body">
                           <div className="card-icon bg-warning">
                             <i className="fa fa-building-o" />
@@ -175,7 +175,7 @@ export default class Notification extends Component {
                 ) : (
                   <div></div>
                 )}
-                <div className="card shadow-sm ctm-border-radius grow manage-notification_organization">
+                <div className="card shadow-sm ctm-border-radius  manage-notification_organization">
                   <div className="card-header d-flex align-items-center justify-content-between">
                     <ModalCreateNotification
                       getListNotification={this.getListNotification}

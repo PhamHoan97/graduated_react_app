@@ -278,12 +278,12 @@ export default class Account extends Component {
                 <Menu/>
               </div>
               <div className="col-xl-9 col-lg-8  col-md-12">
-                <div className="quicklink-sidebar-menu ctm-border-radius shadow-sm bg-white card grow">
+                <div className="quicklink-sidebar-menu ctm-border-radius shadow-sm bg-white card ">
                   <LinkPage linkPage="Tài Khoản Nhân Viên" />
                 </div>
                 <div className="row">
                   <div className="col-md-12 d-flex">
-                    <div className="card ctm-border-radius shadow-sm flex-fill grow manage-account_employee">
+                    <div className="card ctm-border-radius shadow-sm flex-fill  manage-account_employee">
                       <section id="contact">
                         <div className="section-content">
                           <h1 className="section-header">

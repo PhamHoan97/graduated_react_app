@@ -67,12 +67,12 @@ export default class CompanyOrganization extends Component {
                 <Menu/>
               </div>
               <div className="col-xl-9 col-lg-8  col-md-12">
-                <div className="quicklink-sidebar-menu ctm-border-radius shadow-sm bg-white card grow">
+                <div className="quicklink-sidebar-menu ctm-border-radius shadow-sm bg-white card ">
                    <LinkPage linkPage=""/>
                 </div>
                 <div className="row">
                   <div className="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div className="card dash-widget ctm-border-radius shadow-sm grow">
+                    <div className="card dash-widget ctm-border-radius shadow-sm ">
                       <div className="card-body">
                         <div className="card-icon bg-primary">
                           <i className="fa fa-users" aria-hidden="true" />
@@ -85,7 +85,7 @@ export default class CompanyOrganization extends Component {
                     </div>
                   </div>
                   <div className="col-xl-4 col-lg-6 col-sm-6 col-12">
-                    <div className="card dash-widget ctm-border-radius shadow-sm grow">
+                    <div className="card dash-widget ctm-border-radius shadow-sm ">
                       <div className="card-body">
                         <div className="card-icon bg-warning">
                           <i className="fa fa-building-o" />
@@ -98,7 +98,7 @@ export default class CompanyOrganization extends Component {
                     </div>
                   </div>
                   {/* <div className="col-xl-3 col-lg-6 col-sm-6 col-12">
-                    <div className="card dash-widget ctm-border-radius shadow-sm grow">
+                    <div className="card dash-widget ctm-border-radius shadow-sm ">
                       <div className="card-body">
                         <div className="card-icon bg-danger">
                           <i className="fa fa-suitcase" aria-hidden="true" />
@@ -111,7 +111,7 @@ export default class CompanyOrganization extends Component {
                     </div>
                   </div> */}
                   <div className="col-xl-4 col-lg-6 col-sm-6 col-12">
-                    <div className="card dash-widget ctm-border-radius shadow-sm grow">
+                    <div className="card dash-widget ctm-border-radius shadow-sm ">
                       <div className="card-body">
                         <div className="card-icon bg-success">
                           <i className="fa fa-bell-o" aria-hidden="true" />
@@ -127,7 +127,7 @@ export default class CompanyOrganization extends Component {
                 <CompanyInformation />
                 <div className="row">
                   <div className="col-md-12 d-flex">
-                    <div className="card ctm-border-radius shadow-sm flex-fill grow">
+                    <div className="card ctm-border-radius shadow-sm flex-fill ">
                       <div className="card-header">
                         <h4 className="card-title mb-0">Hình vẽ cơ cấu tổ chức</h4>
                       </div>
