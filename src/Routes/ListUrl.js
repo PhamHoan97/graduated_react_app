@@ -14,7 +14,7 @@ import ManageCompany from '../System/Component/ManageSystem/ManageCompany';
 import CreateProcess from '../Process/Components/Create/CreateProcess';
 import EditProcess from '../Process/Components/Edit/EditProcess';
 import ViewProcess from '../Process/Components/View/ViewProcess';
-import EmployeePage from '../Employee/Components/EmployeePage';
+// import EmployeePage from '../Employee/Components/EmployeePage';
 import ManageEmail from '../System/Component/ManageSystem/ManageEmail';
 import EmployeeLogin from '../LoginSystem/Components/EmployeeLogin';
 import CompanyOrganization from '../Organization/ManageCompany/Component/CompanyOrganization';
@@ -57,7 +57,7 @@ class ListUrl extends Component {
                         <Route path="/process/new" exact component={CreateProcess} />
                         <Route path="/process/edit/:id" exact component={EditProcess} />
                         <Route path="/process/view" exact component={ViewProcess} />
-                        <Route path="/employee/dashboard" exact component={EmployeePage} />
+                        {/* <Route path="/employee/dashboard" exact component={EmployeePage} /> */}
                         <Route path="/system/email" component={ManageEmail}/>
                         <Route path="/employee/login" exact component={EmployeeLogin} />
                         <Route path="/employee/view/process/:id" exact component={ViewProcess} />
