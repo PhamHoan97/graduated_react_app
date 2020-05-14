@@ -31,6 +31,9 @@ import Account from '../Organization/ManageAccount/Component/Account';
 import Form from '../Organization/ManageFormNotification/Component/Form';
 import ProcessCompany from '../Organization/ManageProcess/Component/ProcessCompany';
 import PersonalInformation from '../Organization/ManageInformation/Component/PersonalInformation';
+import NotificationEmployee from '../EmployeeProcess/Component/NotificationEmployee'
+import DashboardEmployee from '../EmployeeProcess/Component/DashboardEmployee'
+
 
 
 
@@ -74,6 +77,9 @@ class ListUrl extends Component {
                         <Route path="/company/organization/account" exact component={Account} />
                         <Route path="/company/notification" exact component={Notification} />
                         <Route path="/company/form" exact component={Form} />
+                        <Route path="/employee/notification" exact component={NotificationEmployee} />
+                        <Route path="/employee/" exact component={DashboardEmployee} />
+                        <Route path="/employee/dashboard" exact component={DashboardEmployee} />
                     </div>
                 </Router>
            </>

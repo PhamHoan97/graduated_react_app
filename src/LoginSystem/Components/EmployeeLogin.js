@@ -99,7 +99,7 @@ class SystemLogin extends Component{
 
     render(){
         if(this.state.redirectEmployee){
-            return <Redirect to='/employee/dashboard'/>;
+            return <Redirect to='/employee/'/>;
         }
         return (
             <div>
