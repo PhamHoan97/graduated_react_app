@@ -1,0 +1,115 @@
+.manage-detailemployee_company{
+    .page-header {
+        margin-bottom: 1.875rem;
+    }
+    .page-title_detailEmployee {
+        text-align: left;
+        margin-left:20px;
+        margin-top: 10px;
+        color: #1f1f1f;
+        font-size: 26px;
+        font-weight: 500;
+        margin-bottom: 5px;
+    }
+    .card {
+        border: 1px solid #ededed;
+        box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
+        margin-bottom: 30px;
+    }
+    .profile-view {
+        position: relative;
+    }
+    .profile-view .profile-img-wrap {
+        height: 120px;
+        width: 120px;
+    }
+    .profile-img-wrap {
+        height: 120px;
+        position: absolute;
+        width: 120px;
+        background: #fff;
+        overflow: hidden;
+    }
+    .profile-view .profile-img {
+        width: 120px;
+        height: 120px;
+    }
+    .profile-img {
+        cursor: pointer;
+        height: 80px;
+        margin: 0 auto;
+        position: relative;
+        width: 80px;
+    }
+    .profile-img-wrap img {
+        border-radius: 50%;
+        height: 120px;
+        width: 120px;
+    }
+    .profile-view .profile-basic {
+        margin-left: 140px;
+        padding-right: 50px;
+    }
+    .profile-basic {
+        margin-left: 140px;
+    }
+    .profile-info-left {
+        border-right: 2px dashed #ccc;
+    }
+    .user-name {
+        color: #333;
+    }
+    .m-t-0 {
+        margin-top: 0 !important;
+    }
+    h3, .h3 {
+        font-size: 1.5rem;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        font-weight: 600;
+        font-family: CircularStd;
+        margin-top: 0;
+    }
+    .text-muted {
+        color: #8e8e8e !important;
+    }
+    .staff-id {
+        font-size: 14px;
+        font-weight: 500;
+        margin-top: 5px;
+    }
+    .text-muted {
+        color: #8e8e8e !important;
+    }
+    .staff-msg {
+        margin-top: 30px;
+    }
+    .btn-custom {
+        background: #ff9b44;
+        background: -moz-linear-gradient(left, #ff9b44 0%, #fc6075 100%);
+        background: -webkit-linear-gradient(left, #ff9b44 0%, #fc6075 100%);
+        background: -ms-linear-gradient(left, #ff9b44 0%, #fc6075 100%);
+        background: linear-gradient(to right, #ff9b44 0%, #fc6075 100%);
+        color: #fff;
+    }
+    .btn {
+        border-radius: 5px;
+    }
+    .personal-info {
+        list-style: none;
+        margin-bottom: 0;
+        padding: 0;
+    }
+    .personal-info li .title {
+        color: #4f4f4f;
+        float: left;
+        font-weight: 500;
+        margin-right: 30px;
+        width: 25%;
+    }
+    .personal-info li .text {
+        color: #8e8e8e;
+        display: block;
+        overflow: hidden;
+    }
+}

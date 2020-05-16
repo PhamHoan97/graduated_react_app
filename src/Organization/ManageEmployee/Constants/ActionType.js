@@ -1,0 +1,1 @@
+export const EDIT_EMPLOYEE = 'EDIT_EMPLOYEE';

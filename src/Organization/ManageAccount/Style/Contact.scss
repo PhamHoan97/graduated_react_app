@@ -1,0 +1,63 @@
+.manage-account_employee {
+  /*Contact sectiom*/
+  .content-header {
+    font-family: "Oleo Script", cursive;
+    color: #fcc500;
+    font-size: 45px;
+  }
+
+  .section-content {
+    text-align: center;
+  }
+  #contact {
+    font-family: "Teko", sans-serif;
+    padding-top: 60px;
+    width: 100%;
+    height: 414px;
+    background: #3a6186; /* fallback for old browsers */
+    background:linear-gradient(to left, #e86c14, #af2a09);
+    color: #fff;
+  }
+  #contact .contact-section {
+    padding-top: 40px;
+  }
+  #contact .contact-section .col-md-6 {
+    width: 50%;
+  }
+
+  #contact .form-line {
+    border-right: 1px solid #b29999;
+  }
+
+  #contact .form-group {
+    margin-top: 10px;
+  }
+  #contact label {
+    font-size: 1.3em;
+    line-height: 1em;
+    font-weight: normal;
+  }
+  #contact .form-control {
+    font-size: 1.3em;
+    color: #928f8f;
+  }
+  #contact textarea.form-control {
+    height: 135px;
+    /* margin-top: px;*/
+  }
+
+  #contact .submit {
+    font-size: 1.1em;
+    float: right;
+    width: 200px;
+    /* background-color: transparent; */
+    color: #fff;
+  }
+  #contact select {
+    height: calc(2.25rem + 4px) !important;
+    color: #87898c;
+  }
+  .create-account {
+    margin-right: 100px;
+  }
+}
