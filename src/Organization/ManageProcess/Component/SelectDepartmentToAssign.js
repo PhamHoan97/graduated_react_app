@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import * as actions from '../../Action/System/Index';
+import * as actions from '../Actions/Index';
 import {connect} from 'react-redux';
 import Select from 'react-select';
 

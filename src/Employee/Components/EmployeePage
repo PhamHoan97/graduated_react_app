@@ -36,7 +36,7 @@ class EmployeePage extends Component {
         }
     }
 
-    componentDidMount() {
+    UNSAFE_componentWillMount() {
         var token = localStorage.getItem('token');
         axios.get(`http://127.0.0.1:8000/api/employee/data/` + token,
         {

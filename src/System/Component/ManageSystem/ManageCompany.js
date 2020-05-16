@@ -139,19 +139,19 @@ export default class ManageCompany extends Component {
         var result;
         switch (workforce) {
             case 1:
-                result = "Less than 50 employees";   
+                result = "Ít hơn 50 nhân viên";   
                 break; 
             case 2:
-                result = "From 50 to 100 employees";   
+                result = "Từ 50 đến 100 nhân viên";   
                 break;  
             case 3:
-                result = "From 100 to 200 employees";   
+                result = "Từ 100 đến 200 nhân viên";   
                 break;  
             case 4:
-                result = "From 200 to 300 employees";   
+                result = "Từ 200 đến 300 nhân viên";   
                 break;  
             case 5:
-                result = "Less More than 300 employees";   
+                result = "Nhiều hơn 300 nhân viên";   
                 break;                                                          
             default:
                 break;
@@ -291,7 +291,7 @@ export default class ManageCompany extends Component {
                         <div className="row">
                             <div className="col-md-12">
                             <h3 className="title-5 m-b-35 manage__company--notification">
-                                Statistic
+                                Thống kê
                             </h3>
                             </div>
                         </div>
@@ -328,7 +328,7 @@ export default class ManageCompany extends Component {
                         <div className="row">
                             <div className="col-md-12">
                             <h3 className="title-5 m-b-35 manage__company--notification">
-                                Manager Company
+                                Quản lý công ty
                             </h3>
                             <div className="table-data__tool">
                                 <div className="table-data__tool-left">
@@ -346,7 +346,7 @@ export default class ManageCompany extends Component {
                                 </div>
                                 <button className="au-btn-filter ml-5">
                                     <i className="zmdi zmdi-filter-list" />
-                                    filters
+                                    Lọc
                                 </button>
                                 </div>
                             </div>
@@ -355,11 +355,11 @@ export default class ManageCompany extends Component {
                                 <thead>
                                     <tr>
                                         <th />
-                                        <th>Name</th>
-                                        <th>Contact</th>
-                                        <th>Address</th>
-                                        <th>Field</th>
-                                        <th>Workforce</th>
+                                        <th>Tên công ty</th>
+                                        <th>Liên hệ</th>
+                                        <th>Địa chỉ</th>
+                                        <th>Lĩnh vực</th>
+                                        <th>Nhân lực</th>
                                         <th />
                                     </tr>
                                 </thead>

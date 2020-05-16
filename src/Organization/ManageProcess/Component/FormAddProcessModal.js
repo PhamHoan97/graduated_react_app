@@ -6,9 +6,10 @@ import makeAnimated from 'react-select/animated';
 import {connect} from 'react-redux';
 import Select from 'react-select';
 import {Redirect } from 'react-router-dom';
-import * as actions from '../../Action/System/Index';
+import * as actions from '../Actions/Index';
 import DatePicker from "react-datepicker";
 import FormCheck from 'react-bootstrap/FormCheck';
+import "../Css/FormAddProcess.css"
 
 const animatedComponents = makeAnimated();
 
@@ -235,7 +236,7 @@ class FormAddProcessModal extends Component {
                 </div>
                 <div className="modal-body">
                   <div className="card">
-                    <div className="card-body card-block">
+                    <div className="card-body card-block form-add-process">
                       <Form
                         encType="multipart/form-data"
                         className="form-horizontal"
@@ -264,7 +265,7 @@ class FormAddProcessModal extends Component {
                             <Form.Label>Mô tả ngắn</Form.Label>
                           </div>
                           <div className="col-12 col-md-9">
-                            <Form.Control as={"textarea"} onChange={(e) => this.handleChangeDescription(e)}  type="text" required name="description" id="description" placeholder="Nội dung" rows={9} />
+                            <Form.Control as={"textarea"} onChange={(e) => this.handleChangeDescription(e)}  type="text" required name="description" id="description" placeholder="Nội dung" />
                           </div>
                         </div>
                         <div className="row form-group">
@@ -352,7 +353,7 @@ class FormAddProcessModal extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-      idDepartmentAssign: state.systemReducers.manageSystemReducer.changeDepartmentToAssignReducer.idDepartment,
+      idDepartmentAssign: state.addProcessReducers.changeDepartmentToAssignReducer.idDepartment,
   }
 }
 

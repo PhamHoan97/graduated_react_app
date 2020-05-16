@@ -8,7 +8,7 @@ import {connect} from 'react-redux';
 import * as actions from '../../Actions/Index';
 import axios from 'axios';
 import EditDetail from './EditDetail';
-import {updateProcessInformation} from '../../../System/Action/System/Index';
+import {updateProcessInformation} from '../../../Organization/ManageProcess/Actions/Index';
 
 class EditProcess extends Component {
     constructor(props) {

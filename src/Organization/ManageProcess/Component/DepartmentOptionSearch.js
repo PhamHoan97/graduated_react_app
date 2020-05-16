@@ -1,27 +1,34 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import * as actions from '../../Action/System/Index';
+import * as actions from '../Actions/Index';
 import {connect} from 'react-redux';
+import Select from 'react-select';
 
 class DepartmentOptionSearch extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-                 
+            options: ''      
         }
     }
 
     changeDepartmentOptionSearch = (event) => {
-        event.preventDefault();
-        var currentSelect = event.target.value;
+        var currentSelect = event.value;
         this.props.updateIdDepartmentSearch(currentSelect);
+    }
+
+    convertToOptionsSelect(data){
+        var options = [];
+        for (let index = 0; index < data.length; index++) {
+            options.push({value: data[index].id, label: data[index].name});    
+        }
+        return options;
     }
 
     componentDidMount() {
         var token = localStorage.getItem('token');
         var company_id = localStorage.getItem('company_id');
-        var option = '<option value="">Chọn phòng ban</option>';
         axios.get(`http://127.0.0.1:8000/api/system/organization/department/` + company_id,
         {
             headers: { 'Authorization': 'Bearer ' + token}
@@ -30,10 +37,8 @@ class DepartmentOptionSearch extends Component {
               console.log(res.data.message);
           }else{
               var data = res.data.departmentCompany;
-              for (let index = 0; index < data.length; index++) {
-                option += '<option value="'+ data[index].id +'">'+ data[index].name +'</option>';
-              }
-              document.getElementById('select-department-search').innerHTML = option;
+              var optionsData = this.convertToOptionsSelect(data);
+              this.setState({options:optionsData});
           }
         }).catch(function (error) {
           alert(error);
@@ -42,15 +47,10 @@ class DepartmentOptionSearch extends Component {
     
     render() {
         return (
-            <select
-                id="select-department-search"
-                className="js-select2 select--department__process"
-                name="property"
-                defaultValue={""}
-                onChange={(e) => this.changeDepartmentOptionSearch(e)}
-            >
+            <Select options={this.state.options} 
+            placeholder="Chọn"
+            onChange={(e) => this.changeDepartmentOptionSearch(e)}/>
 
-          </select>
         )
     }
 }

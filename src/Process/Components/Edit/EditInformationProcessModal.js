@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import SelectDepartmentToAssign from '../../../System/Component/ManageProcess/SelectDepartmentToAssign';
+import SelectDepartmentToAssign from '../../../Organization/ManageProcess/Component/SelectDepartmentToAssign';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import Select from 'react-select';
-import * as actions from '../../../System/Action/System/Index';
+import * as actions from '../../../Organization/ManageProcess/Actions/Index';
 import DatePicker from "react-datepicker";
 import FormCheck from 'react-bootstrap/FormCheck';
 
@@ -362,8 +362,8 @@ class EditInformationProcessModal extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-      idDepartmentAssign: state.systemReducers.manageSystemReducer.changeDepartmentToAssignReducer.idDepartment,
-      detail: state.systemReducers.manageSystemReducer.informationProcessReducer.information,
+      idDepartmentAssign: state.addProcessReducers.changeDepartmentToAssignReducer.idDepartment,
+      detail: state.addProcessReducers.informationProcessReducer.information,
   }
 }
 

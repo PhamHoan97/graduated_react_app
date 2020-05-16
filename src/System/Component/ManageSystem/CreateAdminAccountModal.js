@@ -157,7 +157,7 @@ class CreateAdminAccountModal extends Component {
             <div className="modal-content">
                 <div className="modal-header">
                 <h5 className="modal-title" id="scrollmodalLabel">
-                    New Admin Account
+                    Tạo tài khoản
                 </h5>
                 <button
                     type="button"
@@ -181,7 +181,7 @@ class CreateAdminAccountModal extends Component {
                             htmlFor="text-input"
                             className=" form-control-label"
                         >
-                            Username
+                            Tài khoản
                         </label>
                         </div>
                         <div className="col-12 col-md-6">
@@ -194,8 +194,8 @@ class CreateAdminAccountModal extends Component {
                                 placeholder="Example: Tbxkdrld12"
                                 className="form-control"
                             />
-                            <small id="error-username-required" className="form-text text-danger" style={{display:'none'}}>This field is required</small>
-                            <small id="error-username-length" className="form-text text-danger" style={{display:'none'}}>Length must be at least 8 characters long</small>
+                            <small id="error-username-required" className="form-text text-danger" style={{display:'none'}}>Không được để trống</small>
+                            <small id="error-username-length" className="form-text text-danger" style={{display:'none'}}>Mật khẩu ít nhất 8 kí tự</small>
                             </div>
                             <small className="form-text text-muted">
                             </small>
@@ -210,7 +210,7 @@ class CreateAdminAccountModal extends Component {
                             htmlFor="text-input"
                             className=" form-control-label"
                         >
-                            Password
+                            Mật khẩu
                         </label>
                         </div>
                         <div className="col-12 col-md-6">
@@ -223,8 +223,8 @@ class CreateAdminAccountModal extends Component {
                                     placeholder="Example: Abcdxyz123"
                                     className="form-control"
                                 />
-                                <small id="error-password-required" className="form-text text-danger" style={{display:'none'}}>This field is required</small>
-                                <small id="error-password-length" className="form-text text-danger" style={{display:'none'}}>Length must be at least 8 characters long</small>
+                                <small id="error-password-required" className="form-text text-danger" style={{display:'none'}}>Không được để trống</small>
+                                <small id="error-password-length" className="form-text text-danger" style={{display:'none'}}>Mật khẩu ít nhất 8 kí tự</small>
                             </div>
                             <small className="form-text text-muted">
                             </small>
@@ -238,8 +238,8 @@ class CreateAdminAccountModal extends Component {
 
                         </div>
                         <div className="col-12 col-md-9">
-                            <button onClick={(e) => this.generateAdminAccount(e)} type="button" style={{float: 'left',}} className="btn btn-success">Generate Account</button>
-                            <button onClick = {(e) => this.createAdminAccount(e)} type="button" style={{float: 'left', marginLeft: '10px'}} className="btn btn-primary">Create</button>
+                            <button onClick={(e) => this.generateAdminAccount(e)} type="button" style={{float: 'left',}} className="btn btn-success">Tạo tự động</button>
+                            <button onClick = {(e) => this.createAdminAccount(e)} type="button" style={{float: 'left', marginLeft: '10px'}} className="btn btn-primary">Tạo tài khoản</button>
                         </div>
                     </div>
                     <div className="row form-group">
@@ -254,7 +254,7 @@ class CreateAdminAccountModal extends Component {
                     className="btn btn-secondary"
                     data-dismiss="modal"
                 >
-                    Cancel
+                    Đóng
                 </button>
                 </div>
             </div>

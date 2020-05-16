@@ -8,17 +8,14 @@ import CompanyLogin from '../Intro/Component/CompanyLogin';
 import { BrowserRouter as Router } from "react-router-dom";
 import Dashboard from '../System/Component/Dashboard/Dashboard';
 import Information from '../System/Component/PersonalInformation/Information';
-import Process from '../System/Component/ManageProcess/Process';
 import ManageRegistration from '../System/Component/ManageSystem/ManageRegistration';
 import ManageCompany from '../System/Component/ManageSystem/ManageCompany';
 import CreateProcess from '../Process/Components/Create/CreateProcess';
 import EditProcess from '../Process/Components/Edit/EditProcess';
 import ViewProcess from '../Process/Components/View/ViewProcess';
-import EmployeePage from '../Employee/Components/EmployeePage';
+// import EmployeePage from '../Employee/Components/EmployeePage';
 import ManageEmail from '../System/Component/ManageSystem/ManageEmail';
 import EmployeeLogin from '../LoginSystem/Components/EmployeeLogin';
-import ForgetPasswordEmployee from '../Employee/Components/ForgetPasswordEmployee';
-import FormResetPasswordEmployee from '../Employee/Components/FormResetPasswordEmployee';
 import CompanyOrganization from '../Organization/ManageCompany/Component/CompanyOrganization';
 import DashboardCompany from '../Organization/ManageDashboard/Component/DashboardCompany';
 import EmployeeOrganization from '../Organization/ManageEmployee/Component/EmployeeOrganization';
@@ -33,6 +30,10 @@ import Account from '../Organization/ManageAccount/Component/Account';
 import Form from '../Organization/ManageFormNotification/Component/Form';
 import ProcessCompany from '../Organization/ManageProcess/Component/ProcessCompany';
 import PersonalInformation from '../Organization/ManageInformation/Component/PersonalInformation';
+import NotificationEmployee from '../EmployeeProcess/Component/NotificationEmployee'
+import DashboardEmployee from '../EmployeeProcess/Component/DashboardEmployee'
+import ForgetPasswordEmployee from '../Employee/Components/ForgetPasswordEmployee';
+import FormResetPasswordEmployee from '../Employee/Components/FormResetPasswordEmployee';
 
 class ListUrl extends Component {
     render() {
@@ -47,18 +48,15 @@ class ListUrl extends Component {
                         <Route path="/system" exact component={Dashboard} />
                         <Route path="/system/dashboard" exact component={Dashboard}/>
                         <Route path="/system/personal" exact component={Information}/>
-                        <Route path="/system/process" exact component={Process}/>
                         <Route path="/system/registration" component={ManageRegistration}/>
                         <Route path="/system/company" exact component={ManageCompany}/>
                         <Route path="/process/new" exact component={CreateProcess} />
                         <Route path="/process/edit/:id" exact component={EditProcess} />
                         <Route path="/process/view" exact component={ViewProcess} />
-                        <Route path="/employee/dashboard" exact component={EmployeePage} />
+                        {/* <Route path="/employee/dashboard" exact component={EmployeePage} /> */}
                         <Route path="/system/email" component={ManageEmail}/>
                         <Route path="/employee/login" exact component={EmployeeLogin} />
                         <Route path="/employee/view/process/:id" exact component={ViewProcess} />
-                        <Route path="/employee/reset/password" exact component={ForgetPasswordEmployee} />
-                        <Route path="/employee/form/reset/password/:id" exact component={FormResetPasswordEmployee} />
                         <Route path="/company/login" exact component={CompanyLogin} />
                         <Route path="/company/" exact component={DashboardCompany} />
                         <Route path="/company/dashboard" exact component={DashboardCompany} />
@@ -75,6 +73,10 @@ class ListUrl extends Component {
                         <Route path="/company/organization/account" exact component={Account} />
                         <Route path="/company/notification" exact component={Notification} />
                         <Route path="/company/form" exact component={Form} />
+                        <Route path="/employee/notification" exact component={NotificationEmployee} />
+                        <Route path="/employee/" exact component={DashboardEmployee} />
+                        <Route path="/employee/reset/password" exact component={ForgetPasswordEmployee} />
+                        <Route path="/employee/form/reset/password/:id" exact component={FormResetPasswordEmployee} />
                     </div>
                 </Router>
            </>

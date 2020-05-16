@@ -1,4 +1,4 @@
-import {UPDATE_ID_DEPARTMENT_ASSIGN} from '../../../Constants/System/ActionTypes';
+import {UPDATE_ID_DEPARTMENT_ASSIGN} from '../Constants/ActionTypes';
 
 const initialState = {
     idDepartment: '',

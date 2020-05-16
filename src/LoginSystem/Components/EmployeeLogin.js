@@ -97,8 +97,10 @@ class SystemLogin extends Component{
     }
 
     render(){
-        if(this.state.redirectEmployee || (localStorage.getItem('token') && localStorage.getItem("employee_id") && localStorage.getItem("is_employee"))){
-            return <Redirect to='/employee/dashboard'/>;
+
+        if(this.state.redirectEmployee){
+            return <Redirect to='/employee/'/>;
+
         }
         return (
             <div>

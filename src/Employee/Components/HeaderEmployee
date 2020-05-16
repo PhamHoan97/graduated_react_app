@@ -6,6 +6,7 @@ import * as host from "../../System/Constants/Url";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import * as actions from '../Actions/Index';
 
 class HeaderEmployee extends Component {
   
@@ -94,7 +95,8 @@ class HeaderEmployee extends Component {
       });
     }
   }
-  componentDidMount() {
+
+  UNSAFE_componentDidMount() {
     var token = localStorage.getItem('token');
     axios.get(`http://127.0.0.1:8000/api/employee/three/process/notification/` + token,
     {
@@ -385,4 +387,12 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps, )(HeaderEmployee);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    reloadEmployeePage: () => {
+      dispatch(actions.reloadEmployeePage());
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderEmployee);

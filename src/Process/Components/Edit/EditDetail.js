@@ -211,7 +211,7 @@ class EditDetail extends Component {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        detail: state.systemReducers.manageSystemReducer.informationProcessReducer.information,
+        detail: state.addProcessReducers.informationProcessReducer.information,
     }
 }
 

@@ -43,12 +43,11 @@ class ProcessDashboardContainer extends Component {
         return result;
     };
 
-    //WARNING! To be deprecated in React v17. Use new lifecycle static getDerivedStateFromProps instead.
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         this.getListProcess(nextProps.textSearch);
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         // connect database and find search
         this.getListProcess(this.props.textSearch);
     }

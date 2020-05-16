@@ -1,4 +1,4 @@
-import {UPDATE_PROCESS_INFORMATION,RESET_PROCESS_INFORMATION} from '../../../Constants/System/ActionTypes';
+import {UPDATE_PROCESS_INFORMATION,RESET_PROCESS_INFORMATION} from '../Constants/ActionTypes';
 
 const initialState = {
     information: {},

@@ -209,11 +209,11 @@ class RoleOraganization extends Component {
                 <Menu/>
               </div>
               <div className="col-xl-9 col-lg-8  col-md-12">
-                <div className="quicklink-sidebar-menu ctm-border-radius shadow-sm bg-white card grow">
+                <div className="quicklink-sidebar-menu ctm-border-radius shadow-sm bg-white card ">
                   <LinkPage linkPage="Vai trò"/>
                   <div className="row manage-role_oraganization">
                     <div className="col-md-12">
-                      <div className="card shadow-sm grow ctm-border-radius">
+                      <div className="card shadow-sm  ctm-border-radius">
                         <div className="card-body align-center">
                           <h4 className="card-title float-left mb-0 mt-2">
                             Cấp quyền nhân viên
@@ -249,7 +249,7 @@ class RoleOraganization extends Component {
                   {/*Content Employee Organization */}
                   <div className="row manage-employee_company">
                     <div className="col-md-12 d-flex">
-                      <div className="ctm-border-radius shadow-sm grow card card-content_employee">
+                      <div className="ctm-border-radius shadow-sm  card card-content_employee">
                         <div className="page-header_employee"></div>
                         <div className="row filter-row">
                           <div className="col-sm-6 col-md-4">

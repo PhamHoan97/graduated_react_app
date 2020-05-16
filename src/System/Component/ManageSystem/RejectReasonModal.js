@@ -90,7 +90,7 @@ class RejectReasonModal extends Component {
             <div className="modal-content">
                 <div className="modal-header">
                 <h5 className="modal-title" id="scrollmodalLabel">
-                    Feedback
+                    Hồi đáp
                 </h5>
                 <button
                     type="button"
@@ -113,14 +113,14 @@ class RejectReasonModal extends Component {
                             htmlFor="text-input"
                             className=" form-control-label"
                         >
-                            Reason
+                            Lý do
                         </label>
                         </div>
                         <div className="col-12 col-md-8">
                             <div>
                                 <textarea onChange={this.changeReasonContent} rows="10" className="form-control" id="reason-reject-textarea" name="reason"></textarea>
-                                <small id="error-reason-required" className="form-text text-danger" style={{display:'none'}}>This field is required</small>
-                                <small id="error-reason-length" className="form-text text-danger" style={{display:'none'}}>Reason must be at least 30 characters long</small>
+                                <small id="error-reason-required" className="form-text text-danger" style={{display:'none'}}>Không được để trống</small>
+                                <small id="error-reason-length" className="form-text text-danger" style={{display:'none'}}>Lý do từ chối phải rõ ràng</small>
                             </div>
                             <small className="form-text text-muted">
                             </small>
@@ -129,7 +129,7 @@ class RejectReasonModal extends Component {
                     <div className="row form-group">
                         <div className="col col-md-3"></div>
                         <div className="col-12 col-md-9">
-                            <button onClick={this.sendRejectEmail.bind(this)} type="button" style={{float: 'left',}} className="btn btn-success">Send Email</button>
+                            <button onClick={this.sendRejectEmail.bind(this)} type="button" style={{float: 'left',}} className="btn btn-success">Gửi Email</button>
                         </div>
                     </div>
                     </form>
@@ -142,7 +142,7 @@ class RejectReasonModal extends Component {
                     data-dismiss="modal"
                     id="cancel-reject-modal"
                 >
-                    Cancel
+                    Đóng
                 </button>
                 </div>
             </div>

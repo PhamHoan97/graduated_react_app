@@ -27,6 +27,10 @@ class EmployeeInformation extends Component {
       return result;
     }
 
+    renderGender(str){
+      return str === 1 ? 'Nam' : 'Nữ';
+    }
+
     UNSAFE_componentWillReceiveProps(nextProps) {
       if(nextProps.employee){
         this.setState({employee: nextProps.employee, department: nextProps.employee.department, role: nextProps.employee.role, company: nextProps.employee.company});
@@ -37,8 +41,8 @@ class EmployeeInformation extends Component {
         return (
         <div className="card">
             <div className="card-header card-header-primary">
-              <h4 className="card-title title-employee">Hồ sơ</h4>
-              <p className="card-category title-employee">Xem thông tin hồ sơ</p>
+              <h4 className="card-title title-employee">Thông tin cá nhân</h4>
+              <p className="card-category title-employee">Hiển thị thông tin cá nhân</p>
             </div>
             <div className="card-body">
               <form>
@@ -57,8 +61,8 @@ class EmployeeInformation extends Component {
                   </div>
                   <div className="col-md-4">
                     <div className="form-group">
-                      <label className="bmd-label-floating">Địa chỉ Email</label>
-                      <span className="form-control"> {this.state.employee.address}</span>
+                      <label className="bmd-label-floating">Địa chỉ email</label>
+                      <span className="form-control"> {this.state.employee.email}</span>
                     </div>
                   </div>
                 </div>
@@ -91,9 +95,15 @@ class EmployeeInformation extends Component {
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-md-12">
+                <div className="col-md-4">
                     <div className="form-group">
-                      <label className="bmd-label-floating">Địa chỉ</label>
+                      <label className="bmd-label-floating">Giới tính</label>
+                      <span className="form-control"> {this.renderGender(this.state.employee.gender)}</span>
+                    </div>
+                  </div>
+                  <div className="col-md-8">
+                    <div className="form-group">
+                      <label className="bmd-label-floating">Địa chỉ thường trú</label>
                       <span className="form-control"> {this.state.employee.address}</span>
                     </div>
                   </div>

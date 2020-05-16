@@ -272,7 +272,7 @@ class EmployeeOrganization extends Component {
                 {/*Content Employee Organization */}
                 <div className="row manage-employee_company">
                   <div className="col-md-12 d-flex">
-                    <div className="ctm-border-radius shadow-sm grow card card-content_employee">
+                    <div className="ctm-border-radius shadow-sm  card card-content_employee">
                       <div className="page-header_employee">
                         <div className="row align-items-center">
                           <div className="col-6">
