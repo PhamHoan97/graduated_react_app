@@ -168,7 +168,7 @@ class DetailRole extends Component {
                 </div>
                 {(!isEmpty(this.state.detailRole)) ? (
                   <>
-                    <div className="card shadow-sm grow ctm-border-radius">
+                    <div className="card shadow-sm  ctm-border-radius">
                       <div className="card-body text-center">
                         <h4
                           className="card-title  mb-0 mt-2"
@@ -183,7 +183,7 @@ class DetailRole extends Component {
                     </div>
                     <div className="row text-left">
                       <div className="col-md-12 d-flex">
-                        <div className="ctm-border-radius shadow-sm grow card">
+                        <div className="ctm-border-radius shadow-sm card ">
                           <div className="card-body">
                             <div className="page-header mb-5">
                               <div className="row">
@@ -256,8 +256,8 @@ class DetailRole extends Component {
                                                   }
                                                   className="img-fluid"
                                                 />
-                                              ) : parseInt(employee.gender) ===
-                                                1 ? (
+                                              ) : (employee.gender) ===
+                                                'Nam' ? (
                                                 <img
                                                   alt="avataremployee 1"
                                                   src={avatarMale}

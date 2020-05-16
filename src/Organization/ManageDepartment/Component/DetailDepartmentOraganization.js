@@ -142,7 +142,7 @@ class DetailEmployeeOraganization extends Component {
               <div className="col-xl-9 col-lg-8  col-md-12">
                 <div className="quicklink-sidebar-menu ctm-border-radius shadow-sm bg-white card">
                   <LinkPage linkPage="Phòng ban / Chi tiết"/>
-                  <div className="shadow-sm grow ctm-border-radius">
+                  <div className="shadow-sm  ctm-border-radius">
                     <div className="card-body align-center">
                       <ul className="nav nav-tabs float-right border-0 tab-list-emp">
                         <ModalCreateRoleDepartment
@@ -171,7 +171,7 @@ class DetailEmployeeOraganization extends Component {
                       </ul>
                     </div>
                     {this.state.detailCompany.length !== 0 ? (
-                      <div className="ctm-border-radius shadow-sm grow card mt-5 mb-5">
+                      <div className="ctm-border-radius shadow-sm  card mt-5 mb-5">
                         <div className="card-header text-center">
                           <h4
                             className="card-title mb-0"
@@ -190,7 +190,7 @@ class DetailEmployeeOraganization extends Component {
                               (role, index) => {
                                 return (
                                   <div className="col-md-6 col-lg-6 col-xl-4" key={index}>
-                                    <div className="card ctm-border-radius shadow-sm grow h-100">
+                                    <div className="card ctm-border-radius shadow-sm  h-100">
                                       <div className="card-header">
                                         <div className="d-inline-block text-center">
                                           <h4

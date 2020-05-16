@@ -80,7 +80,7 @@ export default class DetailEmployeeOraganization extends Component {
                 {/*Content Detail Employee Organization */}
                 <div className="row manage-detailemployee_company text-left">
                   <div className="col-md-12 d-flex">
-                    <div className="ctm-border-radius shadow-sm grow card">
+                    <div className="ctm-border-radius shadow-sm  card">
                       <div className="page-header">
                         <div className="row">
                           <div className="col-sm-12">
@@ -110,9 +110,7 @@ export default class DetailEmployeeOraganization extends Component {
                                           }
                                           className="img-fluid"
                                         />
-                                      ) : parseInt(
-                                          this.state.detailEmployee.gender
-                                        ) === 1 ? (
+                                      ) : (this.state.detailEmployee.gender === "Nam") ? (
                                         <img
                                           alt="avataremployee 1"
                                           src={avatarMale}
@@ -195,12 +193,10 @@ export default class DetailEmployeeOraganization extends Component {
                                             <div className="text">
                                               <a href="##">
                                                 {" "}
-                                                {parseInt(
-                                                  this.state.detailEmployee
-                                                    .gender
-                                                ) === 1
-                                                  ? "Nam"
-                                                  : "Nữ"}
+                                                {
+                                                   this.state.detailEmployee
+                                                   .gender
+                                                }
                                               </a>
                                             </div>
                                           </li>

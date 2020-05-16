@@ -97,14 +97,13 @@ export default class Header extends Component {
                               left: "-100px",
                               transform: "translate3d(0px, 5px, 0px)",
                             }}
-                            x-out-of-boundaries
                           >
                             <a
                               className="dropdown-item p-2"
                               href="employment.html"
                             >
                               <span className="media align-items-center">
-                                <span className="lnr lnr-user mr-3" />
+                                <i className="fa fa-user fa-1x mr-3" aria-hidden="true"></i>
                                 <span className="media-body text-truncate">
                                   <span className="text-truncate">Profile</span>
                                 </span>
@@ -115,7 +114,7 @@ export default class Header extends Component {
                               href="settings.html"
                             >
                               <span className="media align-items-center">
-                                <span className="lnr lnr-cog mr-3" />
+                                <i className="fa fa-cog fa-1x mr-3" aria-hidden="true"></i>
                                 <span className="media-body text-truncate">
                                   <span className="text-truncate">
                                     Settings
@@ -129,7 +128,7 @@ export default class Header extends Component {
                               onClick={(e) => this.handleLogout(e)}
                             >
                               <span className="media align-items-center">
-                                <span className="lnr lnr-power-switch mr-3" />
+                              <i className="fa fa-sign-out fa-1x mr-3" aria-hidden="true"></i>
                                 <span className="media-body text-truncate">
                                   <span className="text-truncate">Logout</span>
                                 </span>

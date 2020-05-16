@@ -13,7 +13,7 @@ export default class ModalCreateRoleDepartment extends Component {
       errors: {},
       newNameRole: "",
       newDescriptionRole: "",
-      newIsProcessRole: true,
+      newIsProcessRole: false,
     };
     const rules = [
       {

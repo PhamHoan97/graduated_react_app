@@ -15,7 +15,9 @@ export default class ModalCreateEmployeeRole extends Component {
       newNameEmployee: "",
       newEmailEmployee: "",
       newPhoneEmployee: "",
-      newIsMale: false,
+      newGender: "Nam",
+      newAvatarEmployee: "",
+      inputKey: Date.now()
     };
     const rules = [
       {
@@ -41,15 +43,25 @@ export default class ModalCreateEmployeeRole extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   handleChange(event) {
-    console.log("Handle change");
     const name = event.target.name;
-    const value =
-      event.target.name === "newIsMale"
-        ? event.target.checked
-        : event.target.value;
+    const value = event.target.value;
     this.setState({
       [name]: value,
     });
+  }
+  handleOnChangeFile(e) {
+    let files = e.target.files || e.dataTransfer.files;
+    if (!files.length) return;
+    this.createImage(files[0]);
+  }
+  createImage(file) {
+      let reader = new FileReader();
+      reader.onload = (e) => {
+      this.setState({
+        newAvatarEmployee: e.target.result,
+      });
+      };
+      reader.readAsDataURL(file);
   }
 
   render() {
@@ -126,18 +138,35 @@ export default class ModalCreateEmployeeRole extends Component {
               <div className="form-group">
                 <label htmlFor="field">Giới tính</label>
                 <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    name="newIsMale"
-                    value={this.state.newIsMale}
+                <input
+                    type="radio"
+                    value="Nam"
+                    name="newGender"
+                    checked={this.state.newGender === "Nam"}
                     onChange={(event) => this.handleChange(event)}
-                    id="defaultCheck1"
-                  />
-                  <label className="form-check-label" htmlFor="defaultCheck1">
-                    Nam
-                  </label>
+                    className="form-check-input"
+                    /> Nam
+                  <br></br>
+                  <input
+                    type="radio"
+                    value="Nữ"
+                    checked={this.state.newGender === "Nữ"}
+                    onChange={(event) => this.handleChange(event)}
+                    name="newGender"
+                    className="form-check-input"
+                  /> Nữ
                 </div>
+              </div>
+              <div className="form-group">
+                <label htmlFor="avatar">Ảnh đại diện</label>
+                <input
+                  type="file"
+                  key={this.state.inputKey}
+                  id="file-avatar"
+                  name="file-input"
+                  className="form-control-file"
+                  onChange={(e) => this.handleOnChangeFile(e)}
+                  />
               </div>
               <div className="form-group text-left">
                 <button
@@ -198,10 +227,11 @@ export default class ModalCreateEmployeeRole extends Component {
           {
             newNameEmployee: this.state.newNameEmployee,
             newEmailEmployee: this.state.newEmailEmployee,
-            newIsMale: this.state.newIsMale,
+            newGender: this.state.newGender,
             newRoleEmployee: this.props.idRole,
             newDepartmentEmployee: this.props.idDepartment,
             newPhoneEmployee: this.state.newPhoneEmployee,
+            newAvatarEmployee: this.state.newAvatarEmployee,
           },
           {
             headers: { Authorization: "Bearer " + token },
@@ -226,7 +256,7 @@ export default class ModalCreateEmployeeRole extends Component {
               newNameEmployee: "",
               newEmailEmployee: "",
               newPhoneEmployee: "",
-              newIsMale: true,
+              inputKey: Date.now(),
               isDisplayAlertSuccess: true,
               isDisplayAlertFailEmail: false,
             });

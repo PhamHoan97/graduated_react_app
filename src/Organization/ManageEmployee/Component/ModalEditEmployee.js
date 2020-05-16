@@ -21,9 +21,11 @@ class ModalEditEmployee extends Component {
       editNameEmployee: this.props.editEmployee.name,
       editEmailEmployee: this.props.editEmployee.email,
       editPhoneEmployee: this.props.editEmployee.phone,
-      editIsMale: this.props.editEmployee.gender,
+      editGender: this.props.editEmployee.gender,
       editRoleEmployee: this.props.editEmployee.role_id,
       editDepartmentEmployee: this.props.editEmployee.department_id,
+      editAvatarEmployee: "",
+      inputKey: Date.now()
     };
     const rules = [
       {
@@ -59,10 +61,7 @@ class ModalEditEmployee extends Component {
   handleChange(event) {
     console.log("Handle change");
     const name = event.target.name;
-    const value =
-      event.target.name === "editIsMale"
-        ? event.target.checked
-        : event.target.value;
+    const value =event.target.value;
     if (name === "editDepartmentEmployee") {
       var self = this;
       var token = localStorage.getItem("token");
@@ -147,6 +146,20 @@ class ModalEditEmployee extends Component {
     this.getListDepartment();
     this.getListRole();
   }
+  handleOnChangeFile(e) {
+    let files = e.target.files || e.dataTransfer.files;
+    if (!files.length) return;
+    this.createImage(files[0]);
+  }
+  createImage(file) {
+      let reader = new FileReader();
+      reader.onload = (e) => {
+      this.setState({
+        editAvatarEmployee: e.target.result,
+      });
+      };
+      reader.readAsDataURL(file);
+  }
 
   render() {
     const { errors } = this.state;
@@ -225,16 +238,22 @@ class ModalEditEmployee extends Component {
                 <label htmlFor="field">Giới tính</label>
                 <div className="form-check">
                   <input
-                    className="form-check-input"
-                    type="checkbox"
-                    name="editIsMale"
-                    checked={this.state.editIsMale}
-                    onChange={(event) => this.handleChange(event)}
-                    id="defaultCheck1"
-                  />
-                  <label className="form-check-label" htmlFor="defaultCheck1">
-                    Nam
-                  </label>
+                      type="radio"
+                      value="Nam"
+                      name="editGender"
+                      checked={this.state.editGender === "Nam"}
+                      onChange={(event) => this.handleChange(event)}
+                      className="form-check-input"
+                      /> Nam
+                    <br></br>
+                  <input
+                      type="radio"
+                      value="Nữ"
+                      checked={this.state.editGender === "Nữ"}
+                      onChange={(event) => this.handleChange(event)}
+                      name="editGender"
+                      className="form-check-input"
+                    /> Nữ
                 </div>
               </div>
               <div className="form-group mb-3">
@@ -294,6 +313,17 @@ class ModalEditEmployee extends Component {
                     {errorChooseRole.editRoleEmployee}
                   </div>
                 )}
+              </div>
+              <div className="form-group">
+                <label htmlFor="avatar">Ảnh đại diện</label>
+                <input
+                  type="file"
+                  key={this.state.inputKey}
+                  id="file-avatar"
+                  name="file-input"
+                  className="form-control-file"
+                  onChange={(e) => this.handleOnChangeFile(e)}
+                  />
               </div>
               <div className="form-group text-left">
                 <button
@@ -377,10 +407,11 @@ class ModalEditEmployee extends Component {
             editNameEmployee: this.state.editNameEmployee,
             editEmailEmployee: this.state.editEmailEmployee,
             editPhoneEmployee: this.state.editPhoneEmployee,
-            editIsMale: this.state.editIsMale,
+            editGender: this.state.editGender,
             idChooseRole: this.state.editRoleEmployee,
             idChooseEmployee: this.props.editEmployee.id,
             idChooseDepartment: this.state.editDepartmentEmployee,
+            editAvatarEmployee: this.state.editAvatarEmployee,
           },
           {
             headers: { Authorization: "Bearer " + token },
@@ -404,6 +435,7 @@ class ModalEditEmployee extends Component {
           } else {
             self.setState({
               isDisplayAlertSuccess: true,
+              inputKey: Date.now(),
               isDisplayAlertFailEmail: false,
             });
             setTimeout(() => {

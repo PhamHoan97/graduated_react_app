@@ -244,7 +244,6 @@ class EmployeeOrganization extends Component {
       });
   }
   render() {
-    console.log(this.state.listDepartment)
     return (
       <div className="inner-wrapper manage-organization_template">
         <Header />
@@ -339,7 +338,7 @@ class EmployeeOrganization extends Component {
                           <div className="form-group form-focus">
                             <input
                               type="text"
-                              name="textNameSerach"
+                              name="textNameSearch"
                               className="form-control floating"
                               placeholder="Tên nhân viên"
                               value={this.state.textNameSerach}
@@ -421,8 +420,8 @@ class EmployeeOrganization extends Component {
                                                   }
                                                   className="img-fluid"
                                                 />
-                                              ) : parseInt(employee.gender) ===
-                                                1 ? (
+                                              ) : (employee.gender) ===
+                                                'Nam' ? (
                                                 <img
                                                   alt="avataremployee 1"
                                                   src={avatarMale}
