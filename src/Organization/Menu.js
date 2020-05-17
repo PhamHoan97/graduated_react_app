@@ -81,7 +81,7 @@ class Menu extends Component {
                         className="fa fa-tachometer pr-0 pb-lg-2 font-23"
                         aria-hidden="true"
                       />
-                      <span>Dashboard</span>
+                      <span>Trang chủ</span>
                     </NavLink>
                   </div>
                   <div className="col-6 align-items-center shadow-none text-center">
@@ -186,7 +186,7 @@ class Menu extends Component {
                       <span>Form thông báo</span>
                     </NavLink>
                   </div> */}
-                  <div className="col-6 align-items-center shadow-none text-center">
+                  {/* <div className="col-6 align-items-center shadow-none text-center">
                     <NavLink
                       to="/company/notification"
                       exact
@@ -202,7 +202,7 @@ class Menu extends Component {
                       />
                       <span>Thông báo</span>
                     </NavLink>
-                  </div>
+                  </div> */}
                   {/* <div className="col-6 align-items-center shadow-none text-center">
                     <NavLink
                       to="/company/template"
@@ -234,7 +234,7 @@ class Menu extends Component {
                         className="fa fa-certificate pr-0 pb-lg-2 font-23"
                         aria-hidden="true"
                       ></i>
-                      <span>Quản lí process</span>
+                      <span>Quản lí quy trình</span>
                     </NavLink>
                   </div>
                   <div className="col-6 align-items-center shadow-none text-center">

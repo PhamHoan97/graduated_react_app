@@ -20,6 +20,7 @@ function isEmpty(obj) {
   return true;
 }
 class DetailRole extends Component {
+  _isMounted = false;
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -30,6 +31,7 @@ class DetailRole extends Component {
   }
 
   getInformationDetailRole = () => {
+    this._isMounted = true;
     var token = localStorage.getItem("token");
     var self = this;
     axios
@@ -44,21 +46,27 @@ class DetailRole extends Component {
         }
       )
       .then(function (response) {
-        if (response.data.error != null) {
-          console.log(response.data.error);
-        } else {
-          console.log(response.data.detailRole)
-          var detailRole = JSON.parse(JSON.stringify(response.data.detailRole));
-          self.setState({
-            detailRole: detailRole,
-          });
+        if(self._isMounted){
+          if (response.data.error != null) {
+            console.log(response.data.error);
+          } else {
+            console.log(response.data.detailRole)
+            var detailRole = JSON.parse(JSON.stringify(response.data.detailRole));
+            self.setState({
+              detailRole: detailRole,
+            });
+          }
         }
       })
       .catch(function (error) {
         console.log(error);
       });
   };
-
+  
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+ 
   componentDidMount() {
     this.getInformationDetailRole();
   }

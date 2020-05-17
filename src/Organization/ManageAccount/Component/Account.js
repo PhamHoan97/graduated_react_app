@@ -31,6 +31,7 @@ function isEmpty(obj) {
   return true;
 }
 export default class Account extends Component {
+  _isMounted = false;
   constructor(props, context) {
     super(props, context);
     const rules = [
@@ -149,6 +150,7 @@ export default class Account extends Component {
   };
 
   getAllEmployeeNoAccount = () => {
+    this._isMounted = true;
     var self = this;
     var token = localStorage.getItem("token");
     var idCompany = localStorage.getItem("company_id");
@@ -157,21 +159,23 @@ export default class Account extends Component {
         headers: { Authorization: "Bearer " + token },
       })
       .then(function (response) {
-        if (response.data.error != null) {
-          console.log(response.data.error);
-        } else {
-          var options = [];
-          var employees = response.data.employees;
-          for (var i = 0; i < employees.length; i++) {
-            options.push({
-              label: employees[i].name + "-" + employees[i].email,
-              value: employees[i].id,
+        if(self._isMounted){
+          if (response.data.error != null) {
+            console.log(response.data.error);
+          } else {
+            var options = [];
+            var employees = response.data.employees;
+            for (var i = 0; i < employees.length; i++) {
+              options.push({
+                label: employees[i].name + "-" + employees[i].email,
+                value: employees[i].id,
+              });
+            }
+            self.setState({
+              employees: employees,
+              options: options,
             });
           }
-          self.setState({
-            employees: employees,
-            options: options,
-          });
         }
       })
       .catch(function (error) {
@@ -180,6 +184,7 @@ export default class Account extends Component {
   };
 
   getListAccounts = () => {
+    this._isMounted = true;
     var self = this;
     var token = localStorage.getItem("token");
     var idCompany = localStorage.getItem("company_id");
@@ -188,12 +193,14 @@ export default class Account extends Component {
         headers: { Authorization: "Bearer " + token },
       })
       .then(function (response) {
-        if (response.data.error != null) {
-          console.log(response.data.error);
-        } else {
-          self.setState({
-            listAccounts: response.data.accounts,
-          });
+        if(self._isMounted){
+          if (response.data.error != null) {
+            console.log(response.data.error);
+          } else {
+            self.setState({
+              listAccounts: response.data.accounts,
+            });
+          }
         }
       })
       .catch(function (error) {
@@ -205,6 +212,9 @@ export default class Account extends Component {
     // get all employee no account
     this.getAllEmployeeNoAccount();
     this.getListAccounts();
+  }
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   generateAdminAccount = (event) => {
@@ -252,7 +262,6 @@ export default class Account extends Component {
     console.log(password);
   };
   render() {
-    console.log("Render account employee");
     const { selectedOption } = this.state;
     const { options } = this.state;
     const { errors } = this.state;

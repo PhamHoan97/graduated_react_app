@@ -9,6 +9,7 @@ import ChartOrganization from "./ChartOrganization";
 import axios from "axios";
 import * as host from "../../Url";
 export default class CompanyOrganization extends Component {
+  _isMounted = false;
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -20,6 +21,7 @@ export default class CompanyOrganization extends Component {
     this.getDataOrganization();
   }
   getDataOrganization = () =>{
+    this._isMounted = true;
     var self = this;
     var idCompany = localStorage.getItem('company_id');
     var token = localStorage.getItem('token');
@@ -29,21 +31,27 @@ export default class CompanyOrganization extends Component {
       headers: { 'Authorization': 'Bearer ' + token }
     })
     .then(function (response) {
-      if(response.data.error != null){
-        console.log(response.data.error);
-      }else{
-        self.setState({
-          dataChart:response.data.dataOrganization,
-          showModalDepartment: false,
-          showModalRole: false,
-          showModalUser: false,
-        })
+      if (self._isMounted) {
+        if(response.data.error != null){
+          console.log(response.data.error);
+        }else{
+          self.setState({
+            dataChart:response.data.dataOrganization,
+            showModalDepartment: false,
+            showModalRole: false,
+            showModalUser: false,
+          })
+        }
       }
     })
     .catch(function (error) {
         console.log(error);
     });
   }
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+ 
   render() {
     return (
       <div className="inner-wrapper manage-organization_template">

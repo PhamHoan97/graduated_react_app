@@ -9,6 +9,7 @@ import * as host from '../../Url'
 import Alert from '@material-ui/lab/Alert';
 
 export default class ModalCreateNotification extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -35,7 +36,11 @@ export default class ModalCreateNotification extends Component {
             errorName: {},
         })
     }
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
     getlistForm = () => {
+        this._isMounted = true;
         var self = this;
         var token = localStorage.getItem("token");
         var idAdmin = localStorage.getItem("admin_id");
@@ -44,9 +49,11 @@ export default class ModalCreateNotification extends Component {
             headers: { Authorization: "Bearer " + token },
           })
           .then(function (response) {
-            self.setState({
-              listForm: response.data.forms,
-            });
+            if(self._isMounted){
+                self.setState({
+                    listForm: response.data.forms,
+                });
+            }
           })
           .catch(function (error) {
             console.log(error);

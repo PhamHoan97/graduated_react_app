@@ -6,6 +6,7 @@ import * as host from "../../Url";
 import ModalUpdateCompany from './ModalUpdateCompany';
 import avatarCompany from '../Image/company1.jpg';
 export default class CompanyInformation extends Component {
+    _isMounted = false;
     constructor(props, context) {
         super(props, context);
         this.state = {
@@ -15,6 +16,7 @@ export default class CompanyInformation extends Component {
     }
     //WARNING! To be deprecated in React v17. Use componentDidMount instead.
     getDetailCompany = () => {
+        this._isMounted = true;
         var self = this;
         var token = localStorage.getItem("token");
         var idCompany = localStorage.getItem("company_id");
@@ -27,12 +29,14 @@ export default class CompanyInformation extends Component {
         }
         )
         .then(function (response) {
-            if (response.data.error != null) {
-            console.log(response.data.error);
-            } else {
-            self.setState({
-                detailCompany: response.data.company,
-            });
+            if (self._isMounted){
+                if (response.data.error != null) {
+                    console.log(response.data.error);
+                } else {
+                    self.setState({
+                        detailCompany: response.data.company,
+                    });
+                }
             }
         })
         .catch(function (error) {
@@ -71,7 +75,9 @@ export default class CompanyInformation extends Component {
         });
         this.getDetailCompany();
     };
-
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
     render() {
         if (this.state.detailCompany.length !== 0) {
         return (
@@ -125,18 +131,18 @@ export default class CompanyInformation extends Component {
                     </div>
                     </div>
                     <div className="text-center mt-3">
-                    <ModalUpdateCompany
-                        showModal={this.state.showModalEditCompany}
-                        close={() => this.closeModal()}
-                        detailCompany = {this.state.detailCompany} />
-                    <button
-                        className="btn btn-theme text-white ctm-border-radius button-1"
-                        data-toggle="modal"
-                        data-target="#add-information"
-                        onClick={(e) => this.openModal(e)}
-                    >
-                        Cập nhật thông tin công ty
-                    </button>
+                        <ModalUpdateCompany
+                            showModal={this.state.showModalEditCompany}
+                            close={() => this.closeModal()}
+                            detailCompany = {this.state.detailCompany} />
+                        <button
+                            className="btn btn-theme text-white ctm-border-radius button-1"
+                            data-toggle="modal"
+                            data-target="#add-information"
+                            onClick={(e) => this.openModal(e)}
+                        >
+                            Cập nhật thông tin công ty
+                        </button>
                     </div>
                 </div>
                 </div>

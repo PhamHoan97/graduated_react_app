@@ -12,6 +12,7 @@ import {editRoleOrganization} from "../Action/Index";
 import {NavLink} from "react-router-dom";
 import LinkPage from "../../LinkPage";
 class DetailEmployeeOraganization extends Component {
+  _isMounted = false;
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -34,14 +35,16 @@ class DetailEmployeeOraganization extends Component {
         }
       )
       .then(function (response) {
-        if (response.data.error != null) {
-          console.log(response.data.error);
-        } else {
-          self.setState({
-            detailCompany: JSON.parse(
-              JSON.stringify(response.data.detailDepartment)
-            ),
-          });
+        if(self._isMounted){
+          if (response.data.error != null) {
+            console.log(response.data.error);
+          } else {
+            self.setState({
+              detailCompany: JSON.parse(
+                JSON.stringify(response.data.detailDepartment)
+              ),
+            });
+          }
         }
       })
       .catch(function (error) {
@@ -50,6 +53,9 @@ class DetailEmployeeOraganization extends Component {
   };
   componentDidMount() {
     this.getDetailDepartment();
+  }
+  componentWillUnmount() {
+    this._isMounted = false;
   }
   openModalEditRole = (e,idEditRole) => {
     e.preventDefault();

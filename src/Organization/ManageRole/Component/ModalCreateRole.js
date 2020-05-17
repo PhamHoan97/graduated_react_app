@@ -6,6 +6,7 @@ import * as host from "../../Url";
 import { isEmpty } from "validator";
 import { Modal } from "react-bootstrap";
 export default class ModalCreateRole extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -37,6 +38,7 @@ export default class ModalCreateRole extends Component {
   }
 
   getListDepartment = () => {
+    this._isMounted = true;
     let self = this;
     var idCompany = localStorage.getItem("company_id");
     var token = localStorage.getItem("token");
@@ -48,14 +50,16 @@ export default class ModalCreateRole extends Component {
         }
       )
       .then(function (response) {
-        if (response.data.error != null) {
-          console.log(response.data.error);
-        } else {
-          self.setState({
-            listDepartment: JSON.parse(
-              JSON.stringify(response.data.departmentCompany)
-            ),
-          });
+        if(self._isMounted){
+          if (response.data.error != null) {
+            console.log(response.data.error);
+          } else {
+            self.setState({
+              listDepartment: JSON.parse(
+                JSON.stringify(response.data.departmentCompany)
+              ),
+            });
+          }
         }
       })
       .catch(function (error) {
@@ -66,6 +70,9 @@ export default class ModalCreateRole extends Component {
   componentDidMount() {
     this.getListDepartment();
   }
+  componentWillUnmount() {
+    this._isMounted = false;
+  } 
 
   handleChange(event) {
     const name = event.target.name;

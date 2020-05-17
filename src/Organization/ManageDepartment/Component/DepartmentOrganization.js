@@ -12,6 +12,7 @@ import  {connect} from 'react-redux';
 import {editDepartmentOrganization} from '../Action/Index'
 import {NavLink} from "react-router-dom";
 class DepartmentOrganization extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -21,6 +22,7 @@ class DepartmentOrganization extends Component {
     };
   }
   getListDepartment = () => {
+    this._isMounted = true;
     let self = this;
     var idCompany = localStorage.getItem("company_id");
     var token = localStorage.getItem("token");
@@ -32,14 +34,16 @@ class DepartmentOrganization extends Component {
         }
       )
       .then(function (response) {
-        if (response.data.error != null) {
-          console.log(response.data.error);
-        } else {
-          self.setState({
-            listDepartment: JSON.parse(
-              JSON.stringify(response.data.departmentCompany)
-            ),
-          });
+        if(self._isMounted){
+          if (response.data.error != null) {
+            console.log(response.data.error);
+          } else {
+            self.setState({
+              listDepartment: JSON.parse(
+                JSON.stringify(response.data.departmentCompany)
+              ),
+            });
+          }
         }
       })
       .catch(function (error) {
@@ -50,6 +54,10 @@ class DepartmentOrganization extends Component {
   componentDidMount() {
     this.getListDepartment();
   }
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
 
   openModalAddDepartment = (e) => {
     e.preventDefault();
