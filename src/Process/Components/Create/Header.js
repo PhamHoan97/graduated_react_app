@@ -102,10 +102,10 @@ class Header extends Component {
 
     render() {
         if(this.state.isBackHomeCompany){
-            return <Redirect to={'/system/dashboard/'}/> 
+            return <Redirect to={'/company/'}/> 
         }
         if(this.state.isBackHomeEmployee){
-            return <Redirect to={'/employee/dashboard/'}/> 
+            return <Redirect to={'/employee/'}/> 
         }
         return (
             <div className="process-header">

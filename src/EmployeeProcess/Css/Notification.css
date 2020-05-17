@@ -1,0 +1,36 @@
+.image-notification{
+    height: 60px;
+    width: 60px;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+    text-align: center;
+    font-size: 26px;
+}
+
+.clear-notification{
+    color: #f83f37;
+    float: right;
+    font-size: 11px;
+    text-transform: uppercase;
+    padding: 2%;
+}
+
+.dropdown-item{
+    display: block;
+    width: 100%;
+    padding: .25rem 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #212529;
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0;
+    border: 0;
+    height: 40px;
+    line-height: 30px;
+}
+
+.dropdown-item:hover{
+    background-color:  #e6ffff;
+}

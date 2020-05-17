@@ -14,7 +14,7 @@ class RejectReasonModal extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         var id = nextProps.currentCompany;
         document.getElementById("reason-reject-textarea").value = "";
         this.setState({idRegistration: id});

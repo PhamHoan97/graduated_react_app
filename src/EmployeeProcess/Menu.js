@@ -7,6 +7,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import * as actions from './Actions/Index';
+import './Css/Notification.css';
 
 class Menu extends Component {
 
@@ -40,6 +41,22 @@ class Menu extends Component {
       this.setState({employee: nextProps.employee, username: nextProps.employee.username_account});
     }
     this.setState({openModal:false});
+  }
+
+  componentDidMount() {
+    var token = localStorage.getItem('token');
+    axios.get(`http://127.0.0.1:8000/api/employee/five/process/notification/` + token,
+    {
+        headers: { 'Authorization': 'Bearer ' + token}
+    }).then(res => {
+      if(res.data.error != null){
+          console.log(res.data.error);
+      }else{ 
+        this.setState({notifications: res.data.notifications});
+      }
+    }).catch(function (error) {
+      alert(error);
+    });
   }
   
   renderAvatar = () =>{
@@ -161,8 +178,8 @@ class Menu extends Component {
             <li className="notification-message">
               <a href="activities.html" onClick={(e) => this.viewProcess(e,value.id)}>
                 <div className="media">
-                  <span className="avatar">
-                    <i className="zmdi zmdi-email-open" />
+                  <span className="image-notification">
+                    <i className="fas fa-comment-alt"></i>
                   </span>
                   <div className="media-body">
                     <p className="noti-details">
@@ -281,7 +298,7 @@ class Menu extends Component {
             <div className="dropdown-menu notifications">
               <div className="topnav-dropdown-header">
                 <span className="notification-title">Thông báo</span>
-                <a href="##" className="clear-noti">
+                <a href="##" className="clear-notification">
                   {" "}
                   Đóng{" "}
                 </a>
@@ -289,126 +306,6 @@ class Menu extends Component {
               <div className="noti-content">
                 <ul className="notification-list">
                   {this.renderNotification()}
-                  {/* <li className="notification-message">
-                    <a href="activities.html">
-                      <div className="media">
-                        <span className="avatar">
-                          <img alt="" src={avatarEmployee} />
-                        </span>
-                        <div className="media-body">
-                          <p className="noti-details">
-                            <span className="noti-title">John Doe</span> added
-                            new task{" "}
-                            <span className="noti-title">
-                              Patient appointment booking
-                            </span>
-                          </p>
-                          <p className="noti-time">
-                            <span className="notification-time">
-                              4 mins ago
-                            </span>
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <li className="notification-message">
-                    <a href="activities.html">
-                      <div className="media">
-                        <span className="avatar">
-                          <img alt="" src="assets/img/profiles/avatar-03.jpg" />
-                        </span>
-                        <div className="media-body">
-                          <p className="noti-details">
-                            <span className="noti-title">Tarah Shropshire</span>
-                            changed the task name{" "}
-                            <span className="noti-title">
-                              Appointment booking with payment gateway
-                            </span>
-                          </p>
-                          <p className="noti-time">
-                            <span className="notification-time">
-                              6 mins ago
-                            </span>
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <li className="notification-message">
-                    <a href="activities.html">
-                      <div className="media">
-                        <span className="avatar">
-                          <img alt="" src="assets/img/profiles/avatar-06.jpg" />
-                        </span>
-                        <div className="media-body">
-                          <p className="noti-details">
-                            <span className="noti-title">Misty Tison</span>
-                            added{" "}
-                            <span className="noti-title">
-                              Domenic Houston
-                            </span>{" "}
-                            and <span className="noti-title">Claire Mapes</span>{" "}
-                            to project{" "}
-                            <span className="noti-title">
-                              Doctor available module
-                            </span>
-                          </p>
-                          <p className="noti-time">
-                            <span className="notification-time">
-                              8 mins ago
-                            </span>
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <li className="notification-message">
-                    <a href="activities.html">
-                      <div className="media">
-                        <span className="avatar">
-                          <img alt="" src="assets/img/profiles/avatar-17.jpg" />
-                        </span>
-                        <div className="media-body">
-                          <p className="noti-details">
-                            <span className="noti-title">Rolland Webber</span>
-                            completed task{" "}
-                            <span className="noti-title">
-                              Patient and Doctor video conferencing
-                            </span>
-                          </p>
-                          <p className="noti-time">
-                            <span className="notification-time">
-                              12 mins ago
-                            </span>
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <li className="notification-message">
-                    <a href="activities.html">
-                      <div className="media">
-                        <span className="avatar">
-                          <img alt="" src="assets/img/profiles/avatar-13.jpg" />
-                        </span>
-                        <div className="media-body">
-                          <p className="noti-details">
-                            <span className="noti-title">Bernardo Galaviz</span>
-                            added new task{" "}
-                            <span className="noti-title">
-                              Private chat module
-                            </span>
-                          </p>
-                          <p className="noti-time">
-                            <span className="notification-time">
-                              2 days ago
-                            </span>
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                  </li> */}
                 </ul>
               </div>
               <div className="topnav-dropdown-footer">
@@ -430,13 +327,13 @@ class Menu extends Component {
             </a>
             <div className="dropdown-menu">
               <a className="dropdown-item" href="profile.html" onClick={(e) => this.openUpdateAccount(e)}>
-                Cập nhật tài khoản
+              <i className="fas fa-align-justify"></i> Cập nhật tài khoản
               </a>
               <a className="dropdown-item" href="settings.html">
-                Ngôn ngữ
+                <i className="fas fa-globe"></i> Ngôn ngữ
               </a>
               <a className="dropdown-item" href="login.html" onClick={(e) => this.handleLogout(e)}>
-                Đăng xuất
+              <i className="fas fa-sign-out-alt"></i> Đăng xuất
               </a>
             </div>
           </li>

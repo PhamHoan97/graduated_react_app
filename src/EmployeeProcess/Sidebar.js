@@ -41,7 +41,7 @@ class Sidebar extends Component {
               </li>
               <li className="submenu">
                   <NavLink
-                      to="/employee/dashboard"
+                      to="/employee/"
                       exact
                       className="ml-3"
                       activeStyle={{

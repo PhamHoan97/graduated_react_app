@@ -51,7 +51,7 @@ class ModalEditEmployee extends Component {
     this.handleChange = this.handleChange.bind(this);
     console.log(this.props.editEmployee);
   }
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
       errors: {},
       errorChooseDepartment: {},
