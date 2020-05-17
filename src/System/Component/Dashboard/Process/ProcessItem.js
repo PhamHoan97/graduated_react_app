@@ -11,20 +11,20 @@ class ProcessItem extends Component {
             <td>
             <span className="role admin">
                 <a href="##" style={{ color: "white", textDecoration: "none" }}>
-                Detail
+                Chi tiết
                 </a>
             </span>
             </td>
             <td>
             <div className="table-data-feature">
-                <button
+                {/* <button
                 className="item"
                 data-toggle="tooltip"
                 data-placement="top"
                 title="Evaluate Form"
                 >
                 <i className="zmdi zmdi-file" />
-                </button>
+                </button> */}
                 <button
                 className="item"
                 data-toggle="tooltip"

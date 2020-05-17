@@ -34,14 +34,9 @@ import ProcessCompany from '../Organization/ManageProcess/Component/ProcessCompa
 import PersonalInformation from '../Organization/ManageInformation/Component/PersonalInformation';
 import NotificationEmployee from '../EmployeeProcess/Component/NotificationEmployee'
 import DashboardEmployee from '../EmployeeProcess/Component/DashboardEmployee'
-
-
-
-
-
 import ForgetPasswordEmployee from '../Employee/Components/ForgetPasswordEmployee';
 import FormResetPasswordEmployee from '../Employee/Components/FormResetPasswordEmployee';
-
+import DetailCompany from '../System/Component/DetailCompany/DetailCompany';
 
 class ListUrl extends Component {
     render() {
@@ -59,6 +54,7 @@ class ListUrl extends Component {
                         <Route path="/system/process" exact component={Process}/>
                         <Route path="/system/registration" component={ManageRegistration}/>
                         <Route path="/system/company" exact component={ManageCompany}/>
+                        <Route path="/system/company/detail/:idCompany" exact component={DetailCompany}/>
                         <Route path="/process/new" exact component={CreateProcess} />
                         <Route path="/process/edit/:id" exact component={EditProcess} />
                         <Route path="/process/view" exact component={ViewProcess} />

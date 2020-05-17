@@ -78,7 +78,7 @@ export default class CompanyContainer extends Component {
                 <div className="row">
                     <div className="col-md-3">
                     <h3 className="title-5 m-b-35 dashboard__title--company">
-                        Popular companies
+                        Danh sách công ty
                     </h3>
                     </div>
                     <div className="col-md-6"></div>

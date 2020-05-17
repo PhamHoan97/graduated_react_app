@@ -3,14 +3,12 @@ import Avatar from '../../Images/Account/Avatar-01.jpg';
 import axios from 'axios';
 import  { Redirect } from 'react-router-dom';
 export default class MenuVertical extends Component {
-  
   constructor(props) {
     super(props);
     this.state = {
       isLogout: false,
     };
   }
-  
   collapseMenuAccount = (e) => {
     e.preventDefault();
     var prarentValueClassName = e.target.parentElement.parentElement.className;

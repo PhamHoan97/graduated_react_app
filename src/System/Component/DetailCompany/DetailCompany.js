@@ -18,10 +18,10 @@ export default class DetailCompany extends Component {
               <div className="container-fluid">
                 <div className="row">
                     <div className="col-xl-8">
-                        <ProcessDetailCompanyContainer idCompany = {this.props.match.params.id} />
+                        <ProcessDetailCompanyContainer idCompany = {this.props.match.params.idCompany} />
                     </div>
                     <div className="col-xl-4">
-                        <ContactCompanyContainer idCompany = {this.props.match.params.id} />
+                        <ContactCompanyContainer idCompany = {this.props.match.params.idCompany} />
                     </div>
                 </div>
                 <div className="row">

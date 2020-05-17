@@ -188,22 +188,16 @@ class MenuVerticalDashboard extends Component {
                         </div>
                       </div>
                       <div className="account-dropdown__body text-left">
-                        <div className="account-dropdown__item">
+                        {/* <div className="account-dropdown__item">
                           <a href="2AESN">
                             <i className="zmdi zmdi-account" />
                             Account
                           </a>
-                        </div>
+                        </div> */}
                         <div className="account-dropdown__item">
                           <a href="2AESN">
                             <i className="zmdi zmdi-settings" />
                             Setting
-                          </a>
-                        </div>
-                        <div className="account-dropdown__item">
-                          <a href="2AESN">
-                            <i className="zmdi zmdi-money-box" />
-                            Billing
                           </a>
                         </div>
                       </div>
