@@ -59,7 +59,7 @@ class DetailRole extends Component {
       });
   };
 
-  UNSAFE_componentDidMount() {
+  componentDidMount() {
     this.getInformationDetailRole();
   }
   openModalAddEmployee = (e) => {

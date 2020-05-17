@@ -64,7 +64,7 @@ class Header extends Component {
     }
 
     renderSaveOrEdit = () => {
-        if(localStorage.getItem('is_admin')){
+        if(localStorage.getItem('is_company')){
             if(this.state.isEdit){
                 return (
                     <Dropdown.Item onClick={(e)=> this.editDiagram(e) }>

@@ -16,7 +16,7 @@ export default class CompanyOrganization extends Component {
     }
   }
   
-  UNSAFE_componentWillMount() {
+  componenDidMount() {
     this.getDataOrganization();
   }
   getDataOrganization = () =>{

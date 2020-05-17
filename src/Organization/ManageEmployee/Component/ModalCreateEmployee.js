@@ -62,7 +62,7 @@ export default class ModalCreateEmployee extends Component {
       };
       reader.readAsDataURL(file);
   }
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
       errors: {},
       errorChooseDepartment: {},
@@ -151,7 +151,7 @@ export default class ModalCreateEmployee extends Component {
         console.log(error);
       });
   };
-  componentWillMount() {
+  componentDidMount() {
     this.getListDepartment();
     this.getListRole();
   }

@@ -85,7 +85,7 @@ export default class Notification extends Component {
       });
   };
   
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     this.getListNotification();
   }
   showStatisticNotification = (e, idNotificationChoose) => {

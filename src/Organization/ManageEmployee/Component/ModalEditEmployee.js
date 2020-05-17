@@ -142,7 +142,7 @@ class ModalEditEmployee extends Component {
         console.log(error);
       });
   };
-  componentWillMount() {
+  componentDidMount() {
     this.getListDepartment();
     this.getListRole();
   }

@@ -62,7 +62,8 @@ export default class ModalCreateRole extends Component {
         console.log(error);
       });
   };
-  componentWillMount() {
+  
+  componentDidMount() {
     this.getListDepartment();
   }
 

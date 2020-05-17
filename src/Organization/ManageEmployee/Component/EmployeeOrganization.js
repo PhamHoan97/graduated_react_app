@@ -153,7 +153,7 @@ class EmployeeOrganization extends Component {
       });
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.getListEmployee();
     this.getListDepartment();
   }

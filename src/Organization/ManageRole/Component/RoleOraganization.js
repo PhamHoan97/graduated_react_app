@@ -46,7 +46,7 @@ class RoleOraganization extends Component {
     });
   };
   
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     this.getListRole();
     this.getListDepartment();
   }

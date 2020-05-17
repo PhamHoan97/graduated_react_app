@@ -9,7 +9,7 @@ class ContactCompanyContainer extends Component {
             detailCompany : [],
         }
     }
-    componentWillMount() {
+    componentDidMount() {
         this.getDetailCompany();
     }
 

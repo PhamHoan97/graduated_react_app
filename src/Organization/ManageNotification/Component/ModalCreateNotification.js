@@ -25,11 +25,11 @@ export default class ModalCreateNotification extends Component {
         this.handleChangeFile = this.handleChangeFile.bind(this);
     }
 
-    UNSAFE_componentWillMount() {
+    componentDidMount() {
         this.getlistForm();
     }
     
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         this.setState({
             errorDescription: {},
             errorName: {},

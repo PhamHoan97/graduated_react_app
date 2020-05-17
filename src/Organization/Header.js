@@ -16,6 +16,7 @@ export default class Header extends Component {
     if(localStorage.getItem("admin_id")){
       localStorage.removeItem("admin_id");
       localStorage.removeItem("company_id");
+      localStorage.removeItem("is_company");
       axios.post(`http://127.0.0.1:8000/api/logout/company`)
       .then(res => {
         if(res.data.error != null){

@@ -47,7 +47,7 @@ class DepartmentOrganization extends Component {
       });
   };
 
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     this.getListDepartment();
   }
 

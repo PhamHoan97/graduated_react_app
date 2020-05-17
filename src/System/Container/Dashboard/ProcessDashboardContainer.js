@@ -47,7 +47,7 @@ class ProcessDashboardContainer extends Component {
         this.getListProcess(nextProps.textSearch);
     }
 
-    UNSAFE_componentWillMount() {
+    componentDidMount() {
         // connect database and find search
         this.getListProcess(this.props.textSearch);
     }

@@ -62,7 +62,7 @@ class EditInformationProcessModal extends Component {
         }
     }
     
-    UNSAFE_componentWillMount () {
+    componentDidMount () {
       var token = localStorage.getItem('token');
       var company_id = localStorage.getItem('company_id');
       axios.get(`http://127.0.0.1:8000/api/company/`+ company_id + `/employee/role`,

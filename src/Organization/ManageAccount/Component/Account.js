@@ -201,7 +201,7 @@ export default class Account extends Component {
       });
   };
   
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     // get all employee no account
     this.getAllEmployeeNoAccount();
     this.getListAccounts();

@@ -39,7 +39,7 @@ export default class CompanyContainer extends Component {
         return result;
     }
 
-    UNSAFE_componentWillMount() {
+    componentDidMount() {
         this.getListCompany()
     }
 

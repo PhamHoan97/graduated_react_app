@@ -14,7 +14,7 @@ export default class ProcessDetailCompanyContainer extends Component {
         }
         this.handleChange = this.handleChange.bind(this);
     }
-    componentWillMount() {
+    componentDidMount() {
         this.getListDepartmentCompany();
         this.getListProcessDepartmentCompany();
     }

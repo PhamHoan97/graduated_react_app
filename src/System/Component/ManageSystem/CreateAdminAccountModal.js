@@ -134,7 +134,7 @@ class CreateAdminAccountModal extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         document.getElementById("usernameGenerate").value = "";
         document.getElementById("passwordGenerate").value = "";
         document.getElementById("error-username-required").style.display = "none";

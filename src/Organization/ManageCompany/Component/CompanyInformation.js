@@ -40,7 +40,7 @@ export default class CompanyInformation extends Component {
         });
     };
 
-    UNSAFE_componentWillMount() {
+    componentDidMount() {
         this.getDetailCompany();
     }
 

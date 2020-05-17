@@ -48,7 +48,7 @@ class DetailEmployeeOraganization extends Component {
         console.log(error);
       });
   };
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     this.getDetailDepartment();
   }
   openModalEditRole = (e,idEditRole) => {

@@ -28,7 +28,7 @@ export default class Template extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     this.getListTypeSystem();
     this.getListAllTemplateSystem();
   }

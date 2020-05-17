@@ -53,7 +53,7 @@ class ManageRegistration extends Component {
     }
 
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         if(nextProps.loadDataTable){
             this.setState({loadDataTable: nextProps.loadDataTable});
         }

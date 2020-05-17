@@ -61,6 +61,7 @@ export default class CompanyLogin extends Component {
             if(res.data.isAdmin){
                 localStorage.setItem('admin_id', res.data.id);
                 localStorage.setItem('company_id', res.data.company_id);
+                localStorage.setItem('is_company', res.data.isAdmin);
             }
             this.setState({redirectAdmin:true});
         }

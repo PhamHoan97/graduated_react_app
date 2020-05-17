@@ -29,8 +29,7 @@ class Alert extends Component {
         }
     }
 
-    //WARNING! To be deprecated in React v17. Use componentDidMount instead.
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
       if(this.props.company !== ''){
         switch (this.props.company.workforce) {
           case "1":
