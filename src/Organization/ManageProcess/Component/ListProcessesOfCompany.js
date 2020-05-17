@@ -7,6 +7,8 @@ import axios from 'axios';
 import DepartmentOptionSearch from "./DepartmentOptionSearch";
 import  { Redirect } from 'react-router-dom';
 import ModalDetailProcess from './ModalDetailProcess'; 
+import EmployeeOptionSearch from './EmployeeOptionSearch';
+import {connect} from 'react-redux';
 
 class ListProcessesOfCompany extends Component {
     _isMounted = false;
@@ -17,7 +19,9 @@ class ListProcessesOfCompany extends Component {
           activePage: 1,
           isRedirectEdit: false,
           idEdit: '',
-          idProcess: ''
+          idProcess: '',
+          idEmployee: '',
+          isRedirectEmployeeProcess: false,
         }
     }
 
@@ -157,6 +161,41 @@ class ListProcessesOfCompany extends Component {
       document.getElementById('clone-view-detail-process').click();
       this.setState({idProcess: id});
     }
+    
+    UNSAFE_componentWillReceiveProps(nextProps) {
+      var token = localStorage.getItem('token');
+      if(nextProps.idDepartment){
+        axios.get(`http://127.0.0.1:8000/api/company/processes/department/`+ nextProps.idDepartment,
+        {
+            headers: { 'Authorization': 'Bearer ' + token}
+        }).then(res => {
+          if(res.data.error != null){
+
+          }else{
+            var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2);
+            this.setState({processes: processesResponse});
+          }
+        }).catch(function (error) {
+          alert(error);
+        });
+      }
+
+      if(nextProps.idEmployee){
+        axios.get(`http://127.0.0.1:8000/api/company/processes/employee/`+ nextProps.idEmployee,
+        {
+            headers: { 'Authorization': 'Bearer ' + token}
+        }).then(res => {
+          if(res.data.error != null){
+
+          }else{
+            var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2);
+            this.setState({processes: processesResponse});
+          }
+        }).catch(function (error) {
+          alert(error);
+        });
+      }
+    }
 
     renderTableRow = (pageNumber) => {
       var processes = this.state.processes;
@@ -260,6 +299,10 @@ class ListProcessesOfCompany extends Component {
                                   <DepartmentOptionSearch />
                                   <div className="dropDownSelect2" />
                                 </div>
+                                <div className="rs-select2--light rs-select2--md">
+                                  <EmployeeOptionSearch />
+                                  <div className="dropDownSelect2" />
+                                </div>
                               </div>
                               <div className="table-data__tool-right">
                    
@@ -315,4 +358,11 @@ class ListProcessesOfCompany extends Component {
     }
 }
 
-export default ListProcessesOfCompany
+const mapStateToProps = (state, ownProps) => {
+  return {
+    idDepartment: state.addProcessReducers.changeDepartmentSearchReducer.idDepartment,
+    idEmployee: state.addProcessReducers.changeEmployeeSearchReducer.idEmployee,
+  }
+}
+
+export default connect(mapStateToProps,) (ListProcessesOfCompany);

@@ -4,7 +4,7 @@ import * as actions from '../Actions/Index';
 import {connect} from 'react-redux';
 import Select from 'react-select';
 
-class DepartmentOptionSearch extends Component {
+class EmployeeOptionSearch extends Component {
     constructor(props) {
         super(props)
 
@@ -13,10 +13,28 @@ class DepartmentOptionSearch extends Component {
         }
     }
 
-    changeDepartmentOptionSearch = (event) => {
+    componentDidMount() {
+        var token = localStorage.getItem('token');
+        axios.get(`http://127.0.0.1:8000/api/company/employees/` + token,
+        {
+            headers: { 'Authorization': 'Bearer ' + token}
+        }).then(res => {
+          if(res.data.error != null){
+              console.log(res.data.message);
+          }else{
+              var data = res.data.employees;
+              var optionsData = this.convertToOptionsSelect(data);
+              this.setState({options:optionsData});
+          }
+        }).catch(function (error) {
+          alert(error);
+        });
+    }
+
+    changeEmployeeOptionSearch = (event) => {
         var currentSelect = event.value;
-        this.props.updateIdDepartmentSearch(currentSelect);
-        this.props.updateIdEmployeeSearch("");
+        this.props.updateIdEmployeeSearch(currentSelect);
+        this.props.updateIdDepartmentSearch("");
     }
 
     convertToOptionsSelect(data){
@@ -27,34 +45,17 @@ class DepartmentOptionSearch extends Component {
         return options;
     }
 
-    componentDidMount() {
-        var token = localStorage.getItem('token');
-        var company_id = localStorage.getItem('company_id');
-        axios.get(`http://127.0.0.1:8000/api/system/organization/department/` + company_id,
-        {
-            headers: { 'Authorization': 'Bearer ' + token}
-        }).then(res => {
-          if(res.data.error != null){
-              console.log(res.data.message);
-          }else{
-              var data = res.data.departmentCompany;
-              var optionsData = this.convertToOptionsSelect(data);
-              this.setState({options:optionsData});
-          }
-        }).catch(function (error) {
-          alert(error);
-        });
-    }
-    
     render() {
         return (
             <Select options={this.state.options} 
             placeholder="Chọn"
-            onChange={(e) => this.changeDepartmentOptionSearch(e)}/>
+            onChange={(e) => this.changeEmployeeOptionSearch(e)}
+           />
 
         )
     }
 }
+
 const mapStateToProps = (state, ownProps) => {
     return {
 
@@ -63,13 +64,13 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
+        updateIdEmployeeSearch: (idEmployee) => {
+            dispatch(actions.updateIdEmployeeSearch(idEmployee))
+        },
         updateIdDepartmentSearch: (idDepartment) => {
             dispatch(actions.updateIdDepartmentSearch(idDepartment))
         },
-        updateIdEmployeeSearch: (idEmployee) => {
-            dispatch(actions.updateIdEmployeeSearch(idEmployee))
-        }
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DepartmentOptionSearch) 
+export default connect(mapStateToProps, mapDispatchToProps)(EmployeeOptionSearch); 

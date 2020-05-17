@@ -34,6 +34,7 @@ import DashboardEmployee from '../EmployeeProcess/Component/DashboardEmployee'
 import ForgetPasswordEmployee from '../Employee/Components/ForgetPasswordEmployee';
 import FormResetPasswordEmployee from '../Employee/Components/FormResetPasswordEmployee';
 import ListProcessesOfCompany from '../Organization/ManageProcess/Component/ListProcessesOfCompany';
+import ListProcessesOfEmployee from '../Organization/ManageProcess/Component/ListProcessesOfEmployee';
 
 class ListUrl extends Component {
     render() {
@@ -77,6 +78,7 @@ class ListUrl extends Component {
                         <Route path="/employee/reset/password" exact component={ForgetPasswordEmployee} />
                         <Route path="/employee/form/reset/password/:id" exact component={FormResetPasswordEmployee} />
                         <Route path="/company/manage/process" exact component={ListProcessesOfCompany} />
+                        <Route path="/company/manage/process/employee/:id" exact component={ListProcessesOfEmployee} />
                     </div>
                 </Router>
            </>

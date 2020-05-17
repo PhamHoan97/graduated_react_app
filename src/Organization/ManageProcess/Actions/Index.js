@@ -2,7 +2,8 @@ import {
     UPDATE_ID_DEPARTMENT_SEARCH, 
     UPDATE_ID_DEPARTMENT_ASSIGN, 
     UPDATE_PROCESS_INFORMATION,
-    RESET_PROCESS_INFORMATION
+    RESET_PROCESS_INFORMATION,
+    UPDATE_ID_EMPLOYEE_SEARCH
 } from '../Constants/ActionTypes';
 
 export const updateIdDepartmentSearch = (idDepartment)=>{
@@ -29,5 +30,12 @@ export const updateProcessInformation = (information)=>{
 export const resetProcessInformation = ()=>{
     return {
         type: RESET_PROCESS_INFORMATION,
+    }
+}
+
+export const updateIdEmployeeSearch = (idEmployee)=>{
+    return {
+        type: UPDATE_ID_EMPLOYEE_SEARCH,
+        idEmployee,
     }
 }

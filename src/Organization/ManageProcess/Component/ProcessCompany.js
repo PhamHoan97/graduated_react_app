@@ -10,6 +10,7 @@ import {connect} from 'react-redux';
 import * as actions from '../Actions/Index';
 import DepartmentOptionSearch from "./DepartmentOptionSearch";
 import '../Css/ManagerProcess.css';
+import  { Redirect } from 'react-router-dom';
 
 class ProcessCompany extends Component {
   _isMounted = false;
@@ -19,6 +20,8 @@ class ProcessCompany extends Component {
       employees: '',
       activePage: 1,
       currentEmployee: '',
+      idEmployee: '',
+      isRedirectEmployeeProcess: false,
     }
   }
 
@@ -146,6 +149,11 @@ class ProcessCompany extends Component {
     });
   }
 
+  redirectManageProcessOfEmployeePage = (e, id) => {
+    e.preventDefault();
+    this.setState({isRedirectEmployeeProcess:true, idEmployee: id})
+  }
+
   renderTableRow = (pageNumber) => {
     var employees = this.state.employees;
     var locationStart = pageNumber * 8 - 8;
@@ -165,7 +173,7 @@ class ProcessCompany extends Component {
                               className="item"
                               data-toggle="tooltip"
                               data-placement="top"
-                              title="Detail"
+                              title="Chi tiết"
                               onClick={(e) => this.OpenModalDetailEmployee(e, value.id_employee)}
                             >
                               <i className="zmdi zmdi-file" />
@@ -174,7 +182,8 @@ class ProcessCompany extends Component {
                               className="item"
                               data-toggle="tooltip"
                               data-placement="top"
-                              title="Process"
+                              title="Quy trình"
+                              onClick={(e) => this.redirectManageProcessOfEmployeePage(e, value.id_employee)}
                             >
                               <i className="fas fa-sitemap"></i>
                             </button>
@@ -182,7 +191,7 @@ class ProcessCompany extends Component {
                               className="item"
                               data-toggle="tooltip"
                               data-placement="top"
-                              title="Block"
+                              title="Khóa tài khoản"
                             >
                               <i className="zmdi zmdi-delete" />
                             </button>
@@ -237,6 +246,9 @@ class ProcessCompany extends Component {
   }
 
   render() {
+    if(this.state.isRedirectEmployeeProcess){
+      return <Redirect to={'/company/manage/process/employee/' + this.state.idEmployee} />;
+    }
     return (
       <div className="inner-wrapper manage-organization_template">
         <Header />
