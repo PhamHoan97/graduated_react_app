@@ -12,7 +12,7 @@ import DepartmentOptionSearch from "./DepartmentOptionSearch";
 import '../Css/ManagerProcess.css';
 
 class ProcessCompany extends Component {
-
+  _isMounted = false;
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -112,6 +112,7 @@ class ProcessCompany extends Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
     var token = localStorage.getItem('token');
     var company_id = localStorage.getItem('company_id');
     axios.get(`http://127.0.0.1:8000/api/company/`+ company_id + `/employee/role`,
@@ -230,6 +231,11 @@ class ProcessCompany extends Component {
     document.getElementById('clone-button-add-new-process').click();
   }
 
+  
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
   render() {
     return (
       <div className="inner-wrapper manage-organization_template">
@@ -253,7 +259,7 @@ class ProcessCompany extends Component {
               </div>
               <div className="col-xl-9 col-lg-8  col-md-12">
                 <div className="quicklink-sidebar-menu ctm-border-radius shadow-sm bg-white card ">
-                   <LinkPage linkPage=" Quản lí process"/>
+                   <LinkPage linkPage=" Tạo quy trình"/>
                 </div>
                 <div className="row">
                   <div className="col-md-12 d-flex">

@@ -63,7 +63,7 @@ export default class Header extends Component {
                               <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Search here"
+                                placeholder="Tìm kiếm"
                               />
                               <button className="btn" type="submit">
                                 <i className="fa fa-search" />
@@ -106,7 +106,7 @@ export default class Header extends Component {
                               <span className="media align-items-center">
                                 <i className="fa fa-user fa-1x mr-3" aria-hidden="true"></i>
                                 <span className="media-body text-truncate">
-                                  <span className="text-truncate">Profile</span>
+                                  <span className="text-truncate">Thông tin cá nhân</span>
                                 </span>
                               </span>
                             </a>
@@ -118,7 +118,7 @@ export default class Header extends Component {
                                 <i className="fa fa-cog fa-1x mr-3" aria-hidden="true"></i>
                                 <span className="media-body text-truncate">
                                   <span className="text-truncate">
-                                    Settings
+                                    Cài đặt
                                   </span>
                                 </span>
                               </span>
@@ -131,7 +131,7 @@ export default class Header extends Component {
                               <span className="media align-items-center">
                               <i className="fa fa-sign-out fa-1x mr-3" aria-hidden="true"></i>
                                 <span className="media-body text-truncate">
-                                  <span className="text-truncate">Logout</span>
+                                  <span className="text-truncate">Đăng xuất</span>
                                 </span>
                               </span>
                             </a>
@@ -195,7 +195,7 @@ export default class Header extends Component {
                             <span className="lnr lnr-home mr-3" />
                             <span className="media-body text-truncate text-left">
                               <span className="text-truncate text-left">
-                                Dashboard
+                                Trang chủ
                               </span>
                             </span>
                           </span>
@@ -205,7 +205,7 @@ export default class Header extends Component {
                             <span className="lnr lnr-users mr-3" />
                             <span className="media-body text-truncate text-left">
                               <span className="text-truncate text-left">
-                                Employees
+                                Nhân viên
                               </span>
                             </span>
                           </span>
@@ -215,7 +215,7 @@ export default class Header extends Component {
                             <span className="lnr lnr-apartment mr-3" />
                             <span className="media-body text-truncate text-left">
                               <span className="text-truncate text-left">
-                                Company
+                                Công ty
                               </span>
                             </span>
                           </span>
@@ -225,7 +225,7 @@ export default class Header extends Component {
                             <span className="lnr lnr-calendar-full mr-3" />
                             <span className="media-body text-truncate text-left">
                               <span className="text-truncate text-left">
-                                Calendar
+                                Thời khóa biểu
                               </span>
                             </span>
                           </span>
@@ -235,7 +235,7 @@ export default class Header extends Component {
                             <span className="lnr lnr-briefcase mr-3" />
                             <span className="media-body text-truncate text-left">
                               <span className="text-truncate text-left">
-                                Leave
+                                Xin nghỉ
                               </span>
                             </span>
                           </span>
@@ -245,7 +245,7 @@ export default class Header extends Component {
                             <span className="lnr lnr-star mr-3" />
                             <span className="media-body text-truncate text-left">
                               <span className="text-truncate text-left">
-                                Reviews
+                                Đánh giá
                               </span>
                             </span>
                           </span>
@@ -255,7 +255,7 @@ export default class Header extends Component {
                             <span className="lnr lnr-rocket mr-3" />
                             <span className="media-body text-truncate text-left">
                               <span className="text-truncate text-left">
-                                Reports
+                                Thông báo
                               </span>
                             </span>
                           </span>
@@ -265,7 +265,7 @@ export default class Header extends Component {
                             <span className="lnr lnr-sync mr-3" />
                             <span className="media-body text-truncate text-left">
                               <span className="text-truncate text-left">
-                                Manage
+                                Quản lý
                               </span>
                             </span>
                           </span>
@@ -275,7 +275,7 @@ export default class Header extends Component {
                             <span className="lnr lnr-cog mr-3" />
                             <span className="media-body text-truncate text-left">
                               <span className="text-truncate text-left">
-                                Settings
+                                Cài đặt
                               </span>
                             </span>
                           </span>
@@ -285,7 +285,7 @@ export default class Header extends Component {
                             <span className="lnr lnr-user mr-3" />
                             <span className="media-body text-truncate text-left">
                               <span className="text-truncate text-left">
-                                Profile
+                                Thông tin cá nhân
                               </span>
                             </span>
                           </span>
@@ -299,7 +299,7 @@ export default class Header extends Component {
                             <span className="lnr lnr-power-switch mr-3" />
                             <span className="media-body text-truncate text-left">
                               <span className="text-truncate text-left" >
-                                Logout
+                                Đăng xuất
                               </span>
                             </span>
                           </span>
