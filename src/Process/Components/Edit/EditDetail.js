@@ -153,7 +153,7 @@ class EditDetail extends Component {
                             </label>
                             </div>
                             <div className="col-md-10 letf-colum-detail">
-                                <p></p>
+                            <p></p>
                             </div>
                         </div>
                         <div className="row">

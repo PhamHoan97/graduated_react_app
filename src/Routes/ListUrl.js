@@ -13,7 +13,6 @@ import ManageCompany from '../System/Component/ManageSystem/ManageCompany';
 import CreateProcess from '../Process/Components/Create/CreateProcess';
 import EditProcess from '../Process/Components/Edit/EditProcess';
 import ViewProcess from '../Process/Components/View/ViewProcess';
-// import EmployeePage from '../Employee/Components/EmployeePage';
 import ManageEmail from '../System/Component/ManageSystem/ManageEmail';
 import EmployeeLogin from '../LoginSystem/Components/EmployeeLogin';
 import CompanyOrganization from '../Organization/ManageCompany/Component/CompanyOrganization';
@@ -34,6 +33,7 @@ import NotificationEmployee from '../EmployeeProcess/Component/NotificationEmplo
 import DashboardEmployee from '../EmployeeProcess/Component/DashboardEmployee'
 import ForgetPasswordEmployee from '../Employee/Components/ForgetPasswordEmployee';
 import FormResetPasswordEmployee from '../Employee/Components/FormResetPasswordEmployee';
+import ListProcessesOfCompany from '../Organization/ManageProcess/Component/ListProcessesOfCompany';
 
 class ListUrl extends Component {
     render() {
@@ -53,7 +53,6 @@ class ListUrl extends Component {
                         <Route path="/process/new" exact component={CreateProcess} />
                         <Route path="/process/edit/:id" exact component={EditProcess} />
                         <Route path="/process/view" exact component={ViewProcess} />
-                        {/* <Route path="/employee/dashboard" exact component={EmployeePage} /> */}
                         <Route path="/system/email" component={ManageEmail}/>
                         <Route path="/employee/login" exact component={EmployeeLogin} />
                         <Route path="/employee/view/process/:id" exact component={ViewProcess} />
@@ -77,6 +76,7 @@ class ListUrl extends Component {
                         <Route path="/employee/" exact component={DashboardEmployee} />
                         <Route path="/employee/reset/password" exact component={ForgetPasswordEmployee} />
                         <Route path="/employee/form/reset/password/:id" exact component={FormResetPasswordEmployee} />
+                        <Route path="/company/manage/process" exact component={ListProcessesOfCompany} />
                     </div>
                 </Router>
            </>

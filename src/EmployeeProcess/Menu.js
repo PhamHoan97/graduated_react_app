@@ -325,15 +325,15 @@ class Menu extends Component {
               </span>
               <span>{this.state.employee.name}</span>
             </a>
-            <div className="dropdown-menu">
+            <div className="dropdown-menu dropdown-menu_employee">
               <a className="dropdown-item" href="profile.html" onClick={(e) => this.openUpdateAccount(e)}>
-              <i className="fas fa-align-justify"></i> Cập nhật tài khoản
+              <i className="fas fa-align-justify mr-2"></i> Cập nhật tài khoản
               </a>
               <a className="dropdown-item" href="settings.html">
-                <i className="fas fa-globe"></i> Ngôn ngữ
+                <i className="fas fa-globe mr-2"></i> Ngôn ngữ
               </a>
               <a className="dropdown-item" href="login.html" onClick={(e) => this.handleLogout(e)}>
-              <i className="fas fa-sign-out-alt"></i> Đăng xuất
+              <i className="fas fa-sign-out-alt mr-2"></i> Đăng xuất
               </a>
             </div>
           </li>

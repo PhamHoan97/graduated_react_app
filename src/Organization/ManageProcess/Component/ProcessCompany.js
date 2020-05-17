@@ -265,7 +265,7 @@ class ProcessCompany extends Component {
                   <div className="col-md-12 d-flex">
                     <div className="card ctm-border-radius shadow-sm flex-fill ">
                       <div className="card-header">
-                        <h4 className="card-title mb-0">Quản lí quy trình</h4>
+                        <h4 className="card-title mb-0">Tạo quy trình</h4>
                       </div>
                       <div className="card-body">
                       <div className="table-data__tool">
