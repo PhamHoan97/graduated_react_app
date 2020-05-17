@@ -6,6 +6,7 @@ import * as host from "../../Url";
 import { isEmpty } from "validator";
 import { Modal } from "react-bootstrap";
 export default class ModalCreateEmployee extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -105,6 +106,7 @@ export default class ModalCreateEmployee extends Component {
   }
 
   getListDepartment = () => {
+    this._isMounted = true;
     let self = this;
     var idCompany = localStorage.getItem("company_id");
     var token = localStorage.getItem("token");
@@ -116,14 +118,16 @@ export default class ModalCreateEmployee extends Component {
         }
       )
       .then(function (response) {
-        if (response.data.error != null) {
-          console.log(response.data.error);
-        } else {
-          self.setState({
-            listDepartment: JSON.parse(
-              JSON.stringify(response.data.departmentCompany)
-            ),
-          });
+        if(self._isMounted){
+          if (response.data.error != null) {
+            console.log(response.data.error);
+          } else {
+            self.setState({
+              listDepartment: JSON.parse(
+                JSON.stringify(response.data.departmentCompany)
+              ),
+            });
+          }
         }
       })
       .catch(function (error) {
@@ -131,6 +135,7 @@ export default class ModalCreateEmployee extends Component {
       });
   };
   getListRole = () => {
+    this._isMounted = true;
     let self = this;
     var idCompany = localStorage.getItem("company_id");
     var token = localStorage.getItem("token");
@@ -139,12 +144,14 @@ export default class ModalCreateEmployee extends Component {
         headers: { Authorization: "Bearer " + token },
       })
       .then(function (response) {
-        if (response.data.error != null) {
-          console.log(response.data.error);
-        } else {
-          self.setState({
-            listRoleDepartment: JSON.parse(JSON.stringify(response.data.roles)),
-          });
+        if(self._isMounted){
+          if (response.data.error != null) {
+            console.log(response.data.error);
+          } else {
+            self.setState({
+              listRoleDepartment: JSON.parse(JSON.stringify(response.data.roles)),
+            });
+          }
         }
       })
       .catch(function (error) {
@@ -155,6 +162,11 @@ export default class ModalCreateEmployee extends Component {
     this.getListDepartment();
     this.getListRole();
   }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+ 
 
   render() {
     const { errors } = this.state;

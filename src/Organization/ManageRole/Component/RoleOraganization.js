@@ -12,6 +12,7 @@ import { NavLink } from "react-router-dom";
 import {connect} from "react-redux"
 import {editRoleOrganization} from "../Action/Index";
 class RoleOraganization extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -51,6 +52,7 @@ class RoleOraganization extends Component {
   }
 
   getListRole = () => {
+    this._isMounted = true;
     let self = this;
     var idCompany = localStorage.getItem("company_id");
     var token = localStorage.getItem("token");
@@ -59,18 +61,25 @@ class RoleOraganization extends Component {
         headers: { Authorization: "Bearer " + token },
       })
       .then(function (response) {
-        if (response.data.error != null) {
-          console.log(response.data.error);
-        } else {
-          self.setState({
-            listRole: JSON.parse(JSON.stringify(response.data.roles)),
-          });
+        if(self._isMounted){
+          if (response.data.error != null) {
+            console.log(response.data.error);
+          } else {
+            self.setState({
+              listRole: JSON.parse(JSON.stringify(response.data.roles)),
+            });
+          }
         }
       })
       .catch(function (error) {
         console.log(error);
       });
   };
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+ 
 
   deleteRole = (e,idDeleteRole) =>{
     e.preventDefault();
@@ -106,6 +115,7 @@ class RoleOraganization extends Component {
   };
 
   getListDepartment = () => {
+    this._isMounted = true;
     let self = this;
     var idCompany = localStorage.getItem("company_id");
     var token = localStorage.getItem("token");
@@ -117,14 +127,16 @@ class RoleOraganization extends Component {
         }
       )
       .then(function (response) {
-        if (response.data.error != null) {
-          console.log(response.data.error);
-        } else {
-          self.setState({
-            listDepartment: JSON.parse(
-              JSON.stringify(response.data.departmentCompany)
-            ),
-          });
+        if(self._isMounted){
+          if (response.data.error != null) {
+            console.log(response.data.error);
+          } else {
+            self.setState({
+              listDepartment: JSON.parse(
+                JSON.stringify(response.data.departmentCompany)
+              ),
+            });
+          }
         }
       })
       .catch(function (error) {

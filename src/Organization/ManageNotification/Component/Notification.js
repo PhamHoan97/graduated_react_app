@@ -8,6 +8,7 @@ import ModalCreateNotification from "./ModalCreateNotification";
 import axios from "axios";
 import * as host from "../../Url";
 export default class Notification extends Component {
+  _isMounted = false;
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -16,6 +17,10 @@ export default class Notification extends Component {
       statisticNotification: [],
       isDisplayStatistic: false,
     };
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   closeCreateNotification = () => {
@@ -32,6 +37,7 @@ export default class Notification extends Component {
   };
 
   getListNotification = () => {
+    this._isMounted = true;
     var self = this;
     var token = localStorage.getItem("token");
     var idCompany = localStorage.getItem("company_id");
@@ -46,12 +52,14 @@ export default class Notification extends Component {
         }
       )
       .then(function (response) {
-        if (response.data.error != null) {
-          console.log(response.data.error);
-        } else {
-          self.setState({
-            listNotification: response.data.notifications,
-          });
+        if(self._isMounted){
+          if (response.data.error != null) {
+            console.log(response.data.error);
+          } else {
+            self.setState({
+              listNotification: response.data.notifications,
+            });
+          }
         }
       })
       .catch(function (error) {

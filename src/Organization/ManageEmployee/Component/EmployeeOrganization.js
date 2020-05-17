@@ -15,6 +15,7 @@ import { editEmployeeOrganization } from "../Action/Index";
 import ReactPaginate from "react-paginate";
 import {NavLink} from "react-router-dom";
 class EmployeeOrganization extends Component {
+  _isMounted = false;
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -123,6 +124,7 @@ class EmployeeOrganization extends Component {
   };
 
   getListEmployee = () => {
+    this._isMounted = true;
     let self = this;
     var idCompany = localStorage.getItem("company_id");
     var token = localStorage.getItem("token");
@@ -137,15 +139,17 @@ class EmployeeOrganization extends Component {
         }
       )
       .then(function (response) {
-        if (response.data.error != null) {
-          console.log(response.data.error);
-        } else {
-          self.setState({
-            listEmployee: JSON.parse(JSON.stringify(response.data.employees)),
-            pageCount: Math.ceil(
-              response.data.employees.length / self.state.perPage
-            ),
-          });
+        if(self._isMounted){
+          if (response.data.error != null) {
+            console.log(response.data.error);
+          } else {
+            self.setState({
+              listEmployee: JSON.parse(JSON.stringify(response.data.employees)),
+              pageCount: Math.ceil(
+                response.data.employees.length / self.state.perPage
+              ),
+            });
+          }
         }
       })
       .catch(function (error) {
@@ -156,6 +160,10 @@ class EmployeeOrganization extends Component {
   componentWillMount() {
     this.getListEmployee();
     this.getListDepartment();
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   deleteEmployee = (e, idDeleteEmployee) => {
@@ -185,6 +193,7 @@ class EmployeeOrganization extends Component {
   };
 
   getListDepartment = () => {
+    this._isMounted = true;
     let self = this;
     var idCompany = localStorage.getItem("company_id");
     var token = localStorage.getItem("token");
@@ -196,14 +205,16 @@ class EmployeeOrganization extends Component {
         }
       )
       .then(function (response) {
-        if (response.data.error != null) {
-          console.log(response.data.error);
-        } else {
-          self.setState({
-            listDepartment: JSON.parse(
-              JSON.stringify(response.data.departmentCompany)
-            ),
-          });
+        if(self._isMounted){
+          if (response.data.error != null) {
+            console.log(response.data.error);
+          } else {
+            self.setState({
+              listDepartment: JSON.parse(
+                JSON.stringify(response.data.departmentCompany)
+              ),
+            });
+          }
         }
       })
       .catch(function (error) {

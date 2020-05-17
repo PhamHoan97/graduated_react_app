@@ -15,6 +15,7 @@ function isEmpty(obj) {
   return true;
 }
 export default class DetailEmployeeOraganization extends Component {
+  _isMounted = false;
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -22,6 +23,7 @@ export default class DetailEmployeeOraganization extends Component {
     };
   }
   getDetailEmployeeOrganization = () => {
+    this._isMounted = true;
     var token = localStorage.getItem("token");
     var self = this;
     axios
@@ -34,15 +36,17 @@ export default class DetailEmployeeOraganization extends Component {
         }
       )
       .then(function (response) {
-        if (response.data.error != null) {
-          console.log(response.data.error);
-        } else {
-          var detailEmployee = JSON.parse(
-            JSON.stringify(response.data.employee)
-          );
-          self.setState({
-            detailEmployee: detailEmployee,
-          });
+        if(self._isMounted){
+          if (response.data.error != null) {
+            console.log(response.data.error);
+          } else {
+            var detailEmployee = JSON.parse(
+              JSON.stringify(response.data.employee)
+            );
+            self.setState({
+              detailEmployee: detailEmployee,
+            });
+          }
         }
       })
       .catch(function (error) {
@@ -52,6 +56,10 @@ export default class DetailEmployeeOraganization extends Component {
   componentWillMount() {
     this.getDetailEmployeeOrganization();
   }
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+ 
   render() {
     return (
       <div className="inner-wrapper manage-organization_template">
