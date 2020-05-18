@@ -1,0 +1,20 @@
+.manage-notification_system--admin {
+  .table-notification_company {
+    width: 100%;
+    border-collapse: collapse !important;
+    table-layout: fixed !important;
+  }
+  .table-notification_company .cell-breakWord {
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+  }
+  .table-notification_company th {
+    text-align: center;
+  }
+  .table-notification_company td {
+    border-top: 1px solid #dee2e6;
+  }
+  .table-notification_company .btn-sm {
+    margin-right: 10px;
+  }
+}

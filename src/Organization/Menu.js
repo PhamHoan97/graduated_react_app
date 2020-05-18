@@ -220,6 +220,40 @@ class Menu extends Component {
                       <span>Template form thông báo</span>
                     </NavLink>
                   </div> */}
+                   <div className="col-6 align-items-center shadow-none text-center">
+                    <NavLink
+                      to="/company/notification/system"
+                      exact
+                      className="text-black p-4 first-slider-btn ctm-border-right ctm-border-left ctm-border-top"
+                      activeStyle={{
+                        fontWeight: "bold",
+                        color: "#ffffff",
+                      }}
+                    >
+                      <i
+                        className="fa fa-bell-o pr-0 pb-lg-2 font-23"
+                        aria-hidden="true"
+                      />
+                      <span>Danh sách thông báo </span>
+                    </NavLink>
+                  </div>
+                  <div className="col-6 align-items-center shadow-none text-center">
+                    <NavLink
+                      to="/company/notification/create"
+                      exact
+                      className="text-black p-4 first-slider-btn ctm-border-right ctm-border-left ctm-border-top"
+                      activeStyle={{
+                        fontWeight: "bold",
+                        color: "#ffffff",
+                      }}
+                    >
+                      <i
+                        className="fa fa-bell-o pr-0 pb-lg-2 font-23"
+                        aria-hidden="true"
+                      />
+                      <span>Tạo thông báo </span>
+                    </NavLink>
+                  </div>
                   <div className="col-6 align-items-center shadow-none text-center">
                     <NavLink
                       to="/company/process"

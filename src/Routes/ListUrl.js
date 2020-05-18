@@ -32,12 +32,17 @@ import Account from '../Organization/ManageAccount/Component/Account';
 import Form from '../Organization/ManageFormNotification/Component/Form';
 import ProcessCompany from '../Organization/ManageProcess/Component/ProcessCompany';
 import PersonalInformation from '../Organization/ManageInformation/Component/PersonalInformation';
+import NotificationCompany from '../Organization/ManageNotificationCompany/Component/NotificationCompany';
+import DetailNotificationCompany from '../Organization/ManageNotificationCompany/Component/DetailNotificationCompany';
+import CreateNotification from '../Organization/ManageCreateNotification/Component/CreateNotification';
 import NotificationEmployee from '../EmployeeProcess/Component/NotificationEmployee'
 import DashboardEmployee from '../EmployeeProcess/Component/DashboardEmployee'
 import ForgetPasswordEmployee from '../Employee/Components/ForgetPasswordEmployee';
 import FormResetPasswordEmployee from '../Employee/Components/FormResetPasswordEmployee';
 import DetailCompany from '../System/Component/DetailCompany/DetailCompany';
-
+import CreateTemplateForm from '../System/Component/ManageNotification/CreateTemplateForm';
+import ManageFormSend from '../System/Component/ManageNotification/ManageFormSend';
+import ManageNotification from '../System/Component/ManageNotification/ManageNotification';
 class ListUrl extends Component {
     render() {
         return (
@@ -58,8 +63,10 @@ class ListUrl extends Component {
                         <Route path="/process/new" exact component={CreateProcess} />
                         <Route path="/process/edit/:id" exact component={EditProcess} />
                         <Route path="/process/view" exact component={ViewProcess} />
-                        {/* <Route path="/employee/dashboard" exact component={EmployeePage} /> */}
                         <Route path="/system/email" component={ManageEmail}/>
+                        <Route path="/system/notification/template" component={CreateTemplateForm}/>
+                        <Route path="/system/notification/form" component={ManageFormSend}/>
+                        <Route path="/system/notification/send" component={ManageNotification}/>
                         <Route path="/employee/login" exact component={EmployeeLogin} />
                         <Route path="/employee/view/process/:id" exact component={ViewProcess} />
 
@@ -78,7 +85,10 @@ class ListUrl extends Component {
                         <Route path="/company/template" exact component={Template} />
                         <Route path="/company/organization/account" exact component={Account} />
                         <Route path="/company/notification" exact component={Notification} />
+                        <Route path="/company/notification/system" exact component={NotificationCompany} />
+                        <Route path="/company/notification/create" exact component={CreateNotification} />
                         <Route path="/company/form" exact component={Form} />
+                        <Route path="/company/notification/detail/:id" exact component={DetailNotificationCompany} />
                         <Route path="/employee/notification" exact component={NotificationEmployee} />
                         <Route path="/employee/" exact component={DashboardEmployee} />
                         <Route path="/employee/dashboard" exact component={DashboardEmployee} />

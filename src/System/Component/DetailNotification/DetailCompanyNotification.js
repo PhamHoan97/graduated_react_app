@@ -69,7 +69,7 @@ class DetailCompanyNotification extends Component {
           <div>
             <button type="button" class="btn btn-primary">
               <NavLink
-                to={"/system/company/notification/list"}
+                to={"/company/notification/system"}
                 exact
                 activeClassName="selected"
                 activeStyle={{
