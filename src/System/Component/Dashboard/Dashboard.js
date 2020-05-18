@@ -4,7 +4,8 @@ import MenuVerticalDashboard from "../Menu/MenuVerticalDashboard";
 import CompanyContainer from "../../Container/Dashboard/CompanyContainer";
 import ProcessDashboardContainer from "../../Container/Dashboard/ProcessDashboardContainer";
 
-export default class Dashboard extends Component {
+class Dashboard extends Component {
+
   render() {
     return (
       <div className="page-wrapper">
@@ -18,7 +19,7 @@ export default class Dashboard extends Component {
                 <div className="row text-left">
                   <div className="col-md-12">
                     <h3 className="title-5 m-b-35 dashboard__title--process">
-                      Process
+                      Danh sách quy trình
                     </h3>
                   </div>
                 </div>
@@ -45,3 +46,5 @@ export default class Dashboard extends Component {
     );
   }
 }
+
+export default Dashboard;

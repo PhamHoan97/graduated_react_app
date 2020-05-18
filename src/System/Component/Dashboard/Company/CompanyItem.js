@@ -27,7 +27,7 @@ export default class CompanyItem extends Component {
         return (
             <div className="col-md-3">
               <div className="card text-center">
-                <NavLink to={"/system/organization/company/"+this.props.id} activeClassName="selected">
+                <NavLink to={"/system/company/detail/"+this.props.id} activeClassName="selected">
                     {this.displayImageCompany()}
                     <div className="card-body">
                       <h6 className="card-title mb-3 dashboard__name--company">

@@ -19,7 +19,7 @@ export default class MenuHorizontal extends Component {
     return (
       <aside className="menu-sidebar d-none d-lg-block text-left">
         <div className="logo">
-          <a href="4a">
+          <a href="/system/dashboard">
             <img src={logo} alt="Cool Admin" />
           </a>
         </div>
@@ -37,7 +37,7 @@ export default class MenuHorizontal extends Component {
                   }}
                 >
                   <i className="fas fa-tachometer-alt" />
-                  Dashboard
+                  Trang chủ
                 </NavLink>
               </li>
 
@@ -50,7 +50,7 @@ export default class MenuHorizontal extends Component {
                   className="js-arrow"
                 >
                   <i className="fas fa-assistive-listening-systems" />
-                  Manage System
+                  Quản lí hệ thống
                 </a>
                 <ul className="list-unstyled navbar__sub-list js-sub-list">
                   <li>
@@ -63,7 +63,7 @@ export default class MenuHorizontal extends Component {
                       }}
                     >
                       <i className="fas fa-building" />
-                      Company
+                      Công ty
                     </NavLink>
                   </li>
                   <li>
@@ -76,7 +76,7 @@ export default class MenuHorizontal extends Component {
                       }}
                     >
                       <i className="fas fa-bell-slash" />
-                      Registration
+                      Đăng kí
                     </NavLink>
                   </li>
                   <li>
@@ -93,20 +93,6 @@ export default class MenuHorizontal extends Component {
                     </NavLink>
                   </li>
                 </ul>
-              </li>
-
-              <li>
-                <NavLink
-                  to="/system/personal"
-                  activeClassName="selected"
-                  activeStyle={{
-                    fontWeight: "bold",
-                    color: "#0074D9",
-                  }}
-                >
-                  <i className="fas fa-users" />
-                  Account
-                </NavLink>
               </li>
             </ul>
           </nav>

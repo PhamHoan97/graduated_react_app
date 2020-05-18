@@ -29,9 +29,10 @@ class ProcessDashboardContainer extends Component {
             result = slice.map((item, index) => {
                 return <ProcessItem
                     key={index}
+                    id={item.id}
                     name={item.process_name}
-                    department={item.department_name}
-                    date={item.update_at}
+                    description={item.description}
+                    date={item.date}
                     company ={item.company_name}
                 />;
             });
@@ -52,6 +53,17 @@ class ProcessDashboardContainer extends Component {
         this.getListProcess(this.props.textSearch);
     }
 
+    mergeProcesses(process1, process2){
+        var processes = [];
+        for (let index1 = 0; index1 < process1.length; index1++) {
+            processes.push(process1[index1]);
+        }
+        for (let index2 = 0; index2 < process2.length; index2++) {
+            processes.push(process2[index2]);
+        }
+        return processes;
+    }
+
     getListProcess = (textSearch) => {
         // connect database to get all process
         var self =  this;
@@ -64,7 +76,7 @@ class ProcessDashboardContainer extends Component {
         .then(function (response) {
             if (response.data.error != null) {
             } else {
-                var listProcess = response.data.companies;
+                var listProcess = self.mergeProcesses(response.data.processes1, response.data.processes2);
                 self.setState({
                     listProcess: listProcess,
                     pageCount: Math.ceil(listProcess.length / self.state.perPage),

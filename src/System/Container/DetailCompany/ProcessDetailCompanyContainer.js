@@ -5,7 +5,6 @@ import * as host from "../../Constants/Url";
 import axios from "axios";
 
 export default class ProcessDetailCompanyContainer extends Component {
-    //WARNING! To be deprecated in React v17. Use componentDidMount instead.
     constructor(props) {
         super(props);
         this.state = {
@@ -32,13 +31,24 @@ export default class ProcessDetailCompanyContainer extends Component {
         });
     };
 
+    mergeProcesses(process1, process2){
+        var processes = [];
+        for (let index1 = 0; index1 < process1.length; index1++) {
+            processes.push(process1[index1]);
+        }
+        for (let index2 = 0; index2 < process2.length; index2++) {
+            processes.push(process2[index2]);
+        }
+        return processes;
+    }
+
     getListProcessDepartmentCompany = () => {
         var self =  this;
         axios.get(host.URL_BACKEND+"/api/system/dashboard/process/company/"+this.props.idCompany)
         .then(function (response) {
-            console.log(response.data.processes);
+            var prosesses = self.mergeProcesses(response.data.processes1, response.data.processes2);
             self.setState({
-                listProcessDepartmentCompany:response.data.processes
+                listProcessDepartmentCompany: prosesses
             })
         })
         .catch(function (error) {
@@ -48,23 +58,29 @@ export default class ProcessDetailCompanyContainer extends Component {
 
     showProcesseDepartmentCompany = () =>{
         var listProcessDepartmentCompany =  this.state.listProcessDepartmentCompany;
-        console.log(this.state.listProcessDepartmentCompany);
         if(listProcessDepartmentCompany.length > 0){
             var result = listProcessDepartmentCompany.map((process,index) => {
                 return(
                     <ProcessItemCompany
                        key={index}
-                       date={process.update_at}
+                       id={process.id}
+                       date={process.date}
                        description={process.description}
                        name={process.name}
-                       employee={process.employee_name}
+                       deadline={process.deadline}
+                       type={process.type}
                     />
                 )
             })
             return result;
         }else{
             return(
-                <tr>No data</tr>
+                <tr>
+                    <td>
+                        Không có dữ liệu
+                    </td>
+                </tr>
+
             )
         }
     }
@@ -72,7 +88,6 @@ export default class ProcessDetailCompanyContainer extends Component {
     showDepartmentCompany = () => {
         var listDepartmentCompany =  this.state.listDepartmentCompany;
         if(listDepartmentCompany.length > 0){
-            console.log(listDepartmentCompany);
             var result = listDepartmentCompany.map((department,index) => {
                 return(
                     <DepartmentItemCompany
@@ -96,8 +111,9 @@ export default class ProcessDetailCompanyContainer extends Component {
         if(parseInt(idChooseDepartment) === 0){
             axios.get(host.URL_BACKEND+"/api/system/dashboard/process/company/"+this.props.idCompany)
             .then(function (response) {
+                var prosesses = self.mergeProcesses(response.data.processes1, response.data.processes2);
                 self.setState({
-                    listProcessDepartmentCompany:response.data.processes
+                    listProcessDepartmentCompany: prosesses
                 })
             })
             .catch(function (error) {
@@ -106,8 +122,9 @@ export default class ProcessDetailCompanyContainer extends Component {
         }else{
             axios.get(host.URL_BACKEND+"/api/system/dashboard/process/department/"+idChooseDepartment+"/company/"+this.props.idCompany)
             .then(function (response) {
+                var prosesses = self.mergeProcesses(response.data.processes1, response.data.processes2);
                 self.setState({
-                    listProcessDepartmentCompany:response.data.processes
+                    listProcessDepartmentCompany: prosesses
                 })
             })
             .catch(function (error) {
@@ -117,12 +134,11 @@ export default class ProcessDetailCompanyContainer extends Component {
     }
 
     render() {
-        console.log('Render detail company container');
         return (
         <div className="user-data m-b-40">
             <h3 className="title-3 m-b-30 detail--company__title">
             <i className="zmdi zmdi-account-calendar" />
-            process data
+            Danh sách quy trình
             </h3>
             <div className="filters m-b-45">
             <div className="rs-select2--dark rs-select2--md m-r-10 rs-select2--border">
@@ -132,7 +148,7 @@ export default class ProcessDetailCompanyContainer extends Component {
                 value={this.state.idChooseDepartment}
                 onChange={(e)=>this.handleChange(e)}
                 >
-                <option value="0">Department</option>
+                <option value="0">Phòng ban</option>
                 {
                     this.showDepartmentCompany()
                 }
@@ -144,9 +160,9 @@ export default class ProcessDetailCompanyContainer extends Component {
                 className="js-select2 au-select-dark select--time__detail_company"
                 name="time"
                 >
-                <option value="0">All Time</option>
-                <option value>By Month</option>
-                <option value>By Day</option>
+                <option value="0">Tất cả</option>
+                <option value>Theo tháng</option>
+                <option value>Theo ngày</option>
                 </select>
                 <div className="dropDownSelect2" />
             </div>
@@ -155,12 +171,11 @@ export default class ProcessDetailCompanyContainer extends Component {
             <table className="table">
                 <thead>
                 <tr>
-                    <td>Name</td>
-                    <td>Admin</td>
-                    <td>Date</td>
-                    <td>Status</td>
-                    <td>Detail</td>
-                    <td />
+                    <td>Tên quy trình</td>
+                    <td>Deadline</td>
+                    <td>Cập nhật</td>
+                    <td>Thể loại</td>
+                    <td></td>
                 </tr>
                 </thead>
                 <tbody>
@@ -169,7 +184,7 @@ export default class ProcessDetailCompanyContainer extends Component {
             </table>
             </div>
             <div className="user-data__footer">
-            <button className="au-btn au-btn-load">load more</button>
+            <button className="au-btn au-btn-load">Tải thêm</button>
             </div>
         </div>
         );

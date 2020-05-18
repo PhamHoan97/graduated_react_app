@@ -7,7 +7,6 @@ import Alert from '../Register/Components/Alert';
 import CompanyLogin from '../Intro/Component/CompanyLogin';
 import { BrowserRouter as Router } from "react-router-dom";
 import Dashboard from '../System/Component/Dashboard/Dashboard';
-import Information from '../System/Component/PersonalInformation/Information';
 import ManageRegistration from '../System/Component/ManageSystem/ManageRegistration';
 import ManageCompany from '../System/Component/ManageSystem/ManageCompany';
 import CreateProcess from '../Process/Components/Create/CreateProcess';
@@ -35,6 +34,7 @@ import ForgetPasswordEmployee from '../Employee/Components/ForgetPasswordEmploye
 import FormResetPasswordEmployee from '../Employee/Components/FormResetPasswordEmployee';
 import ListProcessesOfCompany from '../Organization/ManageProcess/Component/ListProcessesOfCompany';
 import ListProcessesOfEmployee from '../Organization/ManageProcess/Component/ListProcessesOfEmployee';
+import DetailCompany from '../System/Component/DetailCompany/DetailCompany';
 
 class ListUrl extends Component {
     render() {
@@ -48,15 +48,14 @@ class ListUrl extends Component {
                         <Route path="/newletter" exact component={Alert} />
                         <Route path="/system" exact component={Dashboard} />
                         <Route path="/system/dashboard" exact component={Dashboard}/>
-                        <Route path="/system/personal" exact component={Information}/>
                         <Route path="/system/registration" component={ManageRegistration}/>
                         <Route path="/system/company" exact component={ManageCompany}/>
+                        <Route path="/system/company/detail/:idCompany" exact component={DetailCompany}/>
                         <Route path="/process/new" exact component={CreateProcess} />
                         <Route path="/process/edit/:id" exact component={EditProcess} />
-                        <Route path="/process/view" exact component={ViewProcess} />
                         <Route path="/system/email" component={ManageEmail}/>
                         <Route path="/employee/login" exact component={EmployeeLogin} />
-                        <Route path="/employee/view/process/:id" exact component={ViewProcess} />
+                        <Route path="/view/process/:id" exact component={ViewProcess} />
                         <Route path="/company/login" exact component={CompanyLogin} />
                         <Route path="/company/" exact component={DashboardCompany} />
                         <Route path="/company/dashboard" exact component={DashboardCompany} />

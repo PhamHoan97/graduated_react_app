@@ -9,12 +9,11 @@ class Process extends Component {
             <table className="table table-borderless table-data3">
                 <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Company</th>
-                    <th>Department</th>
-                    <th>Date</th>
-                    <th>Detail</th>
-                    <th />
+                    <th>Tên</th>
+                    <th>Công ty</th>
+                    <th>Mô tả ngắn</th>
+                    <th>Ngày tạo</th>
+                    <th>Chi tiết</th>
                 </tr>
                 </thead>
                 <tbody>

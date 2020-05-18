@@ -116,15 +116,15 @@ class ListProcessesOfEmployee extends Component {
       }
 
     mergeProcesses(process1, process2){
-        var processes = [];
-        for (let index1 = 0; index1 < process1.length; index1++) {
-          processes.push(process1[index1]);
-        }
-        for (let index2 = 0; index2 < process2.length; index2++) {
-          processes.push(process2[index2]);
-        }
-        return processes;
+      var processes = [];
+      for (let index1 = 0; index1 < process1.length; index1++) {
+        processes.push(process1[index1]);
       }
+      for (let index2 = 0; index2 < process2.length; index2++) {
+        processes.push(process2[index2]);
+      }
+      return processes;
+    }
 
     componentDidMount() {
         var idEmployee = this.props.match.params.id;

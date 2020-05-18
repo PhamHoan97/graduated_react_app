@@ -142,7 +142,7 @@ class SystemLogin extends Component{
                             </CheckButton>
                         </div>
                         </div>
-                        <div className="txt1 text-center p-t-54 p-b-20">
+                        {/* <div className="txt1 text-center p-t-54 p-b-20">
                         <span>
                             Hoặc sử dụng
                         </span>
@@ -157,7 +157,7 @@ class SystemLogin extends Component{
                         <a href="/" className="login100-social-item bg3">
                             <i className="fa fa-google" />
                         </a>
-                        </div>
+                        </div> */}
                     </Form>
                     </div>
                 </div>

@@ -20,8 +20,6 @@ class ListProcessesOfCompany extends Component {
           isRedirectEdit: false,
           idEdit: '',
           idProcess: '',
-          idEmployee: '',
-          isRedirectEmployeeProcess: false,
         }
     }
 

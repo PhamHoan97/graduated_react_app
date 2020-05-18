@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import Avatar from '../../Images/Account/Avatar-01.jpg';
 import axios from 'axios';
 import  { Redirect } from 'react-router-dom';
-export default class MenuVertical extends Component {
-  
+
+class MenuVertical extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isLogout: false,
+      system: '',
     };
   }
-  
   collapseMenuAccount = (e) => {
     e.preventDefault();
     var prarentValueClassName = e.target.parentElement.parentElement.className;
@@ -42,7 +42,6 @@ export default class MenuVertical extends Component {
         if(res.data.error != null){
             console.log(res.data.error);
         }else{
-            console.log(res.data.message);
             this.setState({isLogout:true});
         }
       }).catch(function (error) {
@@ -59,13 +58,29 @@ export default class MenuVertical extends Component {
         if(res.data.error != null){
             console.log(res.data.error);
         }else{
-            console.log(res.data.message);
             this.setState({isLogout:true});
         }
       }).catch(function (error) {
         alert(error);
       });
     }
+  }
+
+  componentDidMount() {
+    var token = localStorage.getItem('token')
+    axios.get(`http://127.0.0.1:8000/api/system/account/` + token,
+    {
+      headers: { 'Authorization': 'Bearer ' + token}
+    })
+    .then(res => {
+      if(res.data.error != null){
+          console.log(res.data.message);
+      }else{
+        this.setState({system: res.data.system});
+      }
+    }).catch(function (error) {
+      alert(error);
+    })
   }
 
   render() {
@@ -141,7 +156,7 @@ export default class MenuVertical extends Component {
                     </div>
                     <div className="content">
                       <a href="##" className="js-acc-btn" onClick={(e)=>{this.collapseMenuAccount(e)}}>
-                        HoanPham
+                        {this.state.system.name}
                       </a>
                     </div>
                     <div className="account-dropdown js-dropdown">
@@ -156,35 +171,29 @@ export default class MenuVertical extends Component {
                         </div>
                         <div className="content">
                           <h5 className="name">
-                            <a href="2AESN">john doe</a>
+                            <a href="/system/dashboard">{this.state.system.name}</a>
                           </h5>
-                          <span className="email">johndoe@example.com</span>
+                          <span className="email">{this.state.system.email}</span>
                         </div>
                       </div>
                       <div className="account-dropdown__body text-left">
                         <div className="account-dropdown__item">
-                          <a href="2AESN">
+                          <a href="/system/dashboard">
                             <i className="zmdi zmdi-account" />
-                            Account
+                            Cập nhật tài khoản
                           </a>
                         </div>
                         <div className="account-dropdown__item">
-                          <a href="2AESN">
+                          <a href="/system/dashboard">
                             <i className="zmdi zmdi-settings" />
-                            Setting
-                          </a>
-                        </div>
-                        <div className="account-dropdown__item">
-                          <a href="2AESN">
-                            <i className="zmdi zmdi-money-box" />
-                            Billing
+                            Cài đặt
                           </a>
                         </div>
                       </div>
                       <div className="account-dropdown__footer">
                         <a href="/" onClick={(e) => this.handleLogout(e)}>
                           <i className="zmdi zmdi-power" />
-                          Logout
+                          Đăng xuất
                         </a>
                       </div>
                     </div>
@@ -198,3 +207,5 @@ export default class MenuVertical extends Component {
     );
   }
 }
+
+export default MenuVertical;

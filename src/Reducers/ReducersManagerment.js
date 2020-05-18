@@ -5,6 +5,7 @@ import processReducers from '../Process/Reducers/ProcessReducers';
 import employeeReducers from '../EmployeeProcess/Reducers/EmployeeReducers';
 import organizationReducers from '../Organization/Reducers/OragnizationReducers';
 import addProcessReducers from '../Organization/ManageProcess/Reducers/AddProcessReducers'
+import notificationAlertReducer from '../Alert/Reducers/AlertReduce';
 
 const appReducers = combineReducers({
     systemReducers,
@@ -12,6 +13,7 @@ const appReducers = combineReducers({
     processReducers,
     employeeReducers,
     organizationReducers,
-    addProcessReducers
+    addProcessReducers,
+    notificationAlertReducer
 })
 export default appReducers;

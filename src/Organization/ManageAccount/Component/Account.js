@@ -11,6 +11,8 @@ import Select from "react-select";
 import axios from "axios";
 import LinkPage from "../../LinkPage";
 import AccountItem from "./AccountItem";
+import {connect} from "react-redux";
+import {showMessageAlert} from "../../../Alert/Action/Index"
 const colourStyles = {
   control: (styles) => ({ ...styles, backgroundColor: "white" }),
   option: (styles, { data, isDisabled, isFocused, isSelected }) => {
@@ -30,7 +32,7 @@ function isEmpty(obj) {
   }
   return true;
 }
-export default class Account extends Component {
+class Account extends Component {
   _isMounted = false;
   constructor(props, context) {
     super(props, context);
@@ -126,14 +128,23 @@ export default class Account extends Component {
             });
             self.getAllEmployeeNoAccount();
             self.getListAccounts();
+            self.props.showAlert({
+              message:'Tạo tài khoản thành công ',
+              anchorOrigin:{
+                  vertical: 'top',
+                  horizontal: 'center'
+              },
+              title:'Success',
+              severity:'success'
+            })
           }
         })
         .catch(function (error) {
           console.log(error);
         });
-     
     }
   };
+
 
   handleChange(event) {
     const name = event.target.name;
@@ -457,3 +468,11 @@ export default class Account extends Component {
     );
   }
 }
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    showAlert: (properties) => {
+      dispatch(showMessageAlert(properties))
+    }
+  }
+}
+export default connect(null, mapDispatchToProps)(Account);

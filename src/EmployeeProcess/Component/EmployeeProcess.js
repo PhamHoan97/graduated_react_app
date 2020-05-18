@@ -116,7 +116,7 @@ class EmployeeProcess extends Component {
 
     render() {
         if(this.state.isRedirect){
-            return <Redirect to={'/employee/view/process/' + this.state.click} />
+            return <Redirect to={'/view/process/' + this.state.click} />
         }
         return (
             <div className="card">
