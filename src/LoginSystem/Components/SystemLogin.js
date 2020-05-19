@@ -20,19 +20,19 @@ import  { Redirect } from 'react-router-dom';
 
 const required = (value) => {
     if (isEmpty(value)) {
-        return <small className="form-text text-danger">This field is required</small>;
+        return <small className="form-text text-danger">Không được để trống</small>;
     }
   }
 
   const email = (value) => {
     if (!isEmail(value)) {
-        return <small className="form-text text-danger">Invalid email format</small>;
+        return <small className="form-text text-danger">Không đúng định dạng email</small>;
     }
   }
 
   const minLength = (value) => {
     if (value.trim().length < 8) {
-        return <small className="form-text text-danger">Password must be at least 8 characters long</small>;
+        return <small className="form-text text-danger">Mật khẩu phải có ít nhất 8 kí tự</small>;
     }
   }
 
@@ -67,7 +67,6 @@ class SystemLogin extends Component{
             if(res.data.error != null){
                 console.log(res.data.message);
             }else{
-                console.log(res.data.message);
                 localStorage.setItem('token', res.data.token);
                 if(res.data.isSystem){
                     localStorage.setItem('system_id', res.data.id);
@@ -91,7 +90,7 @@ class SystemLogin extends Component{
             if(res.data.error != null){
                 console.log(res.data.error);
             }else{
-                console.log(res.data.message);
+
             }
           }).catch(function (error) {
             alert(error);
@@ -114,38 +113,38 @@ class SystemLogin extends Component{
                     <div className="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
                     <Form className="login100-form validate-form" onSubmit={e => this.onSubmit(e)} ref={c => { this.form = c }}>
                         <span className="login100-form-title p-b-49">
-                        Login
+                        Đăng nhập
                         </span>
                         <div className="wrap-input100 validate-input m-b-23" data-validate="Username is required">
-                        <span className="label-input100">Email/Username</span>
-                        <Input className="input100" type="text" name="username" placeholder="Type your email or username" 
+                        <span className="label-input100">Email</span>
+                        <Input className="input100" type="text" name="username" placeholder="Nhập email" 
                             validations={[required, email]} onChange={this.handleChangeEmail}
                         />
                         <span className="focus-input100" data-symbol="" />
                         </div>
                         <div className="wrap-input100 validate-input" data-validate="Password is required">
-                        <span className="label-input100">Password</span>
-                        <Input className="input100" type="password" name="password" placeholder="Type your password"
+                        <span className="label-input100">Mật khẩu</span>
+                        <Input className="input100" type="password" name="password" placeholder="Nhập mật khẩu"
                             validations={[required, minLength]} onChange={this.handleChangePassword}
                         />
                         <span className="focus-input100" data-symbol="" />
                         </div>
                         <div className="text-right p-t-8 p-b-31">
                         <a href="/">
-                            Forgot password?
+                            Quên mật khẩu?
                         </a>
                         </div>
                         <div className="container-login100-form-btn">
                         <div className="wrap-login100-form-btn">
                             <div className="login100-form-bgbtn" />
                             <CheckButton className="login100-form-btn" onClick={this.handleSubmit} ref={c => { this.checkBtn = c }}>
-                            Login
+                            Đăng nhập
                             </CheckButton>
                         </div>
                         </div>
-                        <div className="txt1 text-center p-t-54 p-b-20">
+                        {/* <div className="txt1 text-center p-t-54 p-b-20">
                         <span>
-                            Or Login Using
+                            Hoặc sử dụng
                         </span>
                         </div>
                         <div className="flex-c-m">
@@ -158,7 +157,7 @@ class SystemLogin extends Component{
                         <a href="/" className="login100-social-item bg3">
                             <i className="fa fa-google" />
                         </a>
-                        </div>
+                        </div> */}
                     </Form>
                     </div>
                 </div>

@@ -53,7 +53,7 @@ export default class DetailEmployeeOraganization extends Component {
         console.log(error);
       });
   };
-  componentWillMount() {
+  componentDidMount() {
     this.getDetailEmployeeOrganization();
   }
   componentWillUnmount() {

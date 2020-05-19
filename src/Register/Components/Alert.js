@@ -29,24 +29,23 @@ class Alert extends Component {
         }
     }
 
-    //WARNING! To be deprecated in React v17. Use componentDidMount instead.
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
       if(this.props.company !== ''){
         switch (this.props.company.workforce) {
           case "1":
-            this.props.company.workforce = "Less than 50 employees";
+            this.props.company.workforce = "Ít hơn 50 nhân viên";
             break;
           case "2":
-            this.props.company.workforce = "From 50 to 100 employees";
+            this.props.company.workforce = "Từ 50 đến 100 nhân viên";
           break;
           case "3":
-          this.props.company.workforce = "From 100 to 200 employees";
+          this.props.company.workforce = "Từ 100 đến 200 nhân viên";
           break;
           case "4":
-            this.props.company.workforce = "From 200 to 300 employees";
+            this.props.company.workforce = "Từ 200 đến 300 nhân viên";
             break;
           case "5":
-            this.props.company.workforce = "More than 300 employees";
+            this.props.company.workforce = "Nhiều hơn 300 nhân viên";
             break;
           default:
             break;
@@ -119,7 +118,7 @@ class Alert extends Component {
                                                         <td style={{fontSize: '14px', fontFamily: '"Open Sans","Arial",Helvetica,sans-serif, sans-serif', color: '#3c4858', lineHeight: '21px'}}>
                                                           <div>
                                                             <div style={{lineHeight: '24px', textAlign: 'center'}}>
-                                                              <span style={{color: '#FFFFFF'}}>Your information was sent to admin of our system. We'll have a contact though your email when everything was verified.</span>
+                                                              <span style={{color: '#FFFFFF'}}>Thông tin về công ty đã được gửi đến người quản trị hệ thống, chúng tôi sẽ liên hệ khi mọi thứ được xác minh.</span>
                                                             </div>
                                                           </div>
                                                         </td>
@@ -170,13 +169,14 @@ class Alert extends Component {
                                                             <tr>
                                                               <td valign="middle" align="left" style={{fontSize: '14px', fontFamily: '"Montserrat","Arial",Helvetica,sans-serif', color: '#888888'}} className="rnb-text-center">
                                                                 <div>
-                                                                  <div style={{lineHeight: '24px'}}>Company Name
-                                                                    <br/>Ceo: {this.state.company.name}
-                                                                    <br/>Sinature: {this.state.company.signature}
-                                                                    <br/>Field: {this.state.company.field}
-                                                                    <br/>Workforce: {this.state.company.workforce}
-                                                                    <br/>Address: {this.state.company.address}
-                                                                    <br/>Contact: <span style={{textDecoration: 'underline', color: 'rgb(20, 160, 193)'}}>{this.state.company.contact}</span>
+                                                                  <div style={{lineHeight: '24px'}}>
+                                                                    {this.state.company.name}
+                                                                    <br/>Người đứng đầu: {this.state.company.ceo}
+                                                                    <br/>Kí hiệu: {this.state.company.signature}
+                                                                    <br/>Lĩnh vực: {this.state.company.field}
+                                                                    <br/>Nhân lực: {this.state.company.workforce}
+                                                                    <br/>Địa chỉ: {this.state.company.address}
+                                                                    <br/>Liên hệ: <span style={{textDecoration: 'underline', color: 'rgb(20, 160, 193)'}}>{this.state.company.contact}</span>
                                                                   </div>
                                                                 </div>
                                                               </td>
@@ -285,7 +285,7 @@ class Alert extends Component {
                                       <td>
                                         <div style={{fontSize: '14px', color: '#888888', fontWeight: 'normal', textAlign: 'center', fontFamily: '"Open Sans","Arial",Helvetica,sans-serif'}}>
                                           <div style={{lineHeight: '24px'}} />
-                                          <div style={{lineHeight: '24px'}}>Thanks for your interest in my website. We’ll get back to you with a quote within the hour. </div>
+                                          <div style={{lineHeight: '24px'}}>Cảm ơn vì đã quan tâm và tin dùng phần mềm. Chúng tôi sẽ phản hồi nhanh nhất có thể</div>
                                           <div />
                                         </div>
                                         <div style={{fontSize: '14px', fontWeight: 'normal', textAlign: 'center', fontFamily: '"Open Sans","Arial",Helvetica,sans-serif'}}>

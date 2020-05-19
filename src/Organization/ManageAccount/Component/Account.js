@@ -218,8 +218,8 @@ class Account extends Component {
         console.log(error);
       });
   };
-  //WARNING! To be deprecated in React v17. Use componentDidMount instead.
-  componentWillMount() {
+  
+  componentDidMount() {
     // get all employee no account
     this.getAllEmployeeNoAccount();
     this.getListAccounts();

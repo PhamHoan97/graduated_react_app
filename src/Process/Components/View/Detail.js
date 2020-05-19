@@ -19,7 +19,7 @@ class Detail extends Component {
 
     renderLinkDownloadDocument(info) {
         if(info && info.document){
-            return (<a className="link-download-document" href={host.URL_BACKEND + '/' + info.document}> Download document here</a>);
+            return (<a className="link-download-document" href={host.URL_BACKEND + '/' + info.document}> Tải tài liệu tại đây</a>);
         }else{
             return (<></>)
         }
@@ -217,7 +217,7 @@ class Detail extends Component {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        detail: state.systemReducers.manageSystemReducer.informationProcessReducer.information,
+        detail: state.addProcessReducers.informationProcessReducer.information,
     }
 }
 

@@ -121,7 +121,6 @@ class MoreAdminAccountModal extends Component {
                 if(res.data.error != null){
                     console.log(res.data.message);
                 }else{
-                    console.log(res.data);
                     this.props.passDataFromFormToTable(this.props.currentCompany,this.state.clickCreate);
                     var numberClick = this.state.clickCreate + 1;
                     this.setState({clickCreate: numberClick});
@@ -132,7 +131,7 @@ class MoreAdminAccountModal extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         document.getElementById("usernameGenerate").value = "";
         document.getElementById("passwordGenerate").value = "";
         document.getElementById("error-username-required").style.display = "none";
@@ -155,7 +154,7 @@ class MoreAdminAccountModal extends Component {
             <div className="modal-content">
                 <div className="modal-header">
                 <h5 className="modal-title" id="scrollmodalLabel">
-                    New Admin Account
+                    Tài khoản mới
                 </h5>
                 <button
                     type="button"
@@ -179,7 +178,7 @@ class MoreAdminAccountModal extends Component {
                             htmlFor="text-input"
                             className=" form-control-label"
                         >
-                            Username
+                            Tài khoản
                         </label>
                         </div>
                         <div className="col-12 col-md-6">
@@ -192,8 +191,8 @@ class MoreAdminAccountModal extends Component {
                                 placeholder="Example: Tbxkdrld12"
                                 className="form-control"
                             />
-                            <small id="error-username-required" className="form-text text-danger" style={{display:'none'}}>This field is required</small>
-                            <small id="error-username-length" className="form-text text-danger" style={{display:'none'}}>Length must be at least 8 characters long</small>
+                            <small id="error-username-required" className="form-text text-danger" style={{display:'none'}}>Không được để trống</small>
+                            <small id="error-username-length" className="form-text text-danger" style={{display:'none'}}>Mậ khẩu ít nhất 10 kí tự</small>
                             </div>
                             <small className="form-text text-muted">
                             </small>
@@ -208,7 +207,7 @@ class MoreAdminAccountModal extends Component {
                             htmlFor="text-input"
                             className=" form-control-label"
                         >
-                            Password
+                            Mật khẩu
                         </label>
                         </div>
                         <div className="col-12 col-md-6">
@@ -221,8 +220,8 @@ class MoreAdminAccountModal extends Component {
                                     placeholder="Example: Abcdxyz123"
                                     className="form-control"
                                 />
-                                <small id="error-password-required" className="form-text text-danger" style={{display:'none'}}>This field is required</small>
-                                <small id="error-password-length" className="form-text text-danger" style={{display:'none'}}>Length must be at least 8 characters long</small>
+                                <small id="error-password-required" className="form-text text-danger" style={{display:'none'}}>Không được để trống</small>
+                                <small id="error-password-length" className="form-text text-danger" style={{display:'none'}}>Độ dài ít nhất 10 kí tự</small>
                             </div>
                             <small className="form-text text-muted">
                             </small>
@@ -236,8 +235,8 @@ class MoreAdminAccountModal extends Component {
 
                         </div>
                         <div className="col-12 col-md-9">
-                            <button onClick={(e) => this.generateAdminAccount(e)} type="button" style={{float: 'left',}} className="btn btn-success">Generate Account</button>
-                            <button onClick = {(e) => this.createAdminAccount(e)} type="button" style={{float: 'left', marginLeft: '10px'}} className="btn btn-primary">Create</button>
+                            <button onClick={(e) => this.generateAdminAccount(e)} type="button" style={{float: 'left',}} className="btn btn-success">Tạo tự động</button>
+                            <button onClick = {(e) => this.createAdminAccount(e)} type="button" style={{float: 'left', marginLeft: '10px'}} className="btn btn-primary">Tạo tài khoản</button>
                         </div>
                     </div>
                     <div className="row form-group">
@@ -252,7 +251,7 @@ class MoreAdminAccountModal extends Component {
                     className="btn btn-secondary"
                     data-dismiss="modal"
                 >
-                    Cancel
+                    Đóng
                 </button>
                 </div>
             </div>

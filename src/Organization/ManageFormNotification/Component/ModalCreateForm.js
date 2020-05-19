@@ -26,8 +26,8 @@ export default class ModalCreateForm extends Component {
         };
         this.handleChange = this.handleChange.bind(this);
     }
-    //WARNING! To be deprecated in React v17. Use new lifecycle static getDerivedStateFromProps instead.
-    UNSAFE_componentWillMount() {
+    
+    componentDidMount() {
         this.getListTemplate();
         this.getlistType();
 
@@ -47,8 +47,8 @@ export default class ModalCreateForm extends Component {
             console.log(error);
         });
     }
-    //WARNING! To be deprecated in React v17. Use new lifecycle static getDerivedStateFromProps instead.
-    componentWillReceiveProps(nextProps) {
+
+    UNSAFE_componentWillReceiveProps(nextProps) {
         this.setState({
             errorTemplate: {},
             errorType: {},

@@ -31,8 +31,7 @@ class ModalUpdateCompany extends Component {
         this.handleOnChangeFile = this.handleOnChangeFile.bind(this);
     }
 
-    //WARNING! To be deprecated in React v17. Use new lifecycle static getDerivedStateFromProps instead.
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         this.setState({
             isAlertSuccess :false,
             editNameCompany: this.props.detailCompany.name,
@@ -166,7 +165,6 @@ class ModalUpdateCompany extends Component {
                     <div className="col-12 col-md-9">
                         <Input
                         type="text"
-                        id="hf-email"
                         name="editSigntureCompany"
                         className="form-control"
                         value={this.state.editSigntureCompany}
@@ -183,7 +181,6 @@ class ModalUpdateCompany extends Component {
                     <div className="col-12 col-md-9">
                         <Input
                         type="text"
-                        id="hf-email"
                         name="editAddressCompany"
                         className="form-control"
                         value={this.state.editAddressCompany}
@@ -200,7 +197,6 @@ class ModalUpdateCompany extends Component {
                     <div className="col-12 col-md-9">
                         <Input
                         type="text"
-                        id="hf-email"
                         name="editFieldCompany"
                         className="form-control"
                         value={this.state.editFieldCompany}
@@ -220,7 +216,6 @@ class ModalUpdateCompany extends Component {
                     <div className="col-12 col-md-9">
                         <Input
                         type="text"
-                        id="hf-email"
                         name="editContactCompany"
                         className="form-control"
                         value={this.state.editContactCompany}

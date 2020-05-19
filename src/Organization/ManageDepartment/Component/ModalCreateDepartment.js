@@ -39,7 +39,7 @@ export default class ModalCreateDepartment extends Component {
     this.validator = new Validator(rules);
     this.handleChange = this.handleChange.bind(this);
   }
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
       errors: {},
     })

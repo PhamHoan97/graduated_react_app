@@ -260,7 +260,7 @@ class ManageEmail extends Component {
                         <div className="row">
                             <div className="col-md-12">
                             <h3 className="title-5 m-b-35 manage__company--notification">
-                                Manager Email
+                                Quản lý email
                             </h3>
                             <div className="table-data__tool">
                                 <div className="table-data__tool-left">
@@ -278,7 +278,7 @@ class ManageEmail extends Component {
                                 </div>
                                 <button className="au-btn-filter ml-5">
                                     <i className="zmdi zmdi-filter-list" />
-                                    filters
+                                    Lọc
                                 </button>
                                 </div>
                             </div>
@@ -287,12 +287,12 @@ class ManageEmail extends Component {
                                 <thead>
                                     <tr>
                                     <th />
-                                    <th>Type</th>
-                                    <th>Recipient</th>
-                                    <th>Sender</th>
-                                    <th>Status</th>
-                                    <th>Created </th>
-                                    <th>Updated </th>
+                                    <th>Loại</th>
+                                    <th>Người nhận</th>
+                                    <th>Người gửi</th>
+                                    <th>Trạng thái</th>
+                                    <th>Tạo lúc </th>
+                                    <th>Cập nhật  </th>
                                     <th />
                                     </tr>
                                 </thead>

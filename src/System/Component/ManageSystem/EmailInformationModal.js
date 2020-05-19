@@ -10,7 +10,7 @@ class EmailInformationModal extends Component {
     }
 
     convertStatusEmail(status){
-        return (status === 1) ? "Sent" : "Error";
+        return (status === 1) ? "Gửi" : "Lỗi";
     }
 
     render() {
@@ -52,7 +52,7 @@ class EmailInformationModal extends Component {
                             htmlFor="text-input"
                             className=" form-control-label"
                         >
-                            Type
+                            Loại
                         </label>
                         </div>
                         <div className="col-12 col-md-6">
@@ -67,7 +67,7 @@ class EmailInformationModal extends Component {
                             htmlFor="text-input"
                             className=" form-control-label"
                         >
-                            Sender
+                            Người gửi
                         </label>
                         </div>
                         <div className="col-12 col-md-6">
@@ -82,7 +82,7 @@ class EmailInformationModal extends Component {
                             htmlFor="text-input"
                             className=" form-control-label"
                         >
-                            Recipient
+                            Người nhận
                         </label>
                         </div>
                         <div className="col-12 col-md-6">
@@ -97,7 +97,7 @@ class EmailInformationModal extends Component {
                             htmlFor="text-input"
                             className=" form-control-label"
                         >
-                            Status
+                            Trạng thái
                         </label>
                         </div>
                         <div className="col-12 col-md-6">
@@ -112,7 +112,7 @@ class EmailInformationModal extends Component {
                             htmlFor="text-input"
                             className=" form-control-label"
                         >
-                            Response
+                            Phản hồi
                         </label>
                         </div>
                         <div className="col-12 col-md-6">
@@ -127,7 +127,7 @@ class EmailInformationModal extends Component {
                             htmlFor="text-input"
                             className=" form-control-label"
                         >
-                            Created 
+                            Tạo lúc 
                         </label>
                         </div>
                         <div className="col-12 col-md-6">
@@ -143,7 +143,7 @@ class EmailInformationModal extends Component {
                             htmlFor="text-input"
                             className=" form-control-label"
                         >
-                            Updated 
+                            Cập nhật lúc 
                         </label>
                         </div>
                         <div className="col-12 col-md-6">
@@ -161,7 +161,7 @@ class EmailInformationModal extends Component {
                     className="btn btn-secondary"
                     data-dismiss="modal"
                 >
-                    Cancel
+                    Đóng
                 </button>
                 </div>
             </div>

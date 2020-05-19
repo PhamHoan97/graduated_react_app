@@ -63,7 +63,7 @@ class ModalEditRole extends Component {
         console.log(error);
       });
   };
-  componentWillMount() {
+  componentDidMount() {
     this.getListDepartment();
   }
 

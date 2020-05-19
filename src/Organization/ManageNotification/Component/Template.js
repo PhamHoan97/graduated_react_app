@@ -28,8 +28,7 @@ export default class Template extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  //WARNING! To be deprecated in React v17. Use componentDidMount instead.
-  componentWillMount() {
+  componentDidMount() {
     this.getListTypeSystem();
     this.getListAllTemplateSystem();
   }

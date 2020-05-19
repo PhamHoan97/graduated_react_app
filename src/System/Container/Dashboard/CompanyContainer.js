@@ -39,7 +39,7 @@ export default class CompanyContainer extends Component {
         return result;
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.getListCompany()
     }
 

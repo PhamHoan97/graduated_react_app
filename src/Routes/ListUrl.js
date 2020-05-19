@@ -7,17 +7,13 @@ import Alert from '../Register/Components/Alert';
 import CompanyLogin from '../Intro/Component/CompanyLogin';
 import { BrowserRouter as Router } from "react-router-dom";
 import Dashboard from '../System/Component/Dashboard/Dashboard';
-import Information from '../System/Component/PersonalInformation/Information';
-import Process from '../System/Component/ManageProcess/Process';
 import ManageRegistration from '../System/Component/ManageSystem/ManageRegistration';
 import ManageCompany from '../System/Component/ManageSystem/ManageCompany';
 import CreateProcess from '../Process/Components/Create/CreateProcess';
 import EditProcess from '../Process/Components/Edit/EditProcess';
 import ViewProcess from '../Process/Components/View/ViewProcess';
-// import EmployeePage from '../Employee/Components/EmployeePage';
 import ManageEmail from '../System/Component/ManageSystem/ManageEmail';
 import EmployeeLogin from '../LoginSystem/Components/EmployeeLogin';
-
 import CompanyOrganization from '../Organization/ManageCompany/Component/CompanyOrganization';
 import DashboardCompany from '../Organization/ManageDashboard/Component/DashboardCompany';
 import EmployeeOrganization from '../Organization/ManageEmployee/Component/EmployeeOrganization';
@@ -41,6 +37,8 @@ import DetailNotificationSystemEmployee from '../EmployeeProcess/Component/Detai
 import DetailNotificationCompanyEmployee from '../EmployeeProcess/Component/DetailNotificationCompanyEmployee';
 import ForgetPasswordEmployee from '../Employee/Components/ForgetPasswordEmployee';
 import FormResetPasswordEmployee from '../Employee/Components/FormResetPasswordEmployee';
+import ListProcessesOfCompany from '../Organization/ManageProcess/Component/ListProcessesOfCompany';
+import ListProcessesOfEmployee from '../Organization/ManageProcess/Component/ListProcessesOfEmployee';
 import DetailCompany from '../System/Component/DetailCompany/DetailCompany';
 import CreateTemplateForm from '../System/Component/ManageNotification/CreateTemplateForm';
 import ManageFormSend from '../System/Component/ManageNotification/ManageFormSend';
@@ -57,21 +55,17 @@ class ListUrl extends Component {
                         <Route path="/newletter" exact component={Alert} />
                         <Route path="/system" exact component={Dashboard} />
                         <Route path="/system/dashboard" exact component={Dashboard}/>
-                        <Route path="/system/personal" exact component={Information}/>
-                        <Route path="/system/process" exact component={Process}/>
                         <Route path="/system/registration" component={ManageRegistration}/>
                         <Route path="/system/company" exact component={ManageCompany}/>
                         <Route path="/system/company/detail/:idCompany" exact component={DetailCompany}/>
                         <Route path="/process/new" exact component={CreateProcess} />
                         <Route path="/process/edit/:id" exact component={EditProcess} />
-                        <Route path="/process/view" exact component={ViewProcess} />
                         <Route path="/system/email" component={ManageEmail}/>
                         <Route path="/system/notification/template" component={CreateTemplateForm}/>
                         <Route path="/system/notification/form" component={ManageFormSend}/>
                         <Route path="/system/notification/send" component={ManageNotification}/>
                         <Route path="/employee/login" exact component={EmployeeLogin} />
-                        <Route path="/employee/view/process/:id" exact component={ViewProcess} />
-
+                        <Route path="/view/process/:id" exact component={ViewProcess} />
                         <Route path="/company/login" exact component={CompanyLogin} />
                         <Route path="/company/" exact component={DashboardCompany} />
                         <Route path="/company/dashboard" exact component={DashboardCompany} />
@@ -93,12 +87,12 @@ class ListUrl extends Component {
                         <Route path="/company/notification/detail/:id" exact component={DetailNotificationCompany} />
                         <Route path="/employee/notification" exact component={NotificationEmployee} />
                         <Route path="/employee/" exact component={DashboardEmployee} />
-                        <Route path="/employee/dashboard" exact component={DashboardEmployee} />
-
                         <Route path="/employee/reset/password" exact component={ForgetPasswordEmployee} />
                         <Route path="/employee/form/reset/password/:id" exact component={FormResetPasswordEmployee} />
                         <Route path="/employee/notification/system/detail/:id" exact component={DetailNotificationSystemEmployee} />
                         <Route path="/employee/notification/company/detail/:id" exact component={DetailNotificationCompanyEmployee} />
+                        <Route path="/company/manage/process" exact component={ListProcessesOfCompany} />
+                        <Route path="/company/manage/process/employee/:id" exact component={ListProcessesOfEmployee} />
                     </div>
                 </Router>
            </>

@@ -268,7 +268,24 @@ class Menu extends Component {
                         className="fa fa-certificate pr-0 pb-lg-2 font-23"
                         aria-hidden="true"
                       ></i>
-                      <span>Quản lí quy trình</span>
+                      <span>Tạo quy trình</span>
+                    </NavLink>
+                  </div>
+                  <div className="col-6 align-items-center shadow-none text-center">
+                    <NavLink
+                      to="/company/manage/process"
+                      exact
+                      className="text-black p-4 first-slider-btn ctm-border-right ctm-border-left ctm-border-top"
+                      activeStyle={{
+                        fontWeight: "bold",
+                        color: "#ffffff",
+                      }}
+                    >
+                      <i
+                        className="fas fa-tasks pr-0 pb-lg-2 font-23"
+                        aria-hidden="true"
+                      ></i>
+                      <span>Quản lý quy trình</span>
                     </NavLink>
                   </div>
                   <div className="col-6 align-items-center shadow-none text-center">
@@ -288,7 +305,7 @@ class Menu extends Component {
                       <span>Tài khoản</span>
                     </NavLink>
                   </div>
-                  <div className="col-6 align-items-center shadow-none text-center">
+                  {/* <div className="col-6 align-items-center shadow-none text-center">
                     <a
                       href="settings.html"
                       className="text-dark p-4 last-slider-btn1 ctm-border-right ctm-border-left"
@@ -299,7 +316,7 @@ class Menu extends Component {
                       />
                       <span>Cài đặt</span>
                     </a>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

@@ -8,19 +8,19 @@ import  { Redirect } from 'react-router-dom';
 
 const required = (value) => {
     if (isEmpty(value)) {
-        return <small className="form-text text-danger">This field is required</small>;
+        return <small className="form-text text-danger">Không được để trống</small>;
     }
   }
 
   const minLengthAccount = (value) => {
     if (value.trim().length < 10) {
-        return <small className="form-text text-danger">Invalid username and email type</small>;
+        return <small className="form-text text-danger">Không đúng định dạng tài khoản</small>;
     }
   }
 
   const minLength = (value) => {
     if (value.trim().length < 8) {
-        return <small className="form-text text-danger">Password must be at least 8 characters long</small>;
+        return <small className="form-text text-danger">Mật khẩu ít nhất 8 kí tự</small>;
     }
   }
 
@@ -61,6 +61,7 @@ export default class CompanyLogin extends Component {
             if(res.data.isAdmin){
                 localStorage.setItem('admin_id', res.data.id);
                 localStorage.setItem('company_id', res.data.company_id);
+                localStorage.setItem('is_company', res.data.isAdmin);
             }
             this.setState({redirectAdmin:true});
         }
@@ -93,24 +94,24 @@ export default class CompanyLogin extends Component {
                     <div className="login-form">
                       <Form method="post" onSubmit={e => this.onSubmit(e)} ref={c => { this.form = c }}>
                         <div className="form-group">
-                          <label>Username</label>
+                          <label>Tài khoản</label>
                           <Input validations={[required, minLengthAccount]} onChange={this.handleChangeAccount}
-                            className="au-input au-input--full" type="text" name="account" placeholder="Username" />
+                            className="au-input au-input--full" type="text" name="account" placeholder="Tài khoản" />
                         </div>
                         <div className="form-group">
-                          <label>Password</label>
+                          <label>Mật khẩu</label>
                           <Input validations={[required, minLength]} onChange={this.handleChangePassword}
-                             className="au-input au-input--full" type="password" name="password" placeholder="Password" />
+                             className="au-input au-input--full" type="password" name="password" placeholder="Mật khẩu" />
                         </div>
                         <div className="login-checkbox">
                           <label>
-                            <input type="checkbox" name="remember" />Remember Me
+                            <input type="checkbox" name="remember" />Lưu tài khoản
                           </label>
                           <label>
-                            <a href="/company/forgetpassword"> Forgotten Password?</a>
+                            <a href="/company/forgetpassword"> Quên mật khẩu?</a>
                           </label>
                         </div>
-                        <CheckButton onClick={this.handleSubmit} className="au-btn au-btn--block au-btn--green m-b-20" type="submit"><i className="fas fa-sign-in-alt"></i> sign in</CheckButton>
+                        <CheckButton onClick={this.handleSubmit} className="au-btn au-btn--block au-btn--green m-b-20" type="submit"><i className="fas fa-sign-in-alt"></i> Đăng nhập</CheckButton>
                         {/* <div className="social-login-content">
                             <div className="social-button">
                                 <button className="au-btn au-btn--block au-btn--blue m-b-20"><i className="fab fa-facebook-square"></i> sign in with facebook</button>
@@ -120,8 +121,8 @@ export default class CompanyLogin extends Component {
                       </Form>
                       <div className="register-link">
                         <p>
-                          Don't you have account?
-                          <a href="/register"> Sign Up</a>
+                          Bạn có tài khoản chưa?
+                          <a href="/register"> Đăng kí</a>
                         </p>
                       </div>
                     </div>

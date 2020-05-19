@@ -7,7 +7,6 @@ import ProcessDetailCompanyContainer from "../../Container/DetailCompany/Process
 
 export default class DetailCompany extends Component {
   render() {
-    console.log(this.props.match.params.id);
     return (
       <div className="page-wrapper">
         <MenuHorizontal/>

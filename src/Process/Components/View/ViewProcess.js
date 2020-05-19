@@ -8,7 +8,7 @@ import {connect} from 'react-redux';
 import * as actions from '../../Actions/Index';
 import Detail from './Detail';
 import axios from 'axios';
-import {updateProcessInformation} from '../../../System/Action/System/Index';
+import {updateProcessInformation} from '../../../Organization/ManageProcess/Actions/Index';
 
 class ViewProcess extends Component {
     constructor(props) {

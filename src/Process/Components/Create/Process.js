@@ -246,7 +246,7 @@ const mapStateToProps = (state, ownProps) => {
       isExportSVG: state.processReducers.actionReducers.isExportSVG,
       isExportImage: state.processReducers.actionReducers.isExportImage,
       isExportBPMN: state.processReducers.actionReducers.isExportBPMN,
-      detail: state.systemReducers.manageSystemReducer.informationProcessReducer.information,
+      detail: state.addProcessReducers.informationProcessReducer.information,
   }
 }
 

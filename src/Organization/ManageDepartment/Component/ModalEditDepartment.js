@@ -49,7 +49,7 @@ class ModalEditDepartment extends Component {
             [name]: value,
         });
     }
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         this.setState({
           errors: {},
         })

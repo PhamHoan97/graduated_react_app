@@ -9,7 +9,7 @@ class ContactCompanyContainer extends Component {
             detailCompany : [],
         }
     }
-    componentWillMount() {
+    componentDidMount() {
         this.getDetailCompany();
     }
 
@@ -38,12 +38,36 @@ class ContactCompanyContainer extends Component {
         }
     }
 
+    convertWorkforceCompany = (workforce) => {
+        var result;
+        switch (workforce) {
+            case 1:
+                result = "Ít hơn 50 nhân viên";   
+                break; 
+            case 2:
+                result = "Từ 50 đến 100 nhân viên";   
+                break;  
+            case 3:
+                result = "Từ 100 đến 200 nhân viên";   
+                break;  
+            case 4:
+                result = "Từ 200 đến 300 nhân viên";   
+                break;  
+            case 5:
+                result = "Nhiều hơn 300 nhân viên";   
+                break;                                                          
+            default:
+                break;
+        }
+        return result;
+    }
+
     render() {
         return (
             <div className="map-data m-b-40">
                 <h3 className="title-3 m-b-30 detail--company__title">
                 <i className="zmdi zmdi-map" />
-                detail data
+                Chi tiết Công ty
                 </h3>
                 {/* Map Company */}
                 <div className="map-wrap m-t-40 m-b-60">
@@ -54,31 +78,31 @@ class ContactCompanyContainer extends Component {
                     <table className="table">
                     <tbody>
                         <tr>
-                        <td>Name</td>
+                        <td>Tên công ty</td>
                         <td>{this.state.detailCompany.name}</td>
                         </tr>
                         <tr>
-                        <td>Field</td>
+                        <td>Lĩnh vực</td>
                         <td>{this.state.detailCompany.field}</td>
                         </tr>
                         <tr>
-                        <td>Workforce</td>
-                        <td>{this.state.detailCompany.field}</td>
+                        <td>Nhân lực</td>
+                        <td>{this.convertWorkforceCompany(this.state.detailCompany.workforce)}</td>
                         </tr>
                         <tr>
-                        <td>Ceo</td>
+                        <td>Người đứng đầu</td>
                         <td>{this.state.detailCompany.ceo}</td>
                         </tr>
                         <tr>
-                        <td>Address</td>
+                        <td>Địa chỉ</td>
                         <td>{this.state.detailCompany.address}</td>
                         </tr>
                         <tr>
-                        <td>Signature</td>
+                        <td>Kí hiệu</td>
                         <td>{this.state.detailCompany.signature}</td>
                         </tr>
                         <tr>
-                        <td>Contact</td>
+                        <td>Liên hệ</td>
                         <td>{this.state.detailCompany.contact}</td>
                         </tr>
                     </tbody>

@@ -4,7 +4,8 @@ import MenuVerticalDashboard from "../Menu/MenuVerticalDashboard";
 import CompanyContainer from "../../Container/Dashboard/CompanyContainer";
 import ProcessDashboardContainer from "../../Container/Dashboard/ProcessDashboardContainer";
 
-export default class Dashboard extends Component {
+class Dashboard extends Component {
+
   render() {
     return (
       <div className="page-wrapper">
@@ -45,3 +46,5 @@ export default class Dashboard extends Component {
     );
   }
 }
+
+export default Dashboard;

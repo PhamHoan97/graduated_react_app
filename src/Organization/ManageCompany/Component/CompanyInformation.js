@@ -44,7 +44,7 @@ export default class CompanyInformation extends Component {
         });
     };
 
-    componentWillMount() {
+    componentDidMount() {
         this.getDetailCompany();
     }
 

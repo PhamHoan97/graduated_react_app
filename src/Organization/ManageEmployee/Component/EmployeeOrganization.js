@@ -157,7 +157,7 @@ class EmployeeOrganization extends Component {
       });
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.getListEmployee();
     this.getListDepartment();
   }
@@ -544,6 +544,7 @@ class EmployeeOrganization extends Component {
                               )
                             ).map((employee, index) => {
                               return (
+                                <React.Fragment key={index}>
                                 <div className="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
                                   <div className="profile-widget">
                                     <div className="profile-img">
@@ -634,6 +635,7 @@ class EmployeeOrganization extends Component {
                                     </div>
                                   </div>
                                 </div>
+                                </React.Fragment>
                               );
                             })
                           ) : (

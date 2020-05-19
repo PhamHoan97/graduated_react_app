@@ -26,19 +26,19 @@ class CompanyInformationModal extends Component {
         var result;
         switch (workforce) {
             case 1:
-                result = "Less than 50 employees";   
+                result = "Ít hơn 50 nhân viên";   
                 break; 
             case 2:
-                result = "From 50 to 100 employees";   
+                result = "Từ 50 đến 100 nhân viên";   
                 break;  
             case 3:
-                result = "From 100 to 200 employees";   
+                result = "Từ 100 đến 200 nhân viên";   
                 break;  
             case 4:
-                result = "From 200 to 300 employees";   
+                result = "Từ 200 đến 300 nhân viên";   
                 break;  
             case 5:
-                result = "Less More than 300 employees";   
+                result = "Nhiều hơn 300 nhân viên";   
                 break;                                                          
             default:
                 break;
@@ -61,7 +61,7 @@ class CompanyInformationModal extends Component {
                 <div className="modal-content">
                     <div className="modal-header">
                     <h5 className="modal-title" id="scrollmodalLabel">
-                        Company 
+                        Công ty 
                     </h5>
                     <button
                         type="button"
@@ -85,7 +85,7 @@ class CompanyInformationModal extends Component {
                                 htmlFor="text-input"
                                 className=" form-control-label"
                             >
-                                Company
+                                Tên công ty
                             </label>
                             </div>
                             <div className="col-12 col-md-6">
@@ -100,7 +100,7 @@ class CompanyInformationModal extends Component {
                                 htmlFor="text-input"
                                 className=" form-control-label"
                             >
-                                Signature
+                                Kí hiệu
                             </label>
                             </div>
                             <div className="col-12 col-md-6">
@@ -115,7 +115,7 @@ class CompanyInformationModal extends Component {
                                 htmlFor="text-input"
                                 className=" form-control-label"
                             >
-                                Address
+                                Địa chỉ
                             </label>
                             </div>
                             <div className="col-12 col-md-6">
@@ -130,7 +130,7 @@ class CompanyInformationModal extends Component {
                                 htmlFor="text-input"
                                 className=" form-control-label"
                             >
-                                Field
+                                Lĩnh vực
                             </label>
                             </div>
                             <div className="col-12 col-md-6">
@@ -145,7 +145,7 @@ class CompanyInformationModal extends Component {
                                 htmlFor="text-input"
                                 className=" form-control-label"
                             >
-                                WorkForce
+                                Nhân lực
                             </label>
                             </div>
                             <div className="col-12 col-md-6">
@@ -160,7 +160,7 @@ class CompanyInformationModal extends Component {
                                 htmlFor="text-input"
                                 className=" form-control-label"
                             >
-                                Ceo 
+                                Người đứng đầu 
                             </label>
                             </div>
                             <div className="col-12 col-md-6">
@@ -176,7 +176,7 @@ class CompanyInformationModal extends Component {
                                 htmlFor="text-input"
                                 className=" form-control-label"
                             >
-                                Contact 
+                                Liên hệ 
                             </label>
                             </div>
                             <div className="col-12 col-md-6">
@@ -218,7 +218,7 @@ class CompanyInformationModal extends Component {
                         className="btn btn-secondary"
                         data-dismiss="modal"
                     >
-                        Cancel
+                        Đóng
                     </button>
                     </div>
                 </div>

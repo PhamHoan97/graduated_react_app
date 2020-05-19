@@ -102,7 +102,6 @@ class SystemLogin extends Component{
 
         if(this.state.redirectEmployee){
             return <Redirect to='/employee/'/>;
-
         }
         return (
             <div>

@@ -104,7 +104,7 @@ class AdminAcountTable extends Component {
         });
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         var idCompany = nextProps.currentCompany;
         var initCompany = nextProps.initCompany;
         if(idCompany || initCompany){
@@ -119,7 +119,6 @@ class AdminAcountTable extends Component {
             if(res.data.error != null){
                 console.log(res.data.message);
             }else{
-                console.log(res.data);
                 this.setState({admins:res.data.admins, currentCompany: idCompany});
             }
             }).catch(function (error) {
@@ -141,7 +140,7 @@ class AdminAcountTable extends Component {
         if(res.data.error != null){
             console.log(res.data.message);
         }else{
-            console.log(res.data);
+
         }
         }).catch(function (error) {
             alert(error);
@@ -166,7 +165,7 @@ class AdminAcountTable extends Component {
                             <td>{value.password.substr(0, 15) + '...'}</td>
                             <td className="desc">{value.updated_at}</td>
                             <td className="desc">
-                                <button onClick={this.sendEmailHandle.bind(this,value.id)} type="button" className="btn btn-danger">Send Email</button>
+                                <button onClick={this.sendEmailHandle.bind(this,value.id)} type="button" className="btn btn-danger">Gửi Email</button>
                             </td>
                         </tr>
                         <tr className="spacer" />
@@ -186,10 +185,10 @@ class AdminAcountTable extends Component {
                     <thead>
                         <tr>
                             <th/>
-                            <th>Username</th>
-                            <th>Password</th>
-                            <th>Updated At</th>
-                            <th>Action</th>
+                            <th>Tài khoản</th>
+                            <th>Mật khẩu</th>
+                            <th>Cập nhật </th>
+                            <th>Hành động</th>
                             <th/>
                         </tr>
                     </thead>

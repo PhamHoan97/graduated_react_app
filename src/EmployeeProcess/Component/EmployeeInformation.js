@@ -27,6 +27,10 @@ class EmployeeInformation extends Component {
       return result;
     }
 
+    renderGender(str){
+      return str === 1 ? 'Nam' : 'Nữ';
+    }
+
     UNSAFE_componentWillReceiveProps(nextProps) {
       if(nextProps.employee){
         this.setState({employee: nextProps.employee, department: nextProps.employee.department, role: nextProps.employee.role, company: nextProps.employee.company});
@@ -37,41 +41,41 @@ class EmployeeInformation extends Component {
         return (
         <div className="card">
             <div className="card-header card-header-primary">
-              <h4 className="card-title title-employee">Profile</h4>
-              <p className="card-category title-employee">Show your profile</p>
+              <h4 className="card-title title-employee">Thông tin cá nhân</h4>
+              <p className="card-category title-employee">Hiển thị thông tin cá nhân</p>
             </div>
             <div className="card-body">
               <form>
                 <div className="row">
                   <div className="col-md-5">
                     <div className="form-group">
-                      <label className="bmd-label-floating">Name </label>
+                      <label className="bmd-label-floating">Tên nhân viên </label>
                       <span className="form-control"> {this.state.employee.name}</span>
                     </div>
                   </div>
                   <div className="col-md-3">
                     <div className="form-group">
-                      <label className="bmd-label-floating">Birth</label>
+                      <label className="bmd-label-floating">Ngày sinh</label>
                       <span className="form-control"> {this.convertDateToBirthFormat(this.state.employee.birth)}</span>
                     </div>
                   </div>
                   <div className="col-md-4">
                     <div className="form-group">
-                      <label className="bmd-label-floating">Email address</label>
-                      <span className="form-control"> {this.state.employee.address}</span>
+                      <label className="bmd-label-floating">Địa chỉ email</label>
+                      <span className="form-control"> {this.state.employee.email}</span>
                     </div>
                   </div>
                 </div>
                 <div className="row">
                   <div className="col-md-8">
                     <div className="form-group">
-                      <label className="bmd-label-floating">Company</label>
+                      <label className="bmd-label-floating">Công ty</label>
                       <span className="form-control"> {this.state.company.name}</span>
                     </div>
                   </div>
                   <div className="col-md-4">
                     <div className="form-group">
-                      <label className="bmd-label-floating">Department</label>
+                      <label className="bmd-label-floating">Phòng ban</label>
                       <span className="form-control"> {this.state.department.name}</span>
                     </div>
                   </div>
@@ -79,21 +83,27 @@ class EmployeeInformation extends Component {
                 <div className="row">
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label className="bmd-label-floating">Role</label>
+                      <label className="bmd-label-floating">Vai trò</label>
                       <span className="form-control"> {this.state.role.name}</span>
                     </div>
                   </div>
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label className="bmd-label-floating">Phone</label>
+                      <label className="bmd-label-floating">Số điện thoại</label>
                       <span className="form-control"> {this.state.employee.phone}</span>
                     </div>
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-md-12">
+                <div className="col-md-4">
                     <div className="form-group">
-                      <label className="bmd-label-floating">Adress</label>
+                      <label className="bmd-label-floating">Giới tính</label>
+                      <span className="form-control"> {this.renderGender(this.state.employee.gender)}</span>
+                    </div>
+                  </div>
+                  <div className="col-md-8">
+                    <div className="form-group">
+                      <label className="bmd-label-floating">Địa chỉ thường trú</label>
                       <span className="form-control"> {this.state.employee.address}</span>
                     </div>
                   </div>

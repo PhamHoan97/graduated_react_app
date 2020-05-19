@@ -13,13 +13,13 @@ import  { Redirect } from 'react-router-dom';
 
 const required = (value) => {
   if (!value.toString().trim().length) {
-      return <small className="form-text text-danger error">This field is required</small>;
+      return <small className="form-text text-danger error">Không được để trống</small>;
   }
 }
 
 const email = (value) => {
   if (!isEmail(value)) {
-      return <small className="form-text text-danger error">Invalid email format</small>;
+      return <small className="form-text text-danger error">Không đúng định dạng Email</small>;
   }
 }
 
@@ -64,7 +64,7 @@ class Register extends Component {
     event.preventDefault();
     var checkBox = document.getElementById("agree");
     if(!checkBox.checked){
-      var message = '<small class="form-text text-danger">You must agree with our terms and policy</small>';
+      var message = '<small class="form-text text-danger">Để sử dụng phần mềm bạn phải đồng ý với các điều khoản sử dụng</small>';
       document.getElementById("show-error").innerHTML = message;
     }else{
       var company = {
@@ -123,62 +123,61 @@ class Register extends Component {
                     <div className="login-form">
                       <Form method="post" onSubmit={e => this.onSubmit(e)} ref={c => { this.form = c }}>
                         <div className="form-group required">
-                          <label className="control-label">Company</label>
+                          <label className="control-label">Công ty</label>
                           <Input validations={[required]} onChange={this.handleChangeCompany} className="au-input au-input--full" type="text" name="name-company" placeholder="Công ty trách nghiệm hữu hạn Kinh Đô" />
                         </div>
                         <div className="form-group required">
-                          <label className="control-label">Signature</label>
+                          <label className="control-label">Kí hiệu</label>
                           <Input validations={[required]} onChange={this.handleChangeSignature} className="au-input au-input--full" type="text" name="name-company" placeholder="CTTNHH KĐ" />
                         </div>
                         <div className="form-group required">
-                          <label className="control-label">Ceo</label>
+                          <label className="control-label">Người đứng đầu</label>
                           <Input validations={[required]} onChange={this.handleChangeCeo} className="au-input au-input--full" type="text" name="ceo-company" placeholder="Sam Smith" />
                         </div>
                         <div className="form-group required">
-                          <label value="" className="control-label">Field</label>
+                          <label value="" className="control-label">Lĩnh vực</label>
                           <Select validations={[required]} onChange={this.handleChangeField} className="form-control" name="field-company" id="field-company">
-                            <option value="">Select a field</option>
-                            <option value="Sale">Sale</option>
-                            <option value="Delivery">Delivery</option>
-                            <option value="IT">Information Technology</option>
-                            <option value="Manufactory">Manufactory</option>
-                            <option value="Others">Others</option>
+                            <option value="">Lựa chọn lĩnh vực</option>
+                            <option value="Sale">Bán hàng</option>
+                            <option value="Delivery">Vận chuyển</option>
+                            <option value="IT">Công nghệ thông tin</option>
+                            <option value="Manufactory">Sản xuất</option>
+                            <option value="Others">Khác</option>
                           </Select>
                         </div>
                         <div className="form-group required">
-                          <label className="control-label">Workforce</label>
+                          <label className="control-label">Nhân lực</label>
                           <Select validations={[required]} onChange={this.handleChangeWorkforce} className="form-control" name="people-company" id="workforce-company">
-                          <option value="">Select workforce range of company</option>
-                            <option value="1">Less than 50 employees</option>
-                            <option value="2">From 50 to 100 employees</option>
-                            <option value="3">From 100 to 200 employees</option>
-                            <option value="4">From 200 to 300 employees</option>
-                            <option value="5">More than 300 employees</option>
+                          <option value="">Lựa chọn khoảng nhân lực của công ty</option>
+                            <option value="1">Ít hơn 50 nhân viên</option>
+                            <option value="2">Từ 50 đến 100 nhân viên</option>
+                            <option value="3">Từ 100 đến 200 nhân viên</option>
+                            <option value="4">Từ 200 đến 300 nhân viên</option>
+                            <option value="5">Nhiều hơn 300 nhân viên</option>
                           </Select>
                         </div>
                         <div className="form-group required">
-                          <label validations={[required]} className="control-label">Address</label>
+                          <label validations={[required]} className="control-label">Địa chỉ</label>
                           <Input onChange={this.handleChangeAddress} className="au-input au-input--full" type="text" name="address-company" placeholder="Đê La Thành" />
                         </div>
                         <div className="form-group required">
-                          <label className="control-label">Email Contact</label>
+                          <label className="control-label">Email liên hệ </label>
                           <Input validations={[required, email]} onChange={this.handleChangeContact} className="au-input au-input--full" type="email" name="email" placeholder="jsmith@example.com" />
                         </div>
                         <div className="login-checkbox-register">
                           <div>
                             <input onClick={this.clickCheckBox} type="checkbox" name="aggree" id="agree"/> 
-                            Agree the terms and policy
+                            Đồng ý với các điều khoản và luật lệ
                           </div>
                           <div className="show-error-checkbox" id="show-error">
-                          {/* <small className="form-text text-danger">You must agree with our terms and policy</small> */}
                           </div>
                         </div>
-                        <CheckButton onClick={this.handleSubmit} ref={c => { this.checkBtn = c }} className="au-btn au-btn--block au-btn--green m-b-20 submit-register" type="submit">register</CheckButton>
+                        <CheckButton onClick={this.handleSubmit} ref={c => { this.checkBtn = c }} className="au-btn au-btn--block au-btn--green m-b-20 submit-register" type="submit">Đăng kí</CheckButton>
                       </Form>
                       <div className="register-link">
                         <p>
-                          Already have account? 
-                          <a href="/company/login"> Sign In</a>
+                          Bạn đã có tài khoản? 
+                          <a href="/company/login">  Đăng nhập</a>
                         </p>
                       </div>
                     </div>

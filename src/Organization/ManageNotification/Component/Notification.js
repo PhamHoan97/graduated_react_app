@@ -88,7 +88,8 @@ export default class Notification extends Component {
         console.log(error);
       });
   };
-  componentWillMount() {
+  
+  componentDidMount() {
     this.getListNotification();
   }
   showStatisticNotification = (e, idNotificationChoose) => {

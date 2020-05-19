@@ -17,8 +17,7 @@ export default class CompanyOrganization extends Component {
     }
   }
   
-  //WARNING! To be deprecated in React v17. Use componentDidMount instead.
-  componentWillMount() {
+  componenDidMount() {
     this.getDataOrganization();
   }
   getDataOrganization = () =>{

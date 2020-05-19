@@ -15,7 +15,7 @@ class AlertMessage extends Component {
             severity:this.props.notification.severity
         };
     }
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         console.log(nextProps);
         this.setState({
             isOpenAlert:nextProps.notification.isOpenAlert,

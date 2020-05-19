@@ -11,10 +11,9 @@ class Process extends Component {
                 <tr>
                     <th>Tên</th>
                     <th>Công ty</th>
-                    <th>Phòng ban</th>
+                    <th>Mô tả ngắn</th>
                     <th>Ngày tạo</th>
                     <th>Chi tiết</th>
-                    <th />
                 </tr>
                 </thead>
                 <tbody>

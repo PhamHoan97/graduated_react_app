@@ -15,7 +15,7 @@ class ListCompanyNotification extends Component {
       listCompanyNotification:[]
     }
   }
-  componentWillMount() {
+  componentDidMount() {
     var self = this;
     var token = localStorage.getItem("token");
     var idAdmin = localStorage.getItem("admin_id");

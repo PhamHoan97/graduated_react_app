@@ -19,7 +19,7 @@ export default class MenuHorizontal extends Component {
     return (
       <aside className="menu-sidebar d-none d-lg-block text-left">
         <div className="logo">
-          <a href="4a">
+          <a href="/system/dashboard">
             <img src={logo} alt="Cool Admin" />
           </a>
         </div>

@@ -51,7 +51,7 @@ class DetailEmployeeOraganization extends Component {
         console.log(error);
       });
   };
-  componentWillMount() {
+  componentDidMount() {
     this.getDetailDepartment();
   }
   componentWillUnmount() {

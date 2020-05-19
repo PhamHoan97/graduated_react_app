@@ -46,7 +46,8 @@ class RoleOraganization extends Component {
       showModalNewRole: false,
     });
   };
-  componentWillMount() {
+  
+  componentDidMount() {
     this.getListRole();
     this.getListDepartment();
   }

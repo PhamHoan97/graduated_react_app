@@ -45,7 +45,7 @@ export default class Form extends Component {
         console.log(error);
       });
   };
-  componentWillMount() {
+  componentDidMount() {
     this.getlistForm();
   }
   render() {
