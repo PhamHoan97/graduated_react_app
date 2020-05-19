@@ -101,13 +101,11 @@ class ProcessDashboardContainer extends Component {
                 <Process>
                     {this.getListProcessPagination()}
                 </Process>
-                <div className="row">
-                    <div className="col-md-3"></div>
-                    <div className="col-md-5"></div>
-                    <div className="col-md-4 text-center">
+                <div className="row justify-content-center">
+                    <div className="col-md-3 text-center">
                         <ReactPaginate
-                            previousLabel={"Prev"}
-                            nextLabel={"Next"}
+                            previousLabel={"Trước"}
+                            nextLabel={"Sau"}
                             breakLabel={"..."}
                             breakClassName={"break-me"}
                             pageCount={this.state.pageCount}

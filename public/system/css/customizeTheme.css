@@ -86,3 +86,15 @@
 .header-button{
     margin-right: 40px !important;
 }
+
+.menu-sidebar .logo {
+    background: #ffff;
+    border-right: 3px solid #e5e5e5 !important;
+}
+.menu-sidebar__content{
+    border-right: 3px solid #e5e5e5 !important;
+    position: relative;
+    height: -webkit-calc(100vh - 75px);
+    height: -moz-calc(100vh - 75px);
+    height: calc(100vh - 75px);
+}

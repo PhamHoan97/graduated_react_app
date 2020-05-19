@@ -48,7 +48,7 @@ export default class MenuHorizontal extends Component {
                   }}
                   className="js-arrow"
                 >
-                  <i className="fa fa-bell-o" />
+                  <i className="fa fa-bell" aria-hidden="true"></i>
                   Quản lí thông báo
                 </a>
                 <ul className="list-unstyled navbar__sub-list js-sub-list">
