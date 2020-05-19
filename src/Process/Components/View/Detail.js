@@ -5,9 +5,7 @@ import * as host from "../../../System/Constants/Url";
 class Detail extends Component {
     constructor(props) {
         super(props)
-
         this.state = {
-                 
         }
     }
 

@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import "../../Style/Organization.scss";
-import Header from "../../Header";
-import LinkPage from "../../LinkPage";
-import Menu from "../../Menu";
-import "../Style/DetailNotificationCompany.scss";
+import Menu from "../Menu";
+import Sidebar from "../Sidebar";
+import "../Style/EmployeeProcess.scss";
+import "../Style/DetailNotificaionSystemEmployee.scss";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
-import * as host from "../../Url";
+import * as host from "../Url";
 import { connect } from "react-redux";
 import Alert from "@material-ui/lab/Alert";
 class DetailNotificationComponent extends Component {
@@ -16,20 +15,20 @@ class DetailNotificationComponent extends Component {
     this.state = {
       isDisplayContentForm: true,
       isDisplayAlert: false,
-      detailNotification: this.props.detailNotificationAdmin,
+      detailNotification: this.props.detailNotificationSystemEmployee,
     };
   }
   componentWillMount() {
-    this.getDetailNotification(this.props.match.params.id);
+    this.getDetailNotificationSystem(this.props.match.params.id);
   }
-  getDetailNotification = (idNotificationAdmin) => {
+  getDetailNotificationSystem = (idNotificationSystemEmployee) => {
     var self = this;
     var token = localStorage.getItem("token");
     axios
       .post(
-        host.URL_BACKEND + "/api/system/notification/company/response",
+        host.URL_BACKEND + "/api/employee/notification/response",
         {
-          idNotificationAdmin: idNotificationAdmin,
+          idNotificationSystemEmployee: idNotificationSystemEmployee,
         },
         {
           headers: { Authorization: "Bearer " + token },
@@ -40,10 +39,10 @@ class DetailNotificationComponent extends Component {
           console.log(response.data.error);
         } else {
           self.setState({
-            detailNotification: response.data.notificationAdmin,
+            detailNotification: response.data.notificationEmployee,
           });
           window.displayForm(
-            response.data.notificationAdmin[0].template_content,
+            response.data.notificationEmployee[0].template_content,
             false
           );
         }
@@ -53,29 +52,37 @@ class DetailNotificationComponent extends Component {
       });
   };
 
+  renderLinkDownloadDocument(info) {
+    if(info && info.document){
+        return (<a className="link-download-document" href={host.URL_BACKEND + '/' + info.document}> Download document here</a>);
+    }else{
+        return (<></>)
+    }
+  }
+
   componentDidMount() {
     if (
       this.state.isDisplayContentForm &&
-      this.props.detailNotificationAdmin.length !== 0
+      this.props.detailNotificationSystemEmployee.length !== 0
     ) {
       window.displayForm(
-        this.props.detailNotificationAdmin[0].template_content,
+        this.props.detailNotificationSystemEmployee[0].template_content,
         false
       );
     }
   }
 
-  handleClick = (e, idNotificationAdmin) => {
+  handleClick = (e, idNotificationSystemEmployee) => {
     e.preventDefault();
     var self = this;
-    var idAdmin = localStorage.getItem("admin_id");
+    var idAccount = localStorage.getItem("account_id");
     var token = localStorage.getItem("token");
     axios
       .post(
-        host.URL_BACKEND + "/api/system/notification/company/create/response",
+        host.URL_BACKEND + "/api/employee/notification/create/response",
         {
-          idNotificationAdmin: idNotificationAdmin,
-          idAdmin: idAdmin,
+          idNotificationSystemEmployee: idNotificationSystemEmployee,
+          idAccount: idAccount,
           contentResponse: JSON.parse(localStorage.getItem("dataForm")).data,
         },
         {
@@ -116,14 +123,14 @@ class DetailNotificationComponent extends Component {
             Tôi xin chân thành cảm ơn ông/bà đã dành thời gian phản hồi thư này
           </div>
           <div style={{ marginLeft:"160px"}}>
-            <button type="button" class="btn btn-primary" style={{ color:"#ffffff"}}>
+            <button type="button" class="btn btn-primary btn-back_response">
               <NavLink
-                to={"/company/notification/system"}
+                to={"/employee/notification"}
                 exact
                 activeClassName="selected"
                 activeStyle={{
                   fontWeight: "bold",
-                  color: "#0074D9",
+                  color: "#ffffff",
                 }}
               >
                 Back
@@ -172,9 +179,7 @@ class DetailNotificationComponent extends Component {
   };
   showDetailNotification = () => {
     if (this.state.isDisplayContentForm === false) {
-      return (
-        <div></div>
-      );
+      return <div></div>;
     }
     if (
       this.state.detailNotification.length === 0 &&
@@ -192,12 +197,7 @@ class DetailNotificationComponent extends Component {
           <div> {this.state.detailNotification[0].description}</div>
           {this.state.detailNotification[0].file !== null ? (
             <div className="text-center mt-3">
-              <a
-                href={host.URL_BACKEND + '/' + this.state.detailNotification[0].file}
-                className="btn btn-theme button-1 ctm-border-radius text-white"
-              >
-                Tài liệu đính kèm{" "}
-              </a>
+              <a href={host.URL_BACKEND + '/' + this.state.detailNotification[0].file} className="btn btn-primary btn-lg active btn-download_document" role="button" aria-pressed="true">Tài liệu đính kèm{" "}</a>
             </div>
           ) : (
             <div></div>
@@ -208,42 +208,24 @@ class DetailNotificationComponent extends Component {
   };
   render() {
     return (
-      <div className="inner-wrapper manage-organization_template">
-        <Header />
-        <div
-          className="page-wrapper_organization"
-          style={{ transform: "none" }}
-        >
-          <div className="container-fluid" style={{ transform: "none" }}>
-            <div className="row" style={{ transform: "none" }}>
-              <div
-                className="col-xl-3 col-lg-4 col-md-12 theiaStickySidebar"
-                style={{
-                  position: "relative",
-                  overflow: "visible",
-                  boxSizing: "border-box",
-                  minHeight: "1px",
-                }}
-              >
-                <Menu />
+      <div id="content-employee_page" className="main-wrapper">
+        <Menu />
+        <Sidebar />
+        <div className="page-wrapper content-notification">
+          <div className="container-fluid">
+            <div className="row mb-4 mt-4">
+              <div className="col-sm-6 col-md-4">
+                <h3 className="page-title_employee">Danh sách thông báo</h3>
               </div>
-              <div className="col-xl-9 col-lg-8  col-md-12">
-                <div className="quicklink-sidebar-menu ctm-border-radius shadow-sm bg-white card ">
-                  <LinkPage linkPage=" chi tiết thông báo công ty " />
-                </div>
-                <div className="row">
-                  <div className="col-md-12 d-flex">
-                    <div className="card ctm-border-radius shadow-sm flex-fill detail-notification_company">
-                      <div className="card-header">
-                        <h4 className="card-title mb-0">Thông báo</h4>
-                      </div>
-                      <div className="card-body">
-                        {this.showDetailNotification()}
-                        <div className="container-contact100 mt-3">
-                          <div className="wrap-contact100">
-                            {this.showContentForm()}
-                          </div>
-                        </div>
+            </div>
+            <div className="row">
+              <div className="col-md-12 d-flex">
+                <div className="card ctm-border-radius shadow-sm flex-fill detail-notification_employee">
+                  <div className="card-body">
+                    {this.showDetailNotification()}
+                    <div className="container-contact100 mt-3">
+                      <div className="wrap-contact100">
+                        {this.showContentForm()}
                       </div>
                     </div>
                   </div>
@@ -258,9 +240,8 @@ class DetailNotificationComponent extends Component {
 }
 const mapStateToProps = (state, ownProps) => {
   return {
-    detailNotificationAdmin:
-      state.organizationReducers.notificationCompanyReducer
-        .detailNotificationAdmin,
+    detailNotificationSystemEmployee:
+      state.employeeReducers.detailNotificationSystemEmployee,
   };
 };
 export default connect(mapStateToProps, null)(DetailNotificationComponent);

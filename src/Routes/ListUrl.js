@@ -37,6 +37,8 @@ import DetailNotificationCompany from '../Organization/ManageNotificationCompany
 import CreateNotification from '../Organization/ManageCreateNotification/Component/CreateNotification';
 import NotificationEmployee from '../EmployeeProcess/Component/NotificationEmployee'
 import DashboardEmployee from '../EmployeeProcess/Component/DashboardEmployee'
+import DetailNotificationSystemEmployee from '../EmployeeProcess/Component/DetailNotificationSystemEmployee';
+import DetailNotificationCompanyEmployee from '../EmployeeProcess/Component/DetailNotificationCompanyEmployee';
 import ForgetPasswordEmployee from '../Employee/Components/ForgetPasswordEmployee';
 import FormResetPasswordEmployee from '../Employee/Components/FormResetPasswordEmployee';
 import DetailCompany from '../System/Component/DetailCompany/DetailCompany';
@@ -95,7 +97,8 @@ class ListUrl extends Component {
 
                         <Route path="/employee/reset/password" exact component={ForgetPasswordEmployee} />
                         <Route path="/employee/form/reset/password/:id" exact component={FormResetPasswordEmployee} />
-
+                        <Route path="/employee/notification/system/detail/:id" exact component={DetailNotificationSystemEmployee} />
+                        <Route path="/employee/notification/company/detail/:id" exact component={DetailNotificationCompanyEmployee} />
                     </div>
                 </Router>
            </>

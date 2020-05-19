@@ -13,3 +13,10 @@ export const updateEmployeeInformation = (employee)=>{
     }
 }
 
+export const getDetailNotificationSystemEmployee = (detailNotificationSystemEmployee) =>{
+    return {
+        type:types.GET_DETAIL_NOTIFICATION__SYSTEM_EMPLOYEE,
+        detailNotificationSystemEmployee
+    }
+}
+

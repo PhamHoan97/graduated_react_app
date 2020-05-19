@@ -5,15 +5,19 @@ import Header from "../../Header";
 import Menu from "../../Menu";
 import LinkPage from "../../LinkPage";
 import ModalCreateNotification from "./ModalCreateNotification";
+import ModalSendNotificationCompany from "./ModalSendNotificationCompany";
 import axios from "axios";
 import * as host from "../../Url";
-export default class CreateNotification extends Component {
+import { connect } from "react-redux";
+import { getIdNotificationChoose } from "../Action/Index";
+class CreateNotification extends Component {
   _isMounted = false;
   constructor(props, context) {
     super(props, context);
     this.state = {
       listNotification: [],
       showModalCreateNotification: false,
+      showModalSendNotification: false,
     };
   }
 
@@ -33,6 +37,18 @@ export default class CreateNotification extends Component {
       showModalCreateNotification: true,
     });
   };
+  closeSendNotification = () => {
+    this.setState({
+      showModalSendNotification: false,
+    });
+  };
+  openSendNotification = (e, idNotificationChoose) => {
+    e.preventDefault();
+    this.props.getIdNotificationChoose(idNotificationChoose);
+    this.setState({
+      showModalSendNotification: true,
+    });
+  };
 
   getListNotification = () => {
     this._isMounted = true;
@@ -41,13 +57,13 @@ export default class CreateNotification extends Component {
     var idCompany = localStorage.getItem("company_id");
     axios
       .get(
-        host.URL_BACKEND + "/api/company/notification/create/list/"+idCompany,
+        host.URL_BACKEND + "/api/company/notification/create/list/" + idCompany,
         {
           headers: { Authorization: "Bearer " + token },
         }
       )
       .then(function (response) {
-        if(self._isMounted){
+        if (self._isMounted) {
           if (response.data.error != null) {
             console.log(response.data.error);
           } else {
@@ -61,36 +77,11 @@ export default class CreateNotification extends Component {
         console.log(error);
       });
   };
-  saveSendNotification = (e, idNotification) => {
-    e.preventDefault();
-    var self = this;
-    var token = localStorage.getItem("token");
-    axios
-      .post(
-        host.URL_BACKEND + "/api/system/notification/send",
-        {
-          idNotification: idNotification,
-        },
-        {
-          headers: { Authorization: "Bearer " + token },
-        }
-      )
-      .then(function (response) {
-        if (response.data.error != null) {
-          console.log(response.data.error);
-        } else {
-          console.log("Save database");
-          self.getListNotification();
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+
   componentWillMount() {
     this.getListNotification();
   }
-  
+
   render() {
     return (
       <div className="inner-wrapper manage-organization_template">
@@ -110,11 +101,11 @@ export default class CreateNotification extends Component {
                   minHeight: "1px",
                 }}
               >
-                <Menu/>
+                <Menu />
               </div>
               <div className="col-xl-9 col-lg-8  col-md-12">
                 <div className="quicklink-sidebar-menu ctm-border-radius shadow-sm bg-white card ">
-                  <LinkPage linkPage=" Thông báo "/>
+                  <LinkPage linkPage=" Thông báo " />
                 </div>
                 <div className="card shadow-sm ctm-border-radius  manage-notification_organization">
                   <div className="card-header d-flex align-items-center justify-content-between text-right">
@@ -194,19 +185,33 @@ export default class CreateNotification extends Component {
                                             1 ? (
                                               <div></div>
                                             ) : (
-                                              <a
-                                                href="edit-review.html"
-                                                className="btn btn-sm btn-outline-success"
-                                                onClick={(e) =>
-                                                  this.saveSendNotification(
-                                                    e,
-                                                    notification.id
-                                                  )
-                                                }
-                                              >
-                                                <span className="lnr lnr-pencil" />{" "}
-                                                Gửi
-                                              </a>
+                                              <>
+                                                <ModalSendNotificationCompany
+                                                  getListNotification={
+                                                    this.getListNotification
+                                                  }
+                                                  showModal={
+                                                    this.state
+                                                      .showModalSendNotification
+                                                  }
+                                                  close={() =>
+                                                    this.closeSendNotification()
+                                                  }
+                                                />
+                                                <a
+                                                  href="edit-review.html"
+                                                  className="btn btn-sm btn-outline-success"
+                                                  onClick={(e) =>
+                                                    this.openSendNotification(
+                                                      e,
+                                                      notification.id
+                                                    )
+                                                  }
+                                                >
+                                                  <span className="lnr lnr-pencil" />{" "}
+                                                  Gửi
+                                                </a>
+                                              </>
                                             )}
                                             <a
                                               href="edit-review.html"
@@ -248,3 +253,11 @@ export default class CreateNotification extends Component {
     );
   }
 }
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    getIdNotificationChoose: (idNotification) => {
+      dispatch(getIdNotificationChoose(idNotification));
+    },
+  };
+};
+export default connect(null, mapDispatchToProps)(CreateNotification);

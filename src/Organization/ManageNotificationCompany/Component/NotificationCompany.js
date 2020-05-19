@@ -144,7 +144,7 @@ class NotificationCompany extends Component {
                                               parseInt(notification.status)===1 ? ('Responsed'):('Pending')
                                             }
                                           </td>
-                                          <td style={{ width: "25%" }} className="cell-breakWord">
+                                          <td style={{ width: "25%" }} className="cell-breakWord text-left">
                                             <div className="table-action">
                                               {
                                                 parseInt(notification.status)===1 ? (<div></div>):(
