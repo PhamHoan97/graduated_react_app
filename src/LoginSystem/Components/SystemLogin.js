@@ -142,22 +142,6 @@ class SystemLogin extends Component{
                             </CheckButton>
                         </div>
                         </div>
-                        {/* <div className="txt1 text-center p-t-54 p-b-20">
-                        <span>
-                            Hoặc sử dụng
-                        </span>
-                        </div>
-                        <div className="flex-c-m">
-                        <a href="/" className="login100-social-item bg1">
-                            <i className="fa fa-facebook" />
-                        </a>
-                        <a href="/" className="login100-social-item bg2">
-                            <i className="fa fa-twitter" />
-                        </a>
-                        <a href="/" className="login100-social-item bg3">
-                            <i className="fa fa-google" />
-                        </a>
-                        </div> */}
                     </Form>
                     </div>
                 </div>

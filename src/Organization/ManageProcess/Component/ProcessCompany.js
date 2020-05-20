@@ -280,53 +280,53 @@ class ProcessCompany extends Component {
                         <h4 className="card-title mb-0">Tạo quy trình</h4>
                       </div>
                       <div className="card-body">
-                      <div className="table-data__tool">
-                        <div className="table-data__tool-left">
-                          <div className="rs-select2--light rs-select2--md">
-                            <DepartmentOptionSearch />
-                            <div className="dropDownSelect2" />
-                          </div>
-                        </div>
-                        <div className="table-data__tool-right">
-                          <button
-                            className="au-btn au-btn-icon au-btn--green au-btn--small"
-                            data-toggle="modal"
-                            onClick={(e) => this.handleOpenAddNewProcessModal(e)}
-                          >
-                            <i className="zmdi zmdi-plus" />
-                            Thêm quy trình
-                          </button>
-                          <button
-                            id="clone-button-add-new-process"
-                            className="au-btn au-btn-icon au-btn--green au-btn--small"
-                            data-toggle="modal"
-                            data-target="#form-add-new-process"
-                            style={{display:"none"}}
-                          >
-                            <i className="zmdi zmdi-plus" />
-                            Thêm quy trình
-                          </button>
-                        </div>
-                      </div>
-                        <div className="employee-office-table">
-                            <div className="table-responsive">
-                              <table className="table custom-table table-hover table-department_organization">
-                                <thead>
-                                <tr>
-                                  <th className="text-center">tên</th>
-                                  <th className="text-center">phòng ban</th>
-                                  <th className="text-center">vai trò</th>
-                                  <th className="text-center">địa chỉ</th>
-                                  <th className="text-center">số điện thoại</th>
-                                  <th />
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {this.renderTableRow(this.state.activePage)}
-                              </tbody>
-                            </table>
+                        <div className="table-data__tool">
+                          <div className="table-data__tool-left">
+                            <div className="rs-select2--light rs-select2--md">
+                              <DepartmentOptionSearch />
+                              <div className="dropDownSelect2" />
                             </div>
                           </div>
+                          <div className="table-data__tool-right">
+                            <button
+                              className="au-btn au-btn-icon au-btn--green au-btn--small"
+                              data-toggle="modal"
+                              onClick={(e) => this.handleOpenAddNewProcessModal(e)}
+                            >
+                              <i className="zmdi zmdi-plus" />
+                              Thêm quy trình
+                            </button>
+                            <button
+                              id="clone-button-add-new-process"
+                              className="au-btn au-btn-icon au-btn--green au-btn--small"
+                              data-toggle="modal"
+                              data-target="#form-add-new-process"
+                              style={{display:"none"}}
+                            >
+                              <i className="zmdi zmdi-plus" />
+                              Thêm quy trình
+                            </button>
+                          </div>
+                        </div>
+                        <div className="employee-office-table">
+                          <div className="table-responsive">
+                            <table className="table custom-table table-hover table-department_organization">
+                              <thead>
+                              <tr>
+                                <th className="text-center">tên</th>
+                                <th className="text-center">phòng ban</th>
+                                <th className="text-center">vai trò</th>
+                                <th className="text-center">địa chỉ</th>
+                                <th className="text-center">số điện thoại</th>
+                                <th />
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {this.renderTableRow(this.state.activePage)}
+                            </tbody>
+                          </table>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>

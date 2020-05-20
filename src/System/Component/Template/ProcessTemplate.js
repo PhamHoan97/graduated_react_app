@@ -20,6 +20,11 @@ class ProcessTemplate extends Component {
             activePage: 1,
             isRedirectCreateProcess: false,
             idField: '',
+            isRedirectProcessTemplateOfField: false,
+            openModalUpdate : false,
+            fieldNameUpdate: '',
+            fieldDescriptionUpdate: '',
+            fieldIdUpdate: '',
         }
     }
 
@@ -77,9 +82,9 @@ class ProcessTemplate extends Component {
     displayNextPaging =()=>{
         var count = this.state.fields.length;
         if(count <=8){
-            return  <li className="paginate_button page-item next disabled" id="dataTable_next"><a href="#4AE" aria-controls="dataTable" data-dt-idx={7} tabIndex={0} className="page-link"  onClick={(e) => this.handleNext(e)}>Next</a></li>
+            return  <li className="paginate_button page-item next disabled" id="dataTable_next"><a href="#4AE" aria-controls="dataTable" data-dt-idx={7} tabIndex={0} className="page-link"  onClick={(e) => this.handleNext(e)}>Sau</a></li>
         }else{
-            return  <li className="paginate_button page-item next" id="dataTable_next"><a href="#4AE" aria-controls="dataTable" data-dt-idx={7} tabIndex={0} className="page-link"  onClick={(e) => this.handleNext(e)}>Next</a></li>
+            return  <li className="paginate_button page-item next" id="dataTable_next"><a href="#4AE" aria-controls="dataTable" data-dt-idx={7} tabIndex={0} className="page-link"  onClick={(e) => this.handleNext(e)}>Sau</a></li>
         }
     }
   
@@ -152,9 +157,60 @@ class ProcessTemplate extends Component {
         });
     }
 
+    handleOpenUpdateFieldModal = (e, value) => {
+      e.preventDefault();
+      this.setState({
+        fieldIdUpdate: value.id,
+        fieldNameUpdate: value.name, 
+        fieldDescriptionUpdate: value.description, 
+        openModalUpdate:true
+      });
+    }
+
+    handleCloseModalUpdate = () => {
+        this.setState({openModalUpdate:false});
+    }
+
+    handleChangeFieldNameUpdate = event => {
+        event.preventDefault();
+        this.setState({fieldNameUpdate: event.target.value});
+    }
+
+    handleChangeFieldDescriptionUpdate = event => {
+        event.preventDefault();
+        this.setState({fieldDescriptionUpdate: event.target.value});
+    }
+
+    handleSubmitFieldFormUpdate= (e) => {
+      e.preventDefault();
+      var data = {
+          id: this.state.fieldIdUpdate,
+          name: this.state.fieldNameUpdate,
+          description: this.state.fieldDescriptionUpdate,
+      }
+      var token = localStorage.getItem('token');
+      axios.post(`http://127.0.0.1:8000/api/system/field/update`, data,
+      {
+          headers: { 'Authorization': 'Bearer ' + token}
+      }).then(res => {
+        if(res.data.error != null){
+            console.log(res.data.error);
+        }else{ 
+          this.setState({openModalUpdate:false, fields: res.data.fields});
+        }
+      }).catch(function (error) {
+        alert(error);
+      });
+  }
+
     redirectToCreateProcess = (e,id) =>{
       e.preventDefault();
       this.setState({isRedirectCreateProcess : true, idField: id});
+    }
+
+    redirectToProcessTemplateOfField = (e, id) => {
+      e.preventDefault();
+      this.setState({isRedirectProcessTemplateOfField : true, idField: id});
     }
 
     componentDidMount() {
@@ -166,7 +222,6 @@ class ProcessTemplate extends Component {
           if(res.data.error != null){
               console.log(res.data.error);
           }else{ 
-            console.log(res.data)
             this.setState({fields:res.data.fields});
           }
         }).catch(function (error) {
@@ -186,6 +241,15 @@ class ProcessTemplate extends Component {
                           <td className="desc">{value.description}</td>
                           <td >
                             <div className="table-data-feature">
+                            <button
+                                className="item"
+                                data-toggle="tooltip"
+                                data-placement="top"
+                                title="Sửa lĩnh vực"
+                                onClick={(e) => this.handleOpenUpdateFieldModal(e,value)}
+                              >
+                                <i className="fas fa-edit"></i>
+                              </button>
                               <button
                                 className="item"
                                 data-toggle="tooltip"
@@ -200,6 +264,7 @@ class ProcessTemplate extends Component {
                                 data-toggle="tooltip"
                                 data-placement="top"
                                 title="Quy trình"
+                                onClick={(e) => this.redirectToProcessTemplateOfField(e,value.id)}
                               >
                                 <i className="fas fa-sitemap"></i>
                               </button>
@@ -226,6 +291,9 @@ class ProcessTemplate extends Component {
     render() {
         if(this.state.isRedirectCreateProcess){
           return <Redirect to={'/system/create/template/' + this.state.idField} />;
+        }
+        if(this.state.isRedirectProcessTemplateOfField){
+          return <Redirect to={'/system/template/field/' + this.state.idField} />;
         }
         return (
           <div className="page-wrapper">
@@ -261,7 +329,7 @@ class ProcessTemplate extends Component {
                             </div>
                             <div className="employee-office-table">
                                 <div className="table-responsive table-responsive-data2">
-                                <table className="table table-data2">
+                                <table className="table table-borderless table-data3">
                                     <thead>
                                     <tr>
                                     <th className="text-center">Tên lĩnh vực</th>
@@ -278,21 +346,19 @@ class ProcessTemplate extends Component {
                         </div>
                     </div>
                     {/* Paginate */}
-                      <div className="row">
-                      <div className="col-sm-12 col-md-3"></div>
-                      <div className="col-sm-12 col-md-6">
-                          <div className="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                              <ul className="pagination">
-                                  <li className="paginate_button page-item previous disabled" id="dataTable_previous"><a href="#4AE" aria-controls="dataTable" data-dt-idx={0} tabIndex={0} className="page-link" onClick={(e) => this.handlePrevious(e)}>Previous</a>
-                                  </li>
-                                  {/** Hiện thị số lượng page */}
-                                  {this.displayPaging()}
-                                  {/** Hiện thị nút next */}
-                                  {this.displayNextPaging()}
-                              </ul>
-                          </div>
-                      </div>
-                      <div className="col-sm-12 col-md-3"></div>
+                    <div className="row justify-content-center">
+                        <div className="col-md-3 text-center">
+                            <div className="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                                <ul className="pagination">
+                                    <li className="paginate_button page-item previous disabled" id="dataTable_previous"><a href="#4AE" aria-controls="dataTable" data-dt-idx={0} tabIndex={0} className="page-link" onClick={(e) => this.handlePrevious(e)}>Trước</a>
+                                    </li>
+                                    {/** Hiện thị số lượng page */}
+                                    {this.displayPaging()}
+                                    {/** Hiện thị nút next */}
+                                    {this.displayNextPaging()}
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     {/* End Paginate */}
                     <div className="row">
@@ -327,6 +393,33 @@ class ProcessTemplate extends Component {
                         </Modal.Body>
                         <Modal.Footer>
                         <Button id="button-close-update-account" variant="secondary" onClick={this.handleCloseModal}>
+                            Đóng
+                        </Button>
+                        </Modal.Footer>
+                    </Modal>
+                    {/* end modal */}
+                    {/* modal */}
+                      <Modal show={this.state.openModalUpdate} onHide={this.handleCloseModalUpdate}>
+                        <Modal.Header closeButton>
+                        <Modal.Title>Cập nhật lĩnh vực</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <Form onSubmit={(e) => this.handleSubmitFieldFormUpdate(e)}>
+                                <Form.Group controlId="formGroupPassword1">
+                                    <Form.Label>Tên lĩnh vực</Form.Label>
+                                    <Form.Control type="text" defaultValue={this.state.fieldNameUpdate} onChange={this.handleChangeFieldNameUpdate} required placeholder="Tên lĩnh vực" />
+                                </Form.Group>
+                                <Form.Group controlId="formGroupEmail-updateaccount">
+                                    <Form.Label>Mô tả ngắn</Form.Label>
+                                    <textarea className="form-control" rows={"5"} defaultValue={this.state.fieldDescriptionUpdate} onChange={this.handleChangeFieldDescriptionUpdate} required></textarea>
+                                </Form.Group>
+                                <Button variant="primary" type="submit">
+                                    Cập nhật
+                                </Button>
+                            </Form>
+                        </Modal.Body>
+                        <Modal.Footer>
+                        <Button id="button-close-update-account" variant="secondary" onClick={this.handleCloseModalUpdate}>
                             Đóng
                         </Button>
                         </Modal.Footer>

@@ -14,7 +14,8 @@ export default class ManageCompany extends Component {
             companies: "",  
             activePage: 1,
             clickedCompany: "",
-            clickedNew: ""
+            clickedNew: "",
+            statistic: "",
         }
     } 
 
@@ -126,7 +127,7 @@ export default class ManageCompany extends Component {
           if(res.data.error != null){
               console.log(res.data.message);
           }else{
-              this.setState({companies:res.data.companies});
+              this.setState({companies:res.data.companies, statistic:res.data.statistic});
           }
         }).catch(function (error) {
           alert(error);
@@ -183,12 +184,6 @@ export default class ManageCompany extends Component {
                 return (
                 <React.Fragment key={key}>
                 <tr className="tr-shadow">
-                    <td>
-                        <label className="au-checkbox">
-                        <input type="checkbox" />
-                        <span className="au-checkmark" />
-                        </label>
-                    </td>
                     <td>
                         {value.name}
                     </td>
@@ -296,7 +291,7 @@ export default class ManageCompany extends Component {
                         <div className="row">
                             <div className="col-md-4">
                             <div className="statistic__item statistic__item--green">
-                                <h2 className="number">10,368</h2>
+                                <h2 className="number">{this.state.statistic.departments}</h2>
                                 <span className="desc">departments</span>
                                 <div className="icon">
                                 <i className="zmdi zmdi-account-o" />
@@ -305,7 +300,7 @@ export default class ManageCompany extends Component {
                             </div>
                             <div className="col-md-4">
                             <div className="statistic__item statistic__item--orange">
-                                <h2 className="number">388,688</h2>
+                                <h2 className="number">{this.state.statistic.companies}</h2>
                                 <span className="desc">Members</span>
                                 <div className="icon">
                                 <i className="zmdi zmdi-shopping-cart" />
@@ -314,7 +309,7 @@ export default class ManageCompany extends Component {
                             </div>
                             <div className="col-md-4">
                             <div className="statistic__item statistic__item--blue">
-                                <h2 className="number">1,086</h2>
+                                <h2 className="number">{this.state.statistic.processes}</h2>
                                 <span className="desc">Process</span>
                                 <div className="icon">
                                 <i className="zmdi zmdi-calendar-note" />
@@ -349,10 +344,9 @@ export default class ManageCompany extends Component {
                                 </div>
                             </div>
                             <div className="table-responsive table-responsive-data2">
-                                <table className="table table-data2">
+                                <table className="table table-borderless table-data3">
                                 <thead>
                                     <tr>
-                                        <th />
                                         <th>Tên công ty</th>
                                         <th>Liên hệ</th>
                                         <th>Địa chỉ</th>

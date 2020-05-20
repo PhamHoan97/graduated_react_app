@@ -281,7 +281,7 @@ class ManageEmail extends Component {
                                 </div>
                             </div>
                             <div className="table-responsive table-responsive-data2">
-                                <table className="table table-data2">
+                                <table className="table table-borderless table-data3">
                                 <thead>
                                     <tr>
                                     <th />
