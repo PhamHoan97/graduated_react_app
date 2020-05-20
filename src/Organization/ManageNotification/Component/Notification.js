@@ -40,13 +40,9 @@ export default class Notification extends Component {
     this._isMounted = true;
     var self = this;
     var token = localStorage.getItem("token");
-    var idCompany = localStorage.getItem("company_id");
     axios
       .post(
         host.URL_BACKEND + "/api/system/notification/list/",
-        {
-          idCompany: idCompany,
-        },
         {
           headers: { Authorization: "Bearer " + token },
         }

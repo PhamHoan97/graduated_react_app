@@ -3,6 +3,7 @@ import * as types from '../Constants/ActionTypes';
 const initState = {
     reloadPage: false,
     employee: '',
+    detailNotificationSystemEmployee:[]
 }
 
 var employeeReducers = (state = initState, action) => {
@@ -11,6 +12,8 @@ var employeeReducers = (state = initState, action) => {
             return {...state, reloadPage:true};
         case types.UPDATE_EMPLOYEE_INFORMATION:
             return {...state, employee : action.employee};
+        case types.GET_DETAIL_NOTIFICATION__SYSTEM_EMPLOYEE:
+            return {...state, detailNotificationSystemEmployee:action.detailNotificationSystemEmployee}    
         default:
             return state;
     }

@@ -28,8 +28,13 @@ import Account from '../Organization/ManageAccount/Component/Account';
 import Form from '../Organization/ManageFormNotification/Component/Form';
 import ProcessCompany from '../Organization/ManageProcess/Component/ProcessCompany';
 import PersonalInformation from '../Organization/ManageInformation/Component/PersonalInformation';
+import NotificationCompany from '../Organization/ManageNotificationCompany/Component/NotificationCompany';
+import DetailNotificationCompany from '../Organization/ManageNotificationCompany/Component/DetailNotificationCompany';
+import CreateNotification from '../Organization/ManageCreateNotification/Component/CreateNotification';
 import NotificationEmployee from '../EmployeeProcess/Component/NotificationEmployee'
 import DashboardEmployee from '../EmployeeProcess/Component/DashboardEmployee'
+import DetailNotificationSystemEmployee from '../EmployeeProcess/Component/DetailNotificationSystemEmployee';
+import DetailNotificationCompanyEmployee from '../EmployeeProcess/Component/DetailNotificationCompanyEmployee';
 import ForgetPasswordEmployee from '../Employee/Components/ForgetPasswordEmployee';
 import FormResetPasswordEmployee from '../Employee/Components/FormResetPasswordEmployee';
 import ListProcessesOfCompany from '../Organization/ManageProcess/Component/ListProcessesOfCompany';
@@ -38,7 +43,9 @@ import DetailCompany from '../System/Component/DetailCompany/DetailCompany';
 import ProcessTemplate from '../System/Component/Template/ProcessTemplate';
 import CreateTemplate from '../System/Component/Template/CreateTemplate';
 import EditTemplate from '../System/Component/Template/EditTemplate';
-
+import CreateTemplateForm from '../System/Component/ManageNotification/CreateTemplateForm';
+import ManageFormSend from '../System/Component/ManageNotification/ManageFormSend';
+import ManageNotification from '../System/Component/ManageNotification/ManageNotification';
 class ListUrl extends Component {
     render() {
         return (
@@ -57,6 +64,9 @@ class ListUrl extends Component {
                         <Route path="/process/new" exact component={CreateProcess} />
                         <Route path="/process/edit/:id" exact component={EditProcess} />
                         <Route path="/system/email" component={ManageEmail}/>
+                        <Route path="/system/notification/template" component={CreateTemplateForm}/>
+                        <Route path="/system/notification/form" component={ManageFormSend}/>
+                        <Route path="/system/notification/send" component={ManageNotification}/>
                         <Route path="/employee/login" exact component={EmployeeLogin} />
                         <Route path="/view/process/:id" exact component={ViewProcess} />
                         <Route path="/company/login" exact component={CompanyLogin} />
@@ -74,11 +84,16 @@ class ListUrl extends Component {
                         <Route path="/company/template" exact component={Template} />
                         <Route path="/company/organization/account" exact component={Account} />
                         <Route path="/company/notification" exact component={Notification} />
+                        <Route path="/company/notification/system" exact component={NotificationCompany} />
+                        <Route path="/company/notification/create" exact component={CreateNotification} />
                         <Route path="/company/form" exact component={Form} />
+                        <Route path="/company/notification/detail/:id" exact component={DetailNotificationCompany} />
                         <Route path="/employee/notification" exact component={NotificationEmployee} />
                         <Route path="/employee/" exact component={DashboardEmployee} />
                         <Route path="/employee/reset/password" exact component={ForgetPasswordEmployee} />
                         <Route path="/employee/form/reset/password/:id" exact component={FormResetPasswordEmployee} />
+                        <Route path="/employee/notification/system/detail/:id" exact component={DetailNotificationSystemEmployee} />
+                        <Route path="/employee/notification/company/detail/:id" exact component={DetailNotificationCompanyEmployee} />
                         <Route path="/company/manage/process" exact component={ListProcessesOfCompany} />
                         <Route path="/company/manage/process/employee/:id" exact component={ListProcessesOfEmployee} />
                         <Route path="/system/template" exact component={ProcessTemplate} />

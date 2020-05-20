@@ -1,0 +1,11 @@
+.notification__name--statistic{
+    color:#63c76a;
+}
+.table-notification_system {
+    width: 100%;
+}
+.table-notification_system tbody{
+    width: 100% !important;
+    background-color: #ffffff !important;
+    padding-right: 100px;
+}

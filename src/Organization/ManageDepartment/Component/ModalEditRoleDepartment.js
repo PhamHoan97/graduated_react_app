@@ -112,7 +112,7 @@ class ModalEditRoleDepartment extends Component {
                   onChange={(event) => this.handleChange(event)}
                 />
                 <label htmlFor="name" className="ml-2">
-                  Quyền tạo process
+                  Quyền tạo quy trình
                 </label>
               </div>
               <div className="form-group text-left">

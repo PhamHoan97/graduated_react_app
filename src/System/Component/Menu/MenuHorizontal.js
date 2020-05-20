@@ -40,6 +40,59 @@ export default class MenuHorizontal extends Component {
                   Trang chủ
                 </NavLink>
               </li>
+              <li>
+                <a
+                  href="##"
+                  onClick={(e) => {
+                    this.collapseMenu(e);
+                  }}
+                  className="js-arrow"
+                >
+                  <i className="fa fa-bell" aria-hidden="true"></i>
+                  Quản lí thông báo
+                </a>
+                <ul className="list-unstyled navbar__sub-list js-sub-list">
+                  <li>
+                    <NavLink
+                      to="/system/notification/template"
+                      activeClassName="selected"
+                      activeStyle={{
+                        fontWeight: "bold",
+                        color: "#0074D9",
+                      }}
+                    >
+                      <i className="fa fa-list" />
+                      Danh sách template
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/system/notification/form"
+                      activeClassName="selected"
+                      activeStyle={{
+                        fontWeight: "bold",
+                        color: "#0074D9",
+                      }}
+                    >
+                     <i className="fa fa-check-square-o" aria-hidden="true"></i>
+                      Danh sách Form
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/system/notification/send"
+                      activeClassName="selected"
+                      activeStyle={{
+                        fontWeight: "bold",
+                        color: "#0074D9",
+                      }}
+                    >
+                      <i className="fa fa-envelope-o" />
+                      Gửi thông báo
+                    </NavLink>
+                  </li>
+                </ul>
+              </li>
 
               <li>
                 <a
