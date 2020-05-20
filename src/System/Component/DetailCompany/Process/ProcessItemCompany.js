@@ -45,11 +45,24 @@ class ProcessItemCompany extends Component {
                 </span>
                 </td>
                 <td>
-                <span className="role admin">
-                    <a href="##" className="btn--detail__process" onClick={(e) => this.redirectViewProcess(e, this.props.id)} >
-                        Chi tiết
-                    </a>
-                </span>
+                    <div className="table-data-feature">
+                        <button
+                            className="item"
+                            data-placement="top"
+                            title="Chi tiết"
+                            onClick={(e) => this.redirectViewProcess(e, this.props.id)}
+                        >
+                            <i className="fas fa-eye"></i>
+                        </button>
+                        <button
+                            className="item"
+                            data-toggle="tooltip"
+                            data-placement="top"
+                            title="Hành động"
+                        >
+                            <i className="zmdi zmdi-more" />
+                        </button>
+                    </div>
                 </td>
             </tr>
         );

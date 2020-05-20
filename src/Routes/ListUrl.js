@@ -35,6 +35,9 @@ import FormResetPasswordEmployee from '../Employee/Components/FormResetPasswordE
 import ListProcessesOfCompany from '../Organization/ManageProcess/Component/ListProcessesOfCompany';
 import ListProcessesOfEmployee from '../Organization/ManageProcess/Component/ListProcessesOfEmployee';
 import DetailCompany from '../System/Component/DetailCompany/DetailCompany';
+import ProcessTemplate from '../System/Component/Template/ProcessTemplate';
+import CreateTemplate from '../System/Component/Template/CreateTemplate';
+import EditTemplate from '../System/Component/Template/EditTemplate';
 
 class ListUrl extends Component {
     render() {
@@ -78,6 +81,9 @@ class ListUrl extends Component {
                         <Route path="/employee/form/reset/password/:id" exact component={FormResetPasswordEmployee} />
                         <Route path="/company/manage/process" exact component={ListProcessesOfCompany} />
                         <Route path="/company/manage/process/employee/:id" exact component={ListProcessesOfEmployee} />
+                        <Route path="/system/template" exact component={ProcessTemplate} />
+                        <Route path="/system/create/template/:id" exact component={CreateTemplate} />
+                        <Route path="/system/edit/template/:id" exact component={EditTemplate} />
                     </div>
                 </Router>
            </>

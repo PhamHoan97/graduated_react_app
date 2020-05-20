@@ -86,3 +86,51 @@
 .header-button{
     margin-right: 40px !important;
 }
+
+.main-content {
+    background-color: #ffffff;
+    padding-top: 116px;
+    min-height: 100vh;
+    border-left: 1px solid #e4e4e4;
+}
+
+.menu-sidebar .logo {
+    background: #ffffff;
+    height: 75px;
+    padding: 0 35px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+    border-right: 1px solid #e5e5e5;
+    position: relative;
+    z-index: 3;
+}
+
+.header-desktop {
+    background: #ffffff;
+    -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 300px;
+    height: 75px;
+    z-index: 3;
+}
+
+.page-wrapper {
+    overflow: hidden;
+    background: #ffffff;
+    padding-bottom: 8vh;
+}

@@ -118,7 +118,6 @@ export default class ManageCompany extends Component {
 
     componentDidMount() {
         var token = localStorage.getItem('token');
-        console.log(token);
         axios.get(`http://127.0.0.1:8000/api/system/companies`,
         {
              headers: { 'Authorization': 'Bearer ' + token }
@@ -127,7 +126,6 @@ export default class ManageCompany extends Component {
           if(res.data.error != null){
               console.log(res.data.message);
           }else{
-              console.log(res.data);
               this.setState({companies:res.data.companies});
           }
         }).catch(function (error) {

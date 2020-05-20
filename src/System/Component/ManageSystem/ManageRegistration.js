@@ -317,7 +317,6 @@ class ManageRegistration extends Component {
  
     componentDidMount() {
         var token = localStorage.getItem('token');
-        console.log(token);
         axios.get(`http://127.0.0.1:8000/api/system/registration`,
         {
              headers: { 'Authorization': 'Bearer ' + token }

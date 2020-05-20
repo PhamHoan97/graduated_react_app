@@ -94,6 +94,20 @@ export default class MenuHorizontal extends Component {
                   </li>
                 </ul>
               </li>
+              <li className="has-sub">
+                <NavLink
+                  to="/system/template"
+                  exact
+                  activeClassName="selected"
+                  activeStyle={{
+                    fontWeight: "bold",
+                    color: "#0074D9",
+                  }}
+                >
+                  <i className="fas fa-images"></i>
+                  Quy trình mẫu
+                </NavLink>
+              </li>
             </ul>
           </nav>
         </div>

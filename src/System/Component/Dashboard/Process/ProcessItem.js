@@ -27,11 +27,24 @@ class ProcessItem extends Component {
             <td>{this.props.description.substring(0,50) + '...'}</td>
             <td>{this.props.date}</td>
             <td>
-            <span className="role admin">
-                <a href="##" onClick={(e) => this.redirectViewProcess(e, this.props.id)} style={{ color: "white", textDecoration: "none" }}>
-                Chi tiết
-                </a>
-            </span>
+              <div className="table-data-feature">
+                <button
+                    className="item"
+                    data-placement="top"
+                    title="Chi tiết"
+                    onClick={(e) => this.redirectViewProcess(e, this.props.id)}
+                >
+                    <i className="fas fa-eye"></i>
+                </button>
+                <button
+                    className="item"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Hành động"
+                >
+                    <i className="zmdi zmdi-more" />
+                </button>
+              </div>
             </td>
         </tr>
     );

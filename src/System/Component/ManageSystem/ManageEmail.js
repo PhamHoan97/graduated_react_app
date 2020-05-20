@@ -114,7 +114,6 @@ class ManageEmail extends Component {
           if(res.data.error != null){
               console.log(res.data.message);
           }else{
-              console.log(res.data);
              this.setState({clickedEmail:res.data.email});
              document.getElementById("clonedetail"+ res.data.email.id).click();    
           }
@@ -137,7 +136,6 @@ class ManageEmail extends Component {
           if(res.data.error != null){
               console.log(res.data.message);
           }else{
-              console.log(res.data); 
               this.setState({reload:true});
           }
         }).catch(function (error) {

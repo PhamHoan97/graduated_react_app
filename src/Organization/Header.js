@@ -10,7 +10,6 @@ export default class Header extends Component {
     };
   }
   handleLogout = (event) => {
-    console.log('Logout');
     event.preventDefault();
     localStorage.removeItem("token");
     if(localStorage.getItem("admin_id")){
@@ -22,7 +21,6 @@ export default class Header extends Component {
         if(res.data.error != null){
             console.log(res.data.error);
         }else{
-            console.log(res.data.message);
             this.setState({isLogout:true});
         }
       }).catch(function (error) {

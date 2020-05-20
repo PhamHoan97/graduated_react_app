@@ -56,7 +56,6 @@ export default class CompanyLogin extends Component {
         if(res.data.error != null){
             console.log(res.data.message);
         }else{
-            console.log(res.data.message);
             localStorage.setItem('token', res.data.token);
             if(res.data.isAdmin){
                 localStorage.setItem('admin_id', res.data.id);
