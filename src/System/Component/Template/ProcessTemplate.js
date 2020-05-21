@@ -7,6 +7,8 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import  { Redirect } from 'react-router-dom';
+import * as actions from '../../../Alert/Action/Index';
+import {connect} from 'react-redux';
 
 class ProcessTemplate extends Component {
     constructor(props) {
@@ -148,8 +150,25 @@ class ProcessTemplate extends Component {
             headers: { 'Authorization': 'Bearer ' + token}
         }).then(res => {
           if(res.data.error != null){
-              console.log(res.data.error);
-          }else{ 
+            this.props.showAlert({
+              message: res.data.message,
+              anchorOrigin:{
+                  vertical: 'top',
+                  horizontal: 'right'
+              },
+              title:'Thành công',
+              severity:'success'
+            });
+          }else{
+            this.props.showAlert({
+              message: res.data.message,
+              anchorOrigin:{
+                  vertical: 'top',
+                  horizontal: 'right'
+              },
+              title:'Thành công',
+              severity:'success'
+            });
             this.setState({openModal:false});
           }
         }).catch(function (error) {
@@ -194,8 +213,25 @@ class ProcessTemplate extends Component {
           headers: { 'Authorization': 'Bearer ' + token}
       }).then(res => {
         if(res.data.error != null){
-            console.log(res.data.error);
+            this.props.showAlert({
+              message: res.data.message,
+              anchorOrigin:{
+                  vertical: 'top',
+                  horizontal: 'right'
+              },
+              title:'Thành công',
+              severity:'error'
+            });
         }else{ 
+          this.props.showAlert({
+            message: res.data.message,
+            anchorOrigin:{
+                vertical: 'top',
+                horizontal: 'right'
+            },
+            title:'Thành công',
+            severity:'success'
+          });
           this.setState({openModalUpdate:false, fields: res.data.fields});
         }
       }).catch(function (error) {
@@ -434,5 +470,19 @@ class ProcessTemplate extends Component {
     }
 }
 
-export default ProcessTemplate
+const mapStateToProps = (state, ownProps) => {
+  return {
 
+  }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    showAlert: (properties) => {
+      dispatch(actions.showMessageAlert(properties))
+    }
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps )(ProcessTemplate);

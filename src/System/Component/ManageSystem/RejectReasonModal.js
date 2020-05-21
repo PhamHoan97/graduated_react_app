@@ -3,6 +3,7 @@ import {isEmpty } from 'validator';
 import axios from 'axios';
 import {loadTableAfterReject} from '../../Action/System/Index'
 import { connect } from 'react-redux';
+import * as actions from '../../../Alert/Action/Index';
 
 class RejectReasonModal extends Component {
     constructor(props) {
@@ -59,10 +60,26 @@ class RejectReasonModal extends Component {
             })
             .then(res => {
                 if(res.data.error != null){
-                    console.log(res.data.message);
+                    this.props.showAlert({
+                        message: res.data.message,
+                        anchorOrigin:{
+                            vertical: 'top',
+                            horizontal: 'right'
+                        },
+                        title:'Thành công',
+                        severity:'error'
+                    });
                 }else{
-                    console.log(res.data);
                     this.props.loadDataAfterReject(true);
+                    this.props.showAlert({
+                        message: res.data.message,
+                        anchorOrigin:{
+                            vertical: 'top',
+                            horizontal: 'right'
+                        },
+                        title:'Thành công',
+                        severity:'success'
+                    });
                     document.getElementById("cancel-reject-modal").click();
                 }
             }).catch(function (error) {
@@ -156,6 +173,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         loadDataAfterReject: (loadDataTable) => {
             dispatch(loadTableAfterReject(loadDataTable))
+        },
+        showAlert: (properties) => {
+            dispatch(actions.showMessageAlert(properties))
         }
     }
 }

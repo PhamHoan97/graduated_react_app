@@ -17,6 +17,8 @@ import CheckButton from 'react-validation/build/button';
 import {isEmpty } from 'validator';
 import axios from 'axios';
 import  { Redirect } from 'react-router-dom';
+import * as actions from '../../Alert/Action/Index';
+import {connect} from 'react-redux';
 
 const required = (value) => {
     if (isEmpty(value)) {
@@ -59,7 +61,15 @@ class SystemLogin extends Component{
         axios.post(`http://127.0.0.1:8000/api/login/employee`, account)
           .then(res => {
             if(res.data.error != null){
-                console.log(res.data.message);
+                this.props.showAlert({
+                    message:"Đăng nhập thất bại: " + res.data.message,
+                    anchorOrigin:{
+                        vertical: 'top',
+                        horizontal: 'right'
+                    },
+                    title:'Thất bại',
+                    severity:'error'
+                  });
             }else{
                 localStorage.setItem('token', res.data.token);
                 if(res.data.isEmployee){
@@ -67,26 +77,16 @@ class SystemLogin extends Component{
                     localStorage.setItem('account_id', res.data.account_id);
                     localStorage.setItem('is_employee', res.data.isEmployee);
                 }
+                this.props.showAlert({
+                    message: res.data.message,
+                    anchorOrigin:{
+                        vertical: 'top',
+                        horizontal: 'right'
+                    },
+                    title:'Thành công',
+                    severity:'success'
+                  });
                 this.setState({redirectEmployee:true});
-            }
-          }).catch(function (error) {
-            alert(error);
-          })
-    }
-
-    handleLogout = event => {
-        event.preventDefault();
-        localStorage.removeItem("token");
-        localStorage.removeItem("employee_id");
-        localStorage.removeItem("account_id");
-        localStorage.removeItem("is_employee");
-
-        axios.post(`http://127.0.0.1:8000/api/logout/employee`)
-          .then(res => {
-            if(res.data.error != null){
-                console.log(res.data.error);    
-            }else{
-
             }
           }).catch(function (error) {
             alert(error);
@@ -139,22 +139,6 @@ class SystemLogin extends Component{
                             </CheckButton>
                         </div>
                         </div>
-                        {/* <div className="txt1 text-center p-t-54 p-b-20">
-                            <span>
-                                Or Login Using
-                            </span>
-                        </div>
-                        <div className="flex-c-m">
-                            <a href="/" className="login100-social-item bg1">
-                                <i className="fa fa-facebook" />
-                            </a>
-                            <a href="/" className="login100-social-item bg2">
-                                <i className="fa fa-twitter" />
-                            </a>
-                            <a href="/" className="login100-social-item bg3">
-                                <i className="fa fa-google" />
-                            </a>
-                        </div> */}
                     </Form>
                     </div>
                 </div>
@@ -165,4 +149,18 @@ class SystemLogin extends Component{
     }
 }
 
-export default SystemLogin;
+const mapStateToProps = (state, ownProps) => {
+    return {
+
+    }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+      showAlert: (properties) => {
+        dispatch(actions.showMessageAlert(properties))
+      }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps )(SystemLogin)

@@ -8,6 +8,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import * as actions from './Actions/Index';
 import './Css/Notification.css';
+import * as actionAlerts from '../Alert/Action/Index';
 
 class Menu extends Component {
 
@@ -123,45 +124,33 @@ class Menu extends Component {
   handleLogout = (event) => {
     event.preventDefault();
     localStorage.removeItem("token");
-    if(localStorage.getItem("system_id")){
-      localStorage.removeItem("system_id");
-      localStorage.removeItem("is_system");
-      axios.post(`http://127.0.0.1:8000/api/logout/employee`)
-      .then(res => {
-        if(res.data.error != null){
-            console.log(res.data.error);
-        }else{
-            this.setState({isLogout:true});
-        }
-      }).catch(function (error) {
-        alert(error);
-      });
-    }
-
-    if(localStorage.getItem("admin_id")){
-      localStorage.removeItem("is_admin");
-      localStorage.removeItem("admin_id");
-      localStorage.removeItem("company_id");
-      axios.post(`http://127.0.0.1:8000/api/logout/company`)
-      .then(res => {
-        if(res.data.error != null){
-            console.log(res.data.error);
-        }else{
-            this.setState({isLogout:true});
-        }
-      }).catch(function (error) {
-        alert(error);
-      });
-    }
 
     if(localStorage.getItem("employee_id")){
       localStorage.removeItem("is_employee");
       localStorage.removeItem("employee_id");
+      localStorage.removeItem("account_id");
       axios.post(`http://127.0.0.1:8000/api/logout/employee`)
       .then(res => {
         if(res.data.error != null){
-            console.log(res.data.error);
+          this.props.showAlert({
+            message:"Đăng xuất thất bại: ",
+            anchorOrigin:{
+                vertical: 'top',
+                horizontal: 'right'
+            },
+            title:'Thất bại',
+            severity:'error'
+          });
         }else{
+            this.props.showAlert({
+              message: res.data.message,
+              anchorOrigin:{
+                  vertical: 'top',
+                  horizontal: 'right'
+              },
+              title:'Thành công',
+              severity:'success'
+            });
             this.setState({isLogout:true});
         }
       }).catch(function (error) {
@@ -229,6 +218,15 @@ class Menu extends Component {
             }
       }else{ 
           document.getElementById("button-close-update-account").click(); 
+          this.props.showAlert({
+            message: res.data.message,
+            anchorOrigin:{
+                vertical: 'top',
+                horizontal: 'right'
+            },
+            title:'Thành công',
+            severity:'success'
+          });
           this.props.reloadEmployeePage();
       }
     }).catch(function (error) {
@@ -412,7 +410,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     reloadEmployeePage: () => {
       dispatch(actions.reloadEmployeePage());
-    }
+    },
+    showAlert: (properties) => {
+      dispatch(actionAlerts.showMessageAlert(properties))
+    },
   }
 }
 

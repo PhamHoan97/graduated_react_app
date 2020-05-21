@@ -37,7 +37,6 @@ class AlertMessage extends Component {
         })
     };
     render() {
-        console.log(this.state)
         return (
             <div>
                 <Snackbar

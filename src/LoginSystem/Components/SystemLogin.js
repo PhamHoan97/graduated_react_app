@@ -17,6 +17,8 @@ import CheckButton from 'react-validation/build/button';
 import { isEmail, isEmpty } from 'validator';
 import axios from 'axios';
 import  { Redirect } from 'react-router-dom';
+import * as actions from '../../Alert/Action/Index';
+import {connect} from 'react-redux';
 
 const required = (value) => {
     if (isEmpty(value)) {
@@ -65,13 +67,28 @@ class SystemLogin extends Component{
         axios.post(`http://127.0.0.1:8000/api/login/system`, account)
           .then(res => {
             if(res.data.error != null){
-                console.log(res.data.message);
+                this.props.showAlert({
+                    message: res.data.message,
+                    anchorOrigin:{
+                        vertical: 'top',
+                        horizontal: 'right'
+                    },
+                    title:'Thành công',
+                    severity:'error'
+                });
             }else{
                 localStorage.setItem('token', res.data.token);
-                if(res.data.isSystem){
-                    localStorage.setItem('system_id', res.data.id);
-                    localStorage.setItem('is_system', res.data.isSystem);
-                }
+                localStorage.setItem('system_id', res.data.id);
+                localStorage.setItem('is_system', res.data.isSystem);
+                this.props.showAlert({
+                    message: res.data.message,
+                    anchorOrigin:{
+                        vertical: 'top',
+                        horizontal: 'right'
+                    },
+                    title:'Thành công',
+                    severity:'success'
+                  });
                 this.setState({redirectSystem:true});
             }
           }).catch(function (error) {
@@ -88,9 +105,25 @@ class SystemLogin extends Component{
         axios.post(`http://127.0.0.1:8000/api/logout/system`)
           .then(res => {
             if(res.data.error != null){
-                console.log(res.data.error);
+                this.props.showAlert({
+                    message: res.data.error,
+                    anchorOrigin:{
+                        vertical: 'top',
+                        horizontal: 'right'
+                    },
+                    title:'Thành công',
+                    severity:'error'
+                  });
             }else{
-
+                this.props.showAlert({
+                    message: res.data.message,
+                    anchorOrigin:{
+                        vertical: 'top',
+                        horizontal: 'right'
+                    },
+                    title:'Thành công',
+                    severity:'success'
+                });
             }
           }).catch(function (error) {
             alert(error);
@@ -152,4 +185,18 @@ class SystemLogin extends Component{
     }
 }
 
-export default SystemLogin;
+const mapStateToProps = (state, ownProps) => {
+    return {
+
+    }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+      showAlert: (properties) => {
+        dispatch(actions.showMessageAlert(properties))
+      }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps )(SystemLogin);

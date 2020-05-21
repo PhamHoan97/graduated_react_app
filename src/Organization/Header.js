@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import logo from "./Image/avatar-16.jpg";
 import axios from 'axios';
 import  { Redirect } from 'react-router-dom';
-export default class Header extends Component {
+import * as actions from '../Alert/Action/Index';
+import {connect} from 'react-redux';
+
+class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,8 +22,25 @@ export default class Header extends Component {
       axios.post(`http://127.0.0.1:8000/api/logout/company`)
       .then(res => {
         if(res.data.error != null){
-            console.log(res.data.error);
+          this.props.showAlert({
+            message: res.data.error,
+            anchorOrigin:{
+                vertical: 'top',
+                horizontal: 'right'
+            },
+            title:'Thành công',
+            severity:'error'
+          });
         }else{
+            this.props.showAlert({
+              message: res.data.message,
+              anchorOrigin:{
+                  vertical: 'top',
+                  horizontal: 'right'
+              },
+              title:'Thành công',
+              severity:'success'
+            });
             this.setState({isLogout:true});
         }
       }).catch(function (error) {
@@ -316,3 +336,19 @@ export default class Header extends Component {
     );
   }
 }
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+
+  }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    showAlert: (properties) => {
+      dispatch(actions.showMessageAlert(properties))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps )(Header)

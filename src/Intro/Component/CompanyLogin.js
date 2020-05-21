@@ -5,6 +5,8 @@ import CheckButton from 'react-validation/build/button';
 import {isEmpty } from 'validator';
 import axios from 'axios';
 import  { Redirect } from 'react-router-dom';
+import * as actions from '../../Alert/Action/Index';
+import {connect} from 'react-redux';
 
 const required = (value) => {
     if (isEmpty(value)) {
@@ -24,7 +26,7 @@ const required = (value) => {
     }
   }
 
-export default class CompanyLogin extends Component {
+class CompanyLogin extends Component {
 
   constructor(props) {
     super(props);
@@ -54,7 +56,15 @@ export default class CompanyLogin extends Component {
     axios.post(`http://127.0.0.1:8000/api/login/company`, data)
       .then(res => {
         if(res.data.error != null){
-            console.log(res.data.message);
+          this.props.showAlert({
+            message: res.data.message,
+            anchorOrigin:{
+                vertical: 'top',
+                horizontal: 'right'
+            },
+            title:'Thành công',
+            severity:'error'
+          });
         }else{
             localStorage.setItem('token', res.data.token);
             if(res.data.isAdmin){
@@ -62,6 +72,15 @@ export default class CompanyLogin extends Component {
                 localStorage.setItem('company_id', res.data.company_id);
                 localStorage.setItem('is_company', res.data.isAdmin);
             }
+            this.props.showAlert({
+              message: res.data.message,
+              anchorOrigin:{
+                  vertical: 'top',
+                  horizontal: 'right'
+              },
+              title:'Thành công',
+              severity:'success'
+            });
             this.setState({redirectAdmin:true});
         }
       }).catch(function (error) {
@@ -110,13 +129,9 @@ export default class CompanyLogin extends Component {
                             <a href="/company/forgetpassword"> Quên mật khẩu?</a>
                           </label>
                         </div>
-                        <CheckButton onClick={this.handleSubmit} className="au-btn au-btn--block au-btn--green m-b-20" type="submit"><i className="fas fa-sign-in-alt"></i> Đăng nhập</CheckButton>
-                        {/* <div className="social-login-content">
-                            <div className="social-button">
-                                <button className="au-btn au-btn--block au-btn--blue m-b-20"><i className="fab fa-facebook-square"></i> sign in with facebook</button>
-                                <button className="au-btn au-btn--block au-btn--blue2"><i className="fab fa-twitter-square"></i> sign in with twitter</button>
-                            </div>
-                        </div> */}
+                        <CheckButton onClick={this.handleSubmit} className="au-btn au-btn--block au-btn--green m-b-20" type="submit"><i className="fas fa-sign-in-alt"></i>  
+                           Đăng nhập
+                        </CheckButton>
                       </Form>
                       <div className="register-link">
                         <p>
@@ -133,3 +148,19 @@ export default class CompanyLogin extends Component {
         )
     }
 }
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+
+  }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    showAlert: (properties) => {
+      dispatch(actions.showMessageAlert(properties))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps )(CompanyLogin)

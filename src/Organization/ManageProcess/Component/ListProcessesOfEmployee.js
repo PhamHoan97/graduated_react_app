@@ -5,6 +5,7 @@ import Header from "../../Header";
 import LinkPage from "../../LinkPage";
 import Menu from "../../Menu";
 import ModalDetailProcess from './ModalDetailProcess'; 
+import { Redirect } from 'react-router-dom';
 
 class ListProcessesOfEmployee extends Component {
     constructor(props) {
@@ -13,7 +14,9 @@ class ListProcessesOfEmployee extends Component {
         this.state = {
             processes : '', 
             activePage: 1, 
-            employee: ''   
+            employee: '',
+            isRedirectEditProcess: false,
+            idProcess: '',   
         }
     }
     handleCssPage =(e,type,currentPage)=>{
@@ -144,6 +147,11 @@ class ListProcessesOfEmployee extends Component {
         });
     }
 
+    editProcess = (e, id) => {
+      e.preventDefault();
+      this.setState({isRedirectEditProcess: true, idProcess: id});
+    }
+
     renderTableRow = (pageNumber) => {
         var processes = this.state.processes;
         var locationStart = pageNumber * 8 - 8;
@@ -206,6 +214,9 @@ class ListProcessesOfEmployee extends Component {
     }
 
     render() {
+        if(this.state.isRedirectEditProcess){
+          return <Redirect to={'/process/edit/' + this.state.idProcess} />
+        }
         return (
             <div className="inner-wrapper manage-organization_template">
             <Header />

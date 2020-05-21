@@ -7,6 +7,7 @@ import '../../Style/ProcessTemplate/Process.css';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import  { Redirect } from 'react-router-dom';
+import * as actions from '../../../Alert/Action/Index';
 
 class Process extends Component {
     constructor(props) {
@@ -68,8 +69,25 @@ class Process extends Component {
                 headers: { 'Authorization': 'Bearer ' + tokenData}
             }).then(res => {
                 if(res.data.error != null){
-                    console.log(res.data.message);
+                    this.props.showAlert({
+                        message: res.data.message,
+                        anchorOrigin:{
+                            vertical: 'top',
+                            horizontal: 'right'
+                        },
+                        title:'Thành công',
+                        severity:'success'
+                      });
                 }else{
+                    this.props.showAlert({
+                        message: res.data.message,
+                        anchorOrigin:{
+                            vertical: 'top',
+                            horizontal: 'right'
+                        },
+                        title:'Thành công',
+                        severity:'success'
+                      });
                     this.setState({isRedirectEdit: true, idProcess: res.data.process.id});
                 }
             }).catch(function (error) {
@@ -114,4 +132,12 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps, )(Process)
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+      showAlert: (properties) => {
+        dispatch(actions.showMessageAlert(properties))
+      }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Process)

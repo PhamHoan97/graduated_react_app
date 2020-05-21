@@ -8,6 +8,7 @@ import {connect} from 'react-redux';
 import * as actions from '../../Actions/Index';
 import axios from 'axios';
 import {Redirect } from 'react-router-dom';
+import * as actionAlerts from  '../../../Alert/Action/Index';
 
 class Process extends Component {
     constructor(props) {
@@ -77,9 +78,26 @@ class Process extends Component {
             headers: { 'Authorization': 'Bearer ' + tokenData}
         }).then(res => {
           if(res.data.error != null){
-              console.log(res.data.message);
+              this.props.showAlert({
+                message: res.data.message,
+                anchorOrigin:{
+                    vertical: 'top',
+                    horizontal: 'right'
+                },
+                title:'Thành công',
+                severity:'error'
+              });
           }else{
               this.setState({reloadEdit: true, idEditProcess: res.data.process.id});
+              this.props.showAlert({
+                message: res.data.message,
+                anchorOrigin:{
+                    vertical: 'top',
+                    horizontal: 'right'
+                },
+                title:'Thành công',
+                severity:'success'
+              });
           }
         }).catch(function (error) {
           alert(error);
@@ -106,6 +124,15 @@ class Process extends Component {
         downloadLink.href = window.URL.createObjectURL(svgBlob);
         downloadLink.click();                                        
     });
+    this.props.showAlert({
+      message: "Tải thành công SVG",
+      anchorOrigin:{
+          vertical: 'top',
+          horizontal: 'right'
+      },
+      title:'Thành công',
+      severity:'success'
+    });
   }
 
   downloadAsBpmn = () =>{
@@ -122,6 +149,15 @@ class Process extends Component {
         downloadLink.innerHTML = 'Get BPMN';
         downloadLink.href = window.URL.createObjectURL(bpmnBlob);
         downloadLink.click();                                        
+    });
+    this.props.showAlert({
+      message: "Tải thành công BPMN",
+      anchorOrigin:{
+          vertical: 'top',
+          horizontal: 'right'
+      },
+      title:'Thành công',
+      severity:'success'
     });
   }
 
@@ -167,6 +203,15 @@ class Process extends Component {
       };
     
       img.src = url;                                 
+    });
+    this.props.showAlert({
+      message: "Tải thành công ảnh",
+      anchorOrigin:{
+          vertical: 'top',
+          horizontal: 'right'
+      },
+      title:'Thành công',
+      severity:'success'
     });
   }
 
@@ -253,6 +298,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       handleUndoAfterDeleteElement: (element) => {
         dispatch(actions.handleUndoAfterDeleteElement(element));
       },
+      showAlert: (properties) => {
+        dispatch(actionAlerts.showMessageAlert(properties))
+      }
   }
 }
 

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import '../Css/ForgetPassword.css';
 import axios from 'axios';
 import  { Redirect } from 'react-router-dom';
+import * as actions from '../../Alert/Action/Index';
+import {connect} from 'react-redux';
 
 class ForgetPasswordEmployee extends Component {
     constructor(props) {
@@ -28,6 +30,15 @@ class ForgetPasswordEmployee extends Component {
           if(res.data.error != null){
               document.getElementById('alert-error').innerHTML = "Email này không hợp lệ";
           }else{
+            this.props.showAlert({
+                message: res.data.message,
+                anchorOrigin:{
+                    vertical: 'top',
+                    horizontal: 'right'
+                },
+                title:'Thành công',
+                severity:'success'
+              });
             this.setState({isRedirectAfterSend:true});            
           }
         }).catch(function (error) {
@@ -83,4 +94,18 @@ class ForgetPasswordEmployee extends Component {
 
 }
 
-export default ForgetPasswordEmployee
+const mapStateToProps = (state, ownProps) => {
+    return {
+
+    }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+      showAlert: (properties) => {
+        dispatch(actions.showMessageAlert(properties))
+      }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps )(ForgetPasswordEmployee)

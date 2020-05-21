@@ -4,7 +4,7 @@ import axios from 'axios';
 import {isEmpty } from 'validator';
 import {passDataFromFormToModalInCreateAccountAdmin} from "../../Action/System/Index";
 import {connect} from 'react-redux';
-
+import * as actions from '../../../Alert/Action/Index';
 
 class MoreAdminAccountModal extends Component {
     constructor(props) {
@@ -119,10 +119,27 @@ class MoreAdminAccountModal extends Component {
             )
             .then(res => {
                 if(res.data.error != null){
-                    console.log(res.data.message);
+                    this.props.showAlert({
+                        message: res.data.message,
+                        anchorOrigin:{
+                            vertical: 'top',
+                            horizontal: 'right'
+                        },
+                        title:'Thành công',
+                        severity:'error'
+                    });
                 }else{
                     this.props.passDataFromFormToTable(this.props.currentCompany,this.state.clickCreate);
                     var numberClick = this.state.clickCreate + 1;
+                    this.props.showAlert({
+                        message: res.data.message,
+                        anchorOrigin:{
+                            vertical: 'top',
+                            horizontal: 'right'
+                        },
+                        title:'Thành công',
+                        severity:'success'
+                    });
                     this.setState({clickCreate: numberClick});
                 }
             }).catch(function (error) {
@@ -272,6 +289,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         passDataFromFormToTable: (idCompany,clickCreate) => {
             dispatch(passDataFromFormToModalInCreateAccountAdmin(idCompany,clickCreate));
+        },
+        showAlert: (properties) => {
+            dispatch(actions.showMessageAlert(properties))
         }
     }
 }

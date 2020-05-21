@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import '../Css/FormForgetPassword.css';
 import axios from 'axios';
 import  { Redirect } from 'react-router-dom';
+import * as actions from '../../Alert/Action/Index';
+import {connect} from 'react-redux';
 
 class FormResetPasswordEmployee extends Component {
     constructor(props) {
@@ -51,8 +53,25 @@ class FormResetPasswordEmployee extends Component {
         axios.post(`http://127.0.0.1:8000/api/employee/reset/handle/password`, data)
         .then(res => {
           if(res.data.error != null){
-              console.log(res.data.message);
+              this.props.showAlert({
+                message: res.data.message,
+                anchorOrigin:{
+                    vertical: 'top',
+                    horizontal: 'right'
+                },
+                title:'Thành công',
+                severity:'error'
+              });
           }else{
+            this.props.showAlert({
+                message: res.data.message,
+                anchorOrigin:{
+                    vertical: 'top',
+                    horizontal: 'right'
+                },
+                title:'Thành công',
+                severity:'success'
+              });
             this.setState({isRedirect:true});
           }
         }).catch(function (error) {
@@ -110,4 +129,18 @@ class FormResetPasswordEmployee extends Component {
     }
 }
 
-export default FormResetPasswordEmployee
+const mapStateToProps = (state, ownProps) => {
+    return {
+
+    }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+      showAlert: (properties) => {
+        dispatch(actions.showMessageAlert(properties))
+      }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps )(FormResetPasswordEmployee)

@@ -6,6 +6,7 @@ import 'bpmn-js/dist/assets/diagram-js.css';
 import ViewAction from './ViewAction';
 import {connect} from 'react-redux';
 import * as actions from '../../Actions/Index';
+import * as actionAlerts from '../../../Alert/Action/Index';
 
 class View extends Component {
   constructor(props) {
@@ -56,7 +57,16 @@ class View extends Component {
         downloadLink.download = fileName;
         downloadLink.innerHTML = 'Get BPMN SVG';
         downloadLink.href = window.URL.createObjectURL(svgBlob);
-        downloadLink.click();                                        
+        downloadLink.click();                                          
+    });
+    this.props.showAlert({
+      message: "Tải thành công SVG",
+      anchorOrigin:{
+          vertical: 'top',
+          horizontal: 'right'
+      },
+      title:'Thành công',
+      severity:'success'
     });
   }
 
@@ -73,8 +83,17 @@ class View extends Component {
         downloadLink.download = fileName;
         downloadLink.innerHTML = 'Get BPMN';
         downloadLink.href = window.URL.createObjectURL(bpmnBlob);
-        downloadLink.click();                                          
+        downloadLink.click();                                           
     });
+    this.props.showAlert({
+      message: "Tải thành công .bpmn",
+      anchorOrigin:{
+          vertical: 'top',
+          horizontal: 'right'
+      },
+      title:'Thành công',
+      severity:'success'
+    }); 
   }
 
   downloadAsImage = () =>{
@@ -118,8 +137,17 @@ class View extends Component {
         triggerDownload(imgURI);
       };
     
-      img.src = url;                                 
+      img.src = url;                            
     });
+    this.props.showAlert({
+      message: "Tải thành công ảnh",
+      anchorOrigin:{
+          vertical: 'top',
+          horizontal: 'right'
+      },
+      title:'Thành công',
+      severity:'success'
+    });  
   }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
@@ -190,6 +218,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       },
       updateDataOfElement: (element) => {
         dispatch(actions.updateDataOfElements(element));
+      },
+      showAlert: (properties) => {
+        dispatch(actionAlerts.showMessageAlert(properties))
       },
   }
 }

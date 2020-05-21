@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from "axios";
 import {connect} from 'react-redux';
-
+import * as actions from '../../../Alert/Action/Index';
 
 class AdminAcountTable extends Component {
     constructor(props) {
@@ -138,9 +138,25 @@ class AdminAcountTable extends Component {
             headers: { 'Authorization': 'Bearer ' + token}
         }).then(res => {
         if(res.data.error != null){
-            console.log(res.data.message);
+            this.props.showAlert({
+                message: res.data.message,
+                anchorOrigin:{
+                    vertical: 'top',
+                    horizontal: 'right'
+                },
+                title:'Thành công',
+                severity:'error'
+            });
         }else{
-
+            this.props.showAlert({
+                message: res.data.message,
+                anchorOrigin:{
+                    vertical: 'top',
+                    horizontal: 'right'
+                },
+                title:'Thành công',
+                severity:'success'
+            });
         }
         }).catch(function (error) {
             alert(error);
@@ -227,4 +243,12 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps)(AdminAcountTable)
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        showAlert: (properties) => {
+            dispatch(actions.showMessageAlert(properties))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdminAcountTable);
