@@ -6,7 +6,7 @@ class AccountItem extends Component {
         e.preventDefault();
         var self =  this;
         var token = localStorage.getItem('token');
-        axios.post(host.URL_BACKEND+'/api/system/account/delete', {
+        axios.post(host.URL_BACKEND+'/api/company/account/delete', {
             idDeleteAccount:idAccount,
         },{
             headers: { 'Authorization': 'Bearer ' + token }
@@ -29,7 +29,7 @@ class AccountItem extends Component {
         console.log(idAccountEmployee);
         var token = localStorage.getItem('token');
         console.log("send");
-        axios.post(`http://127.0.0.1:8000/api/system/account/employee/send`, 
+        axios.post(host.URL_BACKEND+'/api/company/account/employee/send',
         {
             idEmployeeAccount: idEmployeeAccount,
             idAccountEmployee:idAccountEmployee,

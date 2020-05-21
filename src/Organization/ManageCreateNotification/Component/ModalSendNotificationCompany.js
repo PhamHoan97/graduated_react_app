@@ -21,6 +21,7 @@ const colourStyles = {
 };
 
 class ModalSendNotificationCompany extends Component {
+    _isMounted = false;
     state = {
         listEmployees : [],
         selectedOptions: [],
@@ -124,6 +125,9 @@ class ModalSendNotificationCompany extends Component {
         }else{
             return <div></div>
         }
+    }
+    componentWillUnmount() {
+        this._isMounted = false;
     }
     render() {
         const { selectedOptions } = this.state;

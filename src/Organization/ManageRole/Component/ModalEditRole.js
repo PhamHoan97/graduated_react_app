@@ -43,7 +43,7 @@ class ModalEditRole extends Component {
     var token = localStorage.getItem("token");
     axios
       .get(
-        host.URL_BACKEND + "/api/system/organization/department/" + idCompany,
+        host.URL_BACKEND + "/api/company/organization/department/" + idCompany,
         {
           headers: { Authorization: "Bearer " + token },
         }
@@ -232,7 +232,7 @@ class ModalEditRole extends Component {
       var token = localStorage.getItem("token");
       axios
         .post(
-          host.URL_BACKEND + "/api/system/organization/role/update",
+          host.URL_BACKEND + "/api/company/organization/role/update",
           {
             editNameRole: this.state.editNameRole,
             editDescriptionRole: this.state.editDescriptionRole,

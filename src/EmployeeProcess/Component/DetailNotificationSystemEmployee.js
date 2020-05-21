@@ -72,7 +72,7 @@ class DetailNotificationComponent extends Component {
     }
   }
 
-  handleClick = (e, idNotificationSystemEmployee) => {
+  handleClick = (e,idNotificationEmployee) => {
     e.preventDefault();
     var self = this;
     var idAccount = localStorage.getItem("account_id");
@@ -81,7 +81,7 @@ class DetailNotificationComponent extends Component {
       .post(
         host.URL_BACKEND + "/api/employee/notification/create/response",
         {
-          idNotificationSystemEmployee: idNotificationSystemEmployee,
+          idNotificationEmployee: idNotificationEmployee,
           idAccount: idAccount,
           contentResponse: JSON.parse(localStorage.getItem("dataForm")).data,
         },
@@ -123,7 +123,7 @@ class DetailNotificationComponent extends Component {
             Tôi xin chân thành cảm ơn ông/bà đã dành thời gian phản hồi thư này
           </div>
           <div style={{ marginLeft:"160px"}}>
-            <button type="button" class="btn btn-primary btn-back_response">
+            <button type="button" className="btn btn-primary btn-back_response">
               <NavLink
                 to={"/employee/notification"}
                 exact

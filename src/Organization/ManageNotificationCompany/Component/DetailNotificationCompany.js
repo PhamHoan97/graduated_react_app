@@ -27,7 +27,7 @@ class DetailNotificationComponent extends Component {
     var token = localStorage.getItem("token");
     axios
       .post(
-        host.URL_BACKEND + "/api/system/notification/company/response",
+        host.URL_BACKEND + "/api/company/notification/response",
         {
           idNotificationAdmin: idNotificationAdmin,
         },
@@ -72,7 +72,7 @@ class DetailNotificationComponent extends Component {
     var token = localStorage.getItem("token");
     axios
       .post(
-        host.URL_BACKEND + "/api/system/notification/company/create/response",
+        host.URL_BACKEND + "/api/company/notification/create/response",
         {
           idNotificationAdmin: idNotificationAdmin,
           idAdmin: idAdmin,
@@ -116,7 +116,7 @@ class DetailNotificationComponent extends Component {
             Tôi xin chân thành cảm ơn ông/bà đã dành thời gian phản hồi thư này
           </div>
           <div style={{ marginLeft:"160px"}}>
-            <button type="button" class="btn btn-primary" style={{ color:"#ffffff"}}>
+            <button type="button" className="btn btn-primary" style={{ color:"#ffffff"}}>
               <NavLink
                 to={"/company/notification/system"}
                 exact

@@ -22,7 +22,7 @@ class NotificationCompany extends Component {
     var self = this;
     var token = localStorage.getItem("token");
     var idAdmin = localStorage.getItem("admin_id");
-    axios.post(host.URL_BACKEND + "/api/system/notification/company/list",{
+    axios.post(host.URL_BACKEND + "/api/company/notification/list",{
       idAdmin:idAdmin
     },{
       headers: { Authorization: "Bearer " + token },
@@ -49,7 +49,7 @@ class NotificationCompany extends Component {
   getDetailNotification = (idNotificationAdmin) =>{
     var self = this;
     var token = localStorage.getItem("token");
-    axios.post(host.URL_BACKEND + "/api/system/notification/company/response",{
+    axios.post(host.URL_BACKEND + "/api/company/notification/response",{
       idNotificationAdmin:idNotificationAdmin
     },{
       headers: { Authorization: "Bearer " + token },
@@ -144,7 +144,7 @@ class NotificationCompany extends Component {
                                               parseInt(notification.status)===1 ? ('Responsed'):('Pending')
                                             }
                                           </td>
-                                          <td style={{ width: "25%" }} className="cell-breakWord text-left">
+                                          <td style={{ width: "25%" }} className="cell-breakWord text-center">
                                             <div className="table-action">
                                               {
                                                 parseInt(notification.status)===1 ? (<div></div>):(

@@ -29,7 +29,7 @@ export default class DetailEmployeeOraganization extends Component {
     axios
       .get(
         host.URL_BACKEND +
-          "/api/system/organization/employee/detail/" +
+          "/api/company/organization/employee/detail/" +
           this.props.match.params.idEmployee,
         {
           headers: { Authorization: "Bearer " + token },

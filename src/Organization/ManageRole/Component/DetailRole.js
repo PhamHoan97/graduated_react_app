@@ -36,7 +36,7 @@ class DetailRole extends Component {
     var self = this;
     axios
       .post(
-        host.URL_BACKEND + "/api/system/organization/department/role/detail",
+        host.URL_BACKEND + "/api/company/organization/department/role/detail",
         {
           idRole: this.props.match.params.idRole,
           idDepartment: this.props.match.params.idDepartment,
@@ -89,7 +89,7 @@ class DetailRole extends Component {
     var token = localStorage.getItem("token");
     axios
       .post(
-        host.URL_BACKEND + "/api/system/organization/employee/delete",
+        host.URL_BACKEND + "/api/company/organization/employee/delete",
         {
           idDeleteEmployee: idDeleteEmployee,
         },
@@ -125,7 +125,7 @@ class DetailRole extends Component {
     axios
       .get(
         host.URL_BACKEND +
-          "/api/system/organization/employee/detail/" +
+          "/api/company/organization/employee/detail/" +
           idEditEmployee,
         {
           headers: { Authorization: "Bearer " + token },

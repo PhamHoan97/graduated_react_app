@@ -58,7 +58,7 @@ class RoleOraganization extends Component {
     var idCompany = localStorage.getItem("company_id");
     var token = localStorage.getItem("token");
     axios
-      .get(host.URL_BACKEND + "/api/system/organization/role/" + idCompany, {
+      .get(host.URL_BACKEND + "/api/company/organization/role/" + idCompany, {
         headers: { Authorization: "Bearer " + token },
       })
       .then(function (response) {
@@ -86,7 +86,7 @@ class RoleOraganization extends Component {
     e.preventDefault();
     let self = this;
     var token = localStorage.getItem('token');
-    axios.post(host.URL_BACKEND+'/api/system/organization/role/delete',{
+    axios.post(host.URL_BACKEND+'/api/company/organization/role/delete',{
         idDeleteRole:idDeleteRole,
     },{
         headers: { 'Authorization': 'Bearer ' + token }
@@ -122,7 +122,7 @@ class RoleOraganization extends Component {
     var token = localStorage.getItem("token");
     axios
       .get(
-        host.URL_BACKEND + "/api/system/organization/department/" + idCompany,
+        host.URL_BACKEND + "/api/company/organization/department/" + idCompany,
         {
           headers: { Authorization: "Bearer " + token },
         }
@@ -148,7 +148,7 @@ class RoleOraganization extends Component {
   getDetailRoleOrganization = (idEditRole) =>{
     var token = localStorage.getItem('token');
     var self =  this;
-    axios.get(host.URL_BACKEND+'/api/system/organization/role/detail/'+idEditRole,{
+    axios.get(host.URL_BACKEND+'/api/company/organization/role/detail/'+idEditRole,{
         headers: { 'Authorization': 'Bearer ' + token }
     })
     .then(function (response) {
@@ -174,7 +174,7 @@ class RoleOraganization extends Component {
     var token = localStorage.getItem("token");
     axios
       .post(
-        host.URL_BACKEND + "/api/system/organization/company/role/search",{
+        host.URL_BACKEND + "/api/company/organization/role/search",{
           textNameSearch:this.state.textNameSearch,
           idDepartmentSearch:this.state.idDepartmentSearch,
           idCompany:idCompany
@@ -327,7 +327,7 @@ class RoleOraganization extends Component {
                                     </th>
                                     <th style={{ width: "20%" }}>Phòng ban</th>
                                     <th style={{ width: "15%" }}>
-                                      Quyền tạo process
+                                      Quyền tạo quy trình
                                     </th>
                                     <th style={{ width: "25%" }}>Hành động</th>
                                   </tr>

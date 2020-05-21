@@ -55,7 +55,7 @@ class SelectDepartmentToAssign extends Component {
     componentDidMount() {
         var token = localStorage.getItem('token');
         var company_id = localStorage.getItem('company_id');
-        axios.get(`http://127.0.0.1:8000/api/system/organization/department/` + company_id,
+        axios.get(`http://127.0.0.1:8000/api/company/organization/department/` + company_id,
         {
             headers: { 'Authorization': 'Bearer ' + token}
         }).then(res => {

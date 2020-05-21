@@ -8,6 +8,10 @@ import * as host from "../../Constants/Url";
 import { connect } from "react-redux";
 import { getIdNotificationChoose } from "../../Action/Notification/Index";
 import "../../Style/Notification/manageNotification.css";
+import ReactExport from "react-export-excel";
+const ExcelFile = ReactExport.ExcelFile;
+const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
+const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
 class ManageNotification extends Component {
   constructor(props, context) {
@@ -15,16 +19,15 @@ class ManageNotification extends Component {
     this.state = {
       listNotification: [],
       statisticNotification: [],
+      listResponses: [],
       isDisplayStatistic: false,
       showModalCreateNotification: false,
       showModalSendNotification: false,
     };
   }
-
   UNSAFE_componentWillMount = () => {
     this.getListNotification();
   };
-
   getListNotification = () => {
     var self = this;
     var token = localStorage.getItem("token");
@@ -39,6 +42,31 @@ class ManageNotification extends Component {
           self.setState({
             listNotification: response.data.notifications,
           });
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  deleteNotification = (e, idNotificationSystem) => {
+    e.preventDefault();
+    let self = this;
+    var token = localStorage.getItem("token");
+    axios
+      .post(
+        host.URL_BACKEND + "/api/system/notification/delete",
+        {
+          idNotificationSystem: idNotificationSystem,
+        },
+        {
+          headers: { Authorization: "Bearer " + token },
+        }
+      )
+      .then(function (response) {
+        if (response.data.error != null) {
+        } else {
+          console.log(response);
+          self.getListNotification();
         }
       })
       .catch(function (error) {
@@ -68,7 +96,6 @@ class ManageNotification extends Component {
     });
   };
   showStatisticNotification = (idNotificationChoose) => {
-    console.log(idNotificationChoose);
     var self = this;
     var token = localStorage.getItem("token");
     axios
@@ -89,12 +116,53 @@ class ManageNotification extends Component {
             isDisplayStatistic: true,
             statisticNotification: response.data.statisticNotification,
           });
+          self.getAllResponseNotification(idNotificationChoose);
         }
       })
       .catch(function (error) {
         console.log(error);
       });
   };
+
+  getAllResponseNotification = (idNotificationSystem) => {
+    let self = this;
+    var token = localStorage.getItem("token");
+    axios
+      .get(
+        host.URL_BACKEND +
+          "/api/system/notification/response/" +
+          idNotificationSystem,
+        {
+          headers: { Authorization: "Bearer " + token },
+        }
+      )
+      .then(function (response) {
+        if (response.data.error != null) {
+        } else {
+          self.setState({
+            listResponses: response.data.responseNotificationSystem,
+          });
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  componentDidUpdate(prevProps, prevState) {
+    if(this.state.isDisplayStatistic === true){
+      document.getElementById("btn_export-excel").childNodes[0].childNodes[0].classList.add("addCssButtonExcel");
+      document.getElementById("btn_export-excel").childNodes[0].childNodes[0].innerHTML = "Tải xuống";
+    }
+  }
+  getAllExcelColum = () =>{
+    var keys = [];
+    for(var label in this.state.listResponses[0]) keys.push(label);
+    return keys.map((value, key) => {
+        return (
+            <ExcelColumn label={value} value={value} key={key} />
+        );
+    });
+  }
 
   render() {
     return (
@@ -165,18 +233,14 @@ class ManageNotification extends Component {
                             <div className="icon">
                               <i className="zmdi zmdi-calendar-note" />
                             </div>
-                            <div>
-                              <button
-                                className="item download-response"
-                                data-toggle="tooltip"
-                                data-placement="top"
-                                title="download"
-                              >
-                                <i
-                                  className="zmdi zmdi-cloud-download "
-                                  style={{ fontSize: "40px" }}
-                                ></i>
-                              </button>
+                            <div id="btn_export-excel">
+                              <ExcelFile >
+                                  <ExcelSheet data={this.state.listResponses} name="Response">
+                                      {
+                                          this.getAllExcelColum()
+                                      }
+                                  </ExcelSheet>
+                              </ExcelFile>
                             </div>
                           </div>
                         </div>
@@ -222,9 +286,7 @@ class ManageNotification extends Component {
                               Object.values(this.state.listNotification).map(
                                 (notification, index) => {
                                   return (
-                                    <tr
-                                      key={notification.id}
-                                    >
+                                    <tr key={notification.id}>
                                       <td>
                                         <label className="au-checkbox">
                                           <input type="checkbox" />
@@ -294,6 +356,12 @@ class ManageNotification extends Component {
                                             data-toggle="tooltip"
                                             data-placement="top"
                                             title="Xóa"
+                                            onClick={(e) =>
+                                              this.deleteNotification(
+                                                e,
+                                                notification.id
+                                              )
+                                            }
                                           >
                                             <i className="zmdi zmdi-delete" />
                                           </button>

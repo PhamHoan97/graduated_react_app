@@ -177,7 +177,7 @@ class ModalEditEmployeeRole extends Component {
                   className="btn btn-primary mb-2 mr-2"
                   onClick={(e) => this.saveEditEmployee(e)}
                 >
-                  Save
+                  Lưu
                 </button>
               </div>
             </form>
@@ -226,7 +226,7 @@ class ModalEditEmployeeRole extends Component {
       var token = localStorage.getItem("token");
       axios
         .post(
-          host.URL_BACKEND + "/api/system/organization/employee/update",
+          host.URL_BACKEND + "/api/company/organization/employee/update",
           {
             editNameEmployee: this.state.editNameEmployee,
             editEmailEmployee: this.state.editEmailEmployee,

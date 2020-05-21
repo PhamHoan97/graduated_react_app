@@ -23,12 +23,13 @@ class DetailEmployeeOraganization extends Component {
   }
 
   getDetailDepartment = () => {
+    this._isMounted = true;
     let self = this;
     var token = localStorage.getItem("token");
     axios
       .get(
         host.URL_BACKEND +
-          "/api/system/organization/department/detail/" +
+          "/api/company/organization/department/detail/" +
           this.props.match.params.id,
         {
           headers: { Authorization: "Bearer " + token },
@@ -51,7 +52,10 @@ class DetailEmployeeOraganization extends Component {
         console.log(error);
       });
   };
-  componentDidMount() {
+  // componentDidMount() {
+  //   this.getDetailDepartment();
+  // }
+  componentWillMount() {
     this.getDetailDepartment();
   }
   componentWillUnmount() {
@@ -66,7 +70,7 @@ class DetailEmployeeOraganization extends Component {
   getDetailRoleOrganization = (idEditRole) =>{
     var token = localStorage.getItem('token');
     var self =  this;
-    axios.get(host.URL_BACKEND+'/api/system/organization/role/edit/'+idEditRole,{
+    axios.get(host.URL_BACKEND+'/api/company/organization/role/edit/'+idEditRole,{
         headers: { 'Authorization': 'Bearer ' + token }
     })
     .then(function (response) {
@@ -108,7 +112,7 @@ class DetailEmployeeOraganization extends Component {
     e.preventDefault();
     let self = this;
     var token = localStorage.getItem('token');
-    axios.post(host.URL_BACKEND+'/api/system/organization/role/delete',{
+    axios.post(host.URL_BACKEND+'/api/company/organization/role/delete',{
         idDeleteRole:idDeleteRole,
     },{
         headers: { 'Authorization': 'Bearer ' + token }
@@ -125,6 +129,7 @@ class DetailEmployeeOraganization extends Component {
     });
   }
   render() {
+    console.log(this.state.detailCompany);
     return (
       <div className="inner-wrapper manage-organization_template">
         <Header />

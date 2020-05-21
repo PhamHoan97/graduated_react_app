@@ -44,7 +44,7 @@ export default class ModalCreateRole extends Component {
     var token = localStorage.getItem("token");
     axios
       .get(
-        host.URL_BACKEND + "/api/system/organization/department/" + idCompany,
+        host.URL_BACKEND + "/api/company/organization/department/" + idCompany,
         {
           headers: { Authorization: "Bearer " + token },
         }
@@ -240,7 +240,7 @@ export default class ModalCreateRole extends Component {
       var token = localStorage.getItem("token");
       axios
         .post(
-          host.URL_BACKEND + "/api/system/organization/role/new",
+          host.URL_BACKEND + "/api/company/organization/role/new",
           {
             newNameRole: this.state.newNameRole,
             newDescriptionRole: this.state.newDescriptionRole,

@@ -79,7 +79,7 @@ export default class ModalCreateEmployee extends Component {
       axios
         .get(
           host.URL_BACKEND +
-            "/api/system/organization/role/department/" +
+            "/api/company/organization/role/department/" +
             value,
           {
             headers: { Authorization: "Bearer " + token },
@@ -112,7 +112,7 @@ export default class ModalCreateEmployee extends Component {
     var token = localStorage.getItem("token");
     axios
       .get(
-        host.URL_BACKEND + "/api/system/organization/department/" + idCompany,
+        host.URL_BACKEND + "/api/company/organization/department/" + idCompany,
         {
           headers: { Authorization: "Bearer " + token },
         }
@@ -140,7 +140,7 @@ export default class ModalCreateEmployee extends Component {
     var idCompany = localStorage.getItem("company_id");
     var token = localStorage.getItem("token");
     axios
-      .get(host.URL_BACKEND + "/api/system/organization/role/" + idCompany, {
+      .get(host.URL_BACKEND + "/api/company/organization/role/" + idCompany, {
         headers: { Authorization: "Bearer " + token },
       })
       .then(function (response) {
@@ -338,7 +338,7 @@ export default class ModalCreateEmployee extends Component {
                   className="btn btn-primary mb-2 mr-2"
                   onClick={(e) => this.saveNewEmployee(e)}
                 >
-                  Save
+                  Lưu
                 </button>
               </div>
             </form>
@@ -409,7 +409,7 @@ export default class ModalCreateEmployee extends Component {
       var token = localStorage.getItem("token");
       axios
         .post(
-          host.URL_BACKEND + "/api/system/organization/employee/new",
+          host.URL_BACKEND + "/api/company/organization/employee/new",
           {
             newNameEmployee: this.state.newNameEmployee,
             newEmailEmployee: this.state.newEmailEmployee,

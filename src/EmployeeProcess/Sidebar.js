@@ -36,7 +36,6 @@ class Sidebar extends Component {
           <div id="sidebar-menu" className="sidebar-menu">
             <ul>
               <li className="menu-title">
-              
                 <span>Trang chủ</span>
               </li>
               <li className="submenu">

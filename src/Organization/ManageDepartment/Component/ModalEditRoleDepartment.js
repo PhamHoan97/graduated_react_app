@@ -134,7 +134,7 @@ class ModalEditRoleDepartment extends Component {
 
   displayAlertSuccess = () => {
     if (this.state.isDisplayAlertSuccess) {
-      return <Alert severity="success">Edit thành công</Alert>;
+      return <Alert severity="success">Cập nhật thành công !</Alert>;
     } else {
       return <div></div>;
     }
@@ -160,7 +160,7 @@ class ModalEditRoleDepartment extends Component {
       var self =  this;
       axios
         .post(
-          host.URL_BACKEND + "/api/system/organization/role/update",
+          host.URL_BACKEND + "/api/company/organization/role/update",
           {
             editNameRole: this.state.editNameRole,
             editDescriptionRole: this.state.editDescriptionRole,
