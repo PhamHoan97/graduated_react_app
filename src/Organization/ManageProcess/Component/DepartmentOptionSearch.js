@@ -55,6 +55,7 @@ class DepartmentOptionSearch extends Component {
         )
     }
 }
+
 const mapStateToProps = (state, ownProps) => {
     return {
 

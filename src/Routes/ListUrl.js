@@ -47,6 +47,7 @@ import CreateTemplateForm from '../System/Component/ManageNotification/CreateTem
 import ManageFormSend from '../System/Component/ManageNotification/ManageFormSend';
 import ManageNotification from '../System/Component/ManageNotification/ManageNotification';
 import TemplateOfField from '../System/Component/Template/TemplateOfField';
+import ViewProcessTemplate from '../Organization/ManageDashboard/Component/ViewProcessTemplate';
 
 class ListUrl extends Component {
     render() {
@@ -102,6 +103,7 @@ class ListUrl extends Component {
                         <Route path="/system/create/template/:id" exact component={CreateTemplate} />
                         <Route path="/system/edit/template/:id" exact component={EditTemplate} />
                         <Route path="/system/template/field/:id" exact component={TemplateOfField} />
+                        <Route path="/company/template/process/:id" exact component={ViewProcessTemplate} />
                     </div>
                 </Router>
            </>

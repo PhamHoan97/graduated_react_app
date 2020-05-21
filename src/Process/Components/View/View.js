@@ -153,12 +153,9 @@ class View extends Component {
 
     componentDidUpdate (){
         this.modeler.attachTo('#view-process-diagram');
-        console.log(this.initialDiagram)
         this.modeler.importXML(this.initialDiagram, function(err) {
 
         });
-        var eventBus = this.modeler.get('eventBus');
-        console.log(eventBus);
         this.modeler.on('element.click',1000, (e) => this.interactPopup(e));
         this.modeler.on('element.dblclick',1500, function(event) {
           event.stopPropagation();

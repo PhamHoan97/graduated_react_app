@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
 import axios from 'axios';
+import * as actions from '../Action/Index';
+import {connect} from 'react-redux';
 
 class SelectFieldToFilter extends Component {
     constructor(props) {
@@ -37,14 +39,34 @@ class SelectFieldToFilter extends Component {
         });
     }
 
+    changeSelectField = (event) =>{
+        var currentSelect = event.value;
+        this.props.updateIdFieldSelect(currentSelect);
+    }
+
     render() {
         return (
             <Select options={this.state.options} 
                 placeholder="Chọn"
+                onChange={(e) => this.changeSelectField(e)}
             />
 
         )
     }
 }
 
-export default SelectFieldToFilter
+const mapStateToProps = (state, ownProps) => {
+    return {
+
+    }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        updateIdFieldSelect: (idField) => {
+            dispatch(actions.updateIdFieldSelect(idField))
+        },
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SelectFieldToFilter);
