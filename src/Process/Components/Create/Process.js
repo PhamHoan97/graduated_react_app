@@ -3,8 +3,6 @@ import '../../Css/Process.css';
 import BpmnModeler from 'bpmn-js/lib/Modeler';
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn.css';
 import 'bpmn-js/dist/assets/diagram-js.css';
-import minimapModule from 'diagram-js-minimap';
-import '../../Css/Minimap.css';
 import Action from './Action';
 import {connect} from 'react-redux';
 import * as actions from '../../Actions/Index';
@@ -21,7 +19,7 @@ class Process extends Component {
               bindTo: window,
             },
             additionalModules: [
-              minimapModule
+              
             ]
           }
         );

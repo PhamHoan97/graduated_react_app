@@ -5,6 +5,8 @@
 .process-interact-area{
     width: 100%;
     height: 100%;
+    border-bottom: 1px solid steelblue;
+    background-color: white;
 }
 
 .process-interact{
@@ -13,7 +15,7 @@
 }
 
 .right-column-popup{
-    width: 400px;
+    width: 340px;
     position: absolute;
     margin-top: 0px;
     z-index: 3;
@@ -139,6 +141,7 @@
 .record-message{
     display: flex;
     margin-left: 20px;
+    width: 240px;
 }
 
 .record-message .content{
@@ -162,7 +165,7 @@
     border-bottom: 1px solid #d9d9d9;
     border-left: 1px solid #d9d9d9;
     border-right: 1px solid #d9d9d9;
-    width: 200px;
+    width: 150px;
     margin-top: 1px;
 }
 
@@ -173,7 +176,7 @@
     border-bottom: 1px solid #d9d9d9;
     border-left: 1px solid #d9d9d9;
     border-right: 1px solid #d9d9d9;
-    width: 200px;
+    width: 150px;
     margin-top: 1px;
 }
 
@@ -185,7 +188,7 @@
 }
 
 div.process-interact svg{
-    height: 650px;
+    height: 685px;
 }
 
 div.process-view svg{
@@ -196,7 +199,7 @@ div.process-view svg{
     width: 100px;
     position: absolute;
     margin-top: 300px;
-    margin-right: 365px;
+    margin-right: 305px;
     z-index: 3;
     right: 0px;
     border-left: 1px solid #d9d9d9;
@@ -271,4 +274,10 @@ div.process-view svg{
     text-decoration: underline;
     font-style: italic;
     color: blueviolet;
+}
+
+.full-page{
+    position: relative;
+    width: 100%;
+    padding: 0;
 }

@@ -59,7 +59,7 @@ class ContentEmployeeInformation extends Component {
                   <EmployeeProcess processes={this.state.processes}/>
               </div>
               <div className="col-md-3">
-                <div className="card card-profile">
+                <div className="card-avatar-content card-profile">
                   <div className="card-avatar">
                       <img className="img" src="/system/images/user-avatar-default.jpg" alt="Avatar" />
                   </div>

@@ -60,6 +60,8 @@ class Process extends Component {
         this.modeler.importXML(this.initialDiagram, function(err) {
 
         });
+        var eventBus = this.modeler.get('eventBus');
+        console.log(eventBus);
         var tool = document.getElementsByClassName("djs-palette")[0];
         tool.style.visibility  = "hidden"; 
     }

@@ -133,7 +133,7 @@ class EditInformationEmployeeModal extends Component {
                   </button>
                 </div>
                 <div className="modal-body">
-                  <div className="card">
+                  <div className="">
                     <div className="card-body card-block">
                       <form
                         method="post"

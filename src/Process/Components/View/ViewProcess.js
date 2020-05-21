@@ -138,59 +138,63 @@ class ViewProcess extends Component {
         if(this.state.openDetails){
             return(
                 <React.Fragment>
-                    <div className="row">
-                        <Header />
-                    </div>
-                    <div className="row">
-                        <div className="col-md-9">
-                            <View init={this.state.initDiagram}/>
+                    <div className="container-fluid">
+                        <div className="row">
+                            <Header />
                         </div>
-                        <div className="button-details-right-open">
-                            <button onClick={(e) => this.closePopup(e)}>
-                                <i className="fas fa-align-justify"></i> Chi tiết
-                            </button>
+                        <div className="row">
+                            <div className="col-md-9 full-page">
+                                <View init={this.state.initDiagram}/>
+                            </div>
+                            <div className="button-details-right-open">
+                                <button onClick={(e) => this.closePopup(e)}>
+                                    <i className="fas fa-align-justify"></i> Chi tiết
+                                </button>
+                            </div>
+                            <div className="right-column-popup">
+                                <ViewNote />
+                                <ViewComment />
+                            </div>
                         </div>
-                        <div className="right-column-popup">
-                            <ViewNote />
-                            <ViewComment />
-                        </div>
-                    </div>
-                    <div className="row footer-view-process">  
-                        <div className="col-md-6">
-                            <Detail />
-                        </div>
-                        <div className="col-md-3">
+                        <div className="row footer-view-process">  
+                            <div className="col-md-6">
+                                <Detail />
+                            </div>
+                            <div className="col-md-3">
 
+                            </div>
                         </div>
+                        <div className="space-area"></div>
                     </div>
-                    <div className="space-area"></div>
                 </React.Fragment>
             )
         }else{
             return (
                 <React.Fragment>
-                    <div className="row">
-                        <Header />
-                    </div>
-                    <div className="row">
-                        <div className="col-md-12">
-                            <View init={this.state.initDiagram} />
+                    <div className="container-fluid">
+                        <div className="row">
+                            <Header />
                         </div>
-                        <div className="button-details-right-close">
-                            <button onClick={(e) => this.openPopUp(e)}>
-                                <i className="fas fa-align-justify"></i> Chi tiết
-                            </button>
+                        <div className="row">
+                            <div className="col-md-12 full-page">
+                                <View init={this.state.initDiagram} />
+                            </div>
+                            <div className="button-details-right-close">
+                                <button onClick={(e) => this.openPopUp(e)}>
+                                    <i className="fas fa-align-justify"></i> Chi tiết
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div className="row footer-view-process">  
-                        <div className="col-md-6">
-                            <Detail />
-                        </div>
-                        <div className="col-md-3">
+                        <div className="row footer-view-process">  
+                            <div className="col-md-6">
+                                <Detail />
+                            </div>
+                            <div className="col-md-3">
 
+                            </div>
                         </div>
+                        <div className="space-area"></div>
                     </div>
-                    <div className="space-area"></div>
                 </React.Fragment>
             )   
         }

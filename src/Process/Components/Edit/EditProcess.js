@@ -142,7 +142,7 @@ class EditProcess extends Component {
                             <Header />
                         </div>
                         <div className="row">
-                            <div className="col-md-9">
+                            <div className="col-md-9 full-page">
                                 <Process init={this.state.initDiagram}/>
                             </div>
                             <div className="col-md-3">
@@ -177,7 +177,7 @@ class EditProcess extends Component {
                             <Header />
                         </div>
                         <div className="row">
-                            <div className="col-md-12">
+                            <div className="col-md-12 full-page">
                                 <Process init={this.state.initDiagram}/>
                                 <div className="button-details-right-close">
                                     <button onClick={(e) => this.openPopUp(e)}>

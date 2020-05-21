@@ -36,7 +36,7 @@ class Menu extends Component {
                         className="text-white"
                         onClick={(e) => this.goBack(e)}
                       >
-                        Back
+                        Quay lại
                       </a>
                     </li>
                   </ul>

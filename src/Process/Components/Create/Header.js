@@ -115,7 +115,7 @@ class Header extends Component {
                             <Dropdown drop={"left"}>
                                 <Dropdown.Toggle id="dropdown-action" variant="actions" bsPrefix="dropdown">
                                     <div className="button-area-go-back" onClick={(e) => this.backToHomePage(e)}>
-                                        <i className="fas fa-undo"></i> <span className="text-go-back"> Trang chủ</span>
+                                        <span className="text-go-back"> Trang chủ</span>
                                     </div>
                                 </Dropdown.Toggle>
                             </Dropdown>

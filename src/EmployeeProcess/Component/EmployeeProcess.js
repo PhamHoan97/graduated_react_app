@@ -119,7 +119,7 @@ class EmployeeProcess extends Component {
             return <Redirect to={'/view/process/' + this.state.click} />
         }
         return (
-            <div className="card">
+            <div className="left-content-info-process">
                 <div className="card-header card-header-primary">
                 <h4 className="card-title title-employee">Quy trình</h4>
                 <p className="card-category title-employee">Xem quy trình được giao</p>
@@ -134,13 +134,13 @@ class EmployeeProcess extends Component {
                         </div>
                     </div>
                     <div className="table-responsive table-responsive-data2">
-                        <table className="table table-data2">
+                        <table className="table table-borderless table-data3">
                             <thead>
                             <tr>
-                                <th>tên quy trình</th>
+                                <th>quy trình</th>
                                 <th>mô tả ngắn </th>
-                                <th>thời gian tạo</th>
-                                <th>giao bởi</th>
+                                <th>thời gian </th>
+                                <th>Tạo</th>
                                 <th></th>
                             </tr>
                             </thead>

@@ -46,24 +46,6 @@ class Action extends Component {
         }
     }
 
-    toggleMiniMap = (event) => {
-        event.preventDefault();
-        var miniMap = this.props.modeler.get('minimap');
-        var state = miniMap._state.isOpen;
-        if(!state){
-            miniMap.open();
-            if(this.props.statusPopup){
-                document.getElementsByClassName("djs-minimap")[0].style.right  = "215px";
-            }else{
-                document.getElementsByClassName("djs-minimap")[0].style.right  = "85px";
-            }
-            document.getElementsByClassName("djs-minimap")[0].style.visibility  = "visible";
-        }else{
-            document.getElementsByClassName("djs-minimap")[0].style.visibility  = "hidden";
-            miniMap.close();
-        }
-    }
-
     render() {
         if(this.props.statusPopup){
             return (
@@ -71,7 +53,6 @@ class Action extends Component {
                     <button className="button-zoom-in" onClick={(e) => this.zoomIn(e)} title="Zoom in"><i className="fas fa-plus"></i></button>
                     <button className="button-zoom-out" onClick={(e) => this.zoomOut(e)} title="Zoom out"><i className="fas fa-minus"></i></button>
                     <button className="button-full-screen" onClick={() => this.fullScreen()} title="Full screen"><i className="fas fa-desktop"></i></button>
-                    <button className="button-toggle-minimap" onClick={(e) => this.toggleMiniMap(e)} title="Toggle minimap"><i className="far fa-map"></i></button>
                   </div>
                 )
         }else{
@@ -80,7 +61,6 @@ class Action extends Component {
                     <button className="button-zoom-in" onClick={(e) => this.zoomIn(e)} title="Zoom in"><i className="fas fa-plus"></i></button>
                     <button className="button-zoom-out" onClick={(e) => this.zoomOut(e)} title="Zoom out"><i className="fas fa-minus"></i></button>
                     <button className="button-full-screen" onClick={() => this.fullScreen()} title="Full screen"><i className="fas fa-desktop"></i></button>
-                    <button className="button-toggle-minimap" onClick={(e) => this.toggleMiniMap(e)} title="Toggle minimap"><i className="far fa-map"></i></button>
                   </div>
                 )
         }

@@ -72,7 +72,6 @@ class EditInformationProcessModal extends Component {
         if(res.data.error != null){
             console.log(res.data.message);
         }else{
-            console.log(res.data); 
             this.setState({employeesFilter: res.data.employees,  rolesFilter: res.data.roles});
         }
       }).catch(function (error) {
@@ -241,8 +240,6 @@ class EditInformationProcessModal extends Component {
                       </button>
                     </div>
                     <div className="modal-body">
-                      <div className="card">
-                        <div className="card-body card-block">
                           <Form
                             encType="multipart/form-data"
                             className="form-horizontal"
@@ -350,8 +347,6 @@ class EditInformationProcessModal extends Component {
                         Đóng
                       </button>
                     </div>
-                  </div>
-                </div>
               </div>
             )
         }else{

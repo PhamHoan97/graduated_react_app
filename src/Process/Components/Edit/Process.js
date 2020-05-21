@@ -3,8 +3,6 @@ import '../../Css/Process.css';
 import BpmnModeler from 'bpmn-js/lib/Modeler';
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn.css';
 import 'bpmn-js/dist/assets/diagram-js.css';
-import minimapModule from 'diagram-js-minimap';
-import '../../Css/Minimap.css';
 import Action from '../Create/Action';
 import {connect} from 'react-redux';
 import * as actions from '../../Actions/Index';
@@ -21,7 +19,7 @@ class Process extends Component {
               bindTo: window,
             },
             additionalModules: [
-              minimapModule
+
             ]
           }
         );
@@ -66,7 +64,6 @@ class Process extends Component {
     }
     else{
         var tokenData = localStorage.getItem('token');
-        console.log(this.props.detail);
         let data = new FormData();
         data.append('elements', JSON.stringify(this.props.elements));
         data.append('xml', xmlRender);
@@ -82,7 +79,6 @@ class Process extends Component {
           if(res.data.error != null){
               console.log(res.data.message);
           }else{
-              console.log(res.data);
               this.setState({reloadEdit: true, idEditProcess: res.data.process.id});
           }
         }).catch(function (error) {

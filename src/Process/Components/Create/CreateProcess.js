@@ -19,14 +19,12 @@ class CreateProcess extends Component {
 
     openPopUp = (event) => {
         event.preventDefault();
-        document.getElementsByClassName("djs-minimap")[0].style.visibility  = "hidden";
         this.setState({openDetails:true});
         this.props.passPopupStatus(true);
     }
 
     closePopup = (event) => {
         event.preventDefault();
-        document.getElementsByClassName("djs-minimap")[0].style.visibility  = "hidden";
         this.setState({openDetails:false});
         this.props.passPopupStatus(false);
     }
@@ -44,7 +42,7 @@ class CreateProcess extends Component {
                             <Header />
                         </div>
                         <div className="row">
-                            <div className="col-md-9">
+                            <div className="col-md-9 full-page">
                                 <Process />
                             </div>
                             <div className="col-md-3">
@@ -79,7 +77,7 @@ class CreateProcess extends Component {
                             <Header />
                         </div>
                         <div className="row">
-                            <div className="col-md-12">
+                            <div className="col-md-12 full-page">
                                 <Process />
                                 <div className="button-details-right-close">
                                     <button onClick={(e) => this.openPopUp(e)}>

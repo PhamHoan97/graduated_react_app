@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 class EmployeeInformation extends Component {
     constructor(props) {
@@ -39,7 +39,7 @@ class EmployeeInformation extends Component {
 
     render() {
         return (
-        <div className="card">
+        <div className="left-content-info-process">
             <div className="card-header card-header-primary">
               <h4 className="card-title title-employee">Thông tin cá nhân</h4>
               <p className="card-category title-employee">Hiển thị thông tin cá nhân</p>
