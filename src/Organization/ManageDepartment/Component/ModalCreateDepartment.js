@@ -145,7 +145,7 @@ export default class ModalCreateDepartment extends Component {
         var token = localStorage.getItem("token");
         axios
           .post(
-            host.URL_BACKEND + "/api/system/organization/department/new",
+            host.URL_BACKEND + "/api/company/organization/department/new",
             {
               newNameDepartment: this.state.newNameDepartment,
               newSignatureDepartment: this.state.newSignatureDepartment,

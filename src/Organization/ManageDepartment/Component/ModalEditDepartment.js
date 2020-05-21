@@ -165,7 +165,7 @@ class ModalEditDepartment extends Component {
         }else{
             var self = this;
             var token = localStorage.getItem("token");
-            axios.patch(host.URL_BACKEND+'/api/system/organization/department/update', {
+            axios.patch(host.URL_BACKEND+'/api/company/organization/department/update', {
                 editNameDepartment: this.state.editNameDepartment,
                 editSignatureDepartment: this.state.editSignatureDepartment,
                 editDescriptionDepartment:this.state.editDescriptionDepartment,

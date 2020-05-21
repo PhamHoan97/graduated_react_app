@@ -6,7 +6,8 @@ import axios from "axios";
 import * as host from "../Url";
 import {NavLink} from "react-router-dom"
 import {connect} from "react-redux"
-import {getDetailNotificationSystemEmployee} from "../Actions/Index"
+import {getDetailNotificationSystemEmployee} from "../Actions/Index";
+
 class NotificationEmployee extends Component {
   constructor(props, context) {
     super(props, context);
@@ -82,9 +83,41 @@ class NotificationEmployee extends Component {
     this.getListNotificationFromSystem();
   }
 
+  getDetailNotificationCompany = (idNotificationCompany) =>{
+    var token = localStorage.getItem("token");
+    axios.post(host.URL_BACKEND+'/api/employee/notification/company/status/update', {
+      idNotificationFromCompany:idNotificationCompany
+    },{
+        headers: { 'Authorization': 'Bearer ' + token }
+    })
+    .then(function (response) {
+        if (response.data.error != null) {
+        console.log(response.data.error);
+        } else {
+        }
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+  }
+
   getDetailNotificationSystem = (idNotificationSystemEmployee) =>{
     var self = this;
     var token = localStorage.getItem("token");
+    axios.post(host.URL_BACKEND+'/api/employee/notification/system/status/update', {
+      idNotificationFromSystem:idNotificationSystemEmployee
+    },{
+        headers: { 'Authorization': 'Bearer ' + token }
+    })
+    .then(function (response) {
+        if (response.data.error != null) {
+        console.log(response.data.error);
+        } else {
+        }
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
     axios.post(host.URL_BACKEND + "/api/employee/notification/response",{
       idNotificationSystemEmployee:idNotificationSystemEmployee
     },{
@@ -163,7 +196,7 @@ class NotificationEmployee extends Component {
                         <th>Tên</th>
                         <th>Nội dung</th>
                         <th>Ngày</th>
-                        <th>Status</th>
+                        <th>Trạng thái</th>
                         <th></th>
                       </tr>
                     </thead>
@@ -181,28 +214,27 @@ class NotificationEmployee extends Component {
                                 <td>
                                   <span className="badge bg-inverse-success">
                                   {
-                                    parseInt(notification.status)===1 ? ('Responsed'):('Pending')
+                                    parseInt(notification.status)===1 ? ('Đã xem'):('Chưa xem')
                                   }
                                   </span>
                                 </td>
                                 <td>
                                   <div className="table-action">
                                   {
-                                    parseInt(notification.status)===1 ? (<div></div>):(
-                                      <NavLink
-                                        to={"/employee/notification/company/detail/"+notification.id}
-                                        exact
-                                        activeClassName="selected"
-                                        activeStyle={{
-                                          fontWeight: "bold",
-                                          color: "#0074D9",
-                                        }}
-                                        className="btn btn-sm btn-outline-success mr-2"
-                                      >
-                                        <span className="lnr lnr-pencil" />{" "}
-                                        Chi tiết
-                                      </NavLink>
-                                    )
+                                     <NavLink
+                                      to={"/employee/notification/company/detail/"+notification.id}
+                                      exact
+                                      activeClassName="selected"
+                                      activeStyle={{
+                                        fontWeight: "bold",
+                                        color: "#0074D9",
+                                      }}
+                                      className="btn btn-sm btn-outline-success mr-2"
+                                      onClick={this.getDetailNotificationCompany(notification.id)}
+                                    >
+                                      <span className="lnr lnr-pencil" />{" "}
+                                      Chi tiết
+                                    </NavLink>
                                   }
                                   <a
                                     href="##"
@@ -234,30 +266,26 @@ class NotificationEmployee extends Component {
                               <td>
                                 <span className="badge bg-inverse-success">
                                 {
-                                  parseInt(notification.status)===1 ? ('Responsed'):('Pending')
+                                  parseInt(notification.status)===1 ? ('Đã xem'):('Chưa xem')
                                 }
                                 </span>
                               </td>
                               <td>
                                 <div className="table-action">
-                                {
-                                    parseInt(notification.status)===1 ? (<div></div>):(
-                                      <NavLink
-                                        to={"/employee/notification/system/detail/"+notification.id}
-                                        exact
-                                        activeClassName="selected"
-                                        activeStyle={{
-                                          fontWeight: "bold",
-                                          color: "#0074D9",
-                                        }}
-                                        className="btn btn-sm btn-outline-success mr-2"
-                                        onClick={this.getDetailNotificationSystem(notification.id)}
-                                      >
-                                        <span className="lnr lnr-pencil" />{" "}
-                                        Chi tiết
-                                      </NavLink>
-                                    )
-                                  }
+                                  <NavLink
+                                    to={"/employee/notification/system/detail/"+notification.id}
+                                    exact
+                                    activeClassName="selected"
+                                    activeStyle={{
+                                      fontWeight: "bold",
+                                      color: "#0074D9",
+                                    }}
+                                    className="btn btn-sm btn-outline-success mr-2"
+                                    onClick={this.getDetailNotificationSystem(notification.id)}
+                                  >
+                                    <span className="lnr lnr-pencil" />{" "}
+                                    Chi tiết
+                                  </NavLink>
                                   <a
                                     href="##"
                                     className="btn btn-sm btn-outline-danger"

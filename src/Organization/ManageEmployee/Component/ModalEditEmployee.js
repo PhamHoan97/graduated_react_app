@@ -8,6 +8,7 @@ import { Modal } from "react-bootstrap";
 import { connect } from "react-redux";
 
 class ModalEditEmployee extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -59,7 +60,6 @@ class ModalEditEmployee extends Component {
     })
   }
   handleChange(event) {
-    console.log("Handle change");
     const name = event.target.name;
     const value =event.target.value;
     if (name === "editDepartmentEmployee") {
@@ -68,7 +68,7 @@ class ModalEditEmployee extends Component {
       axios
         .get(
           host.URL_BACKEND +
-            "/api/system/organization/role/department/" +
+            "/api/company/organization/role/department/" +
             value,
           {
             headers: { Authorization: "Bearer " + token },
@@ -96,25 +96,28 @@ class ModalEditEmployee extends Component {
   }
 
   getListDepartment = () => {
+    this._isMounted = true;
     let self = this;
     var idCompany = localStorage.getItem("company_id");
     var token = localStorage.getItem("token");
     axios
       .get(
-        host.URL_BACKEND + "/api/system/organization/department/" + idCompany,
+        host.URL_BACKEND + "/api/company/organization/department/" + idCompany,
         {
           headers: { Authorization: "Bearer " + token },
         }
       )
       .then(function (response) {
-        if (response.data.error != null) {
-          console.log(response.data.error);
-        } else {
-          self.setState({
-            listDepartment: JSON.parse(
-              JSON.stringify(response.data.departmentCompany)
-            ),
-          });
+        if(self._isMounted){
+          if (response.data.error != null) {
+            console.log(response.data.error);
+          } else {
+            self.setState({
+              listDepartment: JSON.parse(
+                JSON.stringify(response.data.departmentCompany)
+              ),
+            });
+          }
         }
       })
       .catch(function (error) {
@@ -122,20 +125,23 @@ class ModalEditEmployee extends Component {
       });
   };
   getListRole = () => {
+    this._isMounted = true;
     let self = this;
     var idCompany = localStorage.getItem("company_id");
     var token = localStorage.getItem("token");
     axios
-      .get(host.URL_BACKEND + "/api/system/organization/role/" + idCompany, {
+      .get(host.URL_BACKEND + "/api/company/organization/role/" + idCompany, {
         headers: { Authorization: "Bearer " + token },
       })
       .then(function (response) {
-        if (response.data.error != null) {
-          console.log(response.data.error);
-        } else {
-          self.setState({
-            listRoleDepartment: JSON.parse(JSON.stringify(response.data.roles)),
-          });
+        if(self._isMounted){ 
+          if (response.data.error != null) {
+            console.log(response.data.error);
+          } else {
+            self.setState({
+              listRoleDepartment: JSON.parse(JSON.stringify(response.data.roles)),
+            });
+          }
         }
       })
       .catch(function (error) {
@@ -331,7 +337,7 @@ class ModalEditEmployee extends Component {
                   className="btn btn-primary mb-2 mr-2"
                   onClick={(e) => this.saveEditEmployee(e)}
                 >
-                  Save
+                  Lưu
                 </button>
               </div>
             </form>
@@ -402,7 +408,7 @@ class ModalEditEmployee extends Component {
       var token = localStorage.getItem("token");
       axios
         .post(
-          host.URL_BACKEND + "/api/system/organization/employee/update",
+          host.URL_BACKEND + "/api/company/organization/employee/update",
           {
             editNameEmployee: this.state.editNameEmployee,
             editEmailEmployee: this.state.editEmailEmployee,

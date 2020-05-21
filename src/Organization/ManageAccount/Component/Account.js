@@ -103,7 +103,7 @@ class Account extends Component {
       var token = localStorage.getItem("token");
       axios
         .post(
-          host.URL_BACKEND + "/api/system/create/employee/account",
+          host.URL_BACKEND + "/api/company/create/employee/account",
           {
             username: this.state.username,
             password: this.state.password,
@@ -166,7 +166,7 @@ class Account extends Component {
     var token = localStorage.getItem("token");
     var idCompany = localStorage.getItem("company_id");
     axios
-      .get(host.URL_BACKEND + "/api/system/account/employee/" + idCompany, {
+      .get(host.URL_BACKEND + "/api/company/account/employee/" + idCompany, {
         headers: { Authorization: "Bearer " + token },
       })
       .then(function (response) {
@@ -200,7 +200,7 @@ class Account extends Component {
     var token = localStorage.getItem("token");
     var idCompany = localStorage.getItem("company_id");
     axios
-      .get(host.URL_BACKEND + "/api/system/account/list/" + idCompany, {
+      .get(host.URL_BACKEND + "/api/company/account/list/" + idCompany, {
         headers: { Authorization: "Bearer " + token },
       })
       .then(function (response) {

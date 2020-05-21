@@ -174,7 +174,7 @@ export default class ModalCreateEmployeeRole extends Component {
                   className="btn btn-primary mb-2 mr-2"
                   onClick={(e) => this.saveNewEmployee(e)}
                 >
-                  Save
+                  Lưu
                 </button>
               </div>
             </form>
@@ -223,7 +223,7 @@ export default class ModalCreateEmployeeRole extends Component {
       var token = localStorage.getItem("token");
       axios
         .post(
-          host.URL_BACKEND + "/api/system/organization/employee/new",
+          host.URL_BACKEND + "/api/company/organization/employee/new",
           {
             newNameEmployee: this.state.newNameEmployee,
             newEmailEmployee: this.state.newEmailEmployee,

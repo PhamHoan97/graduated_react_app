@@ -90,7 +90,7 @@ class EmployeeOrganization extends Component {
     axios
       .get(
         host.URL_BACKEND +
-          "/api/system/organization/employee/detail/" +
+          "/api/company/organization/employee/detail/" +
           idEditEmployee,
         {
           headers: { Authorization: "Bearer " + token },
@@ -131,9 +131,8 @@ class EmployeeOrganization extends Component {
     axios
       .get(
         host.URL_BACKEND +
-          "/api/system/organization/company/" +
-          idCompany +
-          "/employee",
+          "/api/company/organization/employee/" +
+          idCompany,
         {
           headers: { Authorization: "Bearer " + token },
         }
@@ -172,7 +171,7 @@ class EmployeeOrganization extends Component {
     var token = localStorage.getItem("token");
     axios
       .post(
-        host.URL_BACKEND + "/api/system/organization/employee/delete",
+        host.URL_BACKEND + "/api/company/organization/employee/delete",
         {
           idDeleteEmployee: idDeleteEmployee,
         },
@@ -199,7 +198,7 @@ class EmployeeOrganization extends Component {
     var token = localStorage.getItem("token");
     axios
       .get(
-        host.URL_BACKEND + "/api/system/organization/department/" + idCompany,
+        host.URL_BACKEND + "/api/company/organization/department/" + idCompany,
         {
           headers: { Authorization: "Bearer " + token },
         }
@@ -229,7 +228,7 @@ class EmployeeOrganization extends Component {
     var token = localStorage.getItem("token");
     axios
       .post(
-        host.URL_BACKEND + "/api/system/organization/company/employee/search",{
+        host.URL_BACKEND + "/api/company/organization/employee/search",{
           textNameSearch:this.state.textNameSearch,
           textEmailSearch:this.state.textEmailSearch,
           idDepartmentSearch:this.state.idDepartmentSearch,
@@ -652,8 +651,8 @@ class EmployeeOrganization extends Component {
                   <div className="col-md-5"></div>
                   <div className="col-md-4 text-center">
                     <ReactPaginate
-                      previousLabel={"Prev"}
-                      nextLabel={"Next"}
+                      previousLabel={"Trước"}
+                      nextLabel={"Sau"}
                       breakLabel={"..."}
                       breakClassName={"break-me"}
                       pageCount={this.state.pageCount}

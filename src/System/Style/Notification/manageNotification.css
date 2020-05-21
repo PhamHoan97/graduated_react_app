@@ -9,3 +9,13 @@
     background-color: #ffffff !important;
     padding-right: 100px;
 }
+.addCssButtonExcel{
+    background-color: rgb(194, 34, 42);
+    border: none;
+    color: white;
+    padding: 8px 13px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}

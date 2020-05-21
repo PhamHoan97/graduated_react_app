@@ -135,7 +135,7 @@ class ProcessCompany extends Component {
   OpenModalDetailEmployee = (e, id_employee) => {
     e.preventDefault();
     var token = localStorage.getItem('token');
-    axios.get(`http://127.0.0.1:8000/api/system/organization/employee/detail/` + id_employee,
+    axios.get(`http://127.0.0.1:8000/api/company/organization/employee/detail/` + id_employee,
     {
         headers: { 'Authorization': 'Bearer ' + token}
     }).then(res => {

@@ -6,6 +6,12 @@ class ChartOrganization extends Component {
   }
   componentDidUpdate() {
     this.chart = new OrgChart(this.refs.tree, {
+      menu: {
+        pdf: { text: "Export PDF" },
+        png: { text: "Export PNG" },
+        svg: { text: "Export SVG" },
+        csv: { text: "Export CSV" }
+      },
       tags: {
         "Company": {
             template: "ula"

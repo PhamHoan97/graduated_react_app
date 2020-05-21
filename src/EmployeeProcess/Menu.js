@@ -366,7 +366,6 @@ class Menu extends Component {
             </Modal.Header>
             <Modal.Body>
                 <div className="alert-error" id="alert-modal-error-update-account">
-                        
                 </div>
                 <Form onSubmit={(e) => this.handleSubmitForm(e)}>
                     <Form.Group controlId="formGroupPassword1">

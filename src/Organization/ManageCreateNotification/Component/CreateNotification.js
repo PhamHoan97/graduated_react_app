@@ -78,6 +78,32 @@ class CreateNotification extends Component {
       });
   };
 
+  deleteNotificationCreated = (e,idNotificateCreate) => {
+    e.preventDefault();
+    var self = this;
+    var token = localStorage.getItem("token");
+    axios
+      .post(
+        host.URL_BACKEND + "/api/company/notification/create/delete",{
+          idNotificateCreate:idNotificateCreate
+        },
+        {
+          headers: { Authorization: "Bearer " + token },
+        }
+      )
+      .then(function (response) {
+        if (response.data.error != null) {
+          console.log(response.data.error);
+        } else {
+          self.getListNotification();
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+
   componentWillMount() {
     this.getListNotification();
   }
@@ -108,11 +134,17 @@ class CreateNotification extends Component {
                   <LinkPage linkPage=" Thông báo " />
                 </div>
                 <div className="card shadow-sm ctm-border-radius  manage-notification_organization">
-                  <div className="card-header d-flex align-items-center justify-content-between text-right">
+                  <div className="card-header d-flex align-items-center justify-content-between">
+                    <div className="card-title mb-0 d-inline-block"></div>
                     <ModalCreateNotification
                       getListNotification={this.getListNotification}
                       showModal={this.state.showModalCreateNotification}
                       close={() => this.closeCreateNotification()}
+                    />
+                    <ModalSendNotificationCompany
+                      getListNotification={this.getListNotification}
+                      showModal={this.state.showModalSendNotification}
+                      close={() => this.closeSendNotification()}
                     />
                     <a
                       href="create-review.html"
@@ -124,7 +156,6 @@ class CreateNotification extends Component {
                   </div>
                   <div className="card-body align-center">
                     <div className="tab-content" id="v-pills-tabContent">
-                      {/* Tab1*/}
                       <div
                         className="tab-pane fade active show"
                         id="v-pills-home"
@@ -140,7 +171,7 @@ class CreateNotification extends Component {
                                   <th style={{ width: "30%" }}>Miêu tả</th>
                                   <th style={{ width: "20%" }}>Ngày tạo</th>
                                   <th style={{ width: "10%" }}>Trạng thái</th>
-                                  <th style={{ width: "25%" }}></th>
+                                  <th style={{ width: "25%" }} className="text-left ml-4"></th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -179,52 +210,40 @@ class CreateNotification extends Component {
                                             </a>
                                           </div>
                                         </td>
-                                        <td style={{ width: "25%" }}>
-                                          <div className="table-action">
+                                        <td style={{ width: "25%" }} className="text-left">
+                                          <div className="table-action ml-5">
                                             {parseInt(notification.status) ===
                                             1 ? (
                                               <div></div>
                                             ) : (
-                                              <>
-                                                <ModalSendNotificationCompany
-                                                  getListNotification={
-                                                    this.getListNotification
-                                                  }
-                                                  showModal={
-                                                    this.state
-                                                      .showModalSendNotification
-                                                  }
-                                                  close={() =>
-                                                    this.closeSendNotification()
-                                                  }
-                                                />
-                                                <a
-                                                  href="edit-review.html"
-                                                  className="btn btn-sm btn-outline-success"
-                                                  onClick={(e) =>
-                                                    this.openSendNotification(
-                                                      e,
-                                                      notification.id
-                                                    )
-                                                  }
-                                                >
-                                                  <span className="lnr lnr-pencil" />{" "}
-                                                  Gửi
-                                                </a>
-                                              </>
+                                              <a
+                                                href="edit-review.html"
+                                                className="btn btn-sm btn-outline-success"
+                                                onClick={(e) =>
+                                                  this.openSendNotification(
+                                                    e,
+                                                    notification.id
+                                                  )
+                                                }
+                                              >
+                                                <span className="lnr lnr-pencil" />{" "}
+                                                Gửi
+                                              </a>
                                             )}
-                                            <a
+
+                                            {/* <a
                                               href="edit-review.html"
                                               className="btn btn-sm btn-outline-success"
                                             >
                                               <span className="lnr lnr-pencil" />{" "}
                                               Chi tiết
-                                            </a>
+                                            </a> */}
                                             <a
                                               href="##"
                                               className="btn btn-sm btn-outline-danger"
                                               data-toggle="modal"
                                               data-target="#delete"
+                                              onClick={(e) => this.deleteNotificationCreated(e,notification.id)}
                                             >
                                               <span className="lnr lnr-trash" />{" "}
                                               Xóa

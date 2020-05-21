@@ -28,7 +28,7 @@ class DepartmentOrganization extends Component {
     var token = localStorage.getItem("token");
     axios
       .get(
-        host.URL_BACKEND + "/api/system/organization/department/" + idCompany,
+        host.URL_BACKEND + "/api/company/organization/department/" + idCompany,
         {
           headers: { Authorization: "Bearer " + token },
         }
@@ -88,7 +88,7 @@ class DepartmentOrganization extends Component {
   getDetailDepartmentOrganization = (idEditDepartment) =>{
     var token = localStorage.getItem('token');
     var self =  this;
-    axios.get(host.URL_BACKEND+'/api/system/organization/department/edit/'+idEditDepartment,{
+    axios.get(host.URL_BACKEND+'/api/company/organization/department/edit/'+idEditDepartment,{
         headers: { 'Authorization': 'Bearer ' + token }
     })
     .then(function (response) {
@@ -110,7 +110,7 @@ class DepartmentOrganization extends Component {
     e.preventDefault();
     let self = this;
     var token = localStorage.getItem('token');
-    axios.post(host.URL_BACKEND+'/api/system/organization/department/delete',{
+    axios.post(host.URL_BACKEND+'/api/company/organization/department/delete',{
         idDeleteDepartment:idDeleteDepartment,
     },{
         headers: { 'Authorization': 'Bearer ' + token }

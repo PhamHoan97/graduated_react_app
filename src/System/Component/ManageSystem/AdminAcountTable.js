@@ -69,9 +69,9 @@ class AdminAcountTable extends Component {
     displayNextPaging =()=>{
         var count = this.state.admins.length;
         if(count <=8){
-            return  <li className="paginate_button page-item next disabled" id="dataTable_next"><a href="#4AE" aria-controls="dataTable" data-dt-idx={7} tabIndex={0} className="page-link"  onClick={(e) => this.handleNext(e)}>Next</a></li>
+            return  <li className="paginate_button page-item next disabled" id="dataTable_next"><a href="#4AE" aria-controls="dataTable" data-dt-idx={7} tabIndex={0} className="page-link"  onClick={(e) => this.handleNext(e)}>Sau</a></li>
         }else{
-            return  <li className="paginate_button page-item next" id="dataTable_next"><a href="#4AE" aria-controls="dataTable" data-dt-idx={7} tabIndex={0} className="page-link"  onClick={(e) => this.handleNext(e)}>Next</a></li>
+            return  <li className="paginate_button page-item next" id="dataTable_next"><a href="#4AE" aria-controls="dataTable" data-dt-idx={7} tabIndex={0} className="page-link"  onClick={(e) => this.handleNext(e)}>Sau</a></li>
         }
     }
 
@@ -198,12 +198,11 @@ class AdminAcountTable extends Component {
                 </table>
             </div>
             {/* Paginate */}
-            <div className="row">
-                <div className="col-sm-12 col-md-3"></div>
-                <div className="col-sm-12 col-md-6">
+            <div className="row justify-content-center">
+                <div className="col-md-3 text-center">
                     <div className="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
                         <ul className="pagination">
-                            <li className="paginate_button page-item previous disabled" id="dataTable_previous"><a href="#4AE" aria-controls="dataTable" data-dt-idx={0} tabIndex={0} className="page-link" onClick={(e) => this.handlePrevious(e)}>Previous</a>
+                            <li className="paginate_button page-item previous disabled" id="dataTable_previous"><a href="#4AE" aria-controls="dataTable" data-dt-idx={0} tabIndex={0} className="page-link" onClick={(e) => this.handlePrevious(e)}>Trước</a>
                             </li>
                             {/** Hiện thị số lượng page */}
                             {this.displayPaging()}
@@ -212,7 +211,6 @@ class AdminAcountTable extends Component {
                         </ul>
                     </div>
                 </div>
-                <div className="col-sm-12 col-md-3"></div>
             </div>
             {/* End Paginate */}
         </div>

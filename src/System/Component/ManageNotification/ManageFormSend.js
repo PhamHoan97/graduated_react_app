@@ -43,6 +43,27 @@ export default class ManageFormSend extends Component {
         console.log(error);
       });
   };
+
+  deleteForm = (e,idForm) =>{
+    e.preventDefault();
+    let self = this;
+    var token = localStorage.getItem('token');
+    axios.post(host.URL_BACKEND+'/api/system/notification/form/delete',{
+      idForm:idForm,
+    },{
+        headers: { 'Authorization': 'Bearer ' + token }
+    })
+    .then(function (response) {
+        if (response.data.error != null) {
+        } else {
+            console.log(response);
+            self.getlistForm();
+        }
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+  }
   componentWillMount() {
     this.getlistForm();
   }
@@ -81,7 +102,7 @@ export default class ManageFormSend extends Component {
                       </div>
                       <div className="table-responsive table-responsive-data2">
                       <table className="table custom-table table-hover table-notification_organization">
-                              <thead class="thead-dark">
+                              <thead className="thead-dark">
                                 <tr>
                                   <th style={{ width: "15%" }} className="text-center">Tên</th>
                                   <th style={{ width: "30%" }} className="text-center">Miêu tả</th>
@@ -95,7 +116,7 @@ export default class ManageFormSend extends Component {
                                   Object.values(this.state.listForm).map(
                                     (form, key) => {
                                       return (
-                                        <tr>
+                                        <tr key={key}>
                                           <td
                                             style={{ width: "15%" }}
                                             className="cell-breakWord"
@@ -124,6 +145,7 @@ export default class ManageFormSend extends Component {
                                                 className="btn btn-sm btn-outline-danger"
                                                 data-toggle="modal"
                                                 data-target="#delete"
+                                                onClick={(e) => this.deleteForm(e,form.id)}
                                               >
                                                 <span className="lnr lnr-trash" />{" "}
                                                 Xóa

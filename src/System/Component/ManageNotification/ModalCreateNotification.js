@@ -21,6 +21,7 @@ export default class ModalCreateNotification extends Component {
             newDescriptionNotification: "",
             newFileNotification: "",
             newFormNotification: 0,
+            inputKey: Date.now()
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleChangeFile = this.handleChangeFile.bind(this);
@@ -67,7 +68,7 @@ export default class ModalCreateNotification extends Component {
     }
     displayAlert = () =>{
         if(this.state.isDisplayAlert){
-            return <Alert severity="success">Save success !!!</Alert>;
+            return <Alert severity="success">Lưu thành công</Alert>;
         }else{
             return <div></div>
         }
@@ -122,6 +123,7 @@ export default class ModalCreateNotification extends Component {
                         newDescriptionNotification: "",
                         newFormNotification: 0,
                         newFileNotification: "",
+                        inputKey: Date.now(),
                     });
                     setTimeout(() => {
                         self.setState({isDisplayAlert : false});
@@ -223,6 +225,7 @@ export default class ModalCreateNotification extends Component {
                     <input
                         type="file"
                         id="file-input"
+                        key={this.state.inputKey}
                         name="newFileNotification"
                         className="form-control-file"
                         onChange={(event) => this.handleChangeFile(event)}

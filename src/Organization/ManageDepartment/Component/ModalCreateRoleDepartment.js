@@ -160,7 +160,7 @@ export default class ModalCreateRoleDepartment extends Component {
       var token = localStorage.getItem("token");
       axios
         .post(
-          host.URL_BACKEND + "/api/system/organization/role/new",
+          host.URL_BACKEND + "/api/company/organization/role/new",
           {
             newNameRole: this.state.newNameRole,
             newDescriptionRole: this.state.newDescriptionRole,

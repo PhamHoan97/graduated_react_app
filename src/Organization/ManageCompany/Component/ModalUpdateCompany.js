@@ -73,7 +73,7 @@ class ModalUpdateCompany extends Component {
 
     displayAlert = () =>{
         if(this.state.isAlertSuccess){
-            return <Alert severity="success">Edit success !!!</Alert>;
+            return <Alert severity="success">Cập nhật thành công !</Alert>;
         }else{
             return <div></div>
         }
@@ -85,7 +85,7 @@ class ModalUpdateCompany extends Component {
         var idCompany = localStorage.getItem("company_id");
         axios
         .post(
-            host.URL_BACKEND + "/api/system/company/information/update",
+            host.URL_BACKEND + "/api/company/information/update",
             {
                 idCompany : idCompany,
                 name: this.state.editNameCompany,
@@ -130,8 +130,6 @@ class ModalUpdateCompany extends Component {
             </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-            <div className="card">
-                <div className="card-body card-block">
                 <Form
                     onSubmit={(e) => this.onSubmit(e)}
                     ref={(c) => {
@@ -255,8 +253,6 @@ class ModalUpdateCompany extends Component {
                 {
                     this.displayAlert()
                 }
-                </div>
-            </div>
             </Modal.Body>
         </Modal>
         );
