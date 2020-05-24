@@ -39,6 +39,9 @@ class MenuVertical extends Component {
         if(res.data.error != null){
             console.log(res.data.error);
         }else{
+            if(localStorage.getItem("builderSchema") !== null){
+              localStorage.removeItem("builderSchema");
+            }
             this.setState({isLogout:true});
         }
       }).catch(function (error) {

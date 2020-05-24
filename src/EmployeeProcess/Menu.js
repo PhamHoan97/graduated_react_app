@@ -126,6 +126,9 @@ class Menu extends Component {
     if(localStorage.getItem("employee_id")){
       localStorage.removeItem("is_employee");
       localStorage.removeItem("employee_id");
+      if(localStorage.getItem("dataForm") !== null){
+        localStorage.removeItem("dataForm");
+      }
       axios.post(`http://127.0.0.1:8000/api/logout/employee`)
       .then(res => {
         if(res.data.error != null){

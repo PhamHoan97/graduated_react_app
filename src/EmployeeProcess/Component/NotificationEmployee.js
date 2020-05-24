@@ -187,7 +187,7 @@ class NotificationEmployee extends Component {
                 <h3 className="page-title_employee">Danh sách thông báo</h3>
               </div>
             </div>
-            {/* <div className="row filter-row">
+            <div className="row filter-row">
               <div
                 className="col-sm-6 col-md-4 text-center"
                 style={{ fontFamily: "initial" }}
@@ -227,7 +227,7 @@ class NotificationEmployee extends Component {
                   Tìm kiếm{" "}
                 </a>
               </div>
-            </div> */}
+            </div>
             <div className="row">
               <div className="col-md-12">
                 <div className="table-responsive">
@@ -277,7 +277,7 @@ class NotificationEmployee extends Component {
                                       Chi tiết
                                     </NavLink>
                                   }
-                                  <a
+                                  {/* <a
                                     href="##"
                                     className="btn btn-sm btn-outline-danger"
                                     data-toggle="modal"
@@ -285,7 +285,7 @@ class NotificationEmployee extends Component {
                                     onClick={(e) => this.deleteNotificationCompany(e,notification.id)}
                                   >
                                     <span className="lnr lnr-trash" /> Xóa
-                                  </a>
+                                  </a> */}
                                   </div>
                                 </td>
                               </tr>
@@ -328,7 +328,7 @@ class NotificationEmployee extends Component {
                                     <span className="lnr lnr-pencil" />{" "}
                                     Chi tiết
                                   </NavLink>
-                                  <a
+                                  {/* <a
                                     href="##"
                                     className="btn btn-sm btn-outline-danger"
                                     data-toggle="modal"
@@ -336,7 +336,7 @@ class NotificationEmployee extends Component {
                                     onClick={(e) => this.deleteNotificationSystem(e,notification.id)}
                                   >
                                     <span className="lnr lnr-trash" /> Xóa
-                                  </a>
+                                  </a> */}
                                 </div>
                               </td>
                             </tr>

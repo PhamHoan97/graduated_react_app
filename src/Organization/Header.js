@@ -18,8 +18,10 @@ export default class Header extends Component {
       if(res.data.error != null){
           console.log(res.data.error);
       }else{
-          console.log(res.data.message);
-          this.setState({isLogout:true});
+        if(localStorage.getItem("dataForm") !== null){
+          localStorage.removeItem("dataForm");
+        }
+        this.setState({isLogout:true});
       }
     }).catch(function (error) {
       alert(error);
