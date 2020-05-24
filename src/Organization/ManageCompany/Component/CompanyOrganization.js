@@ -22,10 +22,9 @@ export default class CompanyOrganization extends Component {
   getDataOrganization = () =>{
     this._isMounted = true;
     var self = this;
-    var idCompany = localStorage.getItem('company_id');
     var token = localStorage.getItem('token');
     axios.post(host.URL_BACKEND+'/api/company/organization/chart', {
-        idCompany:idCompany
+        token:token
     },{
       headers: { 'Authorization': 'Bearer ' + token }
     })

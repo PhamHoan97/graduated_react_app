@@ -20,12 +20,11 @@ export default class CompanyInformation extends Component {
     this._isMounted = true;
     var self = this;
     var token = localStorage.getItem("token");
-    var idCompany = localStorage.getItem("company_id");
     axios
       .post(
         host.URL_BACKEND + "/api/company/information",
         {
-          idCompany: idCompany,
+          token: token,
         },
         {
           headers: { Authorization: "Bearer " + token },
@@ -50,12 +49,11 @@ export default class CompanyInformation extends Component {
     this._isMounted = true;
     var self = this;
     var token = localStorage.getItem("token");
-    var idCompany = localStorage.getItem("company_id");
     axios
       .post(
         host.URL_BACKEND + "/api/company/organization/statistics",
         {
-          idCompany: idCompany,
+          token: token,
         },
         {
           headers: { Authorization: "Bearer " + token },

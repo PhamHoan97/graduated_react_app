@@ -173,12 +173,11 @@ export default class ModalCreateForm extends Component {
         ){
             var self =  this;
             var token = localStorage.getItem('token');
-            var idSystem = localStorage.getItem('system_id');
             axios.post(host.URL_BACKEND+"/api/system/notification/form/create",{
                 newNameForm: this.state.newNameForm,
                 newDescriptionForm: this.state.newDescriptionForm,
                 newTemplateForm: this.state.newTemplateForm,
-                idSystem: idSystem
+                token: token
             },
             {
               headers: { 'Authorization': 'Bearer ' + token }

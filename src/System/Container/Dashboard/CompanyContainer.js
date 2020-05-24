@@ -45,7 +45,10 @@ export default class CompanyContainer extends Component {
 
     getListCompany =()=>{
         var self =  this;
-        axios.get(host.URL_BACKEND+'/api/system/dashboard/company')
+        var token = localStorage.getItem("token");
+        axios.get(host.URL_BACKEND+'/api/system/dashboard/company',{
+            headers: { 'Authorization': 'Bearer ' + token }
+        })
         .then(function (response) {
             if (response.data.error != null) {
             } else {

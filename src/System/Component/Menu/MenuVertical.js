@@ -34,10 +34,7 @@ class MenuVertical extends Component {
   handleLogout = (event) => {
     event.preventDefault();
     localStorage.removeItem("token");
-    if(localStorage.getItem("system_id")){
-      localStorage.removeItem("system_id");
-      localStorage.removeItem("is_system");
-      axios.post(`http://127.0.0.1:8000/api/logout/system`)
+    axios.post(`http://127.0.0.1:8000/api/logout/system`)
       .then(res => {
         if(res.data.error != null){
             console.log(res.data.error);
@@ -47,23 +44,6 @@ class MenuVertical extends Component {
       }).catch(function (error) {
         alert(error);
       });
-    }
-
-    if(localStorage.getItem("admin_id")){
-      localStorage.removeItem("is_admin");
-      localStorage.removeItem("admin_id");
-      localStorage.removeItem("company_id");
-      axios.post(`http://127.0.0.1:8000/api/logout/company`)
-      .then(res => {
-        if(res.data.error != null){
-            console.log(res.data.error);
-        }else{
-            this.setState({isLogout:true});
-        }
-      }).catch(function (error) {
-        alert(error);
-      });
-    }
   }
 
   componentDidMount() {

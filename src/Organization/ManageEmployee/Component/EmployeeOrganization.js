@@ -14,6 +14,7 @@ import { connect } from "react-redux";
 import { editEmployeeOrganization } from "../Action/Index";
 import ReactPaginate from "react-paginate";
 import {NavLink} from "react-router-dom";
+import {showMessageAlert} from "../../../Alert/Action/Index";
 class EmployeeOrganization extends Component {
   _isMounted = false;
   constructor(props, context) {
@@ -126,13 +127,12 @@ class EmployeeOrganization extends Component {
   getListEmployee = () => {
     this._isMounted = true;
     let self = this;
-    var idCompany = localStorage.getItem("company_id");
     var token = localStorage.getItem("token");
     axios
       .get(
         host.URL_BACKEND +
           "/api/company/organization/employee/" +
-          idCompany,
+          token,
         {
           headers: { Authorization: "Bearer " + token },
         }
@@ -182,7 +182,15 @@ class EmployeeOrganization extends Component {
       .then(function (response) {
         if (response.data.error != null) {
         } else {
-          console.log(response);
+          self.props.showAlert({
+            message:'Xóa nhân viên thành công ',
+            anchorOrigin:{
+                vertical: 'top',
+                horizontal: 'center'
+            },
+            title:'Success',
+            severity:'success'
+          });
           self.getListEmployee();
         }
       })
@@ -194,11 +202,10 @@ class EmployeeOrganization extends Component {
   getListDepartment = () => {
     this._isMounted = true;
     let self = this;
-    var idCompany = localStorage.getItem("company_id");
     var token = localStorage.getItem("token");
     axios
       .get(
-        host.URL_BACKEND + "/api/company/organization/department/" + idCompany,
+        host.URL_BACKEND + "/api/company/organization/department/" + token,
         {
           headers: { Authorization: "Bearer " + token },
         }
@@ -678,6 +685,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     editEmployee: (detailEmployee) => {
       dispatch(editEmployeeOrganization(detailEmployee));
     },
+    showAlert: (properties) => {
+      dispatch(showMessageAlert(properties))
+    }
   };
 };
 export default connect(null, mapDispatchToProps)(EmployeeOrganization);

@@ -5,8 +5,10 @@ import ModalCreateForm from "./ModalCreateForm";
 import axios from "axios";
 import * as host from "../../Constants/Url";
 import "../../Style/Notification/manageNotification.css";
+import  {connect} from 'react-redux';
+import {showMessageAlert} from "../../../Alert/Action/Index";
 
-export default class ManageFormSend extends Component {
+class ManageFormSend extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -56,7 +58,15 @@ export default class ManageFormSend extends Component {
     .then(function (response) {
         if (response.data.error != null) {
         } else {
-            console.log(response);
+            self.props.showAlert({
+              message:'Xóa Form thành công ',
+              anchorOrigin:{
+                  vertical: 'top',
+                  horizontal: 'center'
+              },
+              title:'Success',
+              severity:'success'
+            });
             self.getlistForm();
         }
     })
@@ -184,3 +194,11 @@ export default class ManageFormSend extends Component {
     );
   }
 }
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    showAlert: (properties) => {
+      dispatch(showMessageAlert(properties))
+    }
+  }
+}
+export default connect(null,mapDispatchToProps)(ManageFormSend);

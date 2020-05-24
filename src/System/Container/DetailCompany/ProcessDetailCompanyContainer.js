@@ -20,7 +20,10 @@ export default class ProcessDetailCompanyContainer extends Component {
 
     getListDepartmentCompany = () => {
         var self =  this;
-        axios.get(host.URL_BACKEND+"/api/system/dashboard/department/company/"+this.props.idCompany)
+        var token = localStorage.getItem('token');
+        axios.get(host.URL_BACKEND+"/api/system/dashboard/department/company/"+this.props.idCompany,{
+            headers: { 'Authorization': 'Bearer ' + token }
+        })
         .then(function (response) {
             self.setState({
                 listDepartmentCompany:response.data.departmentCompany
@@ -44,7 +47,10 @@ export default class ProcessDetailCompanyContainer extends Component {
 
     getListProcessDepartmentCompany = () => {
         var self =  this;
-        axios.get(host.URL_BACKEND+"/api/system/dashboard/process/company/"+this.props.idCompany)
+        var token = localStorage.getItem("token");
+        axios.get(host.URL_BACKEND+"/api/system/dashboard/process/company/"+this.props.idCompany,{
+            headers: { 'Authorization': 'Bearer ' + token }
+        })
         .then(function (response) {
             var prosesses = self.mergeProcesses(response.data.processes1, response.data.processes2);
             self.setState({

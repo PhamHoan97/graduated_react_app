@@ -82,12 +82,11 @@ class ModalUpdateCompany extends Component {
     saveUpdateCompany = () =>{
         var self = this;
         var token = localStorage.getItem("token");
-        var idCompany = localStorage.getItem("company_id");
         axios
         .post(
             host.URL_BACKEND + "/api/company/information/update",
             {
-                idCompany : idCompany,
+                token : token,
                 name: this.state.editNameCompany,
                 ceo: this.state.editCeoCompany,
                 signature: this.state.editSigntureCompany,

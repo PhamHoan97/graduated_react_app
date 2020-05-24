@@ -12,6 +12,7 @@ import { editEmployeeOrganization } from "../Action/Index";
 import {connect} from "react-redux"
 import ModalEditEmployeeRole from "./ModalEditEmployeeRole";
 import {NavLink} from "react-router-dom";
+import {showMessageAlert} from "../../../Alert/Action/Index";
 function isEmpty(obj) {
   for(var key in obj) {
       if(obj.hasOwnProperty(key))
@@ -100,6 +101,15 @@ class DetailRole extends Component {
       .then(function (response) {
         if (response.data.error != null) {
         } else {
+          self.props.showAlert({
+            message:'Xóa nhân viên thành công ',
+            anchorOrigin:{
+                vertical: 'top',
+                horizontal: 'center'
+            },
+            title:'Success',
+            severity:'success'
+          });
           self.getInformationDetailRole();
         }
       })
@@ -379,6 +389,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     editEmployee: (detailEmployee) => {
       dispatch(editEmployeeOrganization(detailEmployee));
     },
+    showAlert: (properties) => {
+      dispatch(showMessageAlert(properties))
+    }
   };
 };
 export default connect(null, mapDispatchToProps)(DetailRole);

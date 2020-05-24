@@ -164,9 +164,8 @@ class Account extends Component {
     this._isMounted = true;
     var self = this;
     var token = localStorage.getItem("token");
-    var idCompany = localStorage.getItem("company_id");
     axios
-      .get(host.URL_BACKEND + "/api/company/account/employee/" + idCompany, {
+      .get(host.URL_BACKEND + "/api/company/account/employee/" + token, {
         headers: { Authorization: "Bearer " + token },
       })
       .then(function (response) {
@@ -198,9 +197,8 @@ class Account extends Component {
     this._isMounted = true;
     var self = this;
     var token = localStorage.getItem("token");
-    var idCompany = localStorage.getItem("company_id");
     axios
-      .get(host.URL_BACKEND + "/api/company/account/list/" + idCompany, {
+      .get(host.URL_BACKEND + "/api/company/account/list/" + token, {
         headers: { Authorization: "Bearer " + token },
       })
       .then(function (response) {

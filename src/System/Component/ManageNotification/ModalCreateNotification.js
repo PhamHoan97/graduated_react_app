@@ -142,7 +142,6 @@ export default class ModalCreateNotification extends Component {
         this.form.validateAll();
     };
     handleChangeFile = (event) => {
-        console.log(event.target.files[0]);
         this.setState({
             newFileNotification: event.target.files[0]
         });

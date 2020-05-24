@@ -20,12 +20,11 @@ class NotificationEmployee extends Component {
     this._isMounted = true;
     var self = this;
     var token = localStorage.getItem("token");
-    var idAccount = localStorage.getItem("account_id");
     axios
       .post(
         host.URL_BACKEND + "/api/employee/notification/list/system",
         {
-          idAccount: idAccount,
+          token: token,
         },
         {
           headers: { Authorization: "Bearer " + token },
@@ -51,12 +50,11 @@ class NotificationEmployee extends Component {
     this._isMounted = true;
     var self = this;
     var token = localStorage.getItem("token");
-    var idAccount = localStorage.getItem("account_id");
     axios
       .post(
         host.URL_BACKEND + "/api/employee/notification/list/company",
         {
-          idAccount: idAccount,
+          token: token,
         },
         {
           headers: { Authorization: "Bearer " + token },
@@ -100,6 +98,49 @@ class NotificationEmployee extends Component {
         console.log(error);
     });
   }
+
+  deleteNotificationCompany = (e,idNotificationFromCompany) =>{
+    e.preventDefault();
+    var self = this;
+    var token = localStorage.getItem("token");
+    axios.post(host.URL_BACKEND+'/api/employee/notification/company/delete', {
+      idNotificationFromCompany:idNotificationFromCompany
+    },{
+        headers: { 'Authorization': 'Bearer ' + token }
+    })
+    .then(function (response) {
+        if (response.data.error != null) {
+        console.log(response.data.error);
+        } else {
+          self.getListNotificationFromCompany();
+        }
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+  }
+
+  deleteNotificationSystem = (e,idNotificationFromSystem) =>{
+    e.preventDefault();
+    var self = this;
+    var token = localStorage.getItem("token");
+    axios.post(host.URL_BACKEND+'/api/employee/notification/system/delete', {
+      idNotificationFromSystem:idNotificationFromSystem
+    },{
+        headers: { 'Authorization': 'Bearer ' + token }
+    })
+    .then(function (response) {
+        if (response.data.error != null) {
+        console.log(response.data.error);
+        } else {
+          self.getListNotificationFromSystem();
+        }
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+  }
+
 
   getDetailNotificationSystem = (idNotificationSystemEmployee) =>{
     var self = this;
@@ -146,7 +187,7 @@ class NotificationEmployee extends Component {
                 <h3 className="page-title_employee">Danh sách thông báo</h3>
               </div>
             </div>
-            <div className="row filter-row">
+            {/* <div className="row filter-row">
               <div
                 className="col-sm-6 col-md-4 text-center"
                 style={{ fontFamily: "initial" }}
@@ -186,7 +227,7 @@ class NotificationEmployee extends Component {
                   Tìm kiếm{" "}
                 </a>
               </div>
-            </div>
+            </div> */}
             <div className="row">
               <div className="col-md-12">
                 <div className="table-responsive">
@@ -241,6 +282,7 @@ class NotificationEmployee extends Component {
                                     className="btn btn-sm btn-outline-danger"
                                     data-toggle="modal"
                                     data-target="#delete"
+                                    onClick={(e) => this.deleteNotificationCompany(e,notification.id)}
                                   >
                                     <span className="lnr lnr-trash" /> Xóa
                                   </a>
@@ -291,6 +333,7 @@ class NotificationEmployee extends Component {
                                     className="btn btn-sm btn-outline-danger"
                                     data-toggle="modal"
                                     data-target="#delete"
+                                    onClick={(e) => this.deleteNotificationSystem(e,notification.id)}
                                   >
                                     <span className="lnr lnr-trash" /> Xóa
                                   </a>

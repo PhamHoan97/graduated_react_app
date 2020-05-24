@@ -75,14 +75,13 @@ class DetailNotificationComponent extends Component {
   handleClick = (e,idNotificationEmployee) => {
     e.preventDefault();
     var self = this;
-    var idAccount = localStorage.getItem("account_id");
     var token = localStorage.getItem("token");
     axios
       .post(
         host.URL_BACKEND + "/api/employee/notification/create/response",
         {
           idNotificationEmployee: idNotificationEmployee,
-          idAccount: idAccount,
+          token: token,
           contentResponse: JSON.parse(localStorage.getItem("dataForm")).data,
         },
         {

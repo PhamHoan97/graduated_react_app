@@ -68,10 +68,6 @@ class SystemLogin extends Component{
                 console.log(res.data.message);
             }else{
                 localStorage.setItem('token', res.data.token);
-                if(res.data.isSystem){
-                    localStorage.setItem('system_id', res.data.id);
-                    localStorage.setItem('is_system', res.data.isSystem);
-                }
                 this.setState({redirectSystem:true});
             }
           }).catch(function (error) {
