@@ -75,9 +75,9 @@ class Process extends Component {
                             vertical: 'top',
                             horizontal: 'right'
                         },
-                        title:'Thành công',
-                        severity:'success'
-                      });
+                        title:'Thất bại',
+                        severity:'error'
+                    });
                 }else{
                     this.props.showAlert({
                         message: res.data.message,

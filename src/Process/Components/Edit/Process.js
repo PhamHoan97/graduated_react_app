@@ -84,11 +84,10 @@ class Process extends Component {
                     vertical: 'top',
                     horizontal: 'right'
                 },
-                title:'Thành công',
+                title:'Thất bại',
                 severity:'error'
               });
           }else{
-              this.setState({reloadEdit: true, idEditProcess: res.data.process.id});
               this.props.showAlert({
                 message: res.data.message,
                 anchorOrigin:{
@@ -98,6 +97,7 @@ class Process extends Component {
                 title:'Thành công',
                 severity:'success'
               });
+              this.setState({reloadEdit: true, idEditProcess: res.data.process.id});
           }
         }).catch(function (error) {
           alert(error);

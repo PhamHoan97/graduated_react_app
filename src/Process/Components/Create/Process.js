@@ -102,8 +102,8 @@ class Process extends Component {
                   vertical: 'top',
                   horizontal: 'right'
               },
-              title:'Thành công',
-              severity:'success'
+              title:'Thất bại',
+              severity:'error'
             });
           }else{
             this.props.showAlert({
@@ -253,6 +253,29 @@ class Process extends Component {
         }
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+      if(nextProps.importData && nextProps.importData === this.initialDiagram){
+        return false;
+      }else{
+        this.initialDiagram = nextProps.importData;
+      }
+      return true;
+    }
+  
+    componentDidUpdate (){
+        this.modeler.attachTo('#create-process-diagram');
+        this.modeler.importXML(this.initialDiagram, function(err) {
+  
+        });
+        var eventBus = this.modeler.get('eventBus');
+        console.log(eventBus);
+        this.modeler.on('element.click',1000, (e) => this.interactPopup(e));
+  
+        this.modeler.on('shape.remove',1000, (e) => this.deleteElements(e));
+  
+        this.modeler.on('commandStack.shape.delete.revert', () => this.handleUndoDeleteElement());
+    }
+
     componentDidMount (){
         this.modeler.attachTo('#create-process-diagram');
         this.modeler.importXML(this.initialDiagram, function(err) {
@@ -289,6 +312,7 @@ const mapStateToProps = (state, ownProps) => {
       isExportImage: state.processReducers.actionReducers.isExportImage,
       isExportBPMN: state.processReducers.actionReducers.isExportBPMN,
       detail: state.addProcessReducers.informationProcessReducer.information,
+      importData: state.processReducers.headerReducers.importData,
   }
 }
 

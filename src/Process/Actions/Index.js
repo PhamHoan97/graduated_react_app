@@ -97,3 +97,10 @@ export const editDiagram = ()=> {
         type: types.EDIT_DIAGRAM,
     }
 }
+
+export const updateImportBpmnFile = (result)=> {
+    return {
+        type: types.UPDATEIMPORTBPMNFILE,
+        result
+    }
+}

@@ -156,8 +156,8 @@ class ProcessTemplate extends Component {
                   vertical: 'top',
                   horizontal: 'right'
               },
-              title:'Thành công',
-              severity:'success'
+              title:'Thất bại',
+              severity:'error'
             });
           }else{
             this.props.showAlert({
@@ -169,7 +169,7 @@ class ProcessTemplate extends Component {
               title:'Thành công',
               severity:'success'
             });
-            this.setState({openModal:false});
+            this.setState({openModal:false, fields: res.data});
           }
         }).catch(function (error) {
           alert(error);
@@ -219,7 +219,7 @@ class ProcessTemplate extends Component {
                   vertical: 'top',
                   horizontal: 'right'
               },
-              title:'Thành công',
+              title:'Thất bại',
               severity:'error'
             });
         }else{ 
@@ -483,6 +483,5 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     }
   }
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps )(ProcessTemplate);

@@ -109,8 +109,8 @@
 
 .page-wrapper {
     overflow: hidden;
-    background: #ffffff;
-    padding-bottom: 8vh;
+    /* background: #ffffff; */
+    padding-bottom: 22vh;
 }
 
 .menu-sidebar .logo {

@@ -4,6 +4,7 @@
     font-size: 15px;
     height: 200px !important;
     color: #333;
+    line-height: 30px;
 }
 .form-add-process .form-check-input {
     position: absolute;

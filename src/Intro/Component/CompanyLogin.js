@@ -62,7 +62,7 @@ class CompanyLogin extends Component {
                 vertical: 'top',
                 horizontal: 'right'
             },
-            title:'Thành công',
+            title:'Thất bại',
             severity:'error'
           });
         }else{

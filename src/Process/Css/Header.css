@@ -51,3 +51,10 @@
 .text-go-back{
     font-size: smaller;
 }
+
+.input-import-file-bpmn{
+    opacity: 0;
+    width: 50px;
+    position: absolute;
+    margin-left: -42px;
+}
