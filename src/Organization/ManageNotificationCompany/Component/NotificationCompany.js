@@ -21,9 +21,8 @@ class NotificationCompany extends Component {
     this._isMounted = true;
     var self = this;
     var token = localStorage.getItem("token");
-    var idAdmin = localStorage.getItem("admin_id");
     axios.post(host.URL_BACKEND + "/api/company/notification/list",{
-      idAdmin:idAdmin
+      token:token
     },{
       headers: { Authorization: "Bearer " + token },
     })
@@ -146,9 +145,7 @@ class NotificationCompany extends Component {
                                           </td>
                                           <td style={{ width: "25%" }} className="cell-breakWord text-center">
                                             <div className="table-action">
-                                              {
-                                                parseInt(notification.status)===1 ? (<div></div>):(
-                                                  <NavLink
+                                                <NavLink
                                                     to={"/company/notification/detail/"+notification.id}
                                                     exact
                                                     activeClassName="selected"
@@ -161,10 +158,8 @@ class NotificationCompany extends Component {
                                                   >
                                                     <span className="lnr lnr-pencil" />{" "}
                                                     Chi tiết
-                                                  </NavLink>
-                                                )
-                                              }
-                                              <a
+                                                </NavLink>
+                                              {/* <a
                                                 href="##"
                                                 className="btn btn-sm btn-outline-danger"
                                                 data-toggle="modal"
@@ -172,7 +167,7 @@ class NotificationCompany extends Component {
                                               >
                                                 <span className="lnr lnr-trash" />{" "}
                                                 Xóa
-                                              </a>
+                                              </a> */}
                                             </div>
                                           </td>
                                         </tr>

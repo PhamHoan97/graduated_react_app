@@ -33,9 +33,8 @@ class ModalSendNotificationCompany extends Component {
         this._isMounted = true;
         var self = this;
         var token = localStorage.getItem("token");
-        var idCompany = localStorage.getItem("company_id");
         axios
-          .get(host.URL_BACKEND + "/api/company/notification/account/list/" + idCompany, {
+          .get(host.URL_BACKEND + "/api/company/notification/account/list/" + token, {
             headers: { Authorization: "Bearer " + token },
           })
           .then(function (response) {
@@ -98,7 +97,6 @@ class ModalSendNotificationCompany extends Component {
                 if (response.data.error != null) {
                     console.log(response.data.error);
                 }else{
-                    console.log('Save database');
                     self.setState({
                         selectedOptions: [],
                         isDisplayAlert : true,

@@ -148,7 +148,6 @@ export default class CreateTemplateForm extends Component {
     }
     if(!isEmpty(this.state.newNameTemplate) && parseInt(this.state.newTypeTemplate) !== 0){
       var builderSchema = localStorage.getItem("builderSchema");
-      console.log(JSON.parse(builderSchema).components);
       if(JSON.parse(builderSchema).length === 0){
         this.setState({
           errorName: {},

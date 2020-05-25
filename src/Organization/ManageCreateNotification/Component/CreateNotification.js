@@ -10,6 +10,7 @@ import axios from "axios";
 import * as host from "../../Url";
 import { connect } from "react-redux";
 import { getIdNotificationChoose } from "../Action/Index";
+import {showMessageAlert} from "../../../Alert/Action/Index";
 class CreateNotification extends Component {
   _isMounted = false;
   constructor(props, context) {
@@ -54,10 +55,9 @@ class CreateNotification extends Component {
     this._isMounted = true;
     var self = this;
     var token = localStorage.getItem("token");
-    var idCompany = localStorage.getItem("company_id");
     axios
       .get(
-        host.URL_BACKEND + "/api/company/notification/create/list/" + idCompany,
+        host.URL_BACKEND + "/api/company/notification/create/list/" + token,
         {
           headers: { Authorization: "Bearer " + token },
         }
@@ -95,6 +95,15 @@ class CreateNotification extends Component {
         if (response.data.error != null) {
           console.log(response.data.error);
         } else {
+          self.props.showAlert({
+            message:'Xóa thông báo thành công ',
+            anchorOrigin:{
+                vertical: 'top',
+                horizontal: 'center'
+            },
+            title:'Success',
+            severity:'success'
+          });
           self.getListNotification();
         }
       })
@@ -277,6 +286,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     getIdNotificationChoose: (idNotification) => {
       dispatch(getIdNotificationChoose(idNotification));
     },
+    showAlert: (properties) => {
+      dispatch(showMessageAlert(properties))
+    }
   };
 };
 export default connect(null, mapDispatchToProps)(CreateNotification);

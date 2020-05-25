@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import { getIdNotificationChoose } from "../../Action/Notification/Index";
 import "../../Style/Notification/manageNotification.css";
 import ReactExport from "react-export-excel";
+import {showMessageAlert} from "../../../Alert/Action/Index";
 const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
 const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
@@ -65,7 +66,15 @@ class ManageNotification extends Component {
       .then(function (response) {
         if (response.data.error != null) {
         } else {
-          console.log(response);
+          self.props.showAlert({
+            message:'Xóa thông báo thành công ',
+            anchorOrigin:{
+                vertical: 'top',
+                horizontal: 'center'
+            },
+            title:'Success',
+            severity:'success'
+          });
           self.getListNotification();
         }
       })
@@ -412,6 +421,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     getIdNotificationChoose: (idNotification) => {
       dispatch(getIdNotificationChoose(idNotification));
     },
+    showAlert: (properties) => {
+      dispatch(showMessageAlert(properties))
+    }
   };
 };
 export default connect(null, mapDispatchToProps)(ManageNotification);

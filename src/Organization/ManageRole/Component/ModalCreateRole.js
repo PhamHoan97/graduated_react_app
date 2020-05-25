@@ -40,11 +40,10 @@ export default class ModalCreateRole extends Component {
   getListDepartment = () => {
     this._isMounted = true;
     let self = this;
-    var idCompany = localStorage.getItem("company_id");
     var token = localStorage.getItem("token");
     axios
       .get(
-        host.URL_BACKEND + "/api/company/organization/department/" + idCompany,
+        host.URL_BACKEND + "/api/company/organization/department/" + token,
         {
           headers: { Authorization: "Bearer " + token },
         }

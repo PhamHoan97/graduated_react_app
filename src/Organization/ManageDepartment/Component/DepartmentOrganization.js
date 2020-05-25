@@ -9,7 +9,8 @@ import * as host from "../../Url";
 import ModalCreateDepartment from './ModalCreateDepartment';
 import ModalEditDepartment from './ModalEditDepartment';
 import  {connect} from 'react-redux';
-import {editDepartmentOrganization} from '../Action/Index'
+import {editDepartmentOrganization} from '../Action/Index';
+import {showMessageAlert} from "../../../Alert/Action/Index";
 import {NavLink} from "react-router-dom";
 class DepartmentOrganization extends Component {
   _isMounted = false;
@@ -24,11 +25,10 @@ class DepartmentOrganization extends Component {
   getListDepartment = () => {
     this._isMounted = true;
     let self = this;
-    var idCompany = localStorage.getItem("company_id");
     var token = localStorage.getItem("token");
     axios
       .get(
-        host.URL_BACKEND + "/api/company/organization/department/" + idCompany,
+        host.URL_BACKEND + "/api/company/organization/department/" + token,
         {
           headers: { Authorization: "Bearer " + token },
         }
@@ -118,7 +118,15 @@ class DepartmentOrganization extends Component {
     .then(function (response) {
         if (response.data.error != null) {
         } else {
-            console.log(response);
+            self.props.showAlert({
+              message:'Xóa phòng ban thành công ',
+              anchorOrigin:{
+                  vertical: 'top',
+                  horizontal: 'center'
+              },
+              title:'Success',
+              severity:'success'
+            });
             self.getListDepartment();
         }
     })
@@ -275,6 +283,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     getDepartmentById: (editDepartment) => {
       dispatch(editDepartmentOrganization(editDepartment))
+    },
+    showAlert: (properties) => {
+      dispatch(showMessageAlert(properties))
     }
   }
 }

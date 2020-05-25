@@ -141,7 +141,6 @@ export default class ModalCreateDepartment extends Component {
         });
     }else{
         var self = this;
-        var idCompany = localStorage.getItem("company_id");
         var token = localStorage.getItem("token");
         axios
           .post(
@@ -150,7 +149,7 @@ export default class ModalCreateDepartment extends Component {
               newNameDepartment: this.state.newNameDepartment,
               newSignatureDepartment: this.state.newSignatureDepartment,
               newDescriptionDepartment: this.state.newDescriptionDepartment,
-              idCompany: idCompany,
+              token: token,
             },
             {
               headers: { Authorization: "Bearer " + token },

@@ -11,6 +11,8 @@ import ModalEditRole from "./ModalEditRole";
 import { NavLink } from "react-router-dom";
 import {connect} from "react-redux"
 import {editRoleOrganization} from "../Action/Index";
+import {showMessageAlert} from "../../../Alert/Action/Index";
+
 class RoleOraganization extends Component {
   _isMounted = false;
   constructor(props) {
@@ -55,10 +57,9 @@ class RoleOraganization extends Component {
   getListRole = () => {
     this._isMounted = true;
     let self = this;
-    var idCompany = localStorage.getItem("company_id");
     var token = localStorage.getItem("token");
     axios
-      .get(host.URL_BACKEND + "/api/company/organization/role/" + idCompany, {
+      .get(host.URL_BACKEND + "/api/company/organization/role/" +token, {
         headers: { Authorization: "Bearer " + token },
       })
       .then(function (response) {
@@ -94,7 +95,15 @@ class RoleOraganization extends Component {
     .then(function (response) {
         if (response.data.error != null) {
         } else {
-            console.log(response);
+            self.props.showAlert({
+              message:'Xóa vai trò nhân viên thành công ',
+              anchorOrigin:{
+                  vertical: 'top',
+                  horizontal: 'center'
+              },
+              title:'Success',
+              severity:'success'
+            });
             self.getListRole();
         }
     })
@@ -118,11 +127,10 @@ class RoleOraganization extends Component {
   getListDepartment = () => {
     this._isMounted = true;
     let self = this;
-    var idCompany = localStorage.getItem("company_id");
     var token = localStorage.getItem("token");
     axios
       .get(
-        host.URL_BACKEND + "/api/company/organization/department/" + idCompany,
+        host.URL_BACKEND + "/api/company/organization/department/" + token,
         {
           headers: { Authorization: "Bearer " + token },
         }
@@ -427,6 +435,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     getEditRoleOrganization: (detailRole) => {
       dispatch(editRoleOrganization(detailRole))
+    },
+    showAlert: (properties) => {
+      dispatch(showMessageAlert(properties))
     }
   }
 }

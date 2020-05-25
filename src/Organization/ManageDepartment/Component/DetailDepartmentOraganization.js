@@ -11,6 +11,7 @@ import {connect} from "react-redux"
 import {editRoleOrganization} from "../Action/Index";
 import {NavLink} from "react-router-dom";
 import LinkPage from "../../LinkPage";
+import {showMessageAlert} from "../../../Alert/Action/Index";
 class DetailEmployeeOraganization extends Component {
   _isMounted = false;
   constructor(props, context) {
@@ -120,7 +121,15 @@ class DetailEmployeeOraganization extends Component {
     .then(function (response) {
         if (response.data.error != null) {
         } else {
-            console.log(response);
+            self.props.showAlert({
+              message:'Xóa vai trò nhân viên thành công ',
+              anchorOrigin:{
+                  vertical: 'top',
+                  horizontal: 'center'
+              },
+              title:'Success',
+              severity:'success'
+            });
             self.getDetailDepartment();
         }
     })
@@ -285,6 +294,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     getEditRoleOrganization: (detailRole) => {
       dispatch(editRoleOrganization(detailRole))
+    },
+    showAlert: (properties) => {
+      dispatch(showMessageAlert(properties))
     }
   }
 }

@@ -57,11 +57,10 @@ export default class ModalTypeTemplate extends Component {
         }else{
             var self = this;
             var token = localStorage.getItem('token');
-            var idSystem = localStorage.getItem('system_id');
             axios.post(host.URL_BACKEND+'/api/system/notification/type/create', {
                 newNameTypeTemplate: this.state.newNameTypeTemplate,
                 newDescriptionTypeTemplate: this.state.newDescriptionTypeTemplate,
-                idSystem: idSystem,
+                token: token,
             },{
                 headers: { 'Authorization': 'Bearer ' + token }
             })

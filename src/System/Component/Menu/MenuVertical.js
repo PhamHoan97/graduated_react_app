@@ -34,21 +34,20 @@ class MenuVertical extends Component {
   handleLogout = (event) => {
     event.preventDefault();
     localStorage.removeItem("token");
-    if(localStorage.getItem("system_id")){
-      localStorage.removeItem("system_id");
-      localStorage.removeItem("is_system");
-      axios.post(`http://127.0.0.1:8000/api/logout/system`)
+    axios.post(`http://127.0.0.1:8000/api/logout/system`)
       .then(res => {
         if(res.data.error != null){
             console.log(res.data.error);
         }else{
+            if(localStorage.getItem("builderSchema") !== null){
+              localStorage.removeItem("builderSchema");
+            }
             this.setState({isLogout:true});
         }
       }).catch(function (error) {
         alert(error);
       });
     }
-  }
 
   componentDidMount() {
     var token = localStorage.getItem('token')

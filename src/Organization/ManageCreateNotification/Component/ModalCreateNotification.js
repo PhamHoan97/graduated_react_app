@@ -76,12 +76,11 @@ export default class ModalCreateNotification extends Component {
         ){
             var self =  this;
             var token = localStorage.getItem('token');
-            var idCompany = localStorage.getItem("company_id");
             let data = new FormData();
             data.append('newNameNotification',this.state.newNameNotification);
             data.append('newDescriptionNotification',this.state.newDescriptionNotification);
             data.append('newFileNotification',this.state.newFileNotification);
-            data.append('idCompany',idCompany);
+            data.append('token',token);
             axios.post(host.URL_BACKEND+"/api/company/notification/create",
                 data
             ,

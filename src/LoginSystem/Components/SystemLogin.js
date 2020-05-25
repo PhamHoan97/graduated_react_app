@@ -78,8 +78,6 @@ class SystemLogin extends Component{
                 });
             }else{
                 localStorage.setItem('token', res.data.token);
-                localStorage.setItem('system_id', res.data.id);
-                localStorage.setItem('is_system', res.data.isSystem);
                 this.props.showAlert({
                     message: res.data.message,
                     anchorOrigin:{
@@ -89,6 +87,7 @@ class SystemLogin extends Component{
                     title:'Thành công',
                     severity:'success'
                   });
+
                 this.setState({redirectSystem:true});
             }
           }).catch(function (error) {

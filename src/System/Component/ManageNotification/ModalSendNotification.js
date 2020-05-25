@@ -5,7 +5,7 @@ import CheckButton from "react-validation/build/button";
 import Select from "react-select";
 import axios from 'axios';
 import Alert from '@material-ui/lab/Alert';
-import * as host from '../../Constants/Url'
+import * as host from '../../Constants/Url';
 import {connect} from  'react-redux';
 const colourStyles = {
   control: (styles) => ({ ...styles, backgroundColor: "white" }),

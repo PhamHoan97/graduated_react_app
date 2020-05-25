@@ -15,7 +15,10 @@ class ContactCompanyContainer extends Component {
 
     getDetailCompany = () => {
         var self =  this;
-        axios.get(host.URL_BACKEND+"/api/system/dashboard/company/"+this.props.idCompany)
+        var token = localStorage.getItem("token");
+        axios.get(host.URL_BACKEND+"/api/system/dashboard/company/"+this.props.idCompany,{
+            headers: { 'Authorization': 'Bearer ' + token }
+        })
         .then(function (response) {
             self.setState({
                 detailCompany:response.data.company

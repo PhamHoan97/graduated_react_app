@@ -68,14 +68,13 @@ class DetailNotificationComponent extends Component {
   handleClick = (e, idNotificationAdmin) => {
     e.preventDefault();
     var self = this;
-    var idAdmin = localStorage.getItem("admin_id");
     var token = localStorage.getItem("token");
     axios
       .post(
         host.URL_BACKEND + "/api/company/notification/create/response",
         {
           idNotificationAdmin: idNotificationAdmin,
-          idAdmin: idAdmin,
+          token: token,
           contentResponse: JSON.parse(localStorage.getItem("dataForm")).data,
         },
         {

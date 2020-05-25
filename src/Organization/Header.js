@@ -15,38 +15,36 @@ class Header extends Component {
   handleLogout = (event) => {
     event.preventDefault();
     localStorage.removeItem("token");
-    if(localStorage.getItem("admin_id")){
-      localStorage.removeItem("admin_id");
-      localStorage.removeItem("company_id");
-      localStorage.removeItem("is_company");
-      axios.post(`http://127.0.0.1:8000/api/logout/company`)
-      .then(res => {
-        if(res.data.error != null){
-          this.props.showAlert({
-            message: res.data.error,
-            anchorOrigin:{
-                vertical: 'top',
-                horizontal: 'right'
-            },
-            title:'Thất bại',
-            severity:'error'
-          });
-        }else{
-            this.props.showAlert({
-              message: res.data.message,
-              anchorOrigin:{
-                  vertical: 'top',
-                  horizontal: 'right'
-              },
-              title:'Thành công',
-              severity:'success'
-            });
-            this.setState({isLogout:true});
+    axios.post(`http://127.0.0.1:8000/api/logout/company`)
+    .then(res => {
+      if(res.data.error != null){
+        this.props.showAlert({
+          message: res.data.error,
+          anchorOrigin:{
+              vertical: 'top',
+              horizontal: 'right'
+          },
+          title:'Thất bại',
+          severity:'error'
+        });
+      }else{
+        if(localStorage.getItem("dataForm") !== null){
+          localStorage.removeItem("dataForm");
         }
-      }).catch(function (error) {
-        alert(error);
-      });
-    }
+        this.props.showAlert({
+          message: res.data.message,
+          anchorOrigin:{
+              vertical: 'top',
+              horizontal: 'right'
+          },
+          title:'Thành công',
+          severity:'success'
+        });
+        this.setState({isLogout:true});
+      }
+    }).catch(function (error) {
+      alert(error);
+    });
   }
   render() {
     if(this.state.isLogout){

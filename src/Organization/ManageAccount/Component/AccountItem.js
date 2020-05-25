@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import * as host from '../../Url'
-import axios from 'axios'
+import axios from 'axios';
+import {connect} from "react-redux";
+import {showMessageAlert} from "../../../Alert/Action/Index"
 class AccountItem extends Component {
     deleteAccount = (e,idAccount) =>{
         e.preventDefault();
@@ -15,20 +17,27 @@ class AccountItem extends Component {
             if (response.data.error != null) {
                 console.log(response.data.error);
             }else{
-                console.log(response.data.message);
+                self.props.rerenderParentCallback();
+                self.props.showAlert({
+                    message:'Xóa tài khoản thành công',
+                    anchorOrigin:{
+                        vertical: 'top',
+                        horizontal: 'center'
+                    },
+                    title:'Success',
+                    severity:'warning'
+                  })
             }
         })
         .catch(function (error) {
             console.log(error);
         });
-        self.props.rerenderParentCallback();
     }
     
     sendEmailAccount(e,idEmployeeAccount,idAccountEmployee){
         e.preventDefault();
-        console.log(idAccountEmployee);
+        var self = this;
         var token = localStorage.getItem('token');
-        console.log("send");
         axios.post(host.URL_BACKEND+'/api/company/account/employee/send',
         {
             idEmployeeAccount: idEmployeeAccount,
@@ -41,6 +50,15 @@ class AccountItem extends Component {
         if(res.data.error != null){
             console.log(res.data.message);
         }else{
+            self.props.showAlert({
+                message:'Gửi mail tài khoản thành công ',
+                anchorOrigin:{
+                    vertical: 'top',
+                    horizontal: 'center'
+                },
+                title:'Success',
+                severity:'success'
+              })
             console.log(res.data);
         }
         }).catch(function (error) {
@@ -68,7 +86,7 @@ class AccountItem extends Component {
                 <a
                     className="btn--trash__department"
                     href="###"
-                    onClick={(e, id) => this.deleteAccount(e, this.props.id)}
+                    onClick={(e, id) => this.deleteAccount(e, this.props.idAccount)}
                 >
                     <i className="fa fa-trash fa-1x" />
                 </a>
@@ -78,5 +96,12 @@ class AccountItem extends Component {
     }
 }
 
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+      showAlert: (properties) => {
+        dispatch(showMessageAlert(properties))
+      }
+    }
+  }
+export default connect(null, mapDispatchToProps)(AccountItem);
 
-export default AccountItem;
