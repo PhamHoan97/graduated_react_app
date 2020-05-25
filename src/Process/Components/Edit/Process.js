@@ -7,7 +7,6 @@ import Action from '../Create/Action';
 import {connect} from 'react-redux';
 import * as actions from '../../Actions/Index';
 import axios from 'axios';
-import {Redirect } from 'react-router-dom';
 import * as actionAlerts from  '../../../Alert/Action/Index';
 
 class Process extends Component {
@@ -28,12 +27,9 @@ class Process extends Component {
         this.initialDiagram ='';
 
         this.state = {
-          reload: false,
           isExportSVG: 0,
           isExportImage: 0,
           isExportBPMN: 0,
-          idEditProcess: '',
-          reloadEdit: false,
           isEdit: 0,
         }
     }
@@ -97,7 +93,9 @@ class Process extends Component {
                 title:'Thành công',
                 severity:'success'
               });
-              this.setState({reloadEdit: true, idEditProcess: res.data.process.id});
+              setTimeout(function(){ 
+                window.location.reload();
+              }, 2000);
           }
         }).catch(function (error) {
           alert(error);
@@ -244,7 +242,7 @@ class Process extends Component {
     return true;
   }
 
-  componentDidUpdate (){
+  componentDidUpdate(){
       this.modeler.attachTo('#create-process-diagram');
       this.modeler.importXML(this.initialDiagram, function(err) {
 
@@ -258,18 +256,14 @@ class Process extends Component {
       this.modeler.on('commandStack.shape.delete.revert', () => this.handleUndoDeleteElement());
   }
 
-    render() {
-      if(this.state.reloadEdit){
-        return <Redirect to={'/process/edit/' + this.state.idEditProcess}/> 
-      }else{
-        return (
-          <div className="process-interact-area">
-              <div id="create-process-diagram" className="process-interact"></div>
-              <Action modeler={this.modeler}/>
-          </div>
-      )
-      }
-    }
+  render() {
+      return (
+        <div className="process-interact-area">
+            <div id="create-process-diagram" className="process-interact"></div>
+            <Action modeler={this.modeler}/>
+        </div>
+    )
+  }
 }
 
 const mapStateToProps = (state, ownProps) => {

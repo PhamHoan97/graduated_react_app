@@ -13,14 +13,14 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import {Redirect } from 'react-router-dom';
 import * as alertActions from '../../../Alert/Action/Index';
 
-class Header extends Component {
+class HeaderEmployee extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
             isOpenShortcut: false,
             isEdit: '',
-            isBackHomeCompany: false,
+            isBackHomeEmployee: false,
         }
     }
 
@@ -91,7 +91,7 @@ class Header extends Component {
 
     backToHomePage = (e) => {
         e.preventDefault();
-        this.setState({isBackHomeCompany:true});
+        this.setState({isBackHomeEmployee:true});
     }
 
     getExtension(filename) {
@@ -160,8 +160,8 @@ class Header extends Component {
     }
 
     render() {
-        if(this.state.isBackHomeCompany){
-            return <Redirect to={'/company/manage/process'}/> 
+        if(this.state.isBackHomeEmployee){
+            return <Redirect to={'/employee/'}/> 
         }
         return (
             <div className="process-header">
@@ -296,4 +296,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderEmployee);

@@ -46,13 +46,11 @@ class Process extends Component {
         '</bpmn:definitions>'; 
 
         this.state = {
-          reload: false,
           isSave: 0,
           isExportSVG: 0,
           isExportImage: 0,
           isExportBPMN: 0,
-          redirectEdit: false,
-          idEditProcess: ''
+          redirectManageProcess: false,
         }
     }
     
@@ -115,7 +113,7 @@ class Process extends Component {
               title:'Thành công',
               severity:'success'
             });
-            this.setState({redirectEdit:true, idEditProcess: res.data.process.id});
+            this.setState({redirectManageProcess:true});
           }
         }).catch(function (error) {
           alert(error);
@@ -256,43 +254,45 @@ class Process extends Component {
     shouldComponentUpdate(nextProps, nextState) {
       if(nextProps.importData && nextProps.importData === this.initialDiagram){
         return false;
-      }else{
+      }else {
         this.initialDiagram = nextProps.importData;
       }
       return true;
     }
   
     componentDidUpdate (){
-        this.modeler.attachTo('#create-process-diagram');
-        this.modeler.importXML(this.initialDiagram, function(err) {
-  
-        });
-        var eventBus = this.modeler.get('eventBus');
-        console.log(eventBus);
-        this.modeler.on('element.click',1000, (e) => this.interactPopup(e));
-  
-        this.modeler.on('shape.remove',1000, (e) => this.deleteElements(e));
-  
-        this.modeler.on('commandStack.shape.delete.revert', () => this.handleUndoDeleteElement());
+        if(this.initialDiagram){
+          this.modeler.attachTo('#create-process-diagram');
+          this.modeler.importXML(this.initialDiagram, function(err) {
+    
+          });
+          var eventBus = this.modeler.get('eventBus');
+          console.log(eventBus);
+          this.modeler.on('element.click',1000, (e) => this.interactPopup(e));
+    
+          this.modeler.on('shape.remove',1000, (e) => this.deleteElements(e));
+    
+          this.modeler.on('commandStack.shape.delete.revert', () => this.handleUndoDeleteElement());
+        }
     }
 
     componentDidMount (){
-        this.modeler.attachTo('#create-process-diagram');
-        this.modeler.importXML(this.initialDiagram, function(err) {
+      this.modeler.attachTo('#create-process-diagram');
+      this.modeler.importXML(this.initialDiagram, function(err) {
 
-        });
-        var eventBus = this.modeler.get('eventBus');
-        console.log(eventBus);
-        this.modeler.on('element.click',1000, (e) => this.interactPopup(e));
+      });
+      var eventBus = this.modeler.get('eventBus');
+      console.log(eventBus);
+      this.modeler.on('element.click',1000, (e) => this.interactPopup(e));
 
-        this.modeler.on('shape.remove',1000, (e) => this.deleteElements(e));
+      this.modeler.on('shape.remove',1000, (e) => this.deleteElements(e));
 
-        this.modeler.on('commandStack.shape.delete.revert', () => this.handleUndoDeleteElement());
+      this.modeler.on('commandStack.shape.delete.revert', () => this.handleUndoDeleteElement());
     }
 
     render() {
-        if(this.state.redirectEdit){
-          return <Redirect to={'/process/edit/' + this.state.idEditProcess}/> 
+        if(this.state.redirectManageProcess){
+          return <Redirect to={'/company/manage/process'}/> 
         }
         return (
             <div className="process-interact-area">

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import View from './View';
 import ViewNote from './ViewNote';
 import ViewComment from './ViewComment';
-import Header from '../Create/Header';
+import HeaderEmployee from '../Create/HeaderEmployee';
 import '../../Css/Process.css';
 import {connect} from 'react-redux';
 import * as actions from '../../Actions/Index';
@@ -140,7 +140,7 @@ class ViewProcess extends Component {
                 <React.Fragment>
                     <div className="container-fluid">
                         <div className="row">
-                            <Header />
+                            <HeaderEmployee />
                         </div>
                         <div className="row">
                             <div className="col-md-9 full-page">
@@ -173,7 +173,7 @@ class ViewProcess extends Component {
                 <React.Fragment>
                     <div className="container-fluid">
                         <div className="row">
-                            <Header />
+                            <HeaderEmployee />
                         </div>
                         <div className="row">
                             <div className="col-md-12 full-page">

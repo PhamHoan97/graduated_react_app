@@ -31,9 +31,9 @@ class EmployeeProcess extends Component {
     renderProcessesRow = () =>{
         var processes = this.state.processes;
         return Object.values(processes).map((value, key) => {
-            if(key <=5){
+            if(key < 6){
                 return (
-                    <React.Fragment key={key}>
+                    <React.Fragment key={value.id}>
                             <tr className="tr-shadow">
                                 <td>{value.name}</td>
                                 <td>{value.description.substr(0, 30) + '...'}</td>
@@ -66,7 +66,7 @@ class EmployeeProcess extends Component {
                     </React.Fragment>
                 )   
             }else{
-                return (<></>);
+                return (<React.Fragment key={value.id}></React.Fragment>);
             }
         })
     }
@@ -81,7 +81,6 @@ class EmployeeProcess extends Component {
           if(res.data.error != null){
               console.log(res.data.message);
           }else{
-              console.log(res.data);
               this.setState({processes: res.data.processes})
           }
         }).catch(function (error) {
