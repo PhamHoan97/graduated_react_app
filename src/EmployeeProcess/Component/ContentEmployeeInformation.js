@@ -44,7 +44,7 @@ class ContentEmployeeInformation extends Component {
 
     renderAvatar = () =>{
       if(this.state.employee && this.state.employee.avatar){
-        return(<img className="img" src={host.URL_BACKEND + '/' + this.state.employee.avatar} alt="Avatar" />)
+        return(<img className="img" src={host.URL_BACKEND + this.state.employee.avatar} alt="Avatar" />)
       }else{
         return(<img className="img" src="/system/images/user-avatar-default.jpg" alt="Avatar" />);
       }
@@ -61,7 +61,7 @@ class ContentEmployeeInformation extends Component {
               <div className="col-md-3">
                 <div className="card-avatar-content card-profile">
                   <div className="card-avatar">
-                      <img className="img" src="/system/images/user-avatar-default.jpg" alt="Avatar" />
+                    {this.renderAvatar()}
                   </div>
                   <div className="card-body">
                     <h6 className="card-category text-gray">{this.state.company.signature + ' / ' + this.state.department.name}</h6>

@@ -31,9 +31,6 @@ class AlertMessage extends Component {
         }
         this.setState({
             isOpenAlert:false,
-            message:'',
-            title:'',
-            severity:''
         })
     };
     render() {

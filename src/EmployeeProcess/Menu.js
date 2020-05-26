@@ -247,9 +247,9 @@ class Menu extends Component {
             <img src="./Image/logo.png" width={40} height={40} alt="" />
           </a>
         </div>
-        <a 
+        <a
         id="toggle_btn"
-        href="##" 
+        href="##"
         onClick={(e)=>this.openMiniMenu(e)}>
           <span className="bar-icon">
             <span />
@@ -273,7 +273,7 @@ class Menu extends Component {
                 <input
                   className="form-control"
                   type="text"
-                  placeholder="Search here"
+                  placeholder="Tìm Kiếm"
                 />
                 <button className="btn" type="submit">
                   <i className="fa fa-search" />

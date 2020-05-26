@@ -95,40 +95,6 @@ class SystemLogin extends Component{
           })
     }
 
-    handleLogout = event => {
-        event.preventDefault();
-        localStorage.removeItem("token");
-        localStorage.removeItem("system_id");
-        localStorage.removeItem("is_system");
-
-        axios.post(`http://127.0.0.1:8000/api/logout/system`)
-          .then(res => {
-            if(res.data.error != null){
-                this.props.showAlert({
-                    message: res.data.error,
-                    anchorOrigin:{
-                        vertical: 'top',
-                        horizontal: 'right'
-                    },
-                    title:'Thất bại',
-                    severity:'error'
-                  });
-            }else{
-                this.props.showAlert({
-                    message: res.data.message,
-                    anchorOrigin:{
-                        vertical: 'top',
-                        horizontal: 'right'
-                    },
-                    title:'Thành công',
-                    severity:'success'
-                });
-            }
-          }).catch(function (error) {
-            alert(error);
-          })
-    }
-
     onSubmit = event => {
         event.preventDefault();
         this.form.validateAll();
