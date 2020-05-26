@@ -279,7 +279,7 @@ class ManageNotification extends Component {
                       </div>
                       <div className="table-responsive table-responsive-data2">
                         <table className="table table-data2 table-notification_system">
-                          <thead>
+                          <thead className="thead-dark">
                             <tr>
                               <th />
                               <th>Name</th>

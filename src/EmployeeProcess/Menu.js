@@ -62,7 +62,7 @@ class Menu extends Component {
   
   renderAvatar = () =>{
     if(this.state.employee && this.state.employee.avatar){
-      return <img className="img" src={host.URL_BACKEND + '/' + this.state.employee.avatar} alt="Avatar" />
+      return <img className="img" src={host.URL_BACKEND + this.state.employee.avatar} alt="Avatar" />
     }else{
       return <img className="img" src="/system/images/user-avatar-default.jpg" alt="Avatar" />;
     }
@@ -124,40 +124,36 @@ class Menu extends Component {
   handleLogout = (event) => {
     event.preventDefault();
     localStorage.removeItem("token");
-    if(localStorage.getItem("employee_id")){
-      localStorage.removeItem("is_employee");
-      localStorage.removeItem("employee_id");
-      if(localStorage.getItem("dataForm") !== null){
-        localStorage.removeItem("dataForm");
-      }
-      axios.post(`http://127.0.0.1:8000/api/logout/employee`)
-      .then(res => {
-        if(res.data.error != null){
+    if(localStorage.getItem("dataForm") !== null){
+      localStorage.removeItem("dataForm");
+    }
+    axios.post(`http://127.0.0.1:8000/api/logout/employee`)
+    .then(res => {
+      if(res.data.error != null){
+        this.props.showAlert({
+          message:"Đăng xuất thất bại: ",
+          anchorOrigin:{
+              vertical: 'top',
+              horizontal: 'right'
+          },
+          title:'Thất bại',
+          severity:'error'
+        });
+      }else{
           this.props.showAlert({
-            message:"Đăng xuất thất bại: ",
+            message: res.data.message,
             anchorOrigin:{
                 vertical: 'top',
                 horizontal: 'right'
             },
-            title:'Thất bại',
-            severity:'error'
+            title:'Thành công',
+            severity:'success'
           });
-        }else{
-            this.props.showAlert({
-              message: res.data.message,
-              anchorOrigin:{
-                  vertical: 'top',
-                  horizontal: 'right'
-              },
-              title:'Thành công',
-              severity:'success'
-            });
-            this.setState({isLogout:true});
-        }
-      }).catch(function (error) {
-        alert(error);
-      });
-    }
+          this.setState({isLogout:true});
+      }
+    }).catch(function (error) {
+      alert(error);
+    });
   }
 
   renderNotification = () => {
@@ -251,9 +247,9 @@ class Menu extends Component {
             <img src="./Image/logo.png" width={40} height={40} alt="" />
           </a>
         </div>
-        <a 
+        <a
         id="toggle_btn"
-        href="##" 
+        href="##"
         onClick={(e)=>this.openMiniMenu(e)}>
           <span className="bar-icon">
             <span />
@@ -277,7 +273,7 @@ class Menu extends Component {
                 <input
                   className="form-control"
                   type="text"
-                  placeholder="Search here"
+                  placeholder="Tìm Kiếm"
                 />
                 <button className="btn" type="submit">
                   <i className="fa fa-search" />

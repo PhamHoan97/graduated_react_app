@@ -14,7 +14,18 @@ class NotificationEmployee extends Component {
     this.state = {
       listNotificationEmployeeFromSystem: [],
       listNotificationEmployeeFromCompany: [],
+      textDateSearch:"",
+      textNameSearch:"",
     };
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(event) {
+    const name = event.target.name;
+    const value =event.target.value;
+    console.log(value);
+    this.setState({
+      [name]: value,
+    })
   }
   getListNotificationFromSystem = () => {
     this._isMounted = true;
@@ -81,23 +92,6 @@ class NotificationEmployee extends Component {
     this.getListNotificationFromSystem();
   }
 
-  getDetailNotificationCompany = (idNotificationCompany) =>{
-    var token = localStorage.getItem("token");
-    axios.post(host.URL_BACKEND+'/api/employee/notification/company/status/update', {
-      idNotificationFromCompany:idNotificationCompany
-    },{
-        headers: { 'Authorization': 'Bearer ' + token }
-    })
-    .then(function (response) {
-        if (response.data.error != null) {
-        console.log(response.data.error);
-        } else {
-        }
-    })
-    .catch(function (error) {
-        console.log(error);
-    });
-  }
 
   deleteNotificationCompany = (e,idNotificationFromCompany) =>{
     e.preventDefault();
@@ -140,41 +134,6 @@ class NotificationEmployee extends Component {
         console.log(error);
     });
   }
-
-
-  getDetailNotificationSystem = (idNotificationSystemEmployee) =>{
-    var self = this;
-    var token = localStorage.getItem("token");
-    axios.post(host.URL_BACKEND+'/api/employee/notification/system/status/update', {
-      idNotificationFromSystem:idNotificationSystemEmployee
-    },{
-        headers: { 'Authorization': 'Bearer ' + token }
-    })
-    .then(function (response) {
-        if (response.data.error != null) {
-        console.log(response.data.error);
-        } else {
-        }
-    })
-    .catch(function (error) {
-        console.log(error);
-    });
-    axios.post(host.URL_BACKEND + "/api/employee/notification/response",{
-      idNotificationSystemEmployee:idNotificationSystemEmployee
-    },{
-      headers: { Authorization: "Bearer " + token },
-    })
-    .then(function (response) {
-      if (response.data.error != null) {
-        console.log(response.data.error);
-      } else {
-         self.props.getDetailNotificationSystemEmployee(response.data.notificationEmployee)
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
   render() {
     return (
       <div id="content-employee_page" className="main-wrapper">
@@ -187,7 +146,7 @@ class NotificationEmployee extends Component {
                 <h3 className="page-title_employee">Danh sách thông báo</h3>
               </div>
             </div>
-            <div className="row filter-row">
+            {/* <div className="row filter-row">
               <div
                 className="col-sm-6 col-md-4 text-center"
                 style={{ fontFamily: "initial" }}
@@ -196,7 +155,13 @@ class NotificationEmployee extends Component {
                   Tên thông báo
                 </label>
                 <div className="form-group form-focus">
-                  <input type="text" className="form-control floating" />
+                <input
+                  type="text"
+                  name="textNameSearch"
+                  className="form-control floating"
+                  value={this.state.textNameSerach}
+                  onChange={(event) => this.handleChange(event)}
+                />
                 </div>
               </div>
               <div
@@ -207,11 +172,17 @@ class NotificationEmployee extends Component {
                   Ngày tạo
                 </label>
                 <div className="form-group form-focus">
-                  <input
-                    className="form-control floating"
-                    type="datetime-local"
-                    id="example-datetime-local-input"
-                  />
+                  <select
+                  name="textDateSearch"
+                  className="form-control floating"
+                  value={this.state.textDateSearch}
+                  onChange={(event) => this.handleChange(event)}
+                  id="exampleFormControlSelect2">
+                    <option value="0">Tất cả các ngày</option>
+                    <option value="1">1 ngày</option>
+                    <option value="5">1 tuần</option>
+                    <option value="30">1 tháng</option>
+                  </select>
                 </div>
               </div>
               <div
@@ -227,18 +198,18 @@ class NotificationEmployee extends Component {
                   Tìm kiếm{" "}
                 </a>
               </div>
-            </div>
+            </div> */}
             <div className="row">
               <div className="col-md-12">
                 <div className="table-responsive">
                   <table className="table table-striped custom-table mb-0 table-notification_employee">
-                    <thead>
+                    <thead className="thead-dark">
                       <tr>
-                        <th>Tên</th>
-                        <th>Nội dung</th>
-                        <th>Ngày</th>
-                        <th>Trạng thái</th>
-                        <th></th>
+                        <th style={{ width: "15%" }}>Tên</th>
+                        <th style={{ width: "45%" }}>Nội dung</th>
+                        <th style={{ width: "20%" }}>Ngày</th>
+                        <th style={{ width: "10%" }}>Trạng thái</th>
+                        <th style={{ width: "10%" }}></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -247,36 +218,33 @@ class NotificationEmployee extends Component {
                           (notification, index) => {
                             return (
                               <tr key={index}>
-                                <td>
+                                <td style={{ width: "15%" }}>
                                   <a href="estimate-view.html">{notification.name}</a>
                                 </td>
-                                <td>{notification.description}</td>
-                                <td>{notification.update_at}</td>
-                                <td>
+                                <td style={{ width: "45%" }}>{notification.description}</td>
+                                <td style={{ width: "20%" }}>{notification.update_at}</td>
+                                <td style={{ width: "10%" }}>
                                   <span className="badge bg-inverse-success">
                                   {
                                     parseInt(notification.status)===1 ? ('Đã xem'):('Chưa xem')
                                   }
                                   </span>
                                 </td>
-                                <td>
+                                <td style={{ width: "10%" }}>
                                   <div className="table-action">
-                                  {
-                                     <NavLink
-                                      to={"/employee/notification/company/detail/"+notification.id}
-                                      exact
-                                      activeClassName="selected"
-                                      activeStyle={{
-                                        fontWeight: "bold",
-                                        color: "#0074D9",
-                                      }}
-                                      className="btn btn-sm btn-outline-success mr-2"
-                                      onClick={this.getDetailNotificationCompany(notification.id)}
+                                  <NavLink
+                                    to={"/employee/notification/company/detail/"+notification.id}
+                                    exact
+                                    activeClassName="selected"
+                                    activeStyle={{
+                                      fontWeight: "bold",
+                                      color: "#0074D9",
+                                    }}
+                                    className="btn btn-sm btn-outline-success mr-2"
                                     >
-                                      <span className="lnr lnr-pencil" />{" "}
-                                      Chi tiết
-                                    </NavLink>
-                                  }
+                                    <span className="lnr lnr-pencil" />{" "}
+                                    Chi tiết
+                                  </NavLink>
                                   {/* <a
                                     href="##"
                                     className="btn btn-sm btn-outline-danger"
@@ -300,19 +268,19 @@ class NotificationEmployee extends Component {
                           (notification, index) => {
                             return (
                               <tr key={index}>
-                              <td>
+                              <td style={{ width: "15%" }}>
                                 <a href="estimate-view.html">{notification.name}</a>
                               </td>
-                              <td>{notification.description}</td>
-                              <td>{notification.update_at}</td>
-                              <td>
+                              <td style={{ width: "45%" }}>{notification.description}</td>
+                              <td style={{ width: "20%" }}>{notification.update_at}</td>
+                              <td style={{ width: "10%" }}>
                                 <span className="badge bg-inverse-success">
                                 {
                                   parseInt(notification.status)===1 ? ('Đã xem'):('Chưa xem')
                                 }
                                 </span>
                               </td>
-                              <td>
+                              <td style={{ width: "10%" }}>
                                 <div className="table-action">
                                   <NavLink
                                     to={"/employee/notification/system/detail/"+notification.id}
@@ -323,7 +291,6 @@ class NotificationEmployee extends Component {
                                       color: "#0074D9",
                                     }}
                                     className="btn btn-sm btn-outline-success mr-2"
-                                    onClick={this.getDetailNotificationSystem(notification.id)}
                                   >
                                     <span className="lnr lnr-pencil" />{" "}
                                     Chi tiết

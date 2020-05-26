@@ -212,6 +212,7 @@ export default class CompanyInformation extends Component {
                       showModal={this.state.showModalEditCompany}
                       close={() => this.closeModal()}
                       detailCompany={this.state.detailCompany}
+                      getDataOrganization = {this.props.getDataOrganization}
                     />
                     <button
                       className="btn btn-theme text-white ctm-border-radius button-1"

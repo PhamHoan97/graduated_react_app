@@ -72,10 +72,7 @@ class SystemLogin extends Component{
                   });
             }else{
                 localStorage.setItem('token', res.data.token);
-                if(res.data.isEmployee){
-                    localStorage.setItem('employee_id', res.data.id);
-                    localStorage.setItem('is_employee', res.data.isEmployee);
-                }
+              
                 this.props.showAlert({
                     message: res.data.message,
                     anchorOrigin:{

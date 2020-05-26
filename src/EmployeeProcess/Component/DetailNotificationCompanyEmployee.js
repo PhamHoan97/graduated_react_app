@@ -14,7 +14,25 @@ export default class DetailNotificationCompanyEmployee extends Component {
       detailNotification: [],
     };
   }
+  updateStatusNotificationCompany = (idNotificationFromCompany) =>{
+    var token = localStorage.getItem("token");
+    axios.post(host.URL_BACKEND+'/api/employee/notification/company/status/update', {
+      idNotificationFromCompany:idNotificationFromCompany
+    },{
+        headers: { 'Authorization': 'Bearer ' + token }
+    })
+    .then(function (response) {
+        if (response.data.error != null) {
+        console.log(response.data.error);
+        } else {
+        }
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+  }
   componentWillMount() {
+    this.updateStatusNotificationCompany(this.props.match.params.id);
     this.getDetailNotificationCompany(this.props.match.params.id);
   }
   getDetailNotificationCompany = (idNotificationCompanyEmployee) => {

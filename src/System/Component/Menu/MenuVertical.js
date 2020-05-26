@@ -43,6 +43,9 @@ class MenuVertical extends Component {
             if(localStorage.getItem("builderSchema") !== null){
               localStorage.removeItem("builderSchema");
             }
+            if(localStorage.getItem("funcUrl") !== null){
+              localStorage.removeItem("funcUrl");
+            }
             this.setState({isLogout:true});
         }
       }).catch(function (error) {

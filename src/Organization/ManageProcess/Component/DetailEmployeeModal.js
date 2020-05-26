@@ -22,7 +22,7 @@ class DetailEmployeeModal extends Component {
 
     renderAvatar = () => {
         if(this.props.currentEmployee && this.props.currentEmployee.avatar){
-            return (<img src={host.URL_BACKEND + '/' + this.props.currentEmployee.avatar} alt="Avatar" />);
+            return (<img src={host.URL_BACKEND + this.props.currentEmployee.avatar} alt="Avatar" />);
         }else{
             return (<img src="/system/images/user-avatar-default.jpg" alt="Avatar" />);
         }
