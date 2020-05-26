@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Avatar from '../../Images/Account/Avatar-01.jpg';
 import axios from 'axios';
 import  { Redirect } from 'react-router-dom';
+import {connect} from 'react-redux';
+import * as actions from '../../../Alert/Action/Index';
 
 class MenuVertical extends Component {
   _isMounted = false;
@@ -38,7 +40,15 @@ class MenuVertical extends Component {
     axios.post(`http://127.0.0.1:8000/api/logout/system`)
       .then(res => {
         if(res.data.error != null){
-            console.log(res.data.error);
+          this.props.showAlert({
+            message: res.data.error,
+            anchorOrigin:{
+                vertical: 'top',
+                horizontal: 'right'
+            },
+            title:'Thất bại',
+            severity:'error'
+          });
         }else{
             if(localStorage.getItem("builderSchema") !== null){
               localStorage.removeItem("builderSchema");
@@ -46,6 +56,15 @@ class MenuVertical extends Component {
             if(localStorage.getItem("funcUrl") !== null){
               localStorage.removeItem("funcUrl");
             }
+            this.props.showAlert({
+              message: res.data.message,
+              anchorOrigin:{
+                  vertical: 'top',
+                  horizontal: 'right'
+              },
+              title:'Thành công',
+              severity:'success'
+            });
             this.setState({isLogout:true});
         }
       }).catch(function (error) {
@@ -203,4 +222,19 @@ class MenuVertical extends Component {
   }
 }
 
-export default MenuVertical;
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+
+  }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    showAlert: (properties) => {
+      dispatch(actions.showMessageAlert(properties))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps )(MenuVertical)
