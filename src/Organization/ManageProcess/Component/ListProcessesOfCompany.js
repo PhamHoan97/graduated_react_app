@@ -9,6 +9,7 @@ import  { Redirect } from 'react-router-dom';
 import ModalDetailProcess from './ModalDetailProcess'; 
 import EmployeeOptionSearch from './EmployeeOptionSearch';
 import {connect} from 'react-redux';
+import * as actionAlerts from '../../../Alert/Action/Index';
 
 class ListProcessesOfCompany extends Component {
     _isMounted = false;
@@ -157,6 +158,45 @@ class ListProcessesOfCompany extends Component {
       this.setState({isRedirectEdit: true, idEdit: id});
     } 
 
+    removeProcess = (e, id) => {
+      e.preventDefault();
+      var token = localStorage.getItem('token');
+      axios.post(`http://127.0.0.1:8000/api/company/process/remove/`,
+      {
+        token: token,
+        idProcess : id,
+      },
+      {
+          headers: { 'Authorization': 'Bearer ' + token}
+      }).then(res => {
+        if(res.data.error != null){
+          this.props.showAlert({
+            message: res.data.message,
+            anchorOrigin:{
+                vertical: 'top',
+                horizontal: 'right'
+            },
+            title:'Thành công',
+            severity:'error'
+          });
+        }else{
+          var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2);
+          this.props.showAlert({
+            message: res.data.message,
+            anchorOrigin:{
+                vertical: 'top',
+                horizontal: 'right'
+            },
+            title:'Thành công',
+            severity:'success'
+          });
+          this.setState({processes: processesResponse});
+        }
+      }).catch(function (error) {
+        alert(error);
+      });
+    }
+
     openDetailProcess = (e, id) => {
       e.preventDefault();
       document.getElementById('clone-view-detail-process').click();
@@ -243,6 +283,7 @@ class ListProcessesOfCompany extends Component {
                                 href="##"
                                 className="btn btn-sm btn-outline-danger"
                                 data-toggle="modal"
+                                onClick={(e) => this.removeProcess(e,value.id)}
                               >
                                 <span className="lnr lnr-trash" />{" "}
                                 Xóa
@@ -364,4 +405,12 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps,) (ListProcessesOfCompany);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    showAlert: (properties) => {
+      dispatch(actionAlerts.showMessageAlert(properties))
+    },
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (ListProcessesOfCompany);
