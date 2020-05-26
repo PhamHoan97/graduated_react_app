@@ -231,7 +231,6 @@ class EmployeeOrganization extends Component {
   getSearchEmployee = (e) =>{
     e.preventDefault();
     let self = this;
-    var idCompany = localStorage.getItem("company_id");
     var token = localStorage.getItem("token");
     axios
       .post(
@@ -239,7 +238,7 @@ class EmployeeOrganization extends Component {
           textNameSearch:this.state.textNameSearch,
           textEmailSearch:this.state.textEmailSearch,
           idDepartmentSearch:this.state.idDepartmentSearch,
-          idCompany:idCompany
+          token:token
         },
         {
           headers: { Authorization: "Bearer " + token },

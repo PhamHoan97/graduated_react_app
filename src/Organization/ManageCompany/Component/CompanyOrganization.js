@@ -75,7 +75,7 @@ export default class CompanyOrganization extends Component {
                 <div className="quicklink-sidebar-menu ctm-border-radius shadow-sm bg-white card ">
                    <LinkPage linkPage=""/>
                 </div>
-                <CompanyInformation />
+                <CompanyInformation getDataOrganization = {this.getDataOrganization}/>
                 <div className="row">
                   <div className="col-md-12 d-flex">
                     <div className="card ctm-border-radius shadow-sm flex-fill ">

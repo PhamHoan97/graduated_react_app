@@ -178,14 +178,13 @@ class RoleOraganization extends Component {
   getSearchRole = (e) =>{
     e.preventDefault();
     let self = this;
-    var idCompany = localStorage.getItem("company_id");
     var token = localStorage.getItem("token");
     axios
       .post(
         host.URL_BACKEND + "/api/company/organization/role/search",{
           textNameSearch:this.state.textNameSearch,
           idDepartmentSearch:this.state.idDepartmentSearch,
-          idCompany:idCompany
+          token:token
         },
         {
           headers: { Authorization: "Bearer " + token },

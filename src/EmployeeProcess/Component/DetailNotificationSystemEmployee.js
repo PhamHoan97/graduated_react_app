@@ -18,7 +18,25 @@ class DetailNotificationComponent extends Component {
       detailNotification: this.props.detailNotificationSystemEmployee,
     };
   }
+  updateStatusNotificationSystem = () =>{
+    var token = localStorage.getItem("token");
+    axios.post(host.URL_BACKEND+'/api/employee/notification/system/status/update', {
+      idNotificationFromSystem:this.props.match.params.id
+    },{
+        headers: { 'Authorization': 'Bearer ' + token }
+    })
+    .then(function (response) {
+        if (response.data.error != null) {
+        console.log(response.data.error);
+        } else {
+        }
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+  }
   componentWillMount() {
+    this.updateStatusNotificationSystem();
     this.getDetailNotificationSystem(this.props.match.params.id);
   }
   getDetailNotificationSystem = (idNotificationSystemEmployee) => {

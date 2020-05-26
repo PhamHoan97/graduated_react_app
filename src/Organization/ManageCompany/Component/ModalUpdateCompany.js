@@ -109,6 +109,7 @@ class ModalUpdateCompany extends Component {
                 setTimeout(() => {
                     self.setState({isAlertSuccess : false});
                 }, 3000);
+                self.props.getDataOrganization()
             }
         })
         .catch(function (error) {
