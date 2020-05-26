@@ -5,6 +5,7 @@ import * as actions from '../Action/Index';
 import {connect} from 'react-redux';
 
 class SelectFieldToFilter extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props)
 
@@ -21,7 +22,12 @@ class SelectFieldToFilter extends Component {
         return options;
     }
 
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
+
     componentDidMount() {
+        this._isMounted = true;
         var token = localStorage.getItem('token');
         axios.get(`http://127.0.0.1:8000/api/company/field/`,
         {

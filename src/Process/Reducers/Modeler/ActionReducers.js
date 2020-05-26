@@ -5,6 +5,9 @@ const initialState = {
     isExportSVG: 0,
     isExportImage: 0,
     isExportBPMN: 0,
+    isExportSVGEdit: 0,
+    isExportImageEdit: 0,
+    isExportBPMNEdit: 0,
     isEdit: 0,
 }
 
@@ -24,7 +27,26 @@ var actionReducers = (state = initialState, action) => {
             return {...state, isExportBPMN : h};
         case types.EDIT_DIAGRAM:
             var l = state.isEdit + 1; 
-            return {...state, isEdit: l};                  
+            return {...state, isEdit: l}; 
+        case types.EXPORT_DIAGRAM_AS_SVG_EDIT:
+            var m = state.isExportSVGEdit + 1;
+            return {...state, isExportSVGEdit : m};
+        case types.EXPORT_DIAGRAM_AS_IMAGE_EDIT:
+            var n = state.isExportImageEdit + 1;
+            return {...state, isExportImageEdit : n};
+        case types.EXPORT_DIAGRAM_AS_BPMN_EDIT:
+            var p = state.isExportBPMNEdit + 1;
+            return {...state, isExportBPMNEdit : p};
+        case types.RESETACTIONTODIAGRAM:
+            return {
+                ...state, 
+                isExportSVG : 0,
+                isExportImage: 0,
+                isExportBPMN: 0,
+                isExportSVGEdit: 0,
+                isExportImageEdit: 0,
+                isExportBPMNEdit: 0,
+            };
         default:
             return state;
     }

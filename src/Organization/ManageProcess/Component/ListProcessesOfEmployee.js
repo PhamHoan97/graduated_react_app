@@ -38,7 +38,7 @@ class ListProcessesOfEmployee extends Component {
             btnPrevious[0].classList.add('disabled');
         }
         // Ẩn nút next
-        var count = this.state.employees.length;
+        var count = this.state.processes.length;
         var btnNext = document.getElementsByClassName('paginate_button page-item next');
         if(currentPage*8 >= count){
             btnNext[0].classList.add('disabled');
@@ -84,7 +84,7 @@ class ListProcessesOfEmployee extends Component {
           e.preventDefault();
           var currentPage= e.target.getAttribute('data-dt-idx');
           this.handleCssPage(e,0,currentPage);
-          this.getRowsOfTable(pageNumber);
+          this.renderTableRow(pageNumber);
           this.setState({activePage: pageNumber});
       }
     

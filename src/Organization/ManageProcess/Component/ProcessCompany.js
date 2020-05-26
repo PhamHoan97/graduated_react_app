@@ -11,6 +11,7 @@ import * as actions from '../Actions/Index';
 import DepartmentOptionSearch from "./DepartmentOptionSearch";
 import '../Css/ManagerProcess.css';
 import  { Redirect } from 'react-router-dom';
+import * as actionHeaders from '../../../Process/Actions/Index';
 
 class ProcessCompany extends Component {
   _isMounted = false;
@@ -116,19 +117,26 @@ class ProcessCompany extends Component {
 
   componentDidMount() {
     this._isMounted = true;
+    let self = this;
     var token = localStorage.getItem('token');
     axios.get(`http://127.0.0.1:8000/api/company/`+ token + `/employee/role`,
     {
         headers: { 'Authorization': 'Bearer ' + token}
     }).then(res => {
-      if(res.data.error != null){
-          console.log(res.data.message);
-      }else{
-          this.setState({employees: res.data.employees});
+      if(self._isMounted){
+        if(res.data.error != null){
+            console.log(res.data.message);
+        }else{
+          self.setState({employees: res.data.employees});
+        }
       }
     }).catch(function (error) {
       alert(error);
     });
+  }
+
+  componentWillUnmount(){
+    this._isMounted = false;
   }
 
   OpenModalDetailEmployee = (e, id_employee) => {
@@ -235,12 +243,9 @@ class ProcessCompany extends Component {
   handleOpenAddNewProcessModal = (e) => {
     e.preventDefault();
     this.props.resetProcessInformation();
+    this.props.resetImportBpmnFile();
+    this.props.resetActionToDiagram();
     document.getElementById('clone-button-add-new-process').click();
-  }
-
-  
-  componentWillUnmount() {
-    this._isMounted = false;
   }
 
   render() {
@@ -366,7 +371,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     resetProcessInformation: () => {
       dispatch(actions.resetProcessInformation());
-    }
+    },
+    resetImportBpmnFile: () => {
+      dispatch(actionHeaders.resetImportBpmnFile());
+    },
+    resetActionToDiagram: () => {
+      dispatch(actionHeaders.resetActionToDiagram());
+    },
   }
 }
 

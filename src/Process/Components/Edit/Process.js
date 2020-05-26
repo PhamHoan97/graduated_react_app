@@ -27,9 +27,9 @@ class Process extends Component {
         this.initialDiagram ='';
 
         this.state = {
-          isExportSVG: 0,
-          isExportImage: 0,
-          isExportBPMN: 0,
+          isExportSVGEdit: 0,
+          isExportImageEdit: 0,
+          isExportBPMNEdit: 0,
           isEdit: 0,
         }
     }
@@ -214,21 +214,21 @@ class Process extends Component {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    if(!nextProps.isEdit && !nextProps.isExportSVG && !nextProps.isExportImage && !nextProps.isExportBPMN){
+    if(!nextProps.isEdit && !nextProps.isExportSVGEdit && !nextProps.isExportImageEdit && !nextProps.isExportBPMNEdit){
 
     }else{
       if(nextProps.isEdit && nextProps.isEdit !== this.state.isEdit){
         this.editDiagram();
         this.setState({isEdit: nextProps.isEdit});
-      }else if(nextProps.isExportImage && nextProps.isExportImage !== this.state.isExportImage){
+      }else if(nextProps.isExportImageEdit && nextProps.isExportImageEdit !== this.state.isExportImageEdit){
         this.downloadAsImage();
-        this.setState({isExportImage: nextProps.isExportImage});
-      }else if(nextProps.isExportSVG && nextProps.isExportSVG !== this.state.isExportSVG){
+        this.setState({isExportImageEdit: nextProps.isExportImageEdit});
+      }else if(nextProps.isExportSVGEdit && nextProps.isExportSVGEdit !== this.state.isExportSVGEdit){
         this.downloadAsSVG();
-        this.setState({isExportSVG: nextProps.isExportSVG});
-      }else if(nextProps.isExportBPMN && nextProps.isExportBPMN !== this.state.isExportBPMN){
+        this.setState({isExportSVGEdit: nextProps.isExportSVGEdit});
+      }else if(nextProps.isExportBPMNEdit && nextProps.isExportBPMNEdit !== this.state.isExportBPMNEdit){
         this.downloadAsBpmn();
-        this.setState({isExportBPMN: nextProps.isExportBPMN});
+        this.setState({isExportBPMNEdit: nextProps.isExportBPMNEdit});
       }
     }
   }
@@ -271,9 +271,9 @@ const mapStateToProps = (state, ownProps) => {
       statusPopup: state.processReducers.popupReduders.status,
       elements: state.processReducers.elementReducers.elements,
       isEdit: state.processReducers.actionReducers.isEdit,
-      isExportSVG: state.processReducers.actionReducers.isExportSVG,
-      isExportImage: state.processReducers.actionReducers.isExportImage,
-      isExportBPMN: state.processReducers.actionReducers.isExportBPMN,
+      isExportSVGEdit: state.processReducers.actionReducers.isExportSVGEdit,
+      isExportImageEdit: state.processReducers.actionReducers.isExportImageEdit,
+      isExportBPMNEdit: state.processReducers.actionReducers.isExportBPMNEdit,
       detail: state.addProcessReducers.informationProcessReducer.information,
   }
 }

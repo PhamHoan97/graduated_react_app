@@ -12,9 +12,9 @@ const store = createStore(
 );
 
 
-// store.subscribe(()=>{
-//     console.log(JSON.stringify(store.getState()));
-// });
+store.subscribe(()=>{
+    console.log(JSON.stringify(store.getState()));
+});
 
 
 ReactDOM.render(

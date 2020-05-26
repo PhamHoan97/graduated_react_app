@@ -14,6 +14,7 @@ import "../Css/FormAddProcess.css"
 const animatedComponents = makeAnimated();
 
 class FormAddProcessModal extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props)
 
@@ -51,19 +52,27 @@ class FormAddProcessModal extends Component {
     }
     
     componentDidMount () {
+      this._isMounted = true;
+      let self = this;
       var token = localStorage.getItem('token');
       axios.get(`http://127.0.0.1:8000/api/company/`+ token + `/employee/role`,
       {
           headers: { 'Authorization': 'Bearer ' + token}
       }).then(res => {
-        if(res.data.error != null){
-            console.log(res.data.message);
-        }else{
-            this.setState({employeesFilter: res.data.employees, rolesFilter: res.data.roles});
+        if(self._isMounted){
+          if(res.data.error != null){
+              console.log(res.data.message);
+          }else{
+            self.setState({employeesFilter: res.data.employees, rolesFilter: res.data.roles});
+          }
         }
       }).catch(function (error) {
         alert(error);
       });
+    }
+
+    componentWillUnmount(){
+      this._isMounted = false;
     }
 
     convertEmployeesToOptions(){

@@ -16,7 +16,6 @@ class AlertMessage extends Component {
         };
     }
     UNSAFE_componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
         this.setState({
             isOpenAlert:nextProps.notification.isOpenAlert,
             anchorOrigin:nextProps.notification.anchorOrigin,

@@ -11,6 +11,7 @@ import EditDetail from './EditDetail';
 import {updateProcessInformation} from '../../../Organization/ManageProcess/Actions/Index';
 
 class EditProcess extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props)
 
@@ -107,9 +108,12 @@ class EditProcess extends Component {
         this.props.updateProcessInformation(detail);
         this.props.extractDataElementWhenEdit(elements, notes, comments);
         this.props.changeHeaderStatusToEdit();
+        this.props.resetActionToDiagram();
     }
 
+
     componentDidMount() {
+        this._isMounted = true;
         var idProcess = this.props.match.params.id;
         var token = localStorage.getItem('token');
         axios.get(`http://127.0.0.1:8000/api/company/process/information/` + idProcess,
@@ -127,6 +131,10 @@ class EditProcess extends Component {
         });
     }
 
+    componentWillUnmount(){
+        this._isMounted = false;
+    }
+    
     UNSAFE_componentWillReceiveProps (nextProps) {
         if(nextProps.statusPopup){
             this.setState({openDetails: nextProps.statusPopup});
@@ -221,7 +229,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         },
         changeHeaderStatusToEdit: () => {
             dispatch(actions.changeHeaderStatusToEdit());
-        },
+        },     
+        resetActionToDiagram: () => {
+            dispatch(actions.resetActionToDiagram());
+        },      
     }
 }
 

@@ -112,7 +112,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         passPopupStatus: (status) => {
             dispatch(actions.passPopupStatus(status));
-        }
+        },
     }
 }
 

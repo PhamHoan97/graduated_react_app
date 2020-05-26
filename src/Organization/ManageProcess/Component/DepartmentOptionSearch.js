@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import Select from 'react-select';
 
 class DepartmentOptionSearch extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props)
 
@@ -28,21 +29,29 @@ class DepartmentOptionSearch extends Component {
     }
 
     componentDidMount() {
+        this._isMounted = true;
+        let self = this;
         var token = localStorage.getItem('token');
         axios.get(`http://127.0.0.1:8000/api/company/organization/department/` + token,
         {
             headers: { 'Authorization': 'Bearer ' + token}
         }).then(res => {
-          if(res.data.error != null){
-              console.log(res.data.message);
-          }else{
-              var data = res.data.departmentCompany;
-              var optionsData = this.convertToOptionsSelect(data);
-              this.setState({options:optionsData});
-          }
+            if(self._isMounted){
+                if(res.data.error != null){
+                    console.log(res.data.message);
+                }else{
+                    var data = res.data.departmentCompany;
+                    var optionsData = self.convertToOptionsSelect(data);
+                    self.setState({options:optionsData});
+                }
+            }
         }).catch(function (error) {
           alert(error);
         });
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
     
     render() {

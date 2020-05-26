@@ -9,6 +9,7 @@ import DatePicker from "react-datepicker";
 import FormCheck from 'react-bootstrap/FormCheck';
 
 class EditInformationProcessModal extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props)
 
@@ -63,6 +64,7 @@ class EditInformationProcessModal extends Component {
     }
     
     componentDidMount () {
+      this._isMounted = true;
       var token = localStorage.getItem('token');
       axios.get(`http://127.0.0.1:8000/api/company/`+ token + `/employee/role`,
       {
@@ -76,6 +78,10 @@ class EditInformationProcessModal extends Component {
       }).catch(function (error) {
         alert(error);
       });
+    }
+
+    componentWillUnmount() {
+      this._isMounted = false;
     }
 
     convertEmployeesToOptions(){

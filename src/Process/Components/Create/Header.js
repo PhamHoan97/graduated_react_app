@@ -57,6 +57,21 @@ class Header extends Component {
         this.props.editDiagram()
     }
 
+    exportAsSVGEdit = (e) => {
+        e.preventDefault();
+        this.props.exportDiagramAsSVGEdit();
+    }
+
+    exportAsImageEdit = (e) => {
+        e.preventDefault();
+        this.props.exportDiagramAsImageEdit();
+    }
+
+    exportAsBPMNEdit = (e) => {
+        e.preventDefault();
+        this.props.exportDiagramAsBPMNEdit();
+    }
+
     UNSAFE_componentWillReceiveProps(nextProps) {
         if(nextProps.isEdit){
             this.setState({isEdit:nextProps.isEdit});
@@ -66,25 +81,77 @@ class Header extends Component {
     renderSaveOrEdit = () => {
         if(this.state.isEdit){
             return (
-                <Dropdown.Item onClick={(e)=> this.editDiagram(e) }>
-                    <div className="action-title-left">
-                        Cập nhật và chia sẻ
-                    </div>
-                    <div className="action-ilustration">
-                        Lưu quy trình và chia sẻ với nhân viên
-                    </div>
-                </Dropdown.Item>
+                <>
+                    <Dropdown.Item onClick={(e)=> this.editDiagram(e) }>
+                        <div className="action-title-left">
+                            Cập nhật và chia sẻ
+                        </div>
+                        <div className="action-ilustration">
+                            Lưu quy trình và chia sẻ với nhân viên
+                        </div>
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={(e) => this.exportAsImageEdit(e)}>
+                        <div className="action-title-left">
+                            Xuất file PNG
+                        </div>
+                        <div className="action-ilustration">
+                            Xuất quy trình ra file PNG
+                        </div>
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={(e) => this.exportAsSVGEdit(e)}>
+                        <div className="action-title-left">
+                            Xuất file SVG
+                        </div>
+                        <div className="action-ilustration">
+                            Xuất quy trình ra file SVG
+                        </div>
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={(e)=>this.exportAsBPMNEdit(e)}>
+                        <div className="action-title-left">
+                            Xuất file BPMN 2.0 XML
+                        </div>
+                        <div className="action-ilustration">
+                            Xuất quy trình ra dạng tài liệu BPMN 2.0 
+                        </div>
+                    </Dropdown.Item>
+                </>
             );
         }else{
             return (
-                <Dropdown.Item onClick={(e)=> this.saveDiagram(e) }>
-                    <div className="action-title-left">
-                        Lưu và chia sẻ
-                    </div>
-                    <div className="action-ilustration">
-                        Lưu quy trình và chia sẻ với nhân viên
-                    </div>
-                </Dropdown.Item>
+                <>
+                    <Dropdown.Item onClick={(e)=> this.saveDiagram(e) }>
+                        <div className="action-title-left">
+                            Lưu và chia sẻ
+                        </div>
+                        <div className="action-ilustration">
+                            Lưu quy trình và chia sẻ với nhân viên
+                        </div>
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={(e) => this.exportAsImage(e)}>
+                        <div className="action-title-left">
+                            Xuất file PNG
+                        </div>
+                        <div className="action-ilustration">
+                            Xuất quy trình ra file PNG
+                        </div>
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={(e) => this.exportAsSVG(e)}>
+                        <div className="action-title-left">
+                            Xuất file SVG
+                        </div>
+                        <div className="action-ilustration">
+                            Xuất quy trình ra file SVG
+                        </div>
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={(e)=>this.exportAsBPMN(e)}>
+                        <div className="action-title-left">
+                            Xuất file BPMN 2.0 XML
+                        </div>
+                        <div className="action-ilustration">
+                            Xuất quy trình ra dạng tài liệu BPMN 2.0 
+                        </div>
+                    </Dropdown.Item>
+                </>
             );
         }
     }
@@ -92,6 +159,24 @@ class Header extends Component {
     backToHomePage = (e) => {
         e.preventDefault();
         this.setState({isBackHomeCompany:true});
+    }
+
+    renderImportButton = () => {
+        if(this.state.isEdit){
+            return <div></div>;
+        }else{
+            return (
+                <Dropdown drop={"left"}>
+                    <Dropdown.Toggle id="dropdown-action" variant="actions" bsPrefix="dropdown">
+                        <div className="button-area">
+                            <i className="fas fa-cloud-upload-alt" htmlFor="file">
+                            </i>
+                            <input onChange={this.handleImportFileBPMN} className="input-import-file-bpmn" type="file" id="file" />
+                        </div>
+                    </Dropdown.Toggle>
+                </Dropdown>
+            );
+        }
     }
 
     getExtension(filename) {
@@ -177,15 +262,7 @@ class Header extends Component {
                             </Dropdown>
                         </div>
                         <div className="col-md-2" style={{display: "flex"}}> 
-                            <Dropdown drop={"left"}>
-                                <Dropdown.Toggle id="dropdown-action" variant="actions" bsPrefix="dropdown">
-                                    <div className="button-area">
-                                        <i className="fas fa-cloud-upload-alt" htmlFor="file">
-                                        </i>
-                                        <input onChange={this.handleImportFileBPMN} className="input-import-file-bpmn" type="file" id="file" />
-                                    </div>
-                                </Dropdown.Toggle>
-                            </Dropdown>
+                            {this.renderImportButton()}
                             <Dropdown drop={"left"}>
                                 <Dropdown.Toggle id="dropdown-action" variant="actions" bsPrefix="dropdown">
                                     <div className="button-area">
@@ -195,30 +272,6 @@ class Header extends Component {
 
                                 <Dropdown.Menu>
                                     {this.renderSaveOrEdit()}
-                                    <Dropdown.Item onClick={(e) => this.exportAsImage(e)}>
-                                        <div className="action-title-left">
-                                            Xuất file PNG
-                                        </div>
-                                        <div className="action-ilustration">
-                                            Xuất quy trình ra file PNG
-                                        </div>
-                                    </Dropdown.Item>
-                                    <Dropdown.Item onClick={(e) => this.exportAsSVG(e)}>
-                                        <div className="action-title-left">
-                                            Xuất file SVG
-                                        </div>
-                                        <div className="action-ilustration">
-                                            Xuất quy trình ra file SVG
-                                        </div>
-                                    </Dropdown.Item>
-                                    <Dropdown.Item onClick={(e)=>this.exportAsBPMN(e)}>
-                                        <div className="action-title-left">
-                                            Xuất file BPMN 2.0 XML
-                                        </div>
-                                        <div className="action-ilustration">
-                                            Xuất quy trình ra dạng tài liệu BPMN 2.0 
-                                        </div>
-                                    </Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
 
@@ -292,6 +345,15 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         },
         updateImportBpmnFile: (data) => {
             dispatch(actions.updateImportBpmnFile(data));
+        },
+        exportDiagramAsSVGEdit: () => {
+            dispatch(actions.exportDiagramAsSVGEdit())
+        },
+        exportDiagramAsImageEdit: () => {
+            dispatch(actions.exportDiagramAsImageEdit())
+        },
+        exportDiagramAsBPMNEdit: () => {
+            dispatch(actions.exportDiagramAsBPMNEdit())
         },
     }
 }

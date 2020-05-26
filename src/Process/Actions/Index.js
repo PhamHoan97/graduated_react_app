@@ -104,3 +104,34 @@ export const updateImportBpmnFile = (result)=> {
         result
     }
 }
+
+export const resetImportBpmnFile = ()=> {
+    return {
+        type: types.RESETIMPORTBPMNFILE,
+    }
+}
+
+export const exportDiagramAsSVGEdit =()=> {
+    return {
+        type: types.EXPORT_DIAGRAM_AS_SVG_EDIT,
+    }
+}
+
+export const exportDiagramAsImageEdit =()=> {
+    return {
+        type: types.EXPORT_DIAGRAM_AS_IMAGE_EDIT,
+    }
+}
+
+export const exportDiagramAsBPMNEdit =()=> {
+    return {
+        type: types.EXPORT_DIAGRAM_AS_BPMN_EDIT,
+    }
+}
+
+export const resetActionToDiagram =()=> {
+    return {
+        type: types.RESETACTIONTODIAGRAM,
+    }
+}
+

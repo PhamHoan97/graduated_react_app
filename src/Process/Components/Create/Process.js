@@ -50,7 +50,8 @@ class Process extends Component {
           isExportSVG: 0,
           isExportImage: 0,
           isExportBPMN: 0,
-          redirectManageProcess: false,
+          redirectEdit: false,
+          idProcess: '',
         }
     }
     
@@ -113,7 +114,7 @@ class Process extends Component {
               title:'Thành công',
               severity:'success'
             });
-            this.setState({redirectManageProcess:true});
+            this.setState({redirectEdit:true,idProcess: res.data.process.id});
           }
         }).catch(function (error) {
           alert(error);
@@ -253,6 +254,9 @@ class Process extends Component {
 
     shouldComponentUpdate(nextProps, nextState) {
       if(nextProps.importData && nextProps.importData === this.initialDiagram){
+        if(nextState.redirectEdit){
+          return true;
+        }
         return false;
       }else {
         this.initialDiagram = nextProps.importData;
@@ -261,7 +265,7 @@ class Process extends Component {
     }
   
     componentDidUpdate (){
-        if(this.initialDiagram){
+        if(this.initialDiagram && !this.state.redirectEdit){
           this.modeler.attachTo('#create-process-diagram');
           this.modeler.importXML(this.initialDiagram, function(err) {
     
@@ -291,8 +295,8 @@ class Process extends Component {
     }
 
     render() {
-        if(this.state.redirectManageProcess){
-          return <Redirect to={'/company/manage/process'}/> 
+        if(this.state.redirectEdit){
+          return <Redirect to={'/process/edit/' + this.state.idProcess}/> 
         }
         return (
             <div className="process-interact-area">
@@ -332,7 +336,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       },
       showAlert: (properties) => {
         dispatch(actionAlerts.showMessageAlert(properties))
-      }
+      },
   }
 }
 
