@@ -32,11 +32,6 @@ class HeaderEmployee extends Component {
         this.setState({isOpenShortcut:false});
     }
 
-    saveDiagram = (e) => {
-        e.preventDefault();
-        this.props.saveDiagram()
-    }
-
     exportAsSVG = (e) => {
         e.preventDefault();
         this.props.exportDiagramAsSVG();
@@ -52,111 +47,15 @@ class HeaderEmployee extends Component {
         this.props.exportDiagramAsBPMN();
     }
 
-    editDiagram = (e) => {
-        e.preventDefault();
-        this.props.editDiagram()
-    }
-
     UNSAFE_componentWillReceiveProps(nextProps) {
         if(nextProps.isEdit){
             this.setState({isEdit:nextProps.isEdit});
         }
     }
 
-    renderSaveOrEdit = () => {
-        if(this.state.isEdit){
-            return (
-                <Dropdown.Item onClick={(e)=> this.editDiagram(e) }>
-                    <div className="action-title-left">
-                        Cập nhật và chia sẻ
-                    </div>
-                    <div className="action-ilustration">
-                        Lưu quy trình và chia sẻ với nhân viên
-                    </div>
-                </Dropdown.Item>
-            );
-        }else{
-            return (
-                <Dropdown.Item onClick={(e)=> this.saveDiagram(e) }>
-                    <div className="action-title-left">
-                        Lưu và chia sẻ
-                    </div>
-                    <div className="action-ilustration">
-                        Lưu quy trình và chia sẻ với nhân viên
-                    </div>
-                </Dropdown.Item>
-            );
-        }
-    }
-
     backToHomePage = (e) => {
         e.preventDefault();
         this.setState({isBackHomeEmployee:true});
-    }
-
-    getExtension(filename) {
-        var parts = filename.split('.');
-        return parts[parts.length - 1];
-    }
-
-    loadedReaderFile = (evt) => {
-        var result = evt.target.result;
-        this.props.updateImportBpmnFile(result);
-    }
-
-    handleImportFileBPMN = event => {
-        var files = event.target.files;
-        var fileName = files[0].name;
-        if(files && files.length !== 1){
-            this.props.showAlert({
-                message: "Chỉ được import một file",
-                anchorOrigin:{
-                    vertical: 'top',
-                    horizontal: 'right'
-                },
-                title:'Thất bại',
-                severity:'error'
-            });
-            event.target.value = null;
-        }
-        var type = this.getExtension(fileName);
-        if(type !== "bpmn"){
-            this.props.showAlert({
-                message: "Chỉ được import file có định dạng bpmn",
-                anchorOrigin:{
-                    vertical: 'top',
-                    horizontal: 'right'
-                },
-                title:'Thất bại',
-                severity:'error'
-            });
-            event.target.value = null; 
-        }
-        try{
-            var reader = new FileReader();
-        }catch(e){
-            this.props.showAlert({
-                message: "Trình duyệt không hỗ trợ đọc file bpmn",
-                anchorOrigin:{
-                    vertical: 'top',
-                    horizontal: 'right'
-                },
-                title:'Thất bại',
-                severity:'error'
-            });
-        }
-        reader.readAsText(files[0], "UTF-8");
-        reader.onloadend = this.loadedReaderFile;
-
-        this.props.showAlert({
-            message: "Import thành công file bpmn",
-            anchorOrigin:{
-                vertical: 'top',
-                horizontal: 'right'
-            },
-            title:'Thành công',
-            severity:'success'
-        });
     }
 
     render() {
@@ -180,21 +79,11 @@ class HeaderEmployee extends Component {
                             <Dropdown drop={"left"}>
                                 <Dropdown.Toggle id="dropdown-action" variant="actions" bsPrefix="dropdown">
                                     <div className="button-area">
-                                        <i className="fas fa-cloud-upload-alt" htmlFor="file">
-                                        </i>
-                                        <input onChange={this.handleImportFileBPMN} className="input-import-file-bpmn" type="file" id="file" />
-                                    </div>
-                                </Dropdown.Toggle>
-                            </Dropdown>
-                            <Dropdown drop={"left"}>
-                                <Dropdown.Toggle id="dropdown-action" variant="actions" bsPrefix="dropdown">
-                                    <div className="button-area">
                                         <i className="fas fa-share-alt fa-sm icon"></i>
                                     </div>
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
-                                    {this.renderSaveOrEdit()}
                                     <Dropdown.Item onClick={(e) => this.exportAsImage(e)}>
                                         <div className="action-title-left">
                                             Xuất file PNG
@@ -272,9 +161,6 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        saveDiagram: () => {
-            dispatch(actions.saveDiagram())
-        },
         exportDiagramAsSVG: () => {
             dispatch(actions.exportDiagramAsSVG())
         },
@@ -284,14 +170,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         exportDiagramAsBPMN: () => {
             dispatch(actions.exportDiagramAsBPMN())
         },
-        editDiagram: () => {
-            dispatch(actions.editDiagram())
-        },
         showAlert: (properties) => {
             dispatch(alertActions.showMessageAlert(properties));
-        },
-        updateImportBpmnFile: (data) => {
-            dispatch(actions.updateImportBpmnFile(data));
         },
     }
 }
