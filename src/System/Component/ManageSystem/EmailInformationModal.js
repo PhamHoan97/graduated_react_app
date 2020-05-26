@@ -13,6 +13,14 @@ class EmailInformationModal extends Component {
         return (status === 1) ? "Gửi" : "Lỗi";
     }
 
+    renderUserName = (value) =>{
+        if(value.sender && value.sender.username){
+            return value.sender.username;
+        }else{
+            return "Hệ thống";
+        }
+    }
+
     render() {
         if(this.props.currentEmail){
         return (
@@ -71,7 +79,7 @@ class EmailInformationModal extends Component {
                         </label>
                         </div>
                         <div className="col-12 col-md-6">
-                            <p>{this.props.currentEmail.sender.username}</p>
+                            <p>{this.renderUserName(this.props.currentEmail)}</p>
                             <small className="form-text text-muted">
                             </small>
                         </div>

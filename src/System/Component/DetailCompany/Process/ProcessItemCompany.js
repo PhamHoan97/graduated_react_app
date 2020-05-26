@@ -22,7 +22,7 @@ class ProcessItemCompany extends Component {
 
     render() {
         if(this.state.isRedirectToViewProcess){
-            return <Redirect to={'/view/process/' + this.state.idProcess} />
+            return <Redirect to={'/system/view/process/' + this.state.idProcess} />
         }
         return (
             <tr>

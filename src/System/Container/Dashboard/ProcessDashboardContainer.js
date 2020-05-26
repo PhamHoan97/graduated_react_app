@@ -7,6 +7,7 @@ import * as host from '../../Constants/Url'
 import axios from 'axios'
 import {connect} from "react-redux"
 class ProcessDashboardContainer extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -49,8 +50,11 @@ class ProcessDashboardContainer extends Component {
     }
 
     componentDidMount() {
-        // connect database and find search
         this.getListProcess(this.props.textSearch);
+    }
+
+    componentWillUnmount(){
+        this._isMounted = false;
     }
 
     mergeProcesses(process1, process2){

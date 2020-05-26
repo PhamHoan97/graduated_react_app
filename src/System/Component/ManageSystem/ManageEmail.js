@@ -5,6 +5,7 @@ import axios from 'axios';
 import EmailInformationModal from './EmailInformationModal'
 
 class ManageEmail extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props)
 
@@ -147,6 +148,14 @@ class ManageEmail extends Component {
         return (status === 1) ? "Sent" : "Error";
     }
 
+    renderUserName = (value) =>{
+        if(value.sender && value.sender.username){
+            return value.sender.username;
+        }else{
+            return "Hệ thống";
+        }
+    }
+
     getRowsOfTable = (pageNumber) => {
         var email = this.state.email;
         var locationStart = pageNumber * 8 - 8;
@@ -165,7 +174,7 @@ class ManageEmail extends Component {
                     <td className="desc">
                         {value.to}
                     </td>
-                    <td className="desc">{value.sender.username}</td>
+                    <td className="desc">{this.renderUserName(value)}</td>
                     <td className="desc">{this.convertStatusEmail(value.status)}</td>
                     <td className="desc">
                         {value.created_at}
@@ -227,17 +236,20 @@ class ManageEmail extends Component {
     }
     
     componentDidMount() {
+        this._isMounted = true;
+        let self = this;
         var token = localStorage.getItem('token');
         axios.get(`http://127.0.0.1:8000/api/system/email`,
         {
             headers: { 'Authorization': 'Bearer ' + token }
         })
         .then(res => {
-            if(res.data.error != null){
-                console.log(res.data.message);
-            }else{
-                console.log(res.data);
-                this.setState({email:res.data.email});
+            if(self._isMounted){
+                if(res.data.error != null){
+                    console.log(res.data.message);
+                }else{
+                    self.setState({email:res.data.email});
+                }
             }
         }).catch(function (error) {
           alert(error);

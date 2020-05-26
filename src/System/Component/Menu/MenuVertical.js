@@ -4,6 +4,7 @@ import axios from 'axios';
 import  { Redirect } from 'react-router-dom';
 
 class MenuVertical extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -50,20 +51,28 @@ class MenuVertical extends Component {
     }
 
   componentDidMount() {
+    this._isMounted = true;
+    let self = this;
     var token = localStorage.getItem('token')
     axios.get(`http://127.0.0.1:8000/api/system/account/` + token,
     {
       headers: { 'Authorization': 'Bearer ' + token}
     })
     .then(res => {
-      if(res.data.error != null){
-          console.log(res.data.message);
-      }else{
-        this.setState({system: res.data.system});
+      if(self._isMounted){
+        if(res.data.error != null){
+            console.log(res.data.message);
+        }else{
+          self.setState({system: res.data.system});
+        }
       }
     }).catch(function (error) {
       alert(error);
     })
+  }
+
+  componentWillUnmount(){
+    this._isMounted = false;
   }
 
   render() {

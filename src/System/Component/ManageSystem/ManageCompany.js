@@ -7,7 +7,7 @@ import axios from 'axios';
 import MoreAdminAccountModal from "./MoreAdminAccountModal";
 
 export default class ManageCompany extends Component {
-
+    _isMounted = false;
     constructor(props) {
         super(props)
         this.state = {
@@ -118,20 +118,28 @@ export default class ManageCompany extends Component {
     }
 
     componentDidMount() {
+        this._isMounted = true;
+        let self = this;
         var token = localStorage.getItem('token');
         axios.get(`http://127.0.0.1:8000/api/system/companies`,
         {
              headers: { 'Authorization': 'Bearer ' + token }
         })
         .then(res => {
-          if(res.data.error != null){
-              console.log(res.data.message);
-          }else{
-              this.setState({companies:res.data.companies, statistic:res.data.statistic});
-          }
+            if(self._isMounted){
+                if(res.data.error != null){
+                    console.log(res.data.message);
+                }else{
+                    self.setState({companies:res.data.companies, statistic:res.data.statistic});
+                }
+            }
         }).catch(function (error) {
           alert(error);
         })
+    }
+
+    componentWillUnmount(){
+        this._isMounted = false;
     }
 
     convertWorkforceCompany = (workforce) => {

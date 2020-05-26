@@ -11,6 +11,7 @@ import * as actions from '../../../Alert/Action/Index';
 import {connect} from 'react-redux';
 
 class ProcessTemplate extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props)
 
@@ -250,20 +251,29 @@ class ProcessTemplate extends Component {
     }
 
     componentDidMount() {
-        var token = localStorage.getItem('token');
-        axios.get(`http://127.0.0.1:8000/api/system/field`,
-        {
-            headers: { 'Authorization': 'Bearer ' + token}
-        }).then(res => {
+      this._isMounted = true;
+      let self = this;
+      var token = localStorage.getItem('token');
+      axios.get(`http://127.0.0.1:8000/api/system/field`,
+      {
+          headers: { 'Authorization': 'Bearer ' + token}
+      }).then(res => {
+        if(self._isMounted){
           if(res.data.error != null){
               console.log(res.data.error);
           }else{ 
-            this.setState({fields:res.data.fields});
+            self.setState({fields:res.data.fields});
           }
-        }).catch(function (error) {
-          alert(error);
-        });
+        }
+      }).catch(function (error) {
+        alert(error);
+      });
     }
+
+    componentWillUnmount() {
+      this._isMounted =false;
+    }
+    
 
     renderTableRow = (pageNumber) => {
       var fields = this.state.fields;

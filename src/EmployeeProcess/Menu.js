@@ -241,7 +241,7 @@ class Menu extends Component {
       return <Redirect to='/'/>;
     }
     if(this.state.isRedirectViewProcess){
-      return <Redirect to={'/view/process/' + this.state.click} />
+      return <Redirect to={'/system/view/process/' + this.state.click} />
     }
 
     return (
