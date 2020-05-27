@@ -27,7 +27,7 @@ export default class Intro extends Component {
                     id="navbarTogglerDemo01"
                   >
                     <a className="navbar-brand" href="2aesn">
-                      <img src='./intro/images/logo.png' alt="logo" />
+                      <img src='./intro/images/Logo.png' alt="logo" />
                     </a>
                     <ul className="navbar-nav mr-auto mt-2 mt-lg-0 menu-left">
                       <li className="nav-item active">
