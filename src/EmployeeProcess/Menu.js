@@ -244,7 +244,7 @@ class Menu extends Component {
       <div className="header">
         <div className="header-left">
           <a href="index.html" className="logo">
-            <img src="./Image/logo.png" width={40} height={40} alt="" />
+            <img src="./Image/Logo.png" width={40} height={40} alt="" />
           </a>
         </div>
         <a

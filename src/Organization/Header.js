@@ -61,7 +61,7 @@ class Header extends Component {
                   <div className="logo my-3 my-sm-0">
                     <a href="index.html">
                       {/* <img
-                        src="assets/img/logo.png"
+                        src="assets/img/Logo.png"
                         alt="logo image"
                         className="img-fluid"
                         width={100}
