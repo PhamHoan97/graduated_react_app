@@ -4,6 +4,7 @@ import axios from 'axios';
 import  { Redirect } from 'react-router-dom';
 import * as actions from '../Alert/Action/Index';
 import {connect} from 'react-redux';
+import host from '../Host/ServerDomain'; 
 
 class Header extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class Header extends Component {
   handleLogout = (event) => {
     event.preventDefault();
     localStorage.removeItem("token");
-    axios.post(`http://127.0.0.1:8000/api/logout/company`)
+    axios.post(host + `/api/logout/company`)
     .then(res => {
       if(res.data.error != null){
         this.props.showAlert({

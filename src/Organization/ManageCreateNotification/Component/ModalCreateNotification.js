@@ -5,7 +5,7 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmpty } from "validator";
 import axios from 'axios';
-import * as host from '../../Url'
+import host from '../../../Host/ServerDomain'; 
 import Alert from '@material-ui/lab/Alert';
 
 export default class ModalCreateNotification extends Component {
@@ -25,7 +25,7 @@ export default class ModalCreateNotification extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleChangeFile = this.handleChangeFile.bind(this);
     }
-    //WARNING! To be deprecated in React v17. Use new lifecycle static getDerivedStateFromProps instead.
+
     componentWillReceiveProps(nextProps) {
         this.setState({
             errorDescription: {},
@@ -56,7 +56,7 @@ export default class ModalCreateNotification extends Component {
         });
         if (isEmpty(this.state.newNameNotification)) {
             var errorName = {
-                selectedName: "Select name is required.",
+                selectedName: "Name không được trống.",
             };
             this.setState({
                 errorName: errorName,
@@ -64,7 +64,7 @@ export default class ModalCreateNotification extends Component {
         }
         if (isEmpty(this.state.newDescriptionNotification)) {
             var errorDescription = {
-                selectedDescription: "Select description is required.",
+                selectedDescription: "Mô tả không được trống.",
             };
             this.setState({
                 errorDescription: errorDescription,
@@ -81,7 +81,7 @@ export default class ModalCreateNotification extends Component {
             data.append('newDescriptionNotification',this.state.newDescriptionNotification);
             data.append('newFileNotification',this.state.newFileNotification);
             data.append('token',token);
-            axios.post(host.URL_BACKEND+"/api/company/notification/create",
+            axios.post(host + "/api/company/notification/create",
                 data
             ,
             {

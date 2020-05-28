@@ -4,6 +4,7 @@ import axios from 'axios';
 import {loadTableAfterReject} from '../../Action/System/Index'
 import { connect } from 'react-redux';
 import * as actions from '../../../Alert/Action/Index';
+import host from '../../../Host/ServerDomain';
 
 class RejectReasonModal extends Component {
     constructor(props) {
@@ -54,7 +55,7 @@ class RejectReasonModal extends Component {
                 tokenData: token,
             };
     
-            axios.post(`http://127.0.0.1:8000/api/system/send/email/reject`,data,
+            axios.post(host + `/api/system/send/email/reject`,data,
             {
                 headers: { 'Authorization': 'Bearer ' + token }
             })

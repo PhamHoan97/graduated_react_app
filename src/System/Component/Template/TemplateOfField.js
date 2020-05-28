@@ -7,6 +7,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import  { Redirect } from 'react-router-dom';
+import host from '../../../Host/ServerDomain';
 
 class TemplateOfField extends Component {
     constructor(props) {
@@ -25,7 +26,7 @@ class TemplateOfField extends Component {
     componentDidMount() {
         var field_id = this.props.match.params.id;
         var token = localStorage.getItem('token');
-        axios.get(`http://127.0.0.1:8000/api/system/template/field/` + field_id,
+        axios.get(host + `/api/system/template/field/` + field_id,
         {
             headers: { 'Authorization': 'Bearer ' + token}
         }).then(res => {
@@ -141,7 +142,7 @@ class TemplateOfField extends Component {
     deleteTemplateProcess = (e,id) =>{
         e.preventDefault();
         var token = localStorage.getItem('token');
-        axios.post(`http://127.0.0.1:8000/api/system/template/delete/`,
+        axios.post(host + `/api/system/template/delete/`,
         {
             idProcess: id,
             idField: this.props.match.params.id,

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
-import {URL_BACKEND} from "../../Url";
+import host from '../../../Host/ServerDomain'; 
 
 class ModalDetailProcess extends Component {
     constructor(props) {
@@ -14,7 +14,7 @@ class ModalDetailProcess extends Component {
 
     renderLinkDownloadDocument(document) {
         if(document){
-            return (<a className="link-download-document" href={URL_BACKEND + '/' + document}> Tải file ở đây</a>);
+            return (<a className="link-download-document" href={host + '/' + document}> Tải file ở đây</a>);
         }else{
             return (<></>)
         }
@@ -23,7 +23,7 @@ class ModalDetailProcess extends Component {
     UNSAFE_componentWillReceiveProps(nextProps) {
         if(nextProps.idProcess){
             var token = localStorage.getItem('token');
-            axios.get(`http://127.0.0.1:8000/api/company/process/information/` + nextProps.idProcess,
+            axios.get(host + `/api/company/process/information/` + nextProps.idProcess,
             {
                 headers: { 'Authorization': 'Bearer ' + token}
             }).then(res => {

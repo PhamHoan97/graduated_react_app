@@ -6,9 +6,10 @@ import Header from "../../Header";
 import Menu from "../../Menu";
 import { isEmpty } from "validator";
 import axios from 'axios';
-import * as host from '../../Url'
+import host from '../../../Host/ServerDomain';
 import Alert from '@material-ui/lab/Alert';
 import LinkPage from "../../LinkPage";
+
 export default class Template extends Component {
   constructor(props, context) {
     super(props, context);
@@ -37,7 +38,7 @@ export default class Template extends Component {
     var self =  this;
     var token = localStorage.getItem('token');
     var idAdmin = localStorage.getItem('admin_id')
-    axios.get(host.URL_BACKEND+"/api/system/notification/type/list/"+idAdmin,{
+    axios.get(host + "/api/system/notification/type/list/"+idAdmin,{
       headers: { 'Authorization': 'Bearer ' + token }
     })
     .then(function (response) {
@@ -57,7 +58,7 @@ export default class Template extends Component {
   getListAllTemplateSystem = () => {
     var self =  this;
     var token = localStorage.getItem('token');
-    axios.get(host.URL_BACKEND+"/api/system/notification/template/list",{
+    axios.get(host + "/api/system/notification/template/list",{
       headers: { 'Authorization': 'Bearer ' + token }
     })
     .then(function (response) {
@@ -126,7 +127,7 @@ export default class Template extends Component {
   getDataForm = () => {
     if (isEmpty(this.state.newNameTemplate)) {
       var errorName = {
-          selectedName: "Select name is required.",
+          selectedName: "Tên không được trống.",
       };
       this.setState({
           errorName: errorName,
@@ -138,7 +139,7 @@ export default class Template extends Component {
     }
     if(parseInt(this.state.newTypeTemplate) === 0){
         var errorType = {
-            selectedType: "Select type is required.",
+            selectedType: "Thể loại không được trống.",
         };
         this.setState({
             errorType: errorType,
@@ -159,7 +160,7 @@ export default class Template extends Component {
       }else{
         var self = this;
         var token = localStorage.getItem('token');
-        axios.post(host.URL_BACKEND+'/api/system/notification/template/create', {
+        axios.post(host + '/api/system/notification/template/create', {
           newNameTemplate: this.state.newNameTemplate,
           newTypeTemplate: this.state.newTypeTemplate,
           contentTemplate: JSON.parse(builderSchema).components
@@ -202,7 +203,7 @@ export default class Template extends Component {
     var self =  this;
     var token = localStorage.getItem('token');
     if(parseInt(idChooseType) === 0){
-        axios.get(host.URL_BACKEND+"/api/system/notification/template/list",{
+        axios.get(host + "/api/system/notification/template/list",{
           headers: { 'Authorization': 'Bearer ' + token }
         })
         .then(function (response) {
@@ -214,7 +215,7 @@ export default class Template extends Component {
             console.log(error);
         });
     }else{
-        axios.get(host.URL_BACKEND+"/api/system/notification/template/list/"+idChooseType,{
+        axios.get(host + "/api/system/notification/template/list/"+idChooseType,{
           headers: { 'Authorization': 'Bearer ' + token }
         })
         .then(function (response) {

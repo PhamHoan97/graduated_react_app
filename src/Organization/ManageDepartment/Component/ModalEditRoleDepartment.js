@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Alert from "@material-ui/lab/Alert";
 import axios from "axios";
 import Validator from "../Utils/Validator";
-import * as host from "../../Url";
+import host from '../../../Host/ServerDomain'; 
 import { isEmpty } from "validator";
 import { Modal } from "react-bootstrap";
 import { connect } from "react-redux";
@@ -21,13 +21,13 @@ class ModalEditRoleDepartment extends Component {
         field: "editNameRole",
         method: "isEmpty",
         validWhen: false,
-        message: "The Name Role field is required.",
+        message: "Tên vai trò không được trống.",
       },
       {
         field: "editDescriptionRole",
         method: "isEmpty",
         validWhen: false,
-        message: "The Description Department field is required.",
+        message: "Mô tả của vai trò không được trống.",
       },
     ];
     this.validator = new Validator(rules);
@@ -160,7 +160,7 @@ class ModalEditRoleDepartment extends Component {
       var self =  this;
       axios
         .post(
-          host.URL_BACKEND + "/api/company/organization/role/update",
+          host + "/api/company/organization/role/update",
           {
             editNameRole: this.state.editNameRole,
             editDescriptionRole: this.state.editDescriptionRole,

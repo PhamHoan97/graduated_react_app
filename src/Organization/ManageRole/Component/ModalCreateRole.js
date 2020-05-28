@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Alert from "@material-ui/lab/Alert";
 import axios from "axios";
 import Validator from "../Utils/Validator";
-import * as host from "../../Url";
+import host from '../../../Host/ServerDomain'; 
 import { isEmpty } from "validator";
 import { Modal } from "react-bootstrap";
 export default class ModalCreateRole extends Component {
@@ -24,13 +24,13 @@ export default class ModalCreateRole extends Component {
         field: "newNameRole",
         method: "isEmpty",
         validWhen: false,
-        message: "The Name Role field is required.",
+        message: "Tên vai trò không được trống.",
       },
       {
         field: "newDescriptionRole",
         method: "isEmpty",
         validWhen: false,
-        message: "The Description Department field is required.",
+        message: "Mô tả vai trò không được trống.",
       },
     ];
     this.validator = new Validator(rules);
@@ -43,7 +43,7 @@ export default class ModalCreateRole extends Component {
     var token = localStorage.getItem("token");
     axios
       .get(
-        host.URL_BACKEND + "/api/company/organization/department/" + token,
+        host + "/api/company/organization/department/" + token,
         {
           headers: { Authorization: "Bearer " + token },
         }
@@ -217,7 +217,7 @@ export default class ModalCreateRole extends Component {
     var self = this;
     if (parseInt(this.state.newDepartmentRole) === 0) {
       errorChooseDepartment = {
-        newDepartmentRole: "Select department is required.",
+        newDepartmentRole: "Phòng ban không được trống.",
       };
       this.setState({
         errorChooseDepartment: errorChooseDepartment,
@@ -239,7 +239,7 @@ export default class ModalCreateRole extends Component {
       var token = localStorage.getItem("token");
       axios
         .post(
-          host.URL_BACKEND + "/api/company/organization/role/new",
+          host + "/api/company/organization/role/new",
           {
             newNameRole: this.state.newNameRole,
             newDescriptionRole: this.state.newDescriptionRole,

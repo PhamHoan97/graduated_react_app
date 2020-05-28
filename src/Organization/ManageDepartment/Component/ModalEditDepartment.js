@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Alert from "@material-ui/lab/Alert";
 import axios from "axios";
-import * as host from "../../Url";
+import host from '../../../Host/ServerDomain'; 
 import { Modal } from "react-bootstrap";
 import Validator from "../Utils/Validator";
 import { connect } from "react-redux";
@@ -22,19 +22,19 @@ class ModalEditDepartment extends Component {
                 field: "editNameDepartment",
                 method: "isEmpty",
                 validWhen: false,
-                message: "The Name Department field is required.",
+                message: "Tên phòng ban không được trống.",
             },
             {
                 field: "editSignatureDepartment",
                 method: "isEmpty",
                 validWhen: false,
-                message: "The Signture Department field is required.",
+                message: "Tên viết tắt không được trống.",
             },
             {
                 field: "editDescriptionDepartment",
                 method: "isEmpty",
                 validWhen: false,
-                message: "The Description field is required.",
+                message: "Mô tả của phòng ban không được trống.",
             },
         ];
         this.validator = new Validator(rules);
@@ -165,7 +165,7 @@ class ModalEditDepartment extends Component {
         }else{
             var self = this;
             var token = localStorage.getItem("token");
-            axios.patch(host.URL_BACKEND+'/api/company/organization/department/update', {
+            axios.patch(host +'/api/company/organization/department/update', {
                 editNameDepartment: this.state.editNameDepartment,
                 editSignatureDepartment: this.state.editSignatureDepartment,
                 editDescriptionDepartment:this.state.editDescriptionDepartment,

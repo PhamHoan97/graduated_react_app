@@ -8,6 +8,7 @@ import {connect} from 'react-redux';
 import * as actions from '../../Actions/Index';
 import axios from 'axios';
 import * as actionAlerts from  '../../../Alert/Action/Index';
+import host from '../../../Host/ServerDomain';
 
 class Process extends Component {
     constructor(props) {
@@ -68,7 +69,7 @@ class Process extends Component {
         data.append('token', tokenData);
         data.append('file',  this.props.detail.file);
         
-        axios.post(`http://127.0.0.1:8000/api/company/process/edit`,
+        axios.post(host + `/api/company/process/edit`,
         data,
         {
             headers: { 'Authorization': 'Bearer ' + tokenData}

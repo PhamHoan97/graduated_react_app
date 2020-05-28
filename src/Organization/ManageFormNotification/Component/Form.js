@@ -6,7 +6,8 @@ import Menu from "../../Menu";
 import LinkPage from "../../LinkPage";
 import ModalCreateForm from "./ModalCreateForm";
 import axios from "axios";
-import * as host from '../../Url'
+import host from '../../../Host/ServerDomain';
+
 export default class Form extends Component {
   constructor(props, context) {
     super(props, context);
@@ -33,7 +34,7 @@ export default class Form extends Component {
     var token = localStorage.getItem("token");
     var idAdmin = localStorage.getItem("admin_id");
     axios
-      .get(host.URL_BACKEND + "/api/system/notification/form/list/" + idAdmin, {
+      .get(host + "/api/system/notification/form/list/" + idAdmin, {
         headers: { Authorization: "Bearer " + token },
       })
       .then(function (response) {

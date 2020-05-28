@@ -5,6 +5,7 @@ import MenuHorizontal from "../Menu/MenuHorizontal";
 import CompanyInformationModal from "./CompanyInformationModal";
 import axios from 'axios';
 import MoreAdminAccountModal from "./MoreAdminAccountModal";
+import host from '../../../Host/ServerDomain';
 
 export default class ManageCompany extends Component {
     _isMounted = false;
@@ -121,7 +122,7 @@ export default class ManageCompany extends Component {
         this._isMounted = true;
         let self = this;
         var token = localStorage.getItem('token');
-        axios.get(`http://127.0.0.1:8000/api/system/companies`,
+        axios.get(host + `/api/system/companies`,
         {
              headers: { 'Authorization': 'Bearer ' + token }
         })
@@ -169,7 +170,7 @@ export default class ManageCompany extends Component {
     getCompanyInformation = (event, id) => {
         event.preventDefault();
         var token = localStorage.getItem('token');
-        axios.get(`http://127.0.0.1:8000/api/system/company/information/`+ id,
+        axios.get(host + `/api/system/company/information/`+ id,
         {
             headers: { 'Authorization': 'Bearer ' + token}
         }).then(res => {

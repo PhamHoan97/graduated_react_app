@@ -5,7 +5,7 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmpty } from "validator";
 import axios from 'axios';
-import * as host from '../../Constants/Url'
+import host from '../../../Host/ServerDomain';
 import Alert from '@material-ui/lab/Alert';
 
 export default class ModalCreateForm extends Component {
@@ -35,7 +35,7 @@ export default class ModalCreateForm extends Component {
     getListTemplate =() =>{
         var self =  this;
         var token = localStorage.getItem('token');
-        axios.get(host.URL_BACKEND+"/api/system/notification/template/list",{
+        axios.get(host + "/api/system/notification/template/list",{
             headers: { 'Authorization': 'Bearer ' + token }
         })
         .then(function (response) {
@@ -59,7 +59,7 @@ export default class ModalCreateForm extends Component {
     getlistType =() =>{
         var self =  this;
         var token = localStorage.getItem('token');
-        axios.get(host.URL_BACKEND+"/api/system/notification/type/list",{
+        axios.get(host + "/api/system/notification/type/list",{
             headers: { 'Authorization': 'Bearer ' + token }
         })
         .then(function (response) {
@@ -78,7 +78,7 @@ export default class ModalCreateForm extends Component {
             var self =  this;
             var token = localStorage.getItem('token');
             if(parseInt(value) !== 0){
-                axios.get(host.URL_BACKEND+'/api/system/notification/template/list/'+value,{
+                axios.get(host + '/api/system/notification/template/list/'+value,{
                     headers: { 'Authorization': 'Bearer ' + token }
                 })
                 .then(function (response) {
@@ -95,7 +95,7 @@ export default class ModalCreateForm extends Component {
                     console.log(error);
                 });
             }else{
-                axios.get(host.URL_BACKEND+'/api/system/notification/template/list',{
+                axios.get(host + '/api/system/notification/template/list',{
                     headers: { 'Authorization': 'Bearer ' + token }
                 })
                 .then(function (response) {
@@ -135,7 +135,7 @@ export default class ModalCreateForm extends Component {
         });
         if (isEmpty(this.state.newNameForm)) {
             var errorName = {
-                selectedName: "Select name is required.",
+                selectedName: "Tên không được trống.",
             };
             this.setState({
                 errorName: errorName,
@@ -143,7 +143,7 @@ export default class ModalCreateForm extends Component {
         }
         if (isEmpty(this.state.newDescriptionForm)) {
             var errorDescription = {
-                selectedDescription: "Select description is required.",
+                selectedDescription: "Mô tả không được trống.",
             };
             this.setState({
                 errorDescription: errorDescription,
@@ -151,7 +151,7 @@ export default class ModalCreateForm extends Component {
         }
         if(parseInt(this.state.newTypeForm) === 0){
             var errorType = {
-                selectedType: "Select type is required.",
+                selectedType: "Thể loại không được trống.",
             };
             this.setState({
                 errorType: errorType,
@@ -159,7 +159,7 @@ export default class ModalCreateForm extends Component {
         }
         if(parseInt(this.state.newTemplateForm) === 0){
             var errorTemplate = {
-                selectedTemplate: "Select template is required.",
+                selectedTemplate: "Mẫu không được trống.",
             };
             this.setState({
                 errorTemplate: errorTemplate,
@@ -173,7 +173,7 @@ export default class ModalCreateForm extends Component {
         ){
             var self =  this;
             var token = localStorage.getItem('token');
-            axios.post(host.URL_BACKEND+"/api/system/notification/form/create",{
+            axios.post(host + "/api/system/notification/form/create",{
                 newNameForm: this.state.newNameForm,
                 newDescriptionForm: this.state.newDescriptionForm,
                 newTemplateForm: this.state.newTemplateForm,

@@ -7,7 +7,7 @@ import Menu from "../../Menu";
 import ModalCreateEmployee from "./ModalCreateEmployee";
 import ModalEditEmployee from "./ModalEditEmployee";
 import axios from "axios";
-import * as host from "../../Url";
+import host from '../../../Host/ServerDomain'; 
 import avatarMale from "../Image/avatar_employee1.png";
 import avatarFeMale from "../Image/avatar_employee2.png";
 import { connect } from "react-redux";
@@ -90,7 +90,7 @@ class EmployeeOrganization extends Component {
     var self = this;
     axios
       .get(
-        host.URL_BACKEND +
+        host +
           "/api/company/organization/employee/detail/" +
           idEditEmployee,
         {
@@ -130,7 +130,7 @@ class EmployeeOrganization extends Component {
     var token = localStorage.getItem("token");
     axios
       .get(
-        host.URL_BACKEND +
+        host +
           "/api/company/organization/employee/" +
           token,
         {
@@ -171,7 +171,7 @@ class EmployeeOrganization extends Component {
     var token = localStorage.getItem("token");
     axios
       .post(
-        host.URL_BACKEND + "/api/company/organization/employee/delete",
+        host + "/api/company/organization/employee/delete",
         {
           idDeleteEmployee: idDeleteEmployee,
         },
@@ -205,7 +205,7 @@ class EmployeeOrganization extends Component {
     var token = localStorage.getItem("token");
     axios
       .get(
-        host.URL_BACKEND + "/api/company/organization/department/" + token,
+        host + "/api/company/organization/department/" + token,
         {
           headers: { Authorization: "Bearer " + token },
         }
@@ -234,7 +234,7 @@ class EmployeeOrganization extends Component {
     var token = localStorage.getItem("token");
     axios
       .post(
-        host.URL_BACKEND + "/api/company/organization/employee/search",{
+        host + "/api/company/organization/employee/search",{
           textNameSearch:this.state.textNameSearch,
           textEmailSearch:this.state.textEmailSearch,
           idDepartmentSearch:this.state.idDepartmentSearch,
@@ -431,7 +431,7 @@ class EmployeeOrganization extends Component {
                                                 <img
                                                   alt="avatar employee 1"
                                                   src={
-                                                    host.URL_BACKEND +
+                                                    host +
                                                     employee.avatar
                                                   }
                                                   className="img-fluid"
@@ -559,7 +559,7 @@ class EmployeeOrganization extends Component {
                                           <img
                                             alt="avatar employee 1"
                                             src={
-                                              host.URL_BACKEND + employee.avatar
+                                              host + employee.avatar
                                             }
                                             className="img-fluid"
                                           />

@@ -12,6 +12,7 @@ import DepartmentOptionSearch from "./DepartmentOptionSearch";
 import '../Css/ManagerProcess.css';
 import  { Redirect } from 'react-router-dom';
 import * as actionHeaders from '../../../Process/Actions/Index';
+import host from '../../../Host/ServerDomain';
 
 class ProcessCompany extends Component {
   _isMounted = false;
@@ -119,7 +120,7 @@ class ProcessCompany extends Component {
     this._isMounted = true;
     let self = this;
     var token = localStorage.getItem('token');
-    axios.get(`http://127.0.0.1:8000/api/company/`+ token + `/employee/role`,
+    axios.get(host + `/api/company/`+ token + `/employee/role`,
     {
         headers: { 'Authorization': 'Bearer ' + token}
     }).then(res => {
@@ -142,7 +143,7 @@ class ProcessCompany extends Component {
   OpenModalDetailEmployee = (e, id_employee) => {
     e.preventDefault();
     var token = localStorage.getItem('token');
-    axios.get(`http://127.0.0.1:8000/api/company/organization/employee/detail/` + id_employee,
+    axios.get(host + `/api/company/organization/employee/detail/` + id_employee,
     {
         headers: { 'Authorization': 'Bearer ' + token}
     }).then(res => {
@@ -225,7 +226,7 @@ class ProcessCompany extends Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     if(nextProps.idDepartmentSearch){
       var token = localStorage.getItem('token');
-      axios.get(`http://127.0.0.1:8000/api/company/department/`+ nextProps.idDepartmentSearch + `/employee/role`,
+      axios.get(host + `/api/company/department/`+ nextProps.idDepartmentSearch + `/employee/role`,
       {
           headers: { 'Authorization': 'Bearer ' + token}
       }).then(res => {

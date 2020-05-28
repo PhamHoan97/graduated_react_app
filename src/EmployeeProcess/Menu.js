@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from 'axios';
 import  { Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
-import * as host from "../System/Constants/Url"; 
+import host from '../Host/ServerDomain';  
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -46,7 +46,7 @@ class Menu extends Component {
 
   componentDidMount() {
     var token = localStorage.getItem('token');
-    axios.get(`http://127.0.0.1:8000/api/employee/five/process/notification/` + token,
+    axios.get(host + `/api/employee/five/process/notification/` + token,
     {
         headers: { 'Authorization': 'Bearer ' + token}
     }).then(res => {
@@ -62,7 +62,7 @@ class Menu extends Component {
   
   renderAvatar = () =>{
     if(this.state.employee && this.state.employee.avatar){
-      return <img className="img" src={host.URL_BACKEND + this.state.employee.avatar} alt="Avatar" />
+      return <img className="img" src={host + this.state.employee.avatar} alt="Avatar" />
     }else{
       return <img className="img" src="/system/images/user-avatar-default.jpg" alt="Avatar" />;
     }
@@ -127,7 +127,7 @@ class Menu extends Component {
     if(localStorage.getItem("dataForm") !== null){
       localStorage.removeItem("dataForm");
     }
-    axios.post(`http://127.0.0.1:8000/api/logout/employee`)
+    axios.post(host + `/api/logout/employee`)
     .then(res => {
       if(res.data.error != null){
         this.props.showAlert({
@@ -198,7 +198,7 @@ class Menu extends Component {
         tokenData: token,
     };
 
-    axios.post(`http://127.0.0.1:8000/api/employee/update/account`,
+    axios.post(host + `/api/employee/update/account`,
     data,
     {
         headers: { 'Authorization': 'Bearer ' + token}

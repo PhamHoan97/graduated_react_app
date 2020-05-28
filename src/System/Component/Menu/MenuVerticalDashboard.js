@@ -5,6 +5,7 @@ import  { Redirect } from 'react-router-dom';
 import {connect} from "react-redux"
 import {getTextSearchProcess} from "../../Action/Dashboard/Process/Index";
 import * as actions from '../../../Alert/Action/Index';
+import host from '../../../Host/ServerDomain';
 
 class MenuVerticalDashboard extends Component {
 
@@ -52,7 +53,7 @@ class MenuVerticalDashboard extends Component {
 
   componentDidMount() {
     var token = localStorage.getItem('token')
-    axios.get(`http://127.0.0.1:8000/api/system/account/` + token,
+    axios.get(host + `/api/system/account/` + token,
     {
       headers: { 'Authorization': 'Bearer ' + token}
     })
@@ -70,7 +71,7 @@ class MenuVerticalDashboard extends Component {
   handleLogout = (event) => {
     event.preventDefault();
     localStorage.removeItem("token");
-    axios.post(`http://127.0.0.1:8000/api/logout/system`)
+    axios.post(host + `/api/logout/system`)
       .then(res => {
         if(res.data.error != null){
           this.props.showAlert({

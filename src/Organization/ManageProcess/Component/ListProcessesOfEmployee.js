@@ -6,6 +6,7 @@ import LinkPage from "../../LinkPage";
 import Menu from "../../Menu";
 import ModalDetailProcess from './ModalDetailProcess'; 
 import { Redirect } from 'react-router-dom';
+import host from '../../../Host/ServerDomain'; 
 
 class ListProcessesOfEmployee extends Component {
     constructor(props) {
@@ -132,7 +133,7 @@ class ListProcessesOfEmployee extends Component {
     componentDidMount() {
         var idEmployee = this.props.match.params.id;
         var token = localStorage.getItem('token');
-        axios.get(`http://127.0.0.1:8000/api/company/processes/employee/`+ idEmployee,
+        axios.get(host + `/api/company/processes/employee/`+ idEmployee,
         {
             headers: { 'Authorization': 'Bearer ' + token}
         }).then(res => {

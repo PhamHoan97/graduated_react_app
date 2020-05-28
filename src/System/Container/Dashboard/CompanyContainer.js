@@ -4,7 +4,8 @@ import ReactPaginate from 'react-paginate';
 import '../../Style/Dashboard/paginate.css'
 import CompanyItem from '../../Component/Dashboard/Company/CompanyItem';
 import axios from 'axios'
-import * as host from '../../Constants/Url'
+import host from '../../../Host/ServerDomain';
+
 export default class CompanyContainer extends Component {
     constructor(props) {
         super(props);
@@ -46,7 +47,7 @@ export default class CompanyContainer extends Component {
     getListCompany =()=>{
         var self =  this;
         var token = localStorage.getItem("token");
-        axios.get(host.URL_BACKEND+'/api/system/dashboard/company',{
+        axios.get(host + '/api/system/dashboard/company',{
             headers: { 'Authorization': 'Bearer ' + token }
         })
         .then(function (response) {

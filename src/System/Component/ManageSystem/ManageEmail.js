@@ -3,6 +3,7 @@ import MenuVertical from "../Menu/MenuVertical";
 import MenuHorizontal from "../Menu/MenuHorizontal";
 import axios from 'axios';
 import EmailInformationModal from './EmailInformationModal'
+import host from '../../../Host/ServerDomain';
 
 class ManageEmail extends Component {
     _isMounted = false;
@@ -108,7 +109,7 @@ class ManageEmail extends Component {
     getEmailInformation = (event,id)=>{
         event.preventDefault();
         var token = localStorage.getItem('token');
-        axios.get(`http://127.0.0.1:8000/api/system/email/information/`+ id,
+        axios.get(host + `/api/system/email/information/`+ id,
         {
             headers: { 'Authorization': 'Bearer ' + token}
         }).then(res => {
@@ -126,7 +127,7 @@ class ManageEmail extends Component {
     resendEmail = (event, id) => {
         event.preventDefault();
         var token = localStorage.getItem('token');
-        axios.post(`http://127.0.0.1:8000/api/system/email/resend`,
+        axios.post(host + `/api/system/email/resend`,
         {
             idEmail: id,
             tokenData: token
@@ -145,7 +146,7 @@ class ManageEmail extends Component {
     }
 
     convertStatusEmail(status){
-        return (status === 1) ? "Sent" : "Error";
+        return (status === 1) ? "Đã gửi" : "Lỗi";
     }
 
     renderUserName = (value) =>{
@@ -239,7 +240,7 @@ class ManageEmail extends Component {
         this._isMounted = true;
         let self = this;
         var token = localStorage.getItem('token');
-        axios.get(`http://127.0.0.1:8000/api/system/email`,
+        axios.get(host + `/api/system/email`,
         {
             headers: { 'Authorization': 'Bearer ' + token }
         })

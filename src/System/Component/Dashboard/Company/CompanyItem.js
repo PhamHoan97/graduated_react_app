@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {  NavLink } from "react-router-dom";
-import * as host from '../../../Constants/Url'
+import host from '../../../../Host/ServerDomain';
+
 export default class CompanyItem extends Component {
     displayImageCompany  = () =>{
         if(this.props.avatar === null){
@@ -17,7 +18,7 @@ export default class CompanyItem extends Component {
             <img
               style={{width: '100%'}}
               className="card-img-top"
-              src={host.URL_BACKEND + this.props.avatar}
+              src={host + this.props.avatar}
               alt="AAA"
             />
           )

@@ -6,7 +6,7 @@ import Menu from "../../Menu";
 import "../Style/NotificationCompany.scss";
 import {NavLink} from "react-router-dom";
 import axios from "axios";
-import * as host from "../../Url";
+import host from '../../../Host/ServerDomain';
 import {getDetailNotificationAdmin} from "../Action/Index";
 import {connect} from "react-redux";
 class NotificationCompany extends Component {
@@ -21,7 +21,7 @@ class NotificationCompany extends Component {
     this._isMounted = true;
     var self = this;
     var token = localStorage.getItem("token");
-    axios.post(host.URL_BACKEND + "/api/company/notification/list",{
+    axios.post(host + "/api/company/notification/list",{
       token:token
     },{
       headers: { Authorization: "Bearer " + token },
@@ -48,7 +48,7 @@ class NotificationCompany extends Component {
   getDetailNotification = (idNotificationAdmin) =>{
     var self = this;
     var token = localStorage.getItem("token");
-    axios.post(host.URL_BACKEND + "/api/company/notification/response",{
+    axios.post(host + "/api/company/notification/response",{
       idNotificationAdmin:idNotificationAdmin
     },{
       headers: { Authorization: "Bearer " + token },

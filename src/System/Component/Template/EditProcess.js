@@ -6,6 +6,7 @@ import 'bpmn-js/dist/assets/diagram-js.css';
 import '../../Style/ProcessTemplate/Process.css';
 import {connect} from 'react-redux';
 import axios from 'axios';
+import host from '../../../Host/ServerDomain';
 
 class EditProcess extends Component {
     constructor(props) {
@@ -60,7 +61,7 @@ class EditProcess extends Component {
                 xml :xmlRender,
             }
 
-            axios.post(`http://127.0.0.1:8000/api/system/template/edit`,
+            axios.post(host + `/api/system/template/edit`,
             dataEdit,
             {
                 headers: { 'Authorization': 'Bearer ' + tokenData}

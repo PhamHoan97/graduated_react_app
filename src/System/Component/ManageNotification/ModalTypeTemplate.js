@@ -3,7 +3,7 @@ import { Modal } from "react-bootstrap";
 import Alert from '@material-ui/lab/Alert';
 import { isEmpty } from 'validator';
 import axios from "axios";
-import * as host from '../../Constants/Url'
+import host from '../../../Host/ServerDomain';
 import Validator from '../../Utils/Validator';
 export default class ModalTypeTemplate extends Component {
     constructor(props) {
@@ -57,7 +57,7 @@ export default class ModalTypeTemplate extends Component {
         }else{
             var self = this;
             var token = localStorage.getItem('token');
-            axios.post(host.URL_BACKEND+'/api/system/notification/type/create', {
+            axios.post(host + '/api/system/notification/type/create', {
                 newNameTypeTemplate: this.state.newNameTypeTemplate,
                 newDescriptionTypeTemplate: this.state.newDescriptionTypeTemplate,
                 token: token,
@@ -137,7 +137,7 @@ export default class ModalTypeTemplate extends Component {
                             className="btn btn-primary mb-2 mr-2"
                             onClick={(e) => this.saveNewTypeTemplate(e)}
                         >
-                            Save
+                            Lưu
                         </button>
                         </div>
                     </form>

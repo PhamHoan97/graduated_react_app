@@ -7,6 +7,7 @@ import axios from 'axios';
 import  { Redirect } from 'react-router-dom';
 import * as actions from '../../Alert/Action/Index';
 import {connect} from 'react-redux';
+import host from '../../Host/ServerDomain';
 
 const required = (value) => {
     if (isEmpty(value)) {
@@ -53,7 +54,7 @@ class CompanyLogin extends Component {
       redirectAdmin: false,
     };
 
-    axios.post(`http://127.0.0.1:8000/api/login/company`, data)
+    axios.post(host + `/api/login/company`, data)
       .then(res => {
         if(res.data.error != null){
           this.props.showAlert({

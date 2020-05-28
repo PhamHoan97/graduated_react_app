@@ -3,7 +3,7 @@ import MenuHorizontal from "../Menu/MenuHorizontal";
 import MenuVertical from "../Menu/MenuVertical";
 import ModalCreateForm from "./ModalCreateForm";
 import axios from "axios";
-import * as host from "../../Constants/Url";
+import host from '../../../Host/ServerDomain';
 import "../../Style/Notification/manageNotification.css";
 import  {connect} from 'react-redux';
 import {showMessageAlert} from "../../../Alert/Action/Index";
@@ -33,7 +33,7 @@ class ManageFormSend extends Component {
     var self = this;
     var token = localStorage.getItem("token");
     axios
-      .get(host.URL_BACKEND + "/api/system/notification/form/list", {
+      .get(host + "/api/system/notification/form/list", {
         headers: { Authorization: "Bearer " + token },
       })
       .then(function (response) {
@@ -50,7 +50,7 @@ class ManageFormSend extends Component {
     e.preventDefault();
     let self = this;
     var token = localStorage.getItem('token');
-    axios.post(host.URL_BACKEND+'/api/system/notification/form/delete',{
+    axios.post(host + '/api/system/notification/form/delete',{
       idForm:idForm,
     },{
         headers: { 'Authorization': 'Bearer ' + token }

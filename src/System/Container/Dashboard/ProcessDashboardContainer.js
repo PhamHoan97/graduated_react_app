@@ -3,9 +3,10 @@ import Process from "../../Component/Dashboard/Process/Process";
 import ReactPaginate from "react-paginate";
 import ProcessItem from "../../Component/Dashboard/Process/ProcessItem"
 import "../../Style/Dashboard/paginate.css";
-import * as host from '../../Constants/Url'
+import host from '../../../Host/ServerDomain';
 import axios from 'axios'
-import {connect} from "react-redux"
+import {connect} from "react-redux";
+
 class ProcessDashboardContainer extends Component {
     _isMounted = false;
     constructor(props) {
@@ -72,7 +73,7 @@ class ProcessDashboardContainer extends Component {
         // connect database to get all process
         var self =  this;
         var token = localStorage.getItem('token');
-        axios.post(host.URL_BACKEND+'/api/system/dashboard/process/',{
+        axios.post(host + '/api/system/dashboard/process/',{
             textSearch:textSearch
         },{
             headers: { 'Authorization': 'Bearer ' + token }

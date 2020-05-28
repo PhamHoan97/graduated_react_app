@@ -8,6 +8,7 @@ import {connect} from 'react-redux';
 import axios from 'axios';
 import  { Redirect } from 'react-router-dom';
 import * as actions from '../../../Alert/Action/Index';
+import host from '../../../Host/ServerDomain';
 
 class Process extends Component {
     constructor(props) {
@@ -63,7 +64,7 @@ class Process extends Component {
                 xml :xmlRender,
             }
 
-            axios.post(`http://127.0.0.1:8000/api/system/template/new`,
+            axios.post(host + `/api/system/template/new`,
             dataNew,
             {
                 headers: { 'Authorization': 'Bearer ' + tokenData}

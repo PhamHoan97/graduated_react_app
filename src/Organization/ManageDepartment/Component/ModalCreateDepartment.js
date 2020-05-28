@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Alert from "@material-ui/lab/Alert";
 import { isEmpty } from "validator";
 import axios from "axios";
-import * as host from "../../Url";
+import host from '../../../Host/ServerDomain'; 
 import { Modal } from "react-bootstrap";
 import Validator from '../Utils/Validator';
 
@@ -21,19 +21,19 @@ export default class ModalCreateDepartment extends Component {
           field: 'newNameDepartment',
           method: 'isEmpty',
           validWhen: false,
-          message: 'The Name Department field is required.',
+          message: 'Tên phòng ban không được trống.',
         },
         {
             field: 'newSignatureDepartment',
             method: 'isEmpty',
             validWhen: false,
-            message: 'The Signture Department field is required.',
+            message: 'Tên viết tắt không được trống.',
         },
         {
             field: 'newDescriptionDepartment',
             method: 'isEmpty',
             validWhen: false,
-            message: 'The Description field is required.',
+            message: 'Mô tả phồng ban không được trống.',
         }
       ];
     this.validator = new Validator(rules);
@@ -144,7 +144,7 @@ export default class ModalCreateDepartment extends Component {
         var token = localStorage.getItem("token");
         axios
           .post(
-            host.URL_BACKEND + "/api/company/organization/department/new",
+            host + "/api/company/organization/department/new",
             {
               newNameDepartment: this.state.newNameDepartment,
               newSignatureDepartment: this.state.newSignatureDepartment,

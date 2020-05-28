@@ -4,7 +4,8 @@ import Sidebar from "../Sidebar";
 import "../Style/EmployeeProcess.scss";
 import "../Style/DetailNotificaionSystemEmployee.scss";
 import axios from "axios";
-import * as host from "../Url";
+import host from '../../Host/ServerDomain';
+
 export default class DetailNotificationCompanyEmployee extends Component {
   _isMounted = false;
   constructor(props) {
@@ -16,7 +17,7 @@ export default class DetailNotificationCompanyEmployee extends Component {
   }
   updateStatusNotificationCompany = (idNotificationFromCompany) =>{
     var token = localStorage.getItem("token");
-    axios.post(host.URL_BACKEND+'/api/employee/notification/company/status/update', {
+    axios.post(host +'/api/employee/notification/company/status/update', {
       idNotificationFromCompany:idNotificationFromCompany
     },{
         headers: { 'Authorization': 'Bearer ' + token }
@@ -40,7 +41,7 @@ export default class DetailNotificationCompanyEmployee extends Component {
     var token = localStorage.getItem("token");
     axios
       .get(
-        host.URL_BACKEND + "/api/employee/notification/detail/"+idNotificationCompanyEmployee,
+        host + "/api/employee/notification/detail/" + idNotificationCompanyEmployee,
         {
           headers: { Authorization: "Bearer " + token },
         }

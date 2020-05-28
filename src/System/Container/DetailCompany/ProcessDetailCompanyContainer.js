@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import DepartmentItemCompany from "../../Component/DetailCompany/Process/DepartmentItemCompany";
 import ProcessItemCompany from "../../Component/DetailCompany/Process/ProcessItemCompany";
-import * as host from "../../Constants/Url";
+import host from '../../../Host/ServerDomain';
 import axios from "axios";
 
 export default class ProcessDetailCompanyContainer extends Component {
@@ -21,7 +21,7 @@ export default class ProcessDetailCompanyContainer extends Component {
     getListDepartmentCompany = () => {
         var self =  this;
         var token = localStorage.getItem('token');
-        axios.get(host.URL_BACKEND+"/api/system/dashboard/department/company/"+this.props.idCompany,{
+        axios.get(host + "/api/system/dashboard/department/company/"+this.props.idCompany,{
             headers: { 'Authorization': 'Bearer ' + token }
         })
         .then(function (response) {
@@ -48,7 +48,7 @@ export default class ProcessDetailCompanyContainer extends Component {
     getListProcessDepartmentCompany = () => {
         var self =  this;
         var token = localStorage.getItem("token");
-        axios.get(host.URL_BACKEND+"/api/system/dashboard/process/company/"+this.props.idCompany,{
+        axios.get(host + "/api/system/dashboard/process/company/"+this.props.idCompany,{
             headers: { 'Authorization': 'Bearer ' + token }
         })
         .then(function (response) {
@@ -115,7 +115,7 @@ export default class ProcessDetailCompanyContainer extends Component {
         var idChooseDepartment = e.target.value;
         var self =  this;
         if(parseInt(idChooseDepartment) === 0){
-            axios.get(host.URL_BACKEND+"/api/system/dashboard/process/company/"+this.props.idCompany)
+            axios.get(host + "/api/system/dashboard/process/company/"+this.props.idCompany)
             .then(function (response) {
                 var prosesses = self.mergeProcesses(response.data.processes1, response.data.processes2);
                 self.setState({
@@ -126,7 +126,7 @@ export default class ProcessDetailCompanyContainer extends Component {
                 console.log(error);
             });
         }else{
-            axios.get(host.URL_BACKEND+"/api/system/dashboard/process/department/"+idChooseDepartment+"/company/"+this.props.idCompany)
+            axios.get(host + "/api/system/dashboard/process/department/"+idChooseDepartment+"/company/"+this.props.idCompany)
             .then(function (response) {
                 var prosesses = self.mergeProcesses(response.data.processes1, response.data.processes2);
                 self.setState({

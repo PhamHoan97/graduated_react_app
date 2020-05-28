@@ -3,6 +3,7 @@ import axios from 'axios';
 import * as actions from '../Actions/Index';
 import {connect} from 'react-redux';
 import Select from 'react-select';
+import host from '../../../Host/ServerDomain'; 
 
 class EmployeeOptionSearch extends Component {
     _isMounted = false;
@@ -18,7 +19,7 @@ class EmployeeOptionSearch extends Component {
         this._isMounted = true;
         let self = this;
         var token = localStorage.getItem('token');
-        axios.get(`http://127.0.0.1:8000/api/company/employees/` + token,
+        axios.get(host + `/api/company/employees/` + token,
         {
             headers: { 'Authorization': 'Bearer ' + token}
         }).then(res => {

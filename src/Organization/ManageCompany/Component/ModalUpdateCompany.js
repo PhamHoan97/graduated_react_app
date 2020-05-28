@@ -4,7 +4,7 @@ import Input from "react-validation/build/input";
 import axios from "axios";
 import CheckButton from "react-validation/build/button";
 import { Modal } from "react-bootstrap";
-import * as host from "../../Url";
+import host from '../../../Host/ServerDomain'; 
 import Alert from '@material-ui/lab/Alert';
 import { isEmpty } from "validator";
 const required = (value) => {
@@ -84,7 +84,7 @@ class ModalUpdateCompany extends Component {
         var token = localStorage.getItem("token");
         axios
         .post(
-            host.URL_BACKEND + "/api/company/information/update",
+            host + "/api/company/information/update",
             {
                 token : token,
                 name: this.state.editNameCompany,

@@ -5,7 +5,7 @@ import Header from "../../Header";
 import Menu from "../../Menu";
 import LinkPage from "../../LinkPage";
 import axios from "axios";
-import * as host from "../../Url";
+import host from '../../../Host/ServerDomain'; 
 import ModalCreateDepartment from './ModalCreateDepartment';
 import ModalEditDepartment from './ModalEditDepartment';
 import  {connect} from 'react-redux';
@@ -28,7 +28,7 @@ class DepartmentOrganization extends Component {
     var token = localStorage.getItem("token");
     axios
       .get(
-        host.URL_BACKEND + "/api/company/organization/department/" + token,
+        host + "/api/company/organization/department/" + token,
         {
           headers: { Authorization: "Bearer " + token },
         }
@@ -88,7 +88,7 @@ class DepartmentOrganization extends Component {
   getDetailDepartmentOrganization = (idEditDepartment) =>{
     var token = localStorage.getItem('token');
     var self =  this;
-    axios.get(host.URL_BACKEND+'/api/company/organization/department/edit/'+idEditDepartment,{
+    axios.get(host + '/api/company/organization/department/edit/'+idEditDepartment,{
         headers: { 'Authorization': 'Bearer ' + token }
     })
     .then(function (response) {
@@ -110,7 +110,7 @@ class DepartmentOrganization extends Component {
     e.preventDefault();
     let self = this;
     var token = localStorage.getItem('token');
-    axios.post(host.URL_BACKEND+'/api/company/organization/department/delete',{
+    axios.post(host + '/api/company/organization/department/delete',{
         idDeleteDepartment:idDeleteDepartment,
     },{
         headers: { 'Authorization': 'Bearer ' + token }

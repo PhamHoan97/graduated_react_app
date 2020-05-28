@@ -3,7 +3,7 @@ import "../../Style/Process/process.css";
 import MenuVertical from "../Menu/MenuVertical";
 import MenuHorizontal from "../Menu/MenuHorizontal";
 import axios from "axios";
-import * as host from "../../Constants/Url";
+import host from '../../../Host/ServerDomain';
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { getDetailNotificationAdmin } from "../../Action/Notification/Index";
@@ -19,7 +19,7 @@ class ListCompanyNotification extends Component {
     var self = this;
     var token = localStorage.getItem("token");
     var idAdmin = localStorage.getItem("admin_id");
-    axios.post(host.URL_BACKEND + "/api/system/notification/company/list",{
+    axios.post(host + "/api/system/notification/company/list",{
       idAdmin:idAdmin
     },{
       headers: { Authorization: "Bearer " + token },
@@ -41,7 +41,7 @@ class ListCompanyNotification extends Component {
   getDetailNotificationToAdmin = (idNotificationAdmin) =>{
     var self = this;
     var token = localStorage.getItem("token");
-    axios.post(host.URL_BACKEND + "/api/system/notification/company/response",{
+    axios.post(host + "/api/system/notification/company/response",{
       idNotificationAdmin:idNotificationAdmin
     },{
       headers: { Authorization: "Bearer " + token },
@@ -76,7 +76,7 @@ class ListCompanyNotification extends Component {
                 <td>
                   <span className="status--process">
                   {
-                    parseInt(notification.status)===1 ? ('Responsed'):('Pending')
+                    parseInt(notification.status)===1 ? ('Đã phản hồi'):('Đang chờ')
                   }
                   </span>
                 </td>
@@ -88,7 +88,7 @@ class ListCompanyNotification extends Component {
                         className="item"
                         data-toggle="tooltip"
                         data-placement="top"
-                        title="Response"
+                        title="Phản hồi"
                         onClick={this.getDetailNotificationToAdmin(notification.id)}
                         >
                         <NavLink
@@ -109,7 +109,7 @@ class ListCompanyNotification extends Component {
                       className="item"
                       data-toggle="tooltip"
                       data-placement="top"
-                      title="Delete"
+                      title="Xóa"
                     >
                       <i className="zmdi zmdi-delete" />
                     </button>
@@ -151,7 +151,7 @@ class ListCompanyNotification extends Component {
                           <div className="row">
                             <div className="col-md-12">
                               <h3 className="title-5 m-b-35 manage__process--title">
-                                Manager Notification
+                                Quản lý thông báo
                               </h3>
                               <div className="table-data__tool">
                                 <div className="table-data__tool-left">
@@ -182,10 +182,10 @@ class ListCompanyNotification extends Component {
                                           <span className="au-checkmark" />
                                         </label>
                                       </th>
-                                      <th>name</th>
-                                      <th>description</th>
-                                      <th>date</th>
-                                      <th>status</th>
+                                      <th>tên thông báo</th>
+                                      <th>mô tả</th>
+                                      <th>ngày tạo</th>
+                                      <th>trạng thái</th>
                                       <th />
                                     </tr>
                                   </thead>

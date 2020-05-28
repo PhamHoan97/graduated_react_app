@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import * as host from '../../Url'
+import host from '../../../Host/ServerDomain'; 
 import axios from 'axios';
 import {connect} from "react-redux";
 import {showMessageAlert} from "../../../Alert/Action/Index"
@@ -8,7 +8,7 @@ class AccountItem extends Component {
         e.preventDefault();
         var self =  this;
         var token = localStorage.getItem('token');
-        axios.post(host.URL_BACKEND+'/api/company/account/delete', {
+        axios.post(host + '/api/company/account/delete', {
             idDeleteAccount:idAccount,
         },{
             headers: { 'Authorization': 'Bearer ' + token }
@@ -38,7 +38,7 @@ class AccountItem extends Component {
         e.preventDefault();
         var self = this;
         var token = localStorage.getItem('token');
-        axios.post(host.URL_BACKEND+'/api/company/account/employee/send',
+        axios.post(host +'/api/company/account/employee/send',
         {
             idEmployeeAccount: idEmployeeAccount,
             idAccountEmployee:idAccountEmployee,

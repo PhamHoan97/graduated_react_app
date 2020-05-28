@@ -5,6 +5,7 @@ import {isEmpty } from 'validator';
 import {passDataFromFormToModalInCreateAccountAdmin} from "../../Action/System/Index";
 import {connect} from 'react-redux';
 import * as actions from '../../../Alert/Action/Index';
+import host from '../../../Host/ServerDomain';
 
 class MoreAdminAccountModal extends Component {
     constructor(props) {
@@ -112,7 +113,7 @@ class MoreAdminAccountModal extends Component {
                 password: passwordA,
             };
             var token = localStorage.getItem('token');
-            axios.post(`http://127.0.0.1:8000/api/system/more/admin`, account,
+            axios.post(host + `/api/system/more/admin`, account,
             {
                 headers: { 'Authorization': 'Bearer ' + token }
             }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import  { Redirect } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import axios from 'axios';
+import host from '../../Host/ServerDomain'; 
 
 class EmployeeProcess extends Component {
     constructor(props) {
@@ -74,7 +75,7 @@ class EmployeeProcess extends Component {
     handlePageClick = page => {
         var token = localStorage.getItem('token');
         var pagePaginate = page.selected + 1;
-        axios.get(`http://127.0.0.1:8000/api/employee/process/` + token + `/` + pagePaginate,
+        axios.get(host + `/api/employee/process/` + token + `/` + pagePaginate,
         {
             headers: { 'Authorization': 'Bearer ' + token}
         }).then(res => {
@@ -98,7 +99,7 @@ class EmployeeProcess extends Component {
         var search = this.state.search;
         if(search){
             var token = localStorage.getItem('token');
-            axios.get(`http://127.0.0.1:8000/api/employee/search/process/` + search ,
+            axios.get(host + `/api/employee/search/process/` + search ,
             {
                 headers: { 'Authorization': 'Bearer ' + token}
             }).then(res => {

@@ -9,6 +9,7 @@ import Form from 'react-bootstrap/Form';
 import * as actions from '../../Action/System/Index';
 import {connect} from 'react-redux';
 import axios from 'axios';
+import host from '../../../Host/ServerDomain';
 
 class EditTemplate extends Component {
     constructor(props) {
@@ -55,7 +56,7 @@ class EditTemplate extends Component {
     componentDidMount() {
         var token = localStorage.getItem('token');
         var idProcess = this.props.match.params.id;
-        axios.get(`http://127.0.0.1:8000/api/system/field/template/` + idProcess,
+        axios.get(host + `/api/system/field/template/` + idProcess,
         {
             headers: { 'Authorization': 'Bearer ' + token}
         }).then(res => {

@@ -5,7 +5,7 @@ import Header from "../../Header";
 import Menu from "../../Menu";
 import LinkPage from "../../LinkPage";
 import axios from "axios";
-import * as host from "../../Url";
+import host from '../../../Host/ServerDomain'; 
 import ModalCreateRole from "./ModalCreateRole";
 import ModalEditRole from "./ModalEditRole";
 import { NavLink } from "react-router-dom";
@@ -59,7 +59,7 @@ class RoleOraganization extends Component {
     let self = this;
     var token = localStorage.getItem("token");
     axios
-      .get(host.URL_BACKEND + "/api/company/organization/role/" +token, {
+      .get(host + "/api/company/organization/role/" +token, {
         headers: { Authorization: "Bearer " + token },
       })
       .then(function (response) {
@@ -87,7 +87,7 @@ class RoleOraganization extends Component {
     e.preventDefault();
     let self = this;
     var token = localStorage.getItem('token');
-    axios.post(host.URL_BACKEND+'/api/company/organization/role/delete',{
+    axios.post(host +'/api/company/organization/role/delete',{
         idDeleteRole:idDeleteRole,
     },{
         headers: { 'Authorization': 'Bearer ' + token }
@@ -130,7 +130,7 @@ class RoleOraganization extends Component {
     var token = localStorage.getItem("token");
     axios
       .get(
-        host.URL_BACKEND + "/api/company/organization/department/" + token,
+        host + "/api/company/organization/department/" + token,
         {
           headers: { Authorization: "Bearer " + token },
         }
@@ -156,7 +156,7 @@ class RoleOraganization extends Component {
   getDetailRoleOrganization = (idEditRole) =>{
     var token = localStorage.getItem('token');
     var self =  this;
-    axios.get(host.URL_BACKEND+'/api/company/organization/role/detail/'+idEditRole,{
+    axios.get(host + '/api/company/organization/role/detail/'+idEditRole,{
         headers: { 'Authorization': 'Bearer ' + token }
     })
     .then(function (response) {
@@ -181,7 +181,7 @@ class RoleOraganization extends Component {
     var token = localStorage.getItem("token");
     axios
       .post(
-        host.URL_BACKEND + "/api/company/organization/role/search",{
+        host + "/api/company/organization/role/search",{
           textNameSearch:this.state.textNameSearch,
           idDepartmentSearch:this.state.idDepartmentSearch,
           token:token

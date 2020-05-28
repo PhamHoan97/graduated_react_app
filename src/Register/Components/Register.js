@@ -10,6 +10,7 @@ import '../Css/register.css';
 import { connect } from 'react-redux'; 
 import {updateCompanyInformationAfterRegisterInStore} from '../Actions/RegisterActions';
 import  { Redirect } from 'react-router-dom';
+import host from '../../Host/ServerDomain';
 
 const required = (value) => {
   if (!value.toString().trim().length) {
@@ -77,7 +78,7 @@ class Register extends Component {
         contact: this.state.emailContact,
     };
 
-    axios.post(`http://127.0.0.1:8000/api/company/register`, company)
+    axios.post(host + `/api/company/register`, company)
       .then(res => {
         if(res.data.error != null){
             console.log(res.data.error);

@@ -9,6 +9,7 @@ import * as actions from '../../Actions/Index';
 import Detail from './Detail';
 import axios from 'axios';
 import {updateProcessInformation} from '../../../Organization/ManageProcess/Actions/Index';
+import host from '../../../Host/ServerDomain';
 
 class SystemViewProcess extends Component {
     constructor(props) {
@@ -113,7 +114,7 @@ class SystemViewProcess extends Component {
     componentDidMount() {
         var idProcess = this.props.match.params.id;
         var token = localStorage.getItem('token');
-        axios.get(`http://127.0.0.1:8000/api/company/process/information/` + idProcess,
+        axios.get(host + `/api/company/process/information/` + idProcess,
         {
             headers: { 'Authorization': 'Bearer ' + token}
         }).then(res => {

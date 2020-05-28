@@ -7,6 +7,7 @@ import SelectFieldToFilter from "./SelectFieldToFilter";
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
+import host from '../../../Host/ServerDomain'; 
 
 class DashboardCompany extends Component {
   constructor(props) {
@@ -103,7 +104,7 @@ class DashboardCompany extends Component {
 
   componentDidMount() {
     var token = localStorage.getItem('token');
-    axios.get(`http://127.0.0.1:8000/api/company/template/processes`,
+    axios.get(host + `/api/company/template/processes`,
     {
         headers: { 'Authorization': 'Bearer ' + token}
     }).then(res => {
@@ -167,7 +168,7 @@ class DashboardCompany extends Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     if(nextProps.idField){
       var token = localStorage.getItem('token');
-      axios.get(`http://127.0.0.1:8000/api/company/template/processes/field/` + nextProps.idField,
+      axios.get(host + `/api/company/template/processes/field/` + nextProps.idField,
       {
           headers: { 'Authorization': 'Bearer ' + token}
       }).then(res => {

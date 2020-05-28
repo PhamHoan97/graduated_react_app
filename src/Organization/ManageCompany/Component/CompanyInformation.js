@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "../../Style/Organization.scss";
 import "../Style/DetailCompany.scss";
 import axios from "axios";
-import * as host from "../../Url";
+import host from '../../../Host/ServerDomain'; 
 import ModalUpdateCompany from "./ModalUpdateCompany";
 import avatarCompany from "../Image/company1.jpg";
 export default class CompanyInformation extends Component {
@@ -22,7 +22,7 @@ export default class CompanyInformation extends Component {
     var token = localStorage.getItem("token");
     axios
       .post(
-        host.URL_BACKEND + "/api/company/information",
+        host + "/api/company/information",
         {
           token: token,
         },
@@ -51,7 +51,7 @@ export default class CompanyInformation extends Component {
     var token = localStorage.getItem("token");
     axios
       .post(
-        host.URL_BACKEND + "/api/company/organization/statistics",
+        host + "/api/company/organization/statistics",
         {
           token: token,
         },
@@ -96,7 +96,7 @@ export default class CompanyInformation extends Component {
     } else {
       return (
         <img
-          src={host.URL_BACKEND + this.state.detailCompany.avatar}
+          src={host + this.state.detailCompany.avatar}
           alt=""
           className="img-fluid rounded-circle avatar-company"
           width={100}

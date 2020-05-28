@@ -3,7 +3,7 @@ import Menu from "../Menu";
 import Sidebar from "../Sidebar";
 import "../Style/EmployeeProcess.scss";
 import axios from "axios";
-import * as host from "../Url";
+import host from '../../Host/ServerDomain'; 
 import {NavLink} from "react-router-dom"
 import {connect} from "react-redux"
 import {getDetailNotificationSystemEmployee} from "../Actions/Index";
@@ -33,7 +33,7 @@ class NotificationEmployee extends Component {
     var token = localStorage.getItem("token");
     axios
       .post(
-        host.URL_BACKEND + "/api/employee/notification/list/system",
+        host + "/api/employee/notification/list/system",
         {
           token: token,
         },
@@ -63,7 +63,7 @@ class NotificationEmployee extends Component {
     var token = localStorage.getItem("token");
     axios
       .post(
-        host.URL_BACKEND + "/api/employee/notification/list/company",
+        host + "/api/employee/notification/list/company",
         {
           token: token,
         },
@@ -97,7 +97,7 @@ class NotificationEmployee extends Component {
     e.preventDefault();
     var self = this;
     var token = localStorage.getItem("token");
-    axios.post(host.URL_BACKEND+'/api/employee/notification/company/delete', {
+    axios.post(host + '/api/employee/notification/company/delete', {
       idNotificationFromCompany:idNotificationFromCompany
     },{
         headers: { 'Authorization': 'Bearer ' + token }
@@ -118,7 +118,7 @@ class NotificationEmployee extends Component {
     e.preventDefault();
     var self = this;
     var token = localStorage.getItem("token");
-    axios.post(host.URL_BACKEND+'/api/employee/notification/system/delete', {
+    axios.post(host + '/api/employee/notification/system/delete', {
       idNotificationFromSystem:idNotificationFromSystem
     },{
         headers: { 'Authorization': 'Bearer ' + token }

@@ -6,7 +6,8 @@ import Menu from "../../Menu";
 import LinkPage from "../../LinkPage";
 import ModalCreateNotification from "./ModalCreateNotification";
 import axios from "axios";
-import * as host from "../../Url";
+import host from '../../../Host/ServerDomain';
+
 export default class Notification extends Component {
   _isMounted = false;
   constructor(props, context) {
@@ -42,7 +43,7 @@ export default class Notification extends Component {
     var token = localStorage.getItem("token");
     axios
       .post(
-        host.URL_BACKEND + "/api/system/notification/list/",
+        host + "/api/system/notification/list/",
         {
           headers: { Authorization: "Bearer " + token },
         }
@@ -68,7 +69,7 @@ export default class Notification extends Component {
     var token = localStorage.getItem("token");
     axios
       .post(
-        host.URL_BACKEND + "/api/system/notification/send",
+        host + "/api/system/notification/send",
         {
           idNotification: idNotification,
         },
@@ -80,7 +81,6 @@ export default class Notification extends Component {
         if (response.data.error != null) {
           console.log(response.data.error);
         } else {
-          console.log("Save database");
           self.getListNotification();
         }
       })
@@ -98,7 +98,7 @@ export default class Notification extends Component {
     var token = localStorage.getItem("token");
     axios
       .post(
-        host.URL_BACKEND + "/api/system/notification/statistic",
+        host + "/api/system/notification/statistic",
         {
           idNotification: idNotificationChoose,
         },

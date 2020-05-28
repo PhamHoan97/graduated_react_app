@@ -6,7 +6,7 @@ import "../Style/Util.scss";
 import Header from "../../Header";
 import Menu from "../../Menu";
 import Validator from "../Utils/Validator";
-import * as host from "../../Url";
+import host from '../../../Host/ServerDomain'; 
 import Select from "react-select";
 import axios from "axios";
 import LinkPage from "../../LinkPage";
@@ -103,7 +103,7 @@ class Account extends Component {
       var token = localStorage.getItem("token");
       axios
         .post(
-          host.URL_BACKEND + "/api/company/create/employee/account",
+          host + "/api/company/create/employee/account",
           {
             username: this.state.username,
             password: this.state.password,
@@ -165,7 +165,7 @@ class Account extends Component {
     var self = this;
     var token = localStorage.getItem("token");
     axios
-      .get(host.URL_BACKEND + "/api/company/account/employee/" + token, {
+      .get(host + "/api/company/account/employee/" + token, {
         headers: { Authorization: "Bearer " + token },
       })
       .then(function (response) {
@@ -198,7 +198,7 @@ class Account extends Component {
     var self = this;
     var token = localStorage.getItem("token");
     axios
-      .get(host.URL_BACKEND + "/api/company/account/list/" + token, {
+      .get(host + "/api/company/account/list/" + token, {
         headers: { Authorization: "Bearer " + token },
       })
       .then(function (response) {

@@ -3,6 +3,7 @@ import Select from 'react-select';
 import axios from 'axios';
 import * as actions from '../Action/Index';
 import {connect} from 'react-redux';
+import host from '../../../Host/ServerDomain'; 
 
 class SelectFieldToFilter extends Component {
     _isMounted = false;
@@ -29,7 +30,7 @@ class SelectFieldToFilter extends Component {
     componentDidMount() {
         this._isMounted = true;
         var token = localStorage.getItem('token');
-        axios.get(`http://127.0.0.1:8000/api/company/field/`,
+        axios.get(host + `/api/company/field/`,
         {
             headers: { 'Authorization': 'Bearer ' + token}
         }).then(res => {

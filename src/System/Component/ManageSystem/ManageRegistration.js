@@ -7,6 +7,7 @@ import axios from 'axios';
 import RegisterInformationModal from "./RegisterInformationModal";
 import CreateAdminAccountModal from "./CreateAdminAccountModal";
 import { connect } from "react-redux";
+import host from '../../../Host/ServerDomain';
 
 class ManageRegistration extends Component {
     _isMounted =false;
@@ -35,7 +36,7 @@ class ManageRegistration extends Component {
                 tokenData: token,
             };
 
-            axios.post(`http://127.0.0.1:8000/api/system/registration/approve`,data,
+            axios.post(host + `/api/system/registration/approve`,data,
             {
                 headers: { 'Authorization': 'Bearer ' + token }
             })
@@ -43,7 +44,6 @@ class ManageRegistration extends Component {
                 if(res.data.error != null){
                     console.log(res.data.message);
                 }else{
-                    console.log(res.data);
                     this.setState({approvedCompany: id});
                     document.getElementById("clone_create_admin_account"+ id).click();
                 }
@@ -62,7 +62,7 @@ class ManageRegistration extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         var token = localStorage.getItem('token');
-        axios.get(`http://127.0.0.1:8000/api/system/registration`,
+        axios.get(host + `/api/system/registration`,
         {
              headers: { 'Authorization': 'Bearer ' + token }
         })
@@ -82,7 +82,7 @@ class ManageRegistration extends Component {
     getCompanyRegisterInformation = (event, id) => {
        event.preventDefault();
        var token = localStorage.getItem('token');
-       axios.get(`http://127.0.0.1:8000/api/system/registration/information/`+ id,
+       axios.get(host + `/api/system/registration/information/`+ id,
        {
            headers: { 'Authorization': 'Bearer ' + token}
        }).then(res => {
@@ -240,7 +240,7 @@ class ManageRegistration extends Component {
                             className="item"
                             data-toggle="modal"
                             data-placement="top"
-                            title="Information"
+                            title="Thông tin"
                             onClick={(e) => this.getCompanyRegisterInformation(e,value.id)}
                         >
                             <i className="fas fa-eye"></i>
@@ -271,7 +271,7 @@ class ManageRegistration extends Component {
                             className="item"
                             data-toggle="tooltip"
                             data-placement="top"
-                            title="Approve"
+                            title="Chấp nhận"
                             onClick={this.approveCompany.bind(this,value.id)}
                         >
                             <i className="zmdi zmdi-notifications-add" />
@@ -280,7 +280,7 @@ class ManageRegistration extends Component {
                             className="item"
                             data-toggle="modal"
                             data-placement="top"
-                            title="Reject"
+                            title="Từ chối"
                             onClick={this.rejectCompany.bind(this,value.id)}
                         >
                             <i className="zmdi zmdi-xbox" />
@@ -320,7 +320,7 @@ class ManageRegistration extends Component {
         this._isMounted = true;
         let self = this;
         var token = localStorage.getItem('token');
-        axios.get(`http://127.0.0.1:8000/api/system/registration`,
+        axios.get(host + `/api/system/registration`,
         {
              headers: { 'Authorization': 'Bearer ' + token }
         })

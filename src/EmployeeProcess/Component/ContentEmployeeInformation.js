@@ -3,7 +3,7 @@ import '../Css/DetailEmployee.css';
 import EditInformationEmployeeModal from './EditInformationEmployeeModal';
 import EmployeeInformation from './EmployeeInformation';
 import EmployeeProcess from './EmployeeProcess';
-import * as host from "../../System/Constants/Url"; 
+import host from '../../Host/ServerDomain'; 
 
 class ContentEmployeeInformation extends Component {
     constructor(props) {
@@ -44,7 +44,7 @@ class ContentEmployeeInformation extends Component {
 
     renderAvatar = () =>{
       if(this.state.employee && this.state.employee.avatar){
-        return(<img className="img" src={host.URL_BACKEND + this.state.employee.avatar} alt="Avatar" />)
+        return(<img className="img" src={host + this.state.employee.avatar} alt="Avatar" />)
       }else{
         return(<img className="img" src="/system/images/user-avatar-default.jpg" alt="Avatar" />);
       }

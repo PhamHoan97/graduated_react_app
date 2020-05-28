@@ -5,7 +5,7 @@ import CheckButton from "react-validation/build/button";
 import Select from "react-select";
 import axios from 'axios';
 import Alert from '@material-ui/lab/Alert';
-import * as host from '../../Url'
+import host from '../../../Host/ServerDomain'; 
 import {connect} from  'react-redux';
 const colourStyles = {
   control: (styles) => ({ ...styles, backgroundColor: "white" }),
@@ -34,7 +34,7 @@ class ModalSendNotificationCompany extends Component {
         var self = this;
         var token = localStorage.getItem("token");
         axios
-          .get(host.URL_BACKEND + "/api/company/notification/account/list/" + token, {
+          .get(host + "/api/company/notification/account/list/" + token, {
             headers: { Authorization: "Bearer " + token },
           })
           .then(function (response) {
@@ -76,7 +76,7 @@ class ModalSendNotificationCompany extends Component {
         });
         if (this.state.selectedOptions.length === 0) {
             var errorNoReceiver = {
-                selectedOption: "Select receiver is required.",
+                selectedOption: "Người nhận không được trống.",
             };
             this.setState({
                 errorSelect: errorNoReceiver,
@@ -87,7 +87,7 @@ class ModalSendNotificationCompany extends Component {
         ){
             var self = this;
             var token = localStorage.getItem('token');
-            axios.post(host.URL_BACKEND+'/api/company/notification/account/send', {
+            axios.post(host + '/api/company/notification/account/send', {
               selectedOptions: this.state.selectedOptions,
               idNotification: this.props.idNotification,
             },{

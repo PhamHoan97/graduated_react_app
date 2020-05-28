@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Alert from "@material-ui/lab/Alert";
 import axios from "axios";
 import Validator from "../Utils/Validator";
-import * as host from "../../Url";
+import host from '../../../Host/ServerDomain'; 
 import { isEmpty } from "validator";
 import { Modal } from "react-bootstrap";
 import { connect } from "react-redux";
@@ -24,13 +24,13 @@ class ModalEditRole extends Component {
         field: "editNameRole",
         method: "isEmpty",
         validWhen: false,
-        message: "The Name Role field is required.",
+        message: "Tên vai trò không được trống.",
       },
       {
         field: "editDescriptionRole",
         method: "isEmpty",
         validWhen: false,
-        message: "The Description Department field is required.",
+        message: "Mô tả phòng ban không được trống.",
       },
     ];
     this.validator = new Validator(rules);
@@ -42,7 +42,7 @@ class ModalEditRole extends Component {
     var token = localStorage.getItem("token");
     axios
       .get(
-        host.URL_BACKEND + "/api/company/organization/department/" + token,
+        host + "/api/company/organization/department/" + token,
         {
           headers: { Authorization: "Bearer " + token },
         }
@@ -194,7 +194,7 @@ class ModalEditRole extends Component {
 
   displayAlertSuccess = () => {
     if (this.state.isDisplayAlertSuccess) {
-      return <Alert severity="success">Edit thành công</Alert>;
+      return <Alert severity="success">Sửa thành công</Alert>;
     } else {
       return <div></div>;
     }
@@ -209,7 +209,7 @@ class ModalEditRole extends Component {
     var self = this;
     if (parseInt(this.state.editDepartmentRole) === 0) {
       errorChooseDepartment = {
-        editDepartmentRole: "Select department is required.",
+        editDepartmentRole: "Phòng ban không được trống.",
       };
       this.setState({
         errorChooseDepartment: errorChooseDepartment,
@@ -231,7 +231,7 @@ class ModalEditRole extends Component {
       var token = localStorage.getItem("token");
       axios
         .post(
-          host.URL_BACKEND + "/api/company/organization/role/update",
+          host + "/api/company/organization/role/update",
           {
             editNameRole: this.state.editNameRole,
             editDescriptionRole: this.state.editDescriptionRole,

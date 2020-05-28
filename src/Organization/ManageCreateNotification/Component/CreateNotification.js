@@ -7,7 +7,7 @@ import LinkPage from "../../LinkPage";
 import ModalCreateNotification from "./ModalCreateNotification";
 import ModalSendNotificationCompany from "./ModalSendNotificationCompany";
 import axios from "axios";
-import * as host from "../../Url";
+import host from '../../../Host/ServerDomain'; 
 import { connect } from "react-redux";
 import { getIdNotificationChoose } from "../Action/Index";
 import {showMessageAlert} from "../../../Alert/Action/Index";
@@ -57,7 +57,7 @@ class CreateNotification extends Component {
     var token = localStorage.getItem("token");
     axios
       .get(
-        host.URL_BACKEND + "/api/company/notification/create/list/" + token,
+        host + "/api/company/notification/create/list/" + token,
         {
           headers: { Authorization: "Bearer " + token },
         }
@@ -84,7 +84,7 @@ class CreateNotification extends Component {
     var token = localStorage.getItem("token");
     axios
       .post(
-        host.URL_BACKEND + "/api/company/notification/create/delete",{
+        host + "/api/company/notification/create/delete",{
           idNotificateCreate:idNotificateCreate
         },
         {

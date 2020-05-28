@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import * as host from "../../Constants/Url";
+import host from '../../../Host/ServerDomain';
 import axios from "axios";
+
 class ContactCompanyContainer extends Component {
 
     constructor(props) {
@@ -16,7 +17,7 @@ class ContactCompanyContainer extends Component {
     getDetailCompany = () => {
         var self =  this;
         var token = localStorage.getItem("token");
-        axios.get(host.URL_BACKEND+"/api/system/dashboard/company/"+this.props.idCompany,{
+        axios.get(host + "/api/system/dashboard/company/"+this.props.idCompany,{
             headers: { 'Authorization': 'Bearer ' + token }
         })
         .then(function (response) {
@@ -36,7 +37,7 @@ class ContactCompanyContainer extends Component {
             )
         }else{
             return(
-                <img src={host.URL_BACKEND + this.state.detailCompany.avatar} style={{ height: "284px" }} alt="img-company"></img>
+                <img src={host + this.state.detailCompany.avatar} style={{ height: "284px" }} alt="img-company"></img>
             )
         }
     }

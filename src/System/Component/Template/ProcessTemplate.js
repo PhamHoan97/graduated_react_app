@@ -9,6 +9,7 @@ import Form from 'react-bootstrap/Form';
 import  { Redirect } from 'react-router-dom';
 import * as actions from '../../../Alert/Action/Index';
 import {connect} from 'react-redux';
+import host from '../../../Host/ServerDomain';
 
 class ProcessTemplate extends Component {
     _isMounted = false;
@@ -146,7 +147,7 @@ class ProcessTemplate extends Component {
             description: this.state.fieldDescription,
         }
         var token = localStorage.getItem('token');
-        axios.post(`http://127.0.0.1:8000/api/system/field/new`, data,
+        axios.post(host + `/api/system/field/new`, data,
         {
             headers: { 'Authorization': 'Bearer ' + token}
         }).then(res => {
@@ -209,7 +210,7 @@ class ProcessTemplate extends Component {
           description: this.state.fieldDescriptionUpdate,
       }
       var token = localStorage.getItem('token');
-      axios.post(`http://127.0.0.1:8000/api/system/field/update`, data,
+      axios.post(host + `/api/system/field/update`, data,
       {
           headers: { 'Authorization': 'Bearer ' + token}
       }).then(res => {
@@ -254,7 +255,7 @@ class ProcessTemplate extends Component {
       this._isMounted = true;
       let self = this;
       var token = localStorage.getItem('token');
-      axios.get(`http://127.0.0.1:8000/api/system/field`,
+      axios.get(host + `/api/system/field`,
       {
           headers: { 'Authorization': 'Bearer ' + token}
       }).then(res => {

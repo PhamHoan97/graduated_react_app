@@ -3,7 +3,7 @@ import "../../Style/Organization.scss";
 import Header from "../../Header";
 import LinkPage from "../../LinkPage";
 import Menu from "../../Menu";
-import * as host from "../../Url";
+import host from '../../../Host/ServerDomain'; 
 import axios from "axios";
 import avatarMale from "../Image/avatar_employee1.png";
 import avatarFeMale from "../Image/avatar_employee2.png";
@@ -37,7 +37,7 @@ class DetailRole extends Component {
     var self = this;
     axios
       .post(
-        host.URL_BACKEND + "/api/company/organization/department/role/detail",
+        host + "/api/company/organization/department/role/detail",
         {
           idRole: this.props.match.params.idRole,
           idDepartment: this.props.match.params.idDepartment,
@@ -90,7 +90,7 @@ class DetailRole extends Component {
     var token = localStorage.getItem("token");
     axios
       .post(
-        host.URL_BACKEND + "/api/company/organization/employee/delete",
+        host + "/api/company/organization/employee/delete",
         {
           idDeleteEmployee: idDeleteEmployee,
         },
@@ -134,7 +134,7 @@ class DetailRole extends Component {
     var self = this;
     axios
       .get(
-        host.URL_BACKEND +
+        host +
           "/api/company/organization/employee/detail/" +
           idEditEmployee,
         {
@@ -269,7 +269,7 @@ class DetailRole extends Component {
                                                 <img
                                                   alt="avatar employee 1"
                                                   src={
-                                                    host.URL_BACKEND +
+                                                    host +
                                                     employee.avatar
                                                   }
                                                   className="img-fluid"

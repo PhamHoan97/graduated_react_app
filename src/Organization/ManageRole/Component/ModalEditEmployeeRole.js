@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Alert from "@material-ui/lab/Alert";
 import axios from "axios";
 import Validator from "../Utils/Validator";
-import * as host from "../../Url";
+import host from '../../../Host/ServerDomain'; 
 import { isEmpty } from "validator";
 import { Modal } from "react-bootstrap";
 import { connect } from "react-redux";
@@ -27,19 +27,19 @@ class ModalEditEmployeeRole extends Component {
                 field: "editNameEmployee",
                 method: "isEmpty",
                 validWhen: false,
-                message: "The Name Employee field is required.",
+                message: "Tên nhân viên không được trống.",
             },
             {
                 field: "editEmailEmployee",
                 method: "isEmpty",
                 validWhen: false,
-                message: "The Email Employee field is required.",
+                message: "Email nhân viên không được trống.",
             },
             {
                 field: "editPhoneEmployee",
                 method: "isEmpty",
                 validWhen: false,
-                message: "The Phone Employee field is required.",
+                message: "Số điện thoại nhân viên không được trống.",
             },
         ];
         this.validator = new Validator(rules);
@@ -85,7 +85,7 @@ class ModalEditEmployeeRole extends Component {
           <>
             <form>
               <div className="form-group">
-                <label htmlFor="name">Name</label>
+                <label htmlFor="name">Tên nhân viên</label>
                 <input
                   type="text"
                   className="form-control"
@@ -121,7 +121,7 @@ class ModalEditEmployeeRole extends Component {
                 )}
               </div>
               <div className="form-group">
-                <label htmlFor="field">Phone</label>
+                <label htmlFor="field">Số điện thoại</label>
                 <input
                   type="number"
                   className="form-control"
@@ -190,7 +190,7 @@ class ModalEditEmployeeRole extends Component {
   }
   displayAlertFailEmail = () => {
     if (this.state.isDisplayAlertFailEmail) {
-      return <Alert severity="warning">Email existed in company</Alert>;
+      return <Alert severity="warning">Email đã được sử dụng</Alert>;
     } else {
       return <div></div>;
     }
@@ -226,7 +226,7 @@ class ModalEditEmployeeRole extends Component {
       var token = localStorage.getItem("token");
       axios
         .post(
-          host.URL_BACKEND + "/api/company/organization/employee/update",
+          host + "/api/company/organization/employee/update",
           {
             editNameEmployee: this.state.editNameEmployee,
             editEmailEmployee: this.state.editEmailEmployee,

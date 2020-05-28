@@ -7,7 +7,7 @@ import LinkPage from "../../LinkPage";
 import avatarMale from "../Image/avatar_employee1.png";
 import avatarFeMale from "../Image/avatar_employee2.png";
 import axios from "axios";
-import * as host from "../../Url";
+import host from '../../../Host/ServerDomain'; 
 function isEmpty(obj) {
   for (var key in obj) {
     if (obj.hasOwnProperty(key)) return false;
@@ -28,7 +28,7 @@ export default class DetailEmployeeOraganization extends Component {
     var self = this;
     axios
       .get(
-        host.URL_BACKEND +
+        host +
           "/api/company/organization/employee/detail/" +
           this.props.match.params.idEmployee,
         {
@@ -113,7 +113,7 @@ export default class DetailEmployeeOraganization extends Component {
                                         <img
                                           alt="avatar employee 1"
                                           src={
-                                            host.URL_BACKEND +
+                                            host +
                                             this.state.detailEmployee.avatar
                                           }
                                           className="img-fluid"

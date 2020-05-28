@@ -4,6 +4,7 @@ import axios from 'axios';
 import  { Redirect } from 'react-router-dom';
 import * as actions from '../../Alert/Action/Index';
 import {connect} from 'react-redux';
+import host from '../../Host/ServerDomain';
 
 class FormResetPasswordEmployee extends Component {
     constructor(props) {
@@ -45,12 +46,11 @@ class FormResetPasswordEmployee extends Component {
 
     handleSubmitForm = (e) => {
         e.preventDefault();
-        console.log(1);
         var data = {
             id: this.props.match.params.id,
             newPassword : this.state.password,
         }
-        axios.post(`http://127.0.0.1:8000/api/employee/reset/handle/password`, data)
+        axios.post(host + `/api/employee/reset/handle/password`, data)
         .then(res => {
           if(res.data.error != null){
               this.props.showAlert({

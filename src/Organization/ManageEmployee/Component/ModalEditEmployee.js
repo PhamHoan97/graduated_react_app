@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Alert from "@material-ui/lab/Alert";
 import axios from "axios";
 import Validator from "../Utils/Validator";
-import * as host from "../../Url";
+import host from '../../../Host/ServerDomain'; 
 import { isEmpty } from "validator";
 import { Modal } from "react-bootstrap";
 import { connect } from "react-redux";
@@ -33,19 +33,19 @@ class ModalEditEmployee extends Component {
         field: "editNameEmployee",
         method: "isEmpty",
         validWhen: false,
-        message: "The Name Employee field is required.",
+        message: "Tên nhân viên không được trống.",
       },
       {
         field: "editEmailEmployee",
         method: "isEmpty",
         validWhen: false,
-        message: "The Email Employee field is required.",
+        message: "Email nhân viên không được trống.",
       },
       {
         field: "editPhoneEmployee",
         method: "isEmpty",
         validWhen: false,
-        message: "The Phone Employee field is required.",
+        message: "Số điện thoại nhân viên không được trống.",
       },
     ];
     this.validator = new Validator(rules);
@@ -67,7 +67,7 @@ class ModalEditEmployee extends Component {
       var token = localStorage.getItem("token");
       axios
         .get(
-          host.URL_BACKEND +
+          host +
             "/api/company/organization/role/department/" +
             value,
           {
@@ -101,7 +101,7 @@ class ModalEditEmployee extends Component {
     var token = localStorage.getItem("token");
     axios
       .get(
-        host.URL_BACKEND + "/api/company/organization/department/" + token,
+        host + "/api/company/organization/department/" + token,
         {
           headers: { Authorization: "Bearer " + token },
         }
@@ -128,7 +128,7 @@ class ModalEditEmployee extends Component {
     let self = this;
     var token = localStorage.getItem("token");
     axios
-      .get(host.URL_BACKEND + "/api/company/organization/role/" + token, {
+      .get(host + "/api/company/organization/role/" + token, {
         headers: { Authorization: "Bearer " + token },
       })
       .then(function (response) {
@@ -185,7 +185,7 @@ class ModalEditEmployee extends Component {
           <>
             <form>
               <div className="form-group">
-                <label htmlFor="name">Name</label>
+                <label htmlFor="name">Tên nhân viên</label>
                 <input
                   type="text"
                   className="form-control"
@@ -221,7 +221,7 @@ class ModalEditEmployee extends Component {
                 )}
               </div>
               <div className="form-group">
-                <label htmlFor="field">Phone</label>
+                <label htmlFor="field">Số điện thoại</label>
                 <input
                   type="number"
                   className="form-control"
@@ -261,7 +261,7 @@ class ModalEditEmployee extends Component {
                 </div>
               </div>
               <div className="form-group mb-3">
-                <label htmlFor="exampleFormControlSelect1">Department</label>
+                <label htmlFor="exampleFormControlSelect1">Phòng ban</label>
                 <br></br>
                 <select
                   className="form-control"
@@ -269,7 +269,7 @@ class ModalEditEmployee extends Component {
                   value={this.state.editDepartmentEmployee}
                   onChange={this.handleChange}
                 >
-                  <option value={0}>Choose departments</option>
+                  <option value={0}>Chọn phòng ban</option>
                   {Object.values(this.state.listDepartment).map(
                     (department, key) => {
                       return (
@@ -290,7 +290,7 @@ class ModalEditEmployee extends Component {
                 )}
               </div>
               <div className="form-group mb-3">
-                <label htmlFor="exampleFormControlSelect1">Roles</label>
+                <label htmlFor="exampleFormControlSelect1">Vai trò</label>
                 <br></br>
                 <select
                   className="form-control"
@@ -298,7 +298,7 @@ class ModalEditEmployee extends Component {
                   value={this.state.editRoleEmployee}
                   onChange={this.handleChange}
                 >
-                  <option value={0}>Choose roles</option>
+                  <option value={0}>Chọn vai trò</option>
                   {Object.values(this.state.listRoleDepartment).map(
                     (role, key) => {
                       return (
@@ -348,7 +348,7 @@ class ModalEditEmployee extends Component {
   }
   displayAlertFailEmail = () => {
     if (this.state.isDisplayAlertFailEmail) {
-      return <Alert severity="warning">Email existed in company</Alert>;
+      return <Alert severity="warning">Email đã được sử dụng</Alert>;
     } else {
       return <div></div>;
     }
@@ -372,7 +372,7 @@ class ModalEditEmployee extends Component {
     var self = this;
     if (parseInt(this.state.editDepartmentEmployee) === 0) {
       errorChooseDepartment = {
-        editDepartmentEmployee: "Select department is required.",
+        editDepartmentEmployee: "Phòng ban không được trống.",
       };
       this.setState({
         errorChooseDepartment: errorChooseDepartment,
@@ -381,7 +381,7 @@ class ModalEditEmployee extends Component {
     var errorChooseRole = {};
     if (parseInt(this.state.editRoleEmployee) === 0) {
       errorChooseRole = {
-        editRoleEmployee: "Select role is required.",
+        editRoleEmployee: "Vai trò không được trống.",
       };
       this.setState({
         errorChooseRole: errorChooseRole,
@@ -406,7 +406,7 @@ class ModalEditEmployee extends Component {
       var token = localStorage.getItem("token");
       axios
         .post(
-          host.URL_BACKEND + "/api/company/organization/employee/update",
+          host + "/api/company/organization/employee/update",
           {
             editNameEmployee: this.state.editNameEmployee,
             editEmailEmployee: this.state.editEmailEmployee,

@@ -3,7 +3,7 @@ import "../../Style/Organization.scss";
 import "../Style/Department.scss";
 import Header from "../../Header";
 import Menu from "../../Menu";
-import * as host from "../../Url";
+import host from '../../../Host/ServerDomain'; 
 import axios from "axios";
 import ModalCreateRoleDepartment from "./ModalCreateRoleDepartment";
 import ModalEditRoleDepartment from "./ModalEditRoleDepartment";
@@ -29,7 +29,7 @@ class DetailEmployeeOraganization extends Component {
     var token = localStorage.getItem("token");
     axios
       .get(
-        host.URL_BACKEND +
+        host +
           "/api/company/organization/department/detail/" +
           this.props.match.params.id,
         {
@@ -53,9 +53,7 @@ class DetailEmployeeOraganization extends Component {
         console.log(error);
       });
   };
-  // componentDidMount() {
-  //   this.getDetailDepartment();
-  // }
+
   componentWillMount() {
     this.getDetailDepartment();
   }
@@ -71,7 +69,7 @@ class DetailEmployeeOraganization extends Component {
   getDetailRoleOrganization = (idEditRole) =>{
     var token = localStorage.getItem('token');
     var self =  this;
-    axios.get(host.URL_BACKEND+'/api/company/organization/role/edit/'+idEditRole,{
+    axios.get(host + '/api/company/organization/role/edit/'+idEditRole,{
         headers: { 'Authorization': 'Bearer ' + token }
     })
     .then(function (response) {
@@ -113,7 +111,7 @@ class DetailEmployeeOraganization extends Component {
     e.preventDefault();
     let self = this;
     var token = localStorage.getItem('token');
-    axios.post(host.URL_BACKEND+'/api/company/organization/role/delete',{
+    axios.post(host + '/api/company/organization/role/delete',{
         idDeleteRole:idDeleteRole,
     },{
         headers: { 'Authorization': 'Bearer ' + token }

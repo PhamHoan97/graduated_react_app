@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import * as host from "../../../System/Constants/Url"; 
+import host from "../../../Host/ServerDomain"; 
 
 class Detail extends Component {
     constructor(props) {

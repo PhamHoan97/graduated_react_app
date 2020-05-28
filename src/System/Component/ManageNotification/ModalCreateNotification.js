@@ -5,7 +5,7 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmpty } from "validator";
 import axios from 'axios';
-import * as host from '../../Constants/Url'
+import host from '../../../Host/ServerDomain';
 import Alert from '@material-ui/lab/Alert';
 
 export default class ModalCreateNotification extends Component {
@@ -45,7 +45,7 @@ export default class ModalCreateNotification extends Component {
         var self = this;
         var token = localStorage.getItem("token");
         axios
-          .get(host.URL_BACKEND + "/api/system/notification/form/list", {
+          .get(host + "/api/system/notification/form/list", {
             headers: { Authorization: "Bearer " + token },
           })
           .then(function (response) {
@@ -80,7 +80,7 @@ export default class ModalCreateNotification extends Component {
         });
         if (isEmpty(this.state.newNameNotification)) {
             var errorName = {
-                selectedName: "Select name is required.",
+                selectedName: "Tên không được trống.",
             };
             this.setState({
                 errorName: errorName,
@@ -88,7 +88,7 @@ export default class ModalCreateNotification extends Component {
         }
         if (isEmpty(this.state.newDescriptionNotification)) {
             var errorDescription = {
-                selectedDescription: "Select description is required.",
+                selectedDescription: "Mô tả không được trống.",
             };
             this.setState({
                 errorDescription: errorDescription,
@@ -105,7 +105,7 @@ export default class ModalCreateNotification extends Component {
             data.append('newDescriptionNotification',this.state.newDescriptionNotification);
             data.append('newFormNotification', this.state.newFormNotification);
             data.append('newFileNotification',this.state.newFileNotification);
-            axios.post(host.URL_BACKEND+"/api/system/notification/create",
+            axios.post(host + "/api/system/notification/create",
                 data
             ,
             {

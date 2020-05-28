@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import * as host from "../../../System/Constants/Url"; 
+import host from '../../../Host/ServerDomain'; 
 
 class DetailEmployeeModal extends Component {
     constructor(props) {
@@ -22,7 +22,7 @@ class DetailEmployeeModal extends Component {
 
     renderAvatar = () => {
         if(this.props.currentEmployee && this.props.currentEmployee.avatar){
-            return (<img src={host.URL_BACKEND + this.props.currentEmployee.avatar} alt="Avatar" />);
+            return (<img src={host + this.props.currentEmployee.avatar} alt="Avatar" />);
         }else{
             return (<img src="/system/images/user-avatar-default.jpg" alt="Avatar" />);
         }

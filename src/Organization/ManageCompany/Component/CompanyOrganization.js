@@ -7,7 +7,8 @@ import Menu from "../../Menu";
 import CompanyInformation from "./CompanyInformation";
 import ChartOrganization from "./ChartOrganization";
 import axios from "axios";
-import * as host from "../../Url";
+import host from '../../../Host/ServerDomain'; 
+
 export default class CompanyOrganization extends Component {
   _isMounted = false;
   constructor(props, context) {
@@ -23,7 +24,7 @@ export default class CompanyOrganization extends Component {
     this._isMounted = true;
     var self = this;
     var token = localStorage.getItem('token');
-    axios.post(host.URL_BACKEND+'/api/company/organization/chart', {
+    axios.post(host +'/api/company/organization/chart', {
         token:token
     },{
       headers: { 'Authorization': 'Bearer ' + token }

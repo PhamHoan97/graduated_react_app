@@ -6,7 +6,7 @@ import Menu from "../../Menu";
 import "../Style/DetailNotificationCompany.scss";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
-import * as host from "../../Url";
+import host from '../../../Host/ServerDomain'; 
 import { connect } from "react-redux";
 import Alert from "@material-ui/lab/Alert";
 class DetailNotificationComponent extends Component {
@@ -27,7 +27,7 @@ class DetailNotificationComponent extends Component {
     var token = localStorage.getItem("token");
     axios
       .post(
-        host.URL_BACKEND + "/api/company/notification/response",
+        host + "/api/company/notification/response",
         {
           idNotificationAdmin: idNotificationAdmin,
         },
@@ -71,7 +71,7 @@ class DetailNotificationComponent extends Component {
     var token = localStorage.getItem("token");
     axios
       .post(
-        host.URL_BACKEND + "/api/company/notification/create/response",
+        host + "/api/company/notification/create/response",
         {
           idNotificationAdmin: idNotificationAdmin,
           token: token,
@@ -125,7 +125,7 @@ class DetailNotificationComponent extends Component {
                   color: "#0074D9",
                 }}
               >
-                Back
+                Quay lại
               </NavLink>
             </button>
           </div>
@@ -155,7 +155,7 @@ class DetailNotificationComponent extends Component {
               role="button"
               onClick={(e) => this.handleClick(e, this.props.match.params.id)}
             >
-              Display
+              Hiện thị
             </a>
             {this.state.isDisplayAlert === true ? (
               <Alert severity="success">
@@ -192,7 +192,7 @@ class DetailNotificationComponent extends Component {
           {this.state.detailNotification[0].file !== null ? (
             <div className="text-center mt-3">
               <a
-                href={host.URL_BACKEND + '/' + this.state.detailNotification[0].file}
+                href={host + '/' + this.state.detailNotification[0].file}
                 className="btn btn-theme button-1 ctm-border-radius text-white"
               >
                 Tài liệu đính kèm{" "}

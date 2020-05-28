@@ -3,6 +3,7 @@ import ContentEmployeeInformation from './ContentEmployeeInformation';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import * as actions from '../Actions/Index';
+import host from '../../Host/ServerDomain'; 
 
 class EmployeePage extends Component {
     constructor(props) {
@@ -16,7 +17,7 @@ class EmployeePage extends Component {
     UNSAFE_componentWillReceiveProps(nextProps){
         if(nextProps.reloadPage){
             var token = localStorage.getItem('token');
-            axios.get(`http://127.0.0.1:8000/api/employee/data/` + token,
+            axios.get(host + `/api/employee/data/` + token,
             {
                 headers: { 'Authorization': 'Bearer ' + token}
             }).then(res => {
@@ -37,7 +38,7 @@ class EmployeePage extends Component {
 
     componentDidMount() {
         var token = localStorage.getItem('token');
-        axios.get(`http://127.0.0.1:8000/api/employee/data/` + token,
+        axios.get(host + `/api/employee/data/` + token,
         {
             headers: { 'Authorization': 'Bearer ' + token}
         }).then(res => {

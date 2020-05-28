@@ -9,7 +9,8 @@ import {Redirect } from 'react-router-dom';
 import * as actions from '../Actions/Index';
 import DatePicker from "react-datepicker";
 import FormCheck from 'react-bootstrap/FormCheck';
-import "../Css/FormAddProcess.css"
+import "../Css/FormAddProcess.css";
+import host from '../../../Host/ServerDomain'; 
 
 const animatedComponents = makeAnimated();
 
@@ -36,7 +37,7 @@ class FormAddProcessModal extends Component {
     UNSAFE_componentWillReceiveProps(nextProps) {
       if(nextProps.idDepartmentAssign){
           var token = localStorage.getItem('token');
-          axios.get(`http://127.0.0.1:8000/api/company/department/`+ nextProps.idDepartmentAssign + `/employee/role`,
+          axios.get(host + `/api/company/department/`+ nextProps.idDepartmentAssign + `/employee/role`,
           {
               headers: { 'Authorization': 'Bearer ' + token}
           }).then(res => {
@@ -55,7 +56,7 @@ class FormAddProcessModal extends Component {
       this._isMounted = true;
       let self = this;
       var token = localStorage.getItem('token');
-      axios.get(`http://127.0.0.1:8000/api/company/`+ token + `/employee/role`,
+      axios.get(host  + `/api/company/`+ token + `/employee/role`,
       {
           headers: { 'Authorization': 'Bearer ' + token}
       }).then(res => {

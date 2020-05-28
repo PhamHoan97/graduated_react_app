@@ -20,37 +20,37 @@ class Note extends Component {
         var result;
         switch (element.type) {
             case "bpmn:StartEvent":
-                result =  "StartEvent";
+                result =  "Bắt đầu";
                 break;
             case "bpmn:IntermediateThrowEvent":
-                result =  "IntermediateThrowEvent";
+                result =  "Sự kiện trung gian";
                 break;
             case "bpmn:EndEvent":
-                result =  "EndEvent";
+                result =  "Kết thúc";
                 break;
             case "bpmn:ExclusiveGateway":
-                result =  "ExclusiveGateway";
+                result =  "Rẽ nhánh";
                 break;
             case "bpmn:Task":
-                result =  "Task";
+                result =  "Công việc";
                 break;  
             case "bpmn:SubProcess":
-                result =  "SubProcess";
+                result =  "Quy trình con";
                 break;  
             case "bpmn:DataObjectReference":
-                result =  "DataObjectReference";
+                result =  "Tham chiếu đối tượng dữ liệu";
                 break;  
             case "bpmn:DataStoreReference":
-                result =  "DataStoreReference";
+                result =  "Tham chiếu kho dữ liệu";
                 break;   
             case "bpmn:Participant":
-                result =  "Participant";
+                result =  "Người tham gia";
                 break; 
             case "bpmn:Collaboration":
-                result =  "Collaboration";
+                result =  "Hợp tác";
                 break;                       
             default:
-                result =  "New Diagram";
+                result =  "Mới";
                 break;
         }
         return result;

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from "axios";
 import {connect} from 'react-redux';
 import * as actions from '../../../Alert/Action/Index';
+import host from '../../../Host/ServerDomain';
 
 class AdminAcountTable extends Component {
     constructor(props) {
@@ -112,7 +113,7 @@ class AdminAcountTable extends Component {
                 idCompany = initCompany;
             }
             var token = localStorage.getItem('token');
-            axios.get(`http://127.0.0.1:8000/api/system/company/`+ idCompany + `/admin/accounts`,
+            axios.get(host + `/api/system/company/`+ idCompany + `/admin/accounts`,
             {
                 headers: { 'Authorization': 'Bearer ' + token}
             }).then(res => {
@@ -129,7 +130,7 @@ class AdminAcountTable extends Component {
     
     sendEmailHandle = (id) => {
         var token = localStorage.getItem('token');
-        axios.post(`http://127.0.0.1:8000/api/system/send/email/admin/account`, 
+        axios.post(host + `/api/system/send/email/admin/account`, 
         {
             idAdmin: id,
             tokenData:token

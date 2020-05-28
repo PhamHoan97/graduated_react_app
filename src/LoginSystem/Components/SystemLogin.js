@@ -19,6 +19,7 @@ import axios from 'axios';
 import  { Redirect } from 'react-router-dom';
 import * as actions from '../../Alert/Action/Index';
 import {connect} from 'react-redux';
+import host from '../../Host/ServerDomain';
 
 const required = (value) => {
     if (isEmpty(value)) {
@@ -64,7 +65,7 @@ class SystemLogin extends Component{
             password: this.state.password,
         };
 
-        axios.post(`http://127.0.0.1:8000/api/login/system`, account)
+        axios.post(host + `/api/login/system`, account)
           .then(res => {
             if(res.data.error != null){
                 this.props.showAlert({

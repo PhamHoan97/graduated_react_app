@@ -5,7 +5,7 @@ import "../../Style/Notification/createTemplate.css";
 import ModalTypeTemplate from "./ModalTypeTemplate";
 import { isEmpty } from "validator";
 import axios from 'axios';
-import * as host from '../../Constants/Url'
+import host from '../../../Host/ServerDomain';
 import Alert from '@material-ui/lab/Alert';
 export default class CreateTemplateForm extends Component {
   constructor(props, context) {
@@ -35,7 +35,7 @@ export default class CreateTemplateForm extends Component {
   getListTypeSystem = () => {
     var self =  this;
     var token = localStorage.getItem('token');
-    axios.get(host.URL_BACKEND+"/api/system/notification/type/list",{
+    axios.get(host + "/api/system/notification/type/list",{
       headers: { 'Authorization': 'Bearer ' + token }
     })
     .then(function (response) {
@@ -55,7 +55,7 @@ export default class CreateTemplateForm extends Component {
   getListAllTemplateSystem = () => {
     var self =  this;
     var token = localStorage.getItem('token');
-    axios.get(host.URL_BACKEND+"/api/system/notification/template/list",{
+    axios.get(host + "/api/system/notification/template/list",{
       headers: { 'Authorization': 'Bearer ' + token }
     })
     .then(function (response) {
@@ -136,7 +136,7 @@ export default class CreateTemplateForm extends Component {
     }
     if(parseInt(this.state.newTypeTemplate) === 0){
         var errorType = {
-            selectedType: "Select type is required.",
+            selectedType: "Thể loại không được trống.",
         };
         this.setState({
             errorType: errorType,
@@ -156,7 +156,7 @@ export default class CreateTemplateForm extends Component {
       }else{
         var self = this;
         var token = localStorage.getItem('token');
-        axios.post(host.URL_BACKEND+'/api/system/notification/template/create', {
+        axios.post(host + '/api/system/notification/template/create', {
           newNameTemplate: this.state.newNameTemplate,
           newTypeTemplate: this.state.newTypeTemplate,
           contentTemplate: JSON.parse(builderSchema).components
@@ -199,7 +199,7 @@ export default class CreateTemplateForm extends Component {
     var self =  this;
     var token = localStorage.getItem('token');
     if(parseInt(idChooseType) === 0){
-        axios.get(host.URL_BACKEND+"/api/system/notification/template/list",{
+        axios.get(host +"/api/system/notification/template/list",{
           headers: { 'Authorization': 'Bearer ' + token }
         })
         .then(function (response) {
@@ -211,7 +211,7 @@ export default class CreateTemplateForm extends Component {
             console.log(error);
         });
     }else{
-        axios.get(host.URL_BACKEND+"/api/system/notification/template/list/"+idChooseType,{
+        axios.get(host+"/api/system/notification/template/list/"+idChooseType,{
           headers: { 'Authorization': 'Bearer ' + token }
         })
         .then(function (response) {

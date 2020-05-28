@@ -3,7 +3,7 @@ import MenuHorizontal from "../Menu/MenuHorizontal";
 import MenuVertical from "../Menu/MenuVertical";
 import '../../Style/DetailNotification/detailnotification.css'
 import axios from "axios";
-import * as host from "../../Constants/Url";
+import host from '../../../Host/ServerDomain';
 import Alert from '@material-ui/lab/Alert';
 import {connect} from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -29,7 +29,7 @@ class DetailCompanyNotification extends Component {
     var self = this;
     var idAdmin = localStorage.getItem("admin_id");
     var token = localStorage.getItem("token");
-    axios.post(host.URL_BACKEND + "/api/system/notification/company/create/response",{
+    axios.post(host + "/api/system/notification/company/create/response",{
       idNotificationAdmin:idNotificationAdmin,
       idAdmin:idAdmin,
       contentResponse:JSON.parse(localStorage.getItem("dataForm")).data
@@ -77,7 +77,7 @@ class DetailCompanyNotification extends Component {
                   color: "#0074D9",
                 }}
               >
-              Back
+              Quay lại
               </NavLink>
             </button>
           </div>
@@ -106,10 +106,10 @@ class DetailCompanyNotification extends Component {
                 this.handleClick(e,this.props.match.params.id)
               }
             >
-              Display
+              Hiển thị
             </a>
             {this.state.isDisplayAlert === true
-              ? (<Alert severity="success">Response success to system !</Alert>)
+              ? (<Alert severity="success">Gửi phản hồi lên hệ thống !</Alert>)
               : ""}
           </div>
         </form>

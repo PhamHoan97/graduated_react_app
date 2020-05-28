@@ -9,6 +9,7 @@ import * as actions from '../../Actions/Index';
 import axios from 'axios';
 import EditDetail from './EditDetail';
 import {updateProcessInformation} from '../../../Organization/ManageProcess/Actions/Index';
+import host from '../../../Host/ServerDomain';
 
 class EditProcess extends Component {
     _isMounted = false;
@@ -116,7 +117,7 @@ class EditProcess extends Component {
         this._isMounted = true;
         var idProcess = this.props.match.params.id;
         var token = localStorage.getItem('token');
-        axios.get(`http://127.0.0.1:8000/api/company/process/information/` + idProcess,
+        axios.get(host + `/api/company/process/information/` + idProcess,
         {
             headers: { 'Authorization': 'Bearer ' + token}
         }).then(res => {

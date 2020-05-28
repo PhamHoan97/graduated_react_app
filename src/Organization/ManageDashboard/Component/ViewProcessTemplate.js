@@ -9,6 +9,7 @@ import Process from './Process';
 import axios from 'axios';
 import * as actions from '../Action/Index';
 import {connect} from 'react-redux';
+import host from '../../../Host/ServerDomain'; 
 
 class ViewProcessTemplate extends Component {
     constructor(props) {
@@ -23,7 +24,7 @@ class ViewProcessTemplate extends Component {
     componentDidMount() {
         var idProcess = this.props.match.params.id;
         var token = localStorage.getItem('token');
-        axios.get(`http://127.0.0.1:8000/api/company/template/process/` + idProcess,
+        axios.get(host + `/api/company/template/process/` + idProcess,
         {
             headers: { 'Authorization': 'Bearer ' + token}
         }).then(res => {

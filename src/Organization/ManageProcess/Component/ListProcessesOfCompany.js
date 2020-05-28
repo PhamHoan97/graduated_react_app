@@ -10,6 +10,7 @@ import ModalDetailProcess from './ModalDetailProcess';
 import EmployeeOptionSearch from './EmployeeOptionSearch';
 import {connect} from 'react-redux';
 import * as actionAlerts from '../../../Alert/Action/Index';
+import host from '../../../Host/ServerDomain'; 
 
 class ListProcessesOfCompany extends Component {
     _isMounted = false;
@@ -39,7 +40,7 @@ class ListProcessesOfCompany extends Component {
       this._isMounted = true;
       let self = this;
       var token = localStorage.getItem('token');
-      axios.get(`http://127.0.0.1:8000/api/company/processes/`+ token,
+      axios.get(host + `/api/company/processes/`+ token,
       {
           headers: { 'Authorization': 'Bearer ' + token}
       }).then(res => {
@@ -161,7 +162,7 @@ class ListProcessesOfCompany extends Component {
     removeProcess = (e, id) => {
       e.preventDefault();
       var token = localStorage.getItem('token');
-      axios.post(`http://127.0.0.1:8000/api/company/process/remove/`,
+      axios.post(host + `/api/company/process/remove/`,
       {
         token: token,
         idProcess : id,
@@ -206,7 +207,7 @@ class ListProcessesOfCompany extends Component {
     UNSAFE_componentWillReceiveProps(nextProps) {
       var token = localStorage.getItem('token');
       if(nextProps.idDepartment){
-        axios.get(`http://127.0.0.1:8000/api/company/processes/department/`+ nextProps.idDepartment,
+        axios.get(host + `/api/company/processes/department/`+ nextProps.idDepartment,
         {
             headers: { 'Authorization': 'Bearer ' + token}
         }).then(res => {
@@ -222,7 +223,7 @@ class ListProcessesOfCompany extends Component {
       }
 
       if(nextProps.idEmployee){
-        axios.get(`http://127.0.0.1:8000/api/company/processes/employee/`+ nextProps.idEmployee,
+        axios.get(host + `/api/company/processes/employee/`+ nextProps.idEmployee,
         {
             headers: { 'Authorization': 'Bearer ' + token}
         }).then(res => {

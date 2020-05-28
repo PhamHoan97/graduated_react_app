@@ -4,6 +4,7 @@ import axios from 'axios';
 import  { Redirect } from 'react-router-dom';
 import * as actions from '../../Alert/Action/Index';
 import {connect} from 'react-redux';
+import host from '../../Host/ServerDomain';
 
 class ForgetPasswordEmployee extends Component {
     constructor(props) {
@@ -25,7 +26,7 @@ class ForgetPasswordEmployee extends Component {
         var data = {
             email: this.state.email
         };
-        axios.post(`http://127.0.0.1:8000/api/employee/reset/send/password`, data)
+        axios.post(host + `/api/employee/reset/send/password`, data)
         .then(res => {
           if(res.data.error != null){
               document.getElementById('alert-error').innerHTML = "Email này không hợp lệ";

@@ -4,7 +4,7 @@ import MenuVertical from "../Menu/MenuVertical";
 import ModalCreateNotification from "./ModalCreateNotification";
 import ModalSendNotification from "./ModalSendNotification";
 import axios from "axios";
-import * as host from "../../Constants/Url";
+import host from '../../../Host/ServerDomain';
 import { connect } from "react-redux";
 import { getIdNotificationChoose } from "../../Action/Notification/Index";
 import "../../Style/Notification/manageNotification.css";
@@ -33,7 +33,7 @@ class ManageNotification extends Component {
     var self = this;
     var token = localStorage.getItem("token");
     axios
-      .get(host.URL_BACKEND + "/api/system/notification/list", {
+      .get(host + "/api/system/notification/list", {
         headers: { Authorization: "Bearer " + token },
       })
       .then(function (response) {
@@ -55,7 +55,7 @@ class ManageNotification extends Component {
     var token = localStorage.getItem("token");
     axios
       .post(
-        host.URL_BACKEND + "/api/system/notification/delete",
+        host + "/api/system/notification/delete",
         {
           idNotificationSystem: idNotificationSystem,
         },
@@ -109,7 +109,7 @@ class ManageNotification extends Component {
     var token = localStorage.getItem("token");
     axios
       .post(
-        host.URL_BACKEND + "/api/system/notification/statistic",
+        host + "/api/system/notification/statistic",
         {
           idNotification: idNotificationChoose,
         },
@@ -138,7 +138,7 @@ class ManageNotification extends Component {
     var token = localStorage.getItem("token");
     axios
       .get(
-        host.URL_BACKEND +
+        host +
           "/api/system/notification/response/" +
           idNotificationSystem,
         {
@@ -282,10 +282,10 @@ class ManageNotification extends Component {
                           <thead className="thead-dark">
                             <tr>
                               <th />
-                              <th>Name</th>
-                              <th>Template</th>
-                              <th>Date</th>
-                              <th>Status</th>
+                              <th>Tên</th>
+                              <th>Mẫu</th>
+                              <th>Ngày tạo</th>
+                              <th>Trạng thái</th>
                               <th></th>
                               <th />
                             </tr>
@@ -309,8 +309,8 @@ class ManageNotification extends Component {
                                       </td>
                                       <td className="desc">
                                         {parseInt(notification.status) === 1
-                                          ? "Send"
-                                          : "Pending"}
+                                          ? "Gửi"
+                                          : "Chờ"}
                                       </td>
                                       <td>
                                         <div className="table-data-feature">

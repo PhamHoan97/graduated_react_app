@@ -5,7 +5,7 @@ import "../Style/EmployeeProcess.scss";
 import "../Style/DetailNotificaionSystemEmployee.scss";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
-import * as host from "../Url";
+import host from '../../Host/ServerDomain'; 
 import { connect } from "react-redux";
 import Alert from "@material-ui/lab/Alert";
 class DetailNotificationComponent extends Component {
@@ -20,7 +20,7 @@ class DetailNotificationComponent extends Component {
   }
   updateStatusNotificationSystem = () =>{
     var token = localStorage.getItem("token");
-    axios.post(host.URL_BACKEND+'/api/employee/notification/system/status/update', {
+    axios.post(host +'/api/employee/notification/system/status/update', {
       idNotificationFromSystem:this.props.match.params.id
     },{
         headers: { 'Authorization': 'Bearer ' + token }
@@ -44,7 +44,7 @@ class DetailNotificationComponent extends Component {
     var token = localStorage.getItem("token");
     axios
       .post(
-        host.URL_BACKEND + "/api/employee/notification/response",
+        host  + "/api/employee/notification/response",
         {
           idNotificationSystemEmployee: idNotificationSystemEmployee,
         },
@@ -72,7 +72,7 @@ class DetailNotificationComponent extends Component {
 
   renderLinkDownloadDocument(info) {
     if(info && info.document){
-        return (<a className="link-download-document" href={host.URL_BACKEND + '/' + info.document}> Download document here</a>);
+        return (<a className="link-download-document" href={host + '/' + info.document}> Download document here</a>);
     }else{
         return (<></>)
     }
@@ -96,7 +96,7 @@ class DetailNotificationComponent extends Component {
     var token = localStorage.getItem("token");
     axios
       .post(
-        host.URL_BACKEND + "/api/employee/notification/create/response",
+        host + "/api/employee/notification/create/response",
         {
           idNotificationEmployee: idNotificationEmployee,
           token: token,
@@ -214,7 +214,7 @@ class DetailNotificationComponent extends Component {
           <div> {this.state.detailNotification[0].description}</div>
           {this.state.detailNotification[0].file !== null ? (
             <div className="text-center mt-3">
-              <a href={host.URL_BACKEND + '/' + this.state.detailNotification[0].file} className="btn btn-primary btn-lg active btn-download_document" role="button" aria-pressed="true">Tài liệu đính kèm{" "}</a>
+              <a href={host + '/' + this.state.detailNotification[0].file} className="btn btn-primary btn-lg active btn-download_document" role="button" aria-pressed="true">Tài liệu đính kèm{" "}</a>
             </div>
           ) : (
             <div></div>

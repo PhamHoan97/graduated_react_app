@@ -4,6 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios';
 import * as actions from '../Actions/Index';
 import {connect} from 'react-redux';
+import host from '../../Host/ServerDomain'; 
 
 class EditInformationEmployeeModal extends Component {
     constructor(props) {
@@ -76,7 +77,7 @@ class EditInformationEmployeeModal extends Component {
       if(this.state.avatar){
         data.append('avatar', this.state.avatar, this.state.avatar.name);
       }
-      axios.post(`http://127.0.0.1:8000/api/employee/update/information`,
+      axios.post(host + `/api/employee/update/information`,
       data,
       {
           headers: { 'Authorization': 'Bearer ' + token}
@@ -84,7 +85,6 @@ class EditInformationEmployeeModal extends Component {
         if(res.data.error != null){
             console.log(res.data.message);
         }else{
-            console.log(res.data); 
             document.getElementById("close-update-information-modal").click(); 
             this.props.reloadEmployeePage();
         }

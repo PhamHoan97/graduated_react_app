@@ -3,8 +3,9 @@ import { Modal } from "react-bootstrap";
 import Alert from '@material-ui/lab/Alert';
 import { isEmpty } from 'validator';
 import axios from "axios";
-import * as host from '../../Url'
+import host from '../../../Host/ServerDomain';
 import Validator from '../Utils/Validator';
+
 export default class ModalTypeTemplate extends Component {
     constructor(props) {
         super(props);
@@ -58,7 +59,7 @@ export default class ModalTypeTemplate extends Component {
             var self = this;
             var token = localStorage.getItem('token');
             var idAdmin = localStorage.getItem('admin_id');
-            axios.post(host.URL_BACKEND+'/api/system/notification/type/create', {
+            axios.post(host + '/api/system/notification/type/create', {
                 newNameTypeTemplate: this.state.newNameTypeTemplate,
                 newDescriptionTypeTemplate: this.state.newDescriptionTypeTemplate,
                 idAdmin: idAdmin,
