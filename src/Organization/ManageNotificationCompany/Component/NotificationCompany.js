@@ -17,7 +17,7 @@ class NotificationCompany extends Component {
       listCompanyNotification:[]
     }
   }
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this._isMounted = true;
     var self = this;
     var token = localStorage.getItem("token");

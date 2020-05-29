@@ -171,7 +171,7 @@ class ProcessTemplate extends Component {
               title:'Thành công',
               severity:'success'
             });
-            this.setState({openModal:false, fields: res.data});
+            this.setState({openModal:false, fields: res.data.fields});
           }
         }).catch(function (error) {
           alert(error);

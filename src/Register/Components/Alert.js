@@ -108,7 +108,7 @@ class Alert extends Component {
                                                     <tbody>
                                                       <tr>
                                                         <td style={{fontSize: '24px', fontFamily: '"Montserrat","Arial",Helvetica,sans-serif', color: '#3c4858', textAlign: 'center'}}>
-                                                          <span style={{color: '#3c4858'}}><span style={{color: '#FFFFFF'}}><span style={{fontSize: '18px'}}>We got your request, but we need a little time to make sure that your information was exactly valid.</span></span></span>
+                                                          <span style={{color: '#3c4858'}}><span style={{color: '#FFFFFF'}}><span style={{fontSize: '18px'}}></span></span></span>
                                                         </td>
                                                       </tr>
                                                       <tr>

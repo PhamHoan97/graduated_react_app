@@ -8,7 +8,7 @@ import * as actions from '../../../Alert/Action/Index';
 import host from '../../../Host/ServerDomain';
 
 class MenuVerticalDashboard extends Component {
-
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -52,16 +52,20 @@ class MenuVerticalDashboard extends Component {
   };
 
   componentDidMount() {
+    this._isMounted = true;
+    let self = this;
     var token = localStorage.getItem('token')
     axios.get(host + `/api/system/account/` + token,
     {
       headers: { 'Authorization': 'Bearer ' + token}
     })
     .then(res => {
-      if(res.data.error != null){
-          console.log(res.data.message);
-      }else{
-        this.setState({system: res.data.system});
+      if(self._isMounted){
+        if(res.data.error != null){
+            console.log(res.data.message);
+        }else{
+          self.setState({system: res.data.system});
+        }
       }
     }).catch(function (error) {
       alert(error);

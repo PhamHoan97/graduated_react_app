@@ -19,7 +19,7 @@ class Detail extends Component {
 
     renderLinkDownloadDocument(info) {
         if(info && info.document){
-            return (<a className="link-download-document" href={host.URL_BACKEND + '/' + info.document}> Tải tài liệu tại đây</a>);
+            return (<a className="link-download-document" href={host + '/' + info.document}> Tải tài liệu tại đây</a>);
         }else{
             return (<></>)
         }

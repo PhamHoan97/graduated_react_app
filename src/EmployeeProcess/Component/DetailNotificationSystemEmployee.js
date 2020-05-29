@@ -35,7 +35,7 @@ class DetailNotificationComponent extends Component {
         console.log(error);
     });
   }
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.updateStatusNotificationSystem();
     this.getDetailNotificationSystem(this.props.match.params.id);
   }

@@ -74,7 +74,7 @@ class ManageFormSend extends Component {
         console.log(error);
     });
   }
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.getlistForm();
   }
 

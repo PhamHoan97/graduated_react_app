@@ -26,8 +26,7 @@ export default class CreateTemplateForm extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  //WARNING! To be deprecated in React v17. Use componentDidMount instead.
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.getListTypeSystem();
     this.getListAllTemplateSystem();
   }

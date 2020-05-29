@@ -83,7 +83,6 @@ class Register extends Component {
         if(res.data.error != null){
             console.log(res.data.error);
         }else{
-            console.log(res.data);
             this.props.updateCompanyInformation(company);
             this.setState({redirectAlert: true});
         }

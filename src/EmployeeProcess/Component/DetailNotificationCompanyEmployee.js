@@ -32,7 +32,7 @@ export default class DetailNotificationCompanyEmployee extends Component {
         console.log(error);
     });
   }
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.updateStatusNotificationCompany(this.props.match.params.id);
     this.getDetailNotificationCompany(this.props.match.params.id);
   }

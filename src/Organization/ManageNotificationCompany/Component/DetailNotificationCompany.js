@@ -19,7 +19,7 @@ class DetailNotificationComponent extends Component {
       detailNotification: this.props.detailNotificationAdmin,
     };
   }
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.getDetailNotification(this.props.match.params.id);
   }
   getDetailNotification = (idNotificationAdmin) => {
