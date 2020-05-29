@@ -1,9 +1,14 @@
-import {UPDATE_PROCESS_TEMPLATE_INFORMATION_CREATE, UPDATE_PROCESS_TEMPLATE_INFORMATION_UPDATE} from '../../../Constants/System/ActionTypes';
+import {
+    UPDATE_PROCESS_TEMPLATE_INFORMATION_CREATE, 
+    UPDATE_PROCESS_TEMPLATE_INFORMATION_UPDATE,
+    UPDATE_FILE_BPMN_AFTER_IMPORT_FILE,
+} from '../../../Constants/System/ActionTypes';
 
 const initialState = {
     process: '',
     isSave : false,
     isUpdate: false,
+    template: '',
 }
 
 var templateReducers = (state = initialState, action) => {
@@ -11,7 +16,9 @@ var templateReducers = (state = initialState, action) => {
         case UPDATE_PROCESS_TEMPLATE_INFORMATION_CREATE:
             return {...state, process : action.process, isSave: true};
         case UPDATE_PROCESS_TEMPLATE_INFORMATION_UPDATE:
-            return {...state, process : action.process, isUpdate: true};        
+            return {...state, process : action.process, isUpdate: true};  
+        case UPDATE_FILE_BPMN_AFTER_IMPORT_FILE:
+            return {...state, template : action.template};           
         default:
             return state;
     }

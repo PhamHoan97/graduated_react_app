@@ -3,6 +3,7 @@ import {
     LOAD_TABLE_AFTER_REJECT, 
     UPDATE_PROCESS_TEMPLATE_INFORMATION_CREATE,
     UPDATE_PROCESS_TEMPLATE_INFORMATION_UPDATE,
+    UPDATE_FILE_BPMN_AFTER_IMPORT_FILE
 } from '../../Constants/System/ActionTypes';
 export const passDataFromFormToModalInCreateAccountAdmin = (idCompany,clickCreate)=>{
     return {
@@ -32,3 +33,11 @@ export const updateProcessTemplateInformationUpdate = (process)=>{
         process, 
     }
 }
+
+export const updateProcessTemplateXmlAfterImportFile = (template)=>{
+    return {
+        type: UPDATE_FILE_BPMN_AFTER_IMPORT_FILE,
+        template, 
+    }
+}
+

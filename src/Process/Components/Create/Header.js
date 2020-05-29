@@ -192,6 +192,7 @@ class Header extends Component {
     handleImportFileBPMN = event => {
         var files = event.target.files;
         var fileName = files[0].name;
+        var type = this.getExtension(fileName);
         if(files && files.length !== 1){
             this.props.showAlert({
                 message: "Chỉ được import một file",
@@ -203,9 +204,7 @@ class Header extends Component {
                 severity:'error'
             });
             event.target.value = null;
-        }
-        var type = this.getExtension(fileName);
-        if(type !== "bpmn"){
+        }else if(type !== "bpmn"){
             this.props.showAlert({
                 message: "Chỉ được import file có định dạng bpmn",
                 anchorOrigin:{
@@ -216,32 +215,33 @@ class Header extends Component {
                 severity:'error'
             });
             event.target.value = null; 
-        }
-        try{
-            var reader = new FileReader();
-        }catch(e){
+        }else{
+            try{
+                var reader = new FileReader();
+            }catch(e){
+                this.props.showAlert({
+                    message: "Trình duyệt không hỗ trợ đọc file bpmn",
+                    anchorOrigin:{
+                        vertical: 'top',
+                        horizontal: 'right'
+                    },
+                    title:'Thất bại',
+                    severity:'error'
+                });
+            }
+            reader.readAsText(files[0], "UTF-8");
+            reader.onloadend = this.loadedReaderFile;
+    
             this.props.showAlert({
-                message: "Trình duyệt không hỗ trợ đọc file bpmn",
+                message: "Import thành công file bpmn",
                 anchorOrigin:{
                     vertical: 'top',
                     horizontal: 'right'
                 },
-                title:'Thất bại',
-                severity:'error'
+                title:'Thành công',
+                severity:'success'
             });
         }
-        reader.readAsText(files[0], "UTF-8");
-        reader.onloadend = this.loadedReaderFile;
-
-        this.props.showAlert({
-            message: "Import thành công file bpmn",
-            anchorOrigin:{
-                vertical: 'top',
-                horizontal: 'right'
-            },
-            title:'Thành công',
-            severity:'success'
-        });
     }
 
     render() {

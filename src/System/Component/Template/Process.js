@@ -17,10 +17,10 @@ class Process extends Component {
         this.modeler = new BpmnModeler(
             {
                 keyboard: {
-                bindTo: window,
+                    bindTo: window,
                 },
                 additionalModules: [
-                minimapModule
+                    minimapModule
                 ]
             }
         );
@@ -108,6 +108,27 @@ class Process extends Component {
         });
     }
 
+    componentDidUpdate (){
+        if(this.initialDiagram && !this.state.isRedirectEdit){
+            this.modeler.attachTo('#create-process-template-diagram');
+            this.modeler.importXML(this.initialDiagram, function(err) {
+    
+            });
+        }
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        if(nextProps.template && nextProps.template === this.initialDiagram){
+          if(nextState.isRedirectEdit){
+            return true;
+          }
+          return false;
+        }else {
+          this.initialDiagram = nextProps.template;
+        }
+        return true;
+      }
+
     UNSAFE_componentWillReceiveProps(nextProps) {
         if(nextProps.isSave && nextProps.process){
             this.saveDiagram(nextProps.process);
@@ -130,6 +151,7 @@ const mapStateToProps = (state, ownProps) => {
     return {
         process: state.systemReducers.manageSystemReducer.templateReducers.process,
         isSave: state.systemReducers.manageSystemReducer.templateReducers.isSave,
+        template: state.systemReducers.manageSystemReducer.templateReducers.template,
     }
 }
 

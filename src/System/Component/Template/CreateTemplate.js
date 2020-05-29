@@ -8,6 +8,8 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import * as actions from '../../Action/System/Index';
 import {connect} from 'react-redux';
+import '../../Style/ProcessTemplate/Import.css';
+import * as alertActions from '../../../Alert/Action/Index';
 
 class CreateTemplate extends Component {
     constructor(props) {
@@ -50,6 +52,72 @@ class CreateTemplate extends Component {
         this.setState({openModal:false});
     }
 
+    getExtension(filename) {
+      var parts = filename.split('.');
+      return parts[parts.length - 1];
+    }
+
+    loadedReaderFile = (evt) => {
+        var result = evt.target.result;
+        this.props.updateProcessTemplateXmlAfterImportFile(result);
+    }
+
+    handleImportFileBPMN = event => {
+        var files = event.target.files;
+        var fileName = files[0].name;
+        var type = this.getExtension(fileName);
+        if(files && files.length !== 1){
+            this.props.showAlert({
+                message: "Chỉ được import một file",
+                anchorOrigin:{
+                    vertical: 'top',
+                    horizontal: 'right'
+                },
+                title:'Thất bại',
+                severity:'error'
+            });
+            event.target.value = null;
+        }
+        else if(type !== "bpmn"){
+            this.props.showAlert({
+                message: "Chỉ được import file có định dạng bpmn",
+                anchorOrigin:{
+                    vertical: 'top',
+                    horizontal: 'right'
+                },
+                title:'Thất bại',
+                severity:'error'
+            });
+            event.target.value = null; 
+        }else{
+          try{
+            var reader = new FileReader();
+          }catch(e){
+              this.props.showAlert({
+                  message: "Trình duyệt không hỗ trợ đọc file bpmn",
+                  anchorOrigin:{
+                      vertical: 'top',
+                      horizontal: 'right'
+                  },
+                  title:'Thất bại',
+                  severity:'error'
+              });
+          }
+          reader.readAsText(files[0], "UTF-8");
+          reader.onloadend = this.loadedReaderFile;
+
+          this.props.showAlert({
+              message: "Import thành công file bpmn",
+              anchorOrigin:{
+                  vertical: 'top',
+                  horizontal: 'right'
+              },
+              title:'Thành công',
+              severity:'success'
+          });
+        }
+    }
+
     render() {
         return (
             <div className="page-wrapper">
@@ -69,7 +137,10 @@ class CreateTemplate extends Component {
                       <div className="col-md-4"></div>
                       <div className="col-md-4">
                         <ButtonGroup aria-label="Basic example">
-                            <Button variant="primary">Import quy trình <i className="fas fa-plus"></i> </Button>
+                            <Button variant="primary">Import quy trình
+                              <input onChange={this.handleImportFileBPMN} className="input-import-file-bpmn-template" type="file" id="file" /> 
+                              <i className="fas fa-plus"></i> 
+                            </Button>
                             <Button variant="success save-right-button" style={{marginLeft:"2%"}} onClick={(e) => this.handleOpenUpdateProcessModal(e)}>
                                 Lưu quy trình <i className="fas fa-save"></i></Button>
                         </ButtonGroup>
@@ -130,7 +201,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         updateProcessTemplateInformationCreate: (process) => {
             dispatch(actions.updateProcessTemplateInformationCreate(process));
-        }
+        },
+        updateProcessTemplateXmlAfterImportFile: (process) => {
+          dispatch(actions.updateProcessTemplateXmlAfterImportFile(process));
+        },
+        showAlert: (properties) => {
+          dispatch(alertActions.showMessageAlert(properties));
+      },
     }
 }
 
