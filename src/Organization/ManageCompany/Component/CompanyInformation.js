@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import "../../Style/Organization.scss";
 import "../Style/DetailCompany.scss";
 import axios from "axios";
-import host from '../../../Host/ServerDomain'; 
+import host from '../../../Host/ServerDomain';
 import ModalUpdateCompany from "./ModalUpdateCompany";
-import avatarCompany from "../Image/company1.jpg";
+import avatarCompany from "../Image/company.png";
 export default class CompanyInformation extends Component {
   _isMounted = false;
   constructor(props, context) {
