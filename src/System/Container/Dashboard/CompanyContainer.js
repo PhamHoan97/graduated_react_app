@@ -7,6 +7,7 @@ import axios from 'axios'
 import host from '../../../Host/ServerDomain';
 
 export default class CompanyContainer extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -45,6 +46,7 @@ export default class CompanyContainer extends Component {
     }
 
     getListCompany =()=>{
+        this._isMounted = true;
         var self =  this;
         var token = localStorage.getItem("token");
         axios.get(host + '/api/system/dashboard/company',{
@@ -53,11 +55,13 @@ export default class CompanyContainer extends Component {
         .then(function (response) {
             if (response.data.error != null) {
             } else {
-                var listCompany = response.data.companies;
-                self.setState({
-                    listCompany: listCompany,
-                    pageCount: Math.ceil(listCompany.length / self.state.perPage),
-                });
+                if(self._isMounted){
+                    var listCompany = response.data.companies;
+                    self.setState({
+                        listCompany: listCompany,
+                        pageCount: Math.ceil(listCompany.length / self.state.perPage),
+                    });
+                }   
             }
         })
         .catch(function (error) {
@@ -65,6 +69,10 @@ export default class CompanyContainer extends Component {
         });
     }
 
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
+    
     handlePageClick = (e) => {
         const selectedPage = e.selected;
         console.log(selectedPage);
