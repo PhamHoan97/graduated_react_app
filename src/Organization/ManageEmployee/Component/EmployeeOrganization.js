@@ -186,7 +186,7 @@ class EmployeeOrganization extends Component {
             message:'Xóa nhân viên thành công ',
             anchorOrigin:{
                 vertical: 'top',
-                horizontal: 'center'
+                horizontal: 'right'
             },
             title:'Success',
             severity:'success'

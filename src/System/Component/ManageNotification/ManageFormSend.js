@@ -62,7 +62,7 @@ class ManageFormSend extends Component {
               message:'Xóa Form thành công ',
               anchorOrigin:{
                   vertical: 'top',
-                  horizontal: 'center'
+                  horizontal: 'right'
               },
               title:'Success',
               severity:'success'

@@ -70,7 +70,7 @@ class ManageNotification extends Component {
             message:'Xóa thông báo thành công ',
             anchorOrigin:{
                 vertical: 'top',
-                horizontal: 'center'
+                horizontal: 'right'
             },
             title:'Success',
             severity:'success'
