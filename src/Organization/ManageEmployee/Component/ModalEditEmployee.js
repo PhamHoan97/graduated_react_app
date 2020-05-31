@@ -78,7 +78,6 @@ class ModalEditEmployee extends Component {
           if (response.data.error != null) {
             console.log(response.data.error);
           } else {
-            console.log(response.data.roleDepartment);
             self.setState({
               [name]: value,
               listRoleDepartment: response.data.roleDepartment,
@@ -150,6 +149,11 @@ class ModalEditEmployee extends Component {
     this.getListDepartment();
     this.getListRole();
   }
+
+  componentWillUnmount(){
+    this._isMounted = false;
+  }
+
   handleOnChangeFile(e) {
     let files = e.target.files || e.dataTransfer.files;
     if (!files.length) return;
