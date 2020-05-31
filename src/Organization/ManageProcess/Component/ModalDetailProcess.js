@@ -30,7 +30,6 @@ class ModalDetailProcess extends Component {
               if(res.data.error != null){
                   console.log(res.data.message);
               }else{
-                  console.log(res.data.process)
                 this.setState({process: res.data.process});
               }
             }).catch(function (error) {

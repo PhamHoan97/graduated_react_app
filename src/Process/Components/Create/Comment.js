@@ -45,7 +45,6 @@ class Comment extends Component {
     }
 
     deleteComment = (comment) => {
-        console.log(1)
         this.props.deleteCommentOfElement(comment);
         this.setState({reload:true});
     }
@@ -60,7 +59,7 @@ class Comment extends Component {
                                 <div><i className="far fa-user-circle fa-2x"></i></div>
                                 <div className="record-message">
                                     <div className= "content">
-                                        <div className="name-and-time">You</div>
+                                        <div className="name-and-time">Admin</div>
                                         <div className="content-message">{value.content}</div>
                                     </div>
                                     <div className="action-comment btn-group"> 

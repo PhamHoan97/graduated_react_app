@@ -26,7 +26,7 @@ export default class Intro extends Component {
                     className="collapse navbar-collapse"
                     id="navbarTogglerDemo01"
                   >
-                    <a className="navbar-brand" href="2aesn">
+                    <a className="navbar-brand" href="/">
                       <img src='./intro/images/Logo.png' alt="logo" />
                     </a>
                     <ul className="navbar-nav mr-auto mt-2 mt-lg-0 menu-left">
@@ -36,12 +36,12 @@ export default class Intro extends Component {
                         </a>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link" href="2aesn">
+                        <a className="nav-link" href="/">
                           Use Cases
                         </a>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link" href="2aesn">
+                        <a className="nav-link" href="/">
                           Enterprise
                         </a>
                       </li>
@@ -53,7 +53,7 @@ export default class Intro extends Component {
                     </ul>
                     <ul className="navbar-nav ml-auto menu-right">
                       <li className="nav-item">
-                        <a className="nav-link" href="2aesn">
+                        <a className="nav-link" href="/">
                           Contact Sales
                         </a>
                       </li>

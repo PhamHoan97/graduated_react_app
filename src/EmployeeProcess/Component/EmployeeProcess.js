@@ -29,6 +29,10 @@ class EmployeeProcess extends Component {
         this.setState({click:id, isRedirect:true});
     }
 
+    renderCreator = (isAdmin) =>{
+        return (isAdmin ? "Người quản trị" : "Nhân viên");
+    }
+
     renderProcessesRow = () =>{
         var processes = this.state.processes;
         return Object.values(processes).map((value, key) => {
@@ -39,7 +43,7 @@ class EmployeeProcess extends Component {
                                 <td>{value.name}</td>
                                 <td>{value.description.substr(0, 30) + '...'}</td>
                                 <td>{value.created_at}</td>
-                                <td>Admin</td>
+                                <td>{this.renderCreator(value.admin_id)}</td>
                                 <td>
                                     <div className="table-data-feature">
                                         <button

@@ -3,7 +3,9 @@ import '../../Css/Process.css';
 import Button from 'react-bootstrap/Button';
 import {isEmpty} from 'validator';
 import {connect} from 'react-redux';
-
+import host from '../../../Host/ServerDomain';
+import axios from 'axios';
+import * as actions from  '../../../Alert/Action/Index';
 
 class Comment extends Component {
     constructor(props) {
@@ -13,6 +15,7 @@ class Comment extends Component {
             currentElement: "",
             content: "",
             reload: false,
+            idProcess: "",
         }
     }
 
@@ -29,20 +32,109 @@ class Comment extends Component {
         this.setState({content:event.target.value});
     } 
 
+    getCurrentTime (){
+        var date = new Date();
+        var yyyy = date.getFullYear();
+        var dd = date.getDate();
+        var mm = (date.getMonth() + 1);
+        if (dd < 10){
+          dd = "0" + dd;
+        }
+        if (mm < 10){
+          mm = "0" + mm;
+        }
+        var current = dd + "-" + mm + "-" + yyyy;
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var seconds = date.getSeconds();
+        if (hours < 10){
+          hours = "0" + hours;
+        }
+        if (minutes < 10){
+          minutes = "0" + minutes;
+        }
+        if (seconds < 10){
+          seconds = "0" + seconds;
+        }
+        return current + " " + hours + ":" + minutes + ":" + seconds;
+    }
+
     saveCommentElement = (event) =>{
         event.preventDefault();
-        this.setState({reload:true});
+        var tokenData = localStorage.getItem('token');
+        var data = {
+            idProcess : this.state.idProcess,
+            comment: this.state.content,
+            element_name: this.state.currentElement.id,
+            time: this.getCurrentTime(),
+            token: tokenData,
+            typeElement: this.state.currentElement.type,
+        }
+        axios.post(host + `/api/employee/add/comment/`,data,
+        {
+            headers: { 'Authorization': 'Bearer ' + tokenData}
+        }).then(res => {
+          if(res.data.error != null){
+            this.props.showAlert({
+                message: res.data.message,
+                anchorOrigin:{
+                    vertical: 'top',
+                    horizontal: 'right'
+                },
+                title:'Thất bại',
+                severity:'error'
+              });
+          }else{
+            this.props.showAlert({
+                message: res.data.message,
+                anchorOrigin:{
+                    vertical: 'top',
+                    horizontal: 'right'
+                },
+                title:'Thành công',
+                severity:'success'
+              });
+            var newCurrentElement = this.state.currentElement;
+            var comments = newCurrentElement.comments;
+            if(comments){
+                comments.push({
+                    time: res.data.comment.update_at, 
+                    content: res.data.comment.comment,
+                    employee_id: res.data.comment.employee_id,
+                    id:  res.data.comment.id,
+                })
+            }else{
+                comments = [];
+                comments.push({
+                    time: res.data.comment.update_at, 
+                    content: res.data.comment.comment,
+                    employee_id: res.data.comment.employee_id,
+                    id:  res.data.comment.id,  
+                });
+            }
+            newCurrentElement.comments = comments;
+            this.setState({currentElement: newCurrentElement, reload: true});
+          }
+        }).catch(function (error) {
+          alert(error);
+        });
     }
 
     UNSAFE_componentWillReceiveProps (nextProps) {
-        this.setState({
-            currentElement: nextProps.currentElement,
-            content: ""
-        });
+        if(nextProps.idProcess){
+            this.setState({idProcess: nextProps.idProcess});
+        }
+        if(nextProps.currentElement){
+            this.setState({
+                currentElement: nextProps.currentElement,
+                content: "", 
+            });
+        }
         document.getElementById("comment-element").value = "";
     }
 
     renderDeleteButton = (value) => {
+        console.log(value)
         if(!value.employee_id){
             return (<div></div>);
         }else{
@@ -63,7 +155,48 @@ class Comment extends Component {
     }
 
     deleteComment = (comment) => {
-        this.setState({reload:true});
+        var tokenData = localStorage.getItem('token');
+        var data = {
+            idComment: comment.id,
+        }
+        axios.post(host + `/api/employee/delete/comment/`,data,
+        {
+            headers: { 'Authorization': 'Bearer ' + tokenData}
+        }).then(res => {
+          if(res.data.error != null){
+            this.props.showAlert({
+                message: res.data.message,
+                anchorOrigin:{
+                    vertical: 'top',
+                    horizontal: 'right'
+                },
+                title:'Thất bại',
+                severity:'error'
+              });
+          }else{
+            this.props.showAlert({
+                message: res.data.message,
+                anchorOrigin:{
+                    vertical: 'top',
+                    horizontal: 'right'
+                },
+                title:'Thành công',
+                severity:'success'
+              });
+            var newCurrentElement = this.state.currentElement;
+            var oldComments = newCurrentElement.comments;
+            var newComments = [];
+            for (let index = 0; index < oldComments.length; index++) {
+                if(oldComments[index].id !== comment.id){
+                    newComments.push(oldComments[index]);
+                }                
+            }
+            newCurrentElement.comments = newComments;
+            this.setState({currentElement: newCurrentElement, reload: true});
+          }
+        }).catch(function (error) {
+          alert(error);
+        });
     }
 
     renderListComment = (comments) => {
@@ -94,7 +227,7 @@ class Comment extends Component {
         if(Array.isArray(this.state.currentElement.comments) && this.state.currentElement.comments.length){
             return (
                 <section className="comment-element">
-                    <h4 className="comment-title"> Comments</h4>
+                    <h4 className="comment-title"> Bình luận</h4>
                     <div className="comment-content form-group">
                         <div className="conversation-content-has-comment">
                             {this.renderListComment(this.state.currentElement.comments)}
@@ -104,10 +237,10 @@ class Comment extends Component {
                             <form>
                                 <div className="form-comment-area">
                                     <div className="form-group input-comment">
-                                        <input type="text" onChange={this.changeComment} className="form-control" id="comment-element" placeholder="Reply..." />
+                                        <input type="text" onChange={this.changeComment} className="form-control" id="comment-element" placeholder="Trả lời..." />
                                     </div>
                                     <div className="button-send-comment">
-                                        <Button onClick={(e) => this.saveCommentElement(e)} disabled={this.allowComment()} title="Comment">Comment</Button>
+                                        <Button onClick={(e) => this.saveCommentElement(e)} disabled={this.allowComment()} title="Comment">Bình luận</Button>
                                     </div>
                                 </div>
                             </form>
@@ -119,14 +252,14 @@ class Comment extends Component {
         }else{
             return (
                 <section className="comment-element">
-                    <h4 className="comment-title"> Comments</h4>
+                    <h4 className="comment-title"> Bình luận</h4>
                     <div className="comment-content form-group">
                         <div className="conversation-content">
                             <div className="no-conversation">
                                 <i className="fas fa-comments fa-3x"></i>
                                 <div className="no-conversation-message">
-                                    <div className="title-add-comments">Add comments</div>
-                                    <div className="content-add-comments">You can add comments about diagrams or specific BPMN elements.</div>
+                                    <div className="title-add-comments"> Thêm mới</div>
+                                    <div className="content-add-comments">Bạn có thể thêm bình luận cho từng phần tử trên quy trình.</div>
                                 </div>
                             </div>
                         </div>
@@ -134,10 +267,10 @@ class Comment extends Component {
                             <form>
                                 <div className="form-comment-area">
                                     <div className="form-group input-comment">
-                                        <input type="text" onChange={this.changeComment} className="form-control" id="comment-element" placeholder="Reply..." />
+                                        <input type="text" onChange={this.changeComment} className="form-control" id="comment-element" placeholder="Trả lời..." />
                                     </div>
                                     <div className="button-send-comment">
-                                        <Button onClick={(e) => this.saveCommentElement(e)} disabled={this.allowComment()} title="Comment">Comment</Button>
+                                        <Button onClick={(e) => this.saveCommentElement(e)} disabled={this.allowComment()} title="Comment">Bình luận</Button>
                                     </div>
                                 </div>
                             </form>
@@ -155,4 +288,12 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps)(Comment);
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        showAlert: (properties) => {
+            dispatch(actions.showMessageAlert(properties))
+          }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Comment);

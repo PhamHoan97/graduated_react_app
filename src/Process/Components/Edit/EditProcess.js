@@ -65,6 +65,7 @@ class EditProcess extends Component {
         for (var indexM = 0; indexM < process.elements.length; indexM++) {
             var eNotes = {};
             var eComments = [];
+            var isSaved = false;
             for (var indexN = 0; indexN < process.element_notes.length; indexN++) {
                 if(process.elements[indexM].id === process.element_notes[indexN].element_id){
                     eNotes = {
@@ -87,6 +88,7 @@ class EditProcess extends Component {
                 }                
             }
             if(eComments.length){
+                isSaved = true;
                 comments.push({
                     id: process.elements[indexM].element,
                     comments: eComments,
@@ -96,6 +98,7 @@ class EditProcess extends Component {
                 id: process.elements[indexM].element,
                 type: process.elements[indexM].type,
                 comments: eComments,
+                isSaved: isSaved,
             }
             if(eNotes.note){
                 element.note = eNotes.note;

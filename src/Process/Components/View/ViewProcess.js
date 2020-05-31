@@ -147,14 +147,16 @@ class ViewProcess extends Component {
                             <div className="col-md-9 full-page">
                                 <View init={this.state.initDiagram}/>
                             </div>
-                            <div className="button-details-right-open">
-                                <button onClick={(e) => this.closePopup(e)}>
-                                    <i className="fas fa-align-justify"></i> Chi tiết
-                                </button>
-                            </div>
-                            <div className="right-column-popup">
-                                <ViewNote />
-                                <ViewComment />
+                            <div className="col-md-3 full-page">
+                                <div className="button-details-right-open">
+                                    <button onClick={(e) => this.closePopup(e)}>
+                                        <i className="fas fa-align-justify"></i> Chi tiết
+                                    </button>
+                                </div>
+                                <div className="right-column-popup">
+                                    <ViewNote />
+                                    <ViewComment idProcess= {this.props.match.params.id}/>
+                                </div>
                             </div>
                         </div>
                         <div className="row footer-view-process">  
