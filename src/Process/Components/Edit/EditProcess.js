@@ -28,6 +28,11 @@ class EditProcess extends Component {
         this.props.passPopupStatus(true);
     }
 
+    initStatusPopup = () => {
+        this.setState({openDetails:true});
+        this.props.passPopupStatus(true);
+    }
+
     closePopup = (event) => {
         event.preventDefault();
         this.setState({openDetails:false});
@@ -84,6 +89,8 @@ class EditProcess extends Component {
                         time: process.element_comments[indexP].update_at,
                         admin_id: process.element_comments[indexP].admin_id,
                         content: process.element_comments[indexP].comment,
+                        employee_id: process.element_comments[indexP].employee_id,
+                        employee_name: process.element_comments[indexP].employee_name,
                     });
                 }                
             }
@@ -118,6 +125,7 @@ class EditProcess extends Component {
 
     componentDidMount() {
         this._isMounted = true;
+        var self = this;
         var idProcess = this.props.match.params.id;
         var token = localStorage.getItem('token');
         axios.get(host + `/api/company/process/information/` + idProcess,
@@ -127,8 +135,11 @@ class EditProcess extends Component {
           if(res.data.error != null){
               console.log(res.data.message);
           }else{
-              this.extractDataToComponent(res.data.process);
-              this.setState({initDiagram: res.data.process.xml});
+              if(self._isMounted){
+                  this.initStatusPopup();
+                self.extractDataToComponent(res.data.process);
+                self.setState({initDiagram: res.data.process.xml});
+              }
           }
         }).catch(function (error) {
           alert(error);

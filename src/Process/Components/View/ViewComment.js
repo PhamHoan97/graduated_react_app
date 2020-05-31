@@ -8,6 +8,7 @@ import axios from 'axios';
 import * as actions from  '../../../Alert/Action/Index';
 
 class Comment extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props)
 
@@ -16,6 +17,7 @@ class Comment extends Component {
             content: "",
             reload: false,
             idProcess: "",
+            currentEmployee: '',
         }
     }
 
@@ -102,6 +104,7 @@ class Comment extends Component {
                     content: res.data.comment.comment,
                     employee_id: res.data.comment.employee_id,
                     id:  res.data.comment.id,
+                    employee_name: this.state.currentEmployee.name,
                 })
             }else{
                 comments = [];
@@ -110,6 +113,7 @@ class Comment extends Component {
                     content: res.data.comment.comment,
                     employee_id: res.data.comment.employee_id,
                     id:  res.data.comment.id,  
+                    employee_name: this.state.employee.name,
                 });
             }
             newCurrentElement.comments = comments;
@@ -133,16 +137,41 @@ class Comment extends Component {
         document.getElementById("comment-element").value = "";
     }
 
+    componentDidMount() {
+        this._isMounted = true;
+        var self = this;
+        var tokenData = localStorage.getItem('token');
+        axios.get(host + `/api/employee/information/` + tokenData,
+        {
+            headers: { 'Authorization': 'Bearer ' + tokenData}
+        }).then(res => {
+            if(res.data.error != null){
+                console.log(res.data.message);
+            }else{
+                if(self._isMounted){
+                    self.setState({currentEmployee: res.data.employee});
+                }
+            }
+        }).catch(function (error) {
+          alert(error);
+        });
+    }
+
+    componentWillUnmount(){
+        this._isMounted = false;
+    }
+
     renderDeleteButton = (value) => {
-        console.log(value)
         if(!value.employee_id){
             return (<div></div>);
-        }else{
+        }else if(value.employee_id === this.state.currentEmployee.id){
             return (                                  
                 <button type="button" title="Delete" onClick={this.deleteComment.bind(this,value)}>
                     <i className="far fa-trash-alt"></i>
                 </button>
-             );
+            ); 
+        }else{
+            return (<div></div>);
         }
     }
 
@@ -150,7 +179,7 @@ class Comment extends Component {
         if(!value.employee_id){
             return (<div className="name-and-time">Admin</div>);
         }else{
-            return (<div className="name-and-time">You</div>);
+            return (<div className="name-and-time">{value.employee_name}</div>);
         }
     }
 
@@ -159,7 +188,7 @@ class Comment extends Component {
         var data = {
             idComment: comment.id,
         }
-        axios.post(host + `/api/employee/delete/comment/`,data,
+        axios.post(host + `/api/employee/delete/comment/`, data,
         {
             headers: { 'Authorization': 'Bearer ' + tokenData}
         }).then(res => {

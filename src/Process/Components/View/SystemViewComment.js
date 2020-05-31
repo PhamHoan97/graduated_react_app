@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import '../../Css/Process.css';
 import Button from 'react-bootstrap/Button';
-import {isEmpty} from 'validator';
-import * as actions from '../../Actions/Index';
 import {connect} from 'react-redux';
+import * as actions from  '../../../Alert/Action/Index';
 
-
-class Comment extends Component {
+class SystemViewComment extends Component {
     constructor(props) {
         super(props)
 
@@ -14,51 +12,30 @@ class Comment extends Component {
             currentElement: "",
             content: "",
             reload: false,
+            idProcess: "",
+            currentEmployee: '',
         }
     }
 
     allowComment = function() {
-        if((typeof this.state.currentElement.id === "undefined")){
-            return true;
-        }else if(isEmpty(this.state.content)){
-            return true;
-        }
-        return false;
+        return true;
     }
 
     changeComment = event => {
         this.setState({content:event.target.value});
     } 
 
-    saveCommentElement = (event) =>{
-        event.preventDefault();
-        this.props.saveCommentForElement(this.state.content);
-        this.setState({reload:true});
-    }
-
     UNSAFE_componentWillReceiveProps (nextProps) {
-        this.setState({
-            currentElement: nextProps.currentElement,
-            content: ""
-        });
-        document.getElementById("comment-element").value = "";
-    }
-
-    deleteComment = (comment) => {
-        this.props.deleteCommentOfElement(comment);
-        this.setState({reload:true});
-    }
-
-    renderDeleteButton = (value) => {
-        if(value.admin_id || !value.employee_id){
-            return (                                  
-                <button type="button" title="Delete" onClick={this.deleteComment.bind(this,value)}>
-                    <i className="far fa-trash-alt"></i>
-                </button>
-            ); 
-        }else{
-            return (<div></div>);
+        if(nextProps.idProcess){
+            this.setState({idProcess: nextProps.idProcess});
         }
+        if(nextProps.currentElement){
+            this.setState({
+                currentElement: nextProps.currentElement,
+                content: "", 
+            });
+        }
+        document.getElementById("comment-element").value = "";
     }
 
     renderNameComment = (value) => {
@@ -68,6 +45,7 @@ class Comment extends Component {
             return (<div className="name-and-time">{value.employee_name}</div>);
         }
     }
+
 
     renderListComment = (comments) => {
         return Object.values(comments).map((value, key) => {
@@ -79,11 +57,11 @@ class Comment extends Component {
                                 <div><i className="far fa-user-circle fa-2x"></i></div>
                                 <div className="record-message">
                                     <div className= "content">
-                                    {this.renderNameComment(value)}
+                                        {this.renderNameComment(value)}
                                         <div className="content-message">{value.content}</div>
                                     </div>
                                     <div className="action-comment btn-group"> 
-                                        {this.renderDeleteButton(value)}
+
                                     </div>
                                 </div>
                             </article>
@@ -128,7 +106,7 @@ class Comment extends Component {
                             <div className="no-conversation">
                                 <i className="fas fa-comments fa-3x"></i>
                                 <div className="no-conversation-message">
-                                    <div className="title-add-comments">Thêm mới</div>
+                                    <div className="title-add-comments"> Thêm mới</div>
                                     <div className="content-add-comments">Bạn có thể thêm bình luận cho từng phần tử trên quy trình.</div>
                                 </div>
                             </div>
@@ -157,15 +135,13 @@ const mapStateToProps = (state, ownProps) => {
         currentElement: state.processReducers.elementReducers.current,
     }
 }
+
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        saveCommentForElement: (comment) => {
-            dispatch(actions.saveCommentForElement(comment));
-        },
-        deleteCommentOfElement: (comment) => {
-            dispatch(actions.deleteCommentOfElemment(comment));
-        }
+        showAlert: (properties) => {
+            dispatch(actions.showMessageAlert(properties))
+          }
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Comment);
+export default connect(mapStateToProps, mapDispatchToProps)(SystemViewComment);

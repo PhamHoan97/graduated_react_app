@@ -84,6 +84,7 @@ class ViewProcess extends Component {
                         content: process.element_comments[indexP].comment,
                         id: process.element_comments[indexP].id,
                         employee_id: process.element_comments[indexP].employee_id,
+                        employee_name: process.element_comments[indexP].employee_name,
                     });
                 }                
             }
