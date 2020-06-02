@@ -74,7 +74,7 @@ class ProcessDashboardContainer extends Component {
         this._isMounted = true;
         var self =  this;
         var token = localStorage.getItem('token');
-        axios.post(host + '/api/system/dashboard/process/',{
+        axios.post(host + '/api/system/dashboard/process',{
             textSearch:textSearch
         },{
             headers: { 'Authorization': 'Bearer ' + token }
