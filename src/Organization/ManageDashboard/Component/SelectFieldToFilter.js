@@ -30,7 +30,7 @@ class SelectFieldToFilter extends Component {
     componentDidMount() {
         this._isMounted = true;
         var token = localStorage.getItem('token');
-        axios.get(host + `/api/company/field/`,
+        axios.get(host + `/api/company/field`,
         {
             headers: { 'Authorization': 'Bearer ' + token}
         }).then(res => {

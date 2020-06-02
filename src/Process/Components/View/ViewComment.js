@@ -72,7 +72,7 @@ class Comment extends Component {
             token: tokenData,
             typeElement: this.state.currentElement.type,
         }
-        axios.post(host + `/api/employee/add/comment/`,data,
+        axios.post(host + `/api/employee/add/comment`,data,
         {
             headers: { 'Authorization': 'Bearer ' + tokenData}
         }).then(res => {
@@ -188,7 +188,7 @@ class Comment extends Component {
         var data = {
             idComment: comment.id,
         }
-        axios.post(host + `/api/employee/delete/comment/`, data,
+        axios.post(host + `/api/employee/delete/comment`, data,
         {
             headers: { 'Authorization': 'Bearer ' + tokenData}
         }).then(res => {
