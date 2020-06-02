@@ -110,7 +110,10 @@ class NotificationCompany extends Component {
                             <table className="table custom-table table-hover table-notification_company">
                               <thead>
                                 <tr>
-                                  <th style={{ width: "15%" }}>Tên</th>
+                                  <th
+                                  style={{ width: "15%" }}
+                                  className="cell-breakWord"
+                                  >Tên</th>
                                   <th
                                     style={{ width: "40%" }}
                                     className="cell-breakWord"
@@ -128,7 +131,10 @@ class NotificationCompany extends Component {
                                     (notification, index) => {
                                       return (
                                         <tr key={index}>
-                                          <td style={{ width: "15%" }}>
+                                          <td
+                                          style={{ width: "15%" }}
+                                          className="cell-breakWord"
+                                          >
                                       {notification.name}{" "}
                                           </td>
                                           <td
@@ -138,11 +144,15 @@ class NotificationCompany extends Component {
                                             {notification.description}
                                           </td>
                                           <td style={{ width: "10%" }}>{notification.date}</td>
-                                          <td style={{ width: "20%" }}>
-                                            {
-                                              parseInt(notification.status)===1 ? ('Responsed'):('Pending')
-                                            }
-                                          </td>
+                                          {
+                                            parseInt(notification.status)===1 ? (
+                                              <td style={{ width: "20%",color: "red" }}>
+                                               Đã xem
+                                              </td>
+                                              ):(<td style={{ width: "20%",color: "orange" }}>
+                                              Chưa xem
+                                             </td>)
+                                          }
                                           <td style={{ width: "25%" }} className="cell-breakWord text-center">
                                             <div className="table-action">
                                                 <NavLink
