@@ -69,7 +69,7 @@ class Sidebar extends Component {
                       <span> Danh sách thông báo</span>
                   </NavLink>
               </li>
-              <li className="menu-title">
+              {/* <li className="menu-title">
                 <span>Tài khoản</span>
               </li>
               <li className="submenu">
@@ -77,7 +77,7 @@ class Sidebar extends Component {
                   <i className="fa fa-user-o" aria-hidden="true" />
                   <span> Thông tin cá nhân </span>
                 </a>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>

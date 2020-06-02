@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import '../Style/Intro.css';
-export default class Intro extends Component {
+class Intro extends Component {
   render() {
     return (
       <div>
@@ -32,34 +32,29 @@ export default class Intro extends Component {
                     <ul className="navbar-nav mr-auto mt-2 mt-lg-0 menu-left">
                       <li className="nav-item active">
                         <a className="nav-link" href="/employee/login">
-                          Employee <span className="sr-only">(current)</span>
+                          Nhân viên <span className="sr-only">(current)</span>
                         </a>
                       </li>
                       <li className="nav-item">
                         <a className="nav-link" href="/">
-                          Use Cases
+                          Giới thiệu
                         </a>
                       </li>
                       <li className="nav-item">
                         <a className="nav-link" href="/">
-                          Enterprise
-                        </a>
-                      </li>
-                      <li className="nav-item">
-                        <a className="nav-link disabled" href="2aesn">
-                          Pricing
+                          Hướng dẫn
                         </a>
                       </li>
                     </ul>
                     <ul className="navbar-nav ml-auto menu-right">
                       <li className="nav-item">
                         <a className="nav-link" href="/">
-                          Contact Sales
+                          Liên hệ
                         </a>
                       </li>
                       <li className="nav-item">
                         <a className="nav-link" href="/company/login">
-                          Login
+                          Công ty
                         </a>
                       </li>
                       <li className="nav-item">
@@ -69,7 +64,7 @@ export default class Intro extends Component {
                           role="button"
                           aria-pressed="true"
                         >
-                          Get Started &gt;
+                          Bắt đầu &gt;
                         </a>
                       </li>
                     </ul>
@@ -95,7 +90,7 @@ export default class Intro extends Component {
                     role="button"
                     aria-pressed="true"
                   >
-                    Get Started &gt;
+                    Bắt đầu &gt;
                   </a>
                 </div>
               </div>
@@ -173,7 +168,7 @@ export default class Intro extends Component {
             <div className="row mb-5">
               <div className="col-md-4" />
               <div className="col-md-5">
-                <h1>Useful building blocks </h1>
+                <h1>Cách thức xây dựng hữu ích </h1>
               </div>
               <div className="col-md-3" />
             </div>
@@ -181,25 +176,25 @@ export default class Intro extends Component {
               <div className="col-md-3 text-center">
                 <div className="block--icon">
                   <img src="./intro/images/dashboard.png" alt="" />
-                  <h3>Dashboards</h3>
+                  <h3>Giao diện công ty</h3>
                 </div>
               </div>
               <div className="col-md-3 text-center">
                 <div className="block--icon">
                   <img src="./intro/images/forms.png" alt="" />
-                  <h3>Forms</h3>
+                  <h3>Mẫu có sẵn</h3>
                 </div>
               </div>
               <div className="col-md-3 text-center">
                 <div className="block--icon">
                   <img src="./intro/images/workflow.png" alt="" />
-                  <h3>Process</h3>
+                  <h3>Quy trình</h3>
                 </div>
               </div>
               <div className="col-md-3 text-center">
                 <div className="block--icon">
                   <img src="./intro/images/filesharing.png" alt="" />
-                  <h3>File Sharing</h3>
+                  <h3>File mẫu</h3>
                 </div>
               </div>
             </div>
@@ -254,16 +249,13 @@ export default class Intro extends Component {
                 </h5>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="#!">About us</a>
+                    <a href="#!">Giới thiệu</a>
                   </li>
                   <li>
-                    <a href="#!">Careers</a>
+                    <a href="#!">Đối tác</a>
                   </li>
                   <li>
-                    <a href="#!">Partners</a>
-                  </li>
-                  <li>
-                    <a href="#!">Contact</a>
+                    <a href="#!">Liên hệ</a>
                   </li>
                 </ul>
               </div>
@@ -294,3 +286,5 @@ export default class Intro extends Component {
     );
   }
 }
+
+export default Intro;

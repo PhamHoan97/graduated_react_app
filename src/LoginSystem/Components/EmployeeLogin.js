@@ -34,7 +34,7 @@ const required = (value) => {
   }
 
 class SystemLogin extends Component{
-
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -42,6 +42,34 @@ class SystemLogin extends Component{
             password: '',
             redirectEmployee: false,
         };
+    }
+
+    UNSAFE_componentWillMount() {
+        this._isMounted = true;
+        var self = this;
+        var token = localStorage.getItem('token');
+        if(token){
+            axios.get(host + `/api/employee/check/token/` + token,
+            {
+                headers: { 'Authorization': 'Bearer ' + token}
+            }).then(res => {
+              if(res.data.error != null){
+                  console.log(res.data.message);
+              }else{
+                    if(self._isMounted){
+                        if(res.data.employeeLoggedIn){
+                            this.setState({redirectEmployee:true});
+                        }
+                    }
+              }
+            }).catch(function (error) {
+              alert(error);
+            });
+        }    
+    }
+
+    componentWillUnmount(){
+        this._isMounted = false;
     }
 
     handleChangeUsername = event => {

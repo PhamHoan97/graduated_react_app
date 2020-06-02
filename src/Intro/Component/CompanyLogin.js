@@ -28,7 +28,7 @@ const required = (value) => {
   }
 
 class CompanyLogin extends Component {
-
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -88,6 +88,35 @@ class CompanyLogin extends Component {
       event.preventDefault();
       this.form.validateAll();
     }
+
+    UNSAFE_componentWillMount() {
+      this._isMounted = true;
+      var self = this;
+      var token = localStorage.getItem('token');
+      if(token){
+        axios.get(host + `/api/company/check/token/` + token,
+        {
+            headers: { 'Authorization': 'Bearer ' + token}
+        }).then(res => {
+          if(res.data.error != null){
+              console.log(res.data.message);
+          }else{
+                if(self._isMounted){
+                    if(res.data.adminLoggedIn){
+                      this.setState({redirectAdmin:true});
+                    }
+                }
+          }
+        }).catch(function (error) {
+          alert(error);
+        });
+      }    
+    }
+
+    componentWillUnmount(){
+      this._isMounted = false;
+    }
+
 
     render() {
         if(this.state.redirectAdmin){
