@@ -69,18 +69,18 @@ body {
   width: 100%;
 }
 
-/* ::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #e5e5e5 !important;
+  background: #ffffff !important;
 }
 ::-webkit-scrollbar-thumb {
-  background: #e5e5e5 !important;
+  background: #ffffff !important;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(255, 254, 254) !important;
-} */
+}
 .card{
   background:#e5e5e5 ;}
 .create-template{
