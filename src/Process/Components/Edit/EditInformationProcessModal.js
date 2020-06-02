@@ -341,17 +341,17 @@ class EditInformationProcessModal extends Component {
                               </div>
                             </div>
                           </Form>
+                          <div className="modal-footer">
+                            <button
+                              type="button"
+                              className="btn btn-secondary"
+                              data-dismiss="modal"
+                            >
+                              Đóng
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="modal-footer">
-                      <button
-                        type="button"
-                        className="btn btn-secondary"
-                        data-dismiss="modal"
-                      >
-                        Đóng
-                      </button>
                     </div>
               </div>
             )
