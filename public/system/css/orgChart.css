@@ -9,7 +9,7 @@ html,body{
 }
 .org--chart_content{
     background-color: rgb(230, 223, 223);
-}   
+}
 .org--chart_property{
     width: 100%;
 }
@@ -39,5 +39,27 @@ html,body{
     transition: 1.4s;
     text-decoration: none;
     color: rgb(51, 36, 182);
+}
+#tree{
+    height: 600px;
+    /* background-color: rgb(88, 86, 86); */
+}
+[node-id] rect {
+    fill: #169c43;
+}
+[node-id] circle {
+    fill: #bff10b;
+}
+
+/* [node-id='3'] rect {
+    fill: #750000;
+} */
+
+[link-id] path {
+    stroke: #750000;
+}
+
+[control-expcoll-id] circle {
+    fill: #750000;
 }
 
