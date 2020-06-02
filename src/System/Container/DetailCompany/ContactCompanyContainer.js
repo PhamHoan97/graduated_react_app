@@ -3,7 +3,7 @@ import host from '../../../Host/ServerDomain';
 import axios from "axios";
 
 class ContactCompanyContainer extends Component {
-
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -14,16 +14,23 @@ class ContactCompanyContainer extends Component {
         this.getDetailCompany();
     }
 
+    componentWillUnmount(){
+        this._isMounted = false;
+    }
+
     getDetailCompany = () => {
+        this._isMounted = true;
         var self =  this;
         var token = localStorage.getItem("token");
         axios.get(host + "/api/system/dashboard/company/"+this.props.idCompany,{
             headers: { 'Authorization': 'Bearer ' + token }
         })
         .then(function (response) {
-            self.setState({
-                detailCompany:response.data.company
-            })
+            if(self._isMounted){
+                self.setState({
+                    detailCompany:response.data.company
+                })
+            }
         })
         .catch(function (error) {
             console.log(error);

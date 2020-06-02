@@ -71,6 +71,7 @@ class ProcessDashboardContainer extends Component {
 
     getListProcess = (textSearch) => {
         // connect database to get all process
+        this._isMounted = true;
         var self =  this;
         var token = localStorage.getItem('token');
         axios.post(host + '/api/system/dashboard/process/',{
@@ -81,11 +82,13 @@ class ProcessDashboardContainer extends Component {
         .then(function (response) {
             if (response.data.error != null) {
             } else {
-                var listProcess = self.mergeProcesses(response.data.processes1, response.data.processes2);
-                self.setState({
-                    listProcess: listProcess,
-                    pageCount: Math.ceil(listProcess.length / self.state.perPage),
-                });
+                if(self._isMounted){
+                    var listProcess = self.mergeProcesses(response.data.processes1, response.data.processes2);
+                    self.setState({
+                        listProcess: listProcess,
+                        pageCount: Math.ceil(listProcess.length / self.state.perPage),
+                    });
+                }
             }
         }).catch(function (error) {
             console.log(error);

@@ -117,7 +117,7 @@ var elementReducers = (state = initialState, action) => {
             var updateCommentElements = [];
             var dataComment= {
                 time: getCurrentTime(),
-                admin_id: localStorage.getItem('admin_id'),
+                token: localStorage.getItem("token"),
                 content: action.comment,
             }
             //add comment to comments in element
@@ -136,7 +136,9 @@ var elementReducers = (state = initialState, action) => {
                 var isExistCommentOfCurrentElement = false;
                 for (var indexC = 0; indexC < state.comments.length; indexC++) {
                     if(state.current.id === state.comments[indexC].id){
-                        state.comments[indexC].comments.push(dataComment);
+                        if(!state.current.isSaved){
+                            state.comments[indexC].comments.push(dataComment);
+                        }
                         isExistCommentOfCurrentElement = true;
                     }
                 }
@@ -147,7 +149,6 @@ var elementReducers = (state = initialState, action) => {
                     state.comments.push({id:state.current.id, comments:subComment}); 
                 }
             }
-
             return {...state, elements: updateCommentElements};
         case types.DELETE_COMMENT_OF_ELEMENT:
             var updateDeleteElements = [];

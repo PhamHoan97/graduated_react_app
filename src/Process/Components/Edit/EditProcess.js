@@ -28,6 +28,11 @@ class EditProcess extends Component {
         this.props.passPopupStatus(true);
     }
 
+    initStatusPopup = () => {
+        this.setState({openDetails:true});
+        this.props.passPopupStatus(true);
+    }
+
     closePopup = (event) => {
         event.preventDefault();
         this.setState({openDetails:false});
@@ -65,6 +70,7 @@ class EditProcess extends Component {
         for (var indexM = 0; indexM < process.elements.length; indexM++) {
             var eNotes = {};
             var eComments = [];
+            var isSaved = false;
             for (var indexN = 0; indexN < process.element_notes.length; indexN++) {
                 if(process.elements[indexM].id === process.element_notes[indexN].element_id){
                     eNotes = {
@@ -83,10 +89,13 @@ class EditProcess extends Component {
                         time: process.element_comments[indexP].update_at,
                         admin_id: process.element_comments[indexP].admin_id,
                         content: process.element_comments[indexP].comment,
+                        employee_id: process.element_comments[indexP].employee_id,
+                        employee_name: process.element_comments[indexP].employee_name,
                     });
                 }                
             }
             if(eComments.length){
+                isSaved = true;
                 comments.push({
                     id: process.elements[indexM].element,
                     comments: eComments,
@@ -96,6 +105,7 @@ class EditProcess extends Component {
                 id: process.elements[indexM].element,
                 type: process.elements[indexM].type,
                 comments: eComments,
+                isSaved: isSaved,
             }
             if(eNotes.note){
                 element.note = eNotes.note;
@@ -115,6 +125,7 @@ class EditProcess extends Component {
 
     componentDidMount() {
         this._isMounted = true;
+        var self = this;
         var idProcess = this.props.match.params.id;
         var token = localStorage.getItem('token');
         axios.get(host + `/api/company/process/information/` + idProcess,
@@ -124,8 +135,11 @@ class EditProcess extends Component {
           if(res.data.error != null){
               console.log(res.data.message);
           }else{
-              this.extractDataToComponent(res.data.process);
-              this.setState({initDiagram: res.data.process.xml});
+              if(self._isMounted){
+                  this.initStatusPopup();
+                self.extractDataToComponent(res.data.process);
+                self.setState({initDiagram: res.data.process.xml});
+              }
           }
         }).catch(function (error) {
           alert(error);

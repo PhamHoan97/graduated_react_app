@@ -22,7 +22,7 @@ class AccountItem extends Component {
                     message:'Xóa tài khoản thành công',
                     anchorOrigin:{
                         vertical: 'top',
-                        horizontal: 'center'
+                        horizontal: 'right'
                     },
                     title:'Success',
                     severity:'warning'
@@ -54,7 +54,7 @@ class AccountItem extends Component {
                 message:'Gửi mail tài khoản thành công ',
                 anchorOrigin:{
                     vertical: 'top',
-                    horizontal: 'center'
+                    horizontal: 'right'
                 },
                 title:'Success',
                 severity:'success'

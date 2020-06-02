@@ -123,7 +123,7 @@ class DetailEmployeeOraganization extends Component {
               message:'Xóa vai trò nhân viên thành công ',
               anchorOrigin:{
                   vertical: 'top',
-                  horizontal: 'center'
+                  horizontal: 'right'
               },
               title:'Success',
               severity:'success'

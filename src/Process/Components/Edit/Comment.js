@@ -49,6 +49,26 @@ class Comment extends Component {
         this.setState({reload:true});
     }
 
+    renderDeleteButton = (value) => {
+        if(value.admin_id || !value.employee_id){
+            return (                                  
+                <button type="button" title="Delete" onClick={this.deleteComment.bind(this,value)}>
+                    <i className="far fa-trash-alt"></i>
+                </button>
+            ); 
+        }else{
+            return (<div></div>);
+        }
+    }
+
+    renderNameComment = (value) => {
+        if(!value.employee_id){
+            return (<div className="name-and-time">Admin</div>);
+        }else{
+            return (<div className="name-and-time">{value.employee_name}</div>);
+        }
+    }
+
     renderListComment = (comments) => {
         return Object.values(comments).map((value, key) => {
             return(
@@ -59,13 +79,11 @@ class Comment extends Component {
                                 <div><i className="far fa-user-circle fa-2x"></i></div>
                                 <div className="record-message">
                                     <div className= "content">
-                                        <div className="name-and-time">You</div>
+                                    {this.renderNameComment(value)}
                                         <div className="content-message">{value.content}</div>
                                     </div>
                                     <div className="action-comment btn-group"> 
-                                        <button type="button" title="Delete" onClick={this.deleteComment.bind(this,value)}>
-                                            <i className="far fa-trash-alt"></i>
-                                        </button>
+                                        {this.renderDeleteButton(value)}
                                     </div>
                                 </div>
                             </article>

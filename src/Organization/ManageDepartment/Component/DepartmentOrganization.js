@@ -122,7 +122,7 @@ class DepartmentOrganization extends Component {
               message:'Xóa phòng ban thành công ',
               anchorOrigin:{
                   vertical: 'top',
-                  horizontal: 'center'
+                  horizontal: 'right'
               },
               title:'Success',
               severity:'success'

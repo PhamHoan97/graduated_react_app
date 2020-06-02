@@ -5,6 +5,7 @@ import host from '../../../Host/ServerDomain';
 import axios from "axios";
 
 export default class ProcessDetailCompanyContainer extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -18,16 +19,23 @@ export default class ProcessDetailCompanyContainer extends Component {
         this.getListProcessDepartmentCompany();
     }
 
+    componentWillUnmount(){
+        this._isMounted = false;
+    }
+
     getListDepartmentCompany = () => {
+        this._isMounted = true;
         var self =  this;
         var token = localStorage.getItem('token');
         axios.get(host + "/api/system/dashboard/department/company/"+this.props.idCompany,{
             headers: { 'Authorization': 'Bearer ' + token }
         })
         .then(function (response) {
-            self.setState({
-                listDepartmentCompany:response.data.departmentCompany
-            })
+            if(self._isMounted){
+                self.setState({
+                    listDepartmentCompany:response.data.departmentCompany
+                })
+            }
         })
         .catch(function (error) {
             console.log(error);

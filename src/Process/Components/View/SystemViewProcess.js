@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import View from './View';
 import ViewNote from './ViewNote';
-import ViewComment from './ViewComment';
+import SystemViewComment from './SystemViewComment';
 import HeaderSystem from '../Create/HeaderSystem';
 import '../../Css/Process.css';
 import {connect} from 'react-redux';
@@ -23,6 +23,11 @@ class SystemViewProcess extends Component {
 
     openPopUp = (event) => {
         event.preventDefault();
+        this.setState({openDetails:true});
+        this.props.passPopupStatus(true);
+    }
+    
+    initStatusPopup = () => {
         this.setState({openDetails:true});
         this.props.passPopupStatus(true);
     }
@@ -121,6 +126,7 @@ class SystemViewProcess extends Component {
           if(res.data.error != null){
               console.log(res.data.message);
           }else{
+              this.initStatusPopup();
               this.extractDataToComponent(res.data.process);
               this.setState({initDiagram: res.data.process.xml});
           }
@@ -154,7 +160,7 @@ class SystemViewProcess extends Component {
                             </div>
                             <div className="right-column-popup">
                                 <ViewNote />
-                                <ViewComment />
+                                <SystemViewComment />
                             </div>
                         </div>
                         <div className="row footer-view-process">  
