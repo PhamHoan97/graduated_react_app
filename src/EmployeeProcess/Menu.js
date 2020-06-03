@@ -318,7 +318,7 @@ class Menu extends Component {
                 {this.renderAvatar()}
                 <span className="status online" />
               </span>
-              <span>{this.state.employee.name}</span>
+              <span style={{marginLeft: "5px"}}>{this.state.employee.name}</span>
             </a>
             <div className="dropdown-menu dropdown-menu_employee">
               <a className="dropdown-item" href="profile.html" onClick={(e) => this.openUpdateAccount(e)}>
