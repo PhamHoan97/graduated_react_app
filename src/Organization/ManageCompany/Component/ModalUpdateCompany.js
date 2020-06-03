@@ -26,23 +26,12 @@ class ModalUpdateCompany extends Component {
             editContactCompany: this.props.detailCompany.contact,
             editCeoCompany: this.props.detailCompany.ceo,
             editAvatarCompany: "",
+            inputKey: Date.now()
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleOnChangeFile = this.handleOnChangeFile.bind(this);
     }
 
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        this.setState({
-            isAlertSuccess :false,
-            editNameCompany: this.props.detailCompany.name,
-            editSigntureCompany: this.props.detailCompany.signature,
-            editAddressCompany: this.props.detailCompany.address,
-            editFieldCompany: this.props.detailCompany.field,
-            editContactCompany: this.props.detailCompany.contact,
-            editCeoCompany: this.props.detailCompany.ceo,
-            editAvatarCompany: "",
-        })
-    }
 
     handleChange(event) {
         const name = event.target.name;
@@ -105,10 +94,17 @@ class ModalUpdateCompany extends Component {
             } else {
                 self.setState({
                     isAlertSuccess: true,
+                    editNameCompany: self.state.editNameCompany,
+                    editSigntureCompany: self.state.editSigntureCompany,
+                    editAddressCompany: self.state.editAddressCompany,
+                    editFieldCompany: self.state.editFieldCompany,
+                    editContactCompany:self.state.editContactCompany,
+                    editCeoCompany: self.state.editCeoCompany,
+                    inputKey: Date.now(),
                 });
                 setTimeout(() => {
                     self.setState({isAlertSuccess : false});
-                }, 3000);
+                }, 5000);
                 self.props.getDataOrganization()
             }
         })
@@ -232,6 +228,7 @@ class ModalUpdateCompany extends Component {
                         type="file"
                         id="file-input"
                         name="file-input"
+                        key={this.state.inputKey}
                         className="form-control-file"
                         onChange={(e) => this.handleOnChangeFile(e)}
                         />

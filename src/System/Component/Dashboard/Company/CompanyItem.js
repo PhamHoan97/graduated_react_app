@@ -7,7 +7,7 @@ export default class CompanyItem extends Component {
         if(this.props.avatar === null){
           return(
             <img
-              style={{width: '100%'}}
+              style={{width: '100%',height:'170px'}}
               className="card-img-top"
               src={window.location.origin + '/system/images/company.png'}
               alt="AAA"
@@ -16,7 +16,7 @@ export default class CompanyItem extends Component {
         }else{
           return(
             <img
-              style={{width: '100%'}}
+              style={{width: '100%',height:'170px'}}
               className="card-img-top"
               src={host + this.props.avatar}
               alt="AAA"

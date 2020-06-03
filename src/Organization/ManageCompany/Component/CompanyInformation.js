@@ -208,12 +208,16 @@ export default class CompanyInformation extends Component {
                     </div>
                   </div>
                   <div className="text-center mt-3">
-                    <ModalUpdateCompany
-                      showModal={this.state.showModalEditCompany}
-                      close={() => this.closeModal()}
-                      detailCompany={this.state.detailCompany}
-                      getDataOrganization = {this.props.getDataOrganization}
-                    />
+                  {this.state.showModalEditCompany === true ? (
+                     <ModalUpdateCompany
+                     showModal={this.state.showModalEditCompany}
+                     close={() => this.closeModal()}
+                     detailCompany={this.state.detailCompany}
+                     getDataOrganization = {this.props.getDataOrganization}
+                   />
+                    ) : (
+                      <div></div>
+                    )}
                     <button
                       className="btn btn-theme text-white ctm-border-radius button-1"
                       data-toggle="modal"
