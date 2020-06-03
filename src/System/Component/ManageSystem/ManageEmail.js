@@ -275,10 +275,10 @@ class ManageEmail extends Component {
                                     className="js-select2 select--today__adminAccount"
                                     name="time"
                                     >
-                                    <option defaultValue>Today</option>
-                                    <option value>3 Days</option>
-                                    <option value>1 Week</option>
-                                    <option value>1 Month</option>
+                                    <option defaultValue>Hôm nay</option>
+                                    <option value>3 ngày gần đây</option>
+                                    <option value>1 tuần gần đây</option>
+                                    <option value>1 tháng gần đây</option>
                                     </select>
                                     <div className="dropDownSelect2" />
                                 </div>
