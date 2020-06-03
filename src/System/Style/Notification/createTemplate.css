@@ -60,7 +60,7 @@ body {
 }
 .main {
   width: 98%;
-  height: 600px;
+  height: 850px;
   margin-left: 1%;
   margin-right:1%;
   overflow-y: scroll;
@@ -93,5 +93,8 @@ body {
   font-size:20px;
   font-weight: 700;
   font-family: initial;
+}
+.description-template label{
+  font-size: 12px;
 }
 

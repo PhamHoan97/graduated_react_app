@@ -9,7 +9,7 @@ export default class CompanyItem extends Component {
             <img
               style={{width: '100%'}}
               className="card-img-top"
-              src={window.location.origin + '/system/images/company1.jpg'}
+              src={window.location.origin + '/system/images/company.png'}
               alt="AAA"
             />
           )
