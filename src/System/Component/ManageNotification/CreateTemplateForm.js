@@ -384,7 +384,7 @@ export default class CreateTemplateForm extends Component {
                       </div>
                     ) : (
                       <div className="preview">
-                        <label>Preview</label>
+                        <label>Bản mẫu</label>
                         <div className="content-template">
                           <div className="header">
                             <img
