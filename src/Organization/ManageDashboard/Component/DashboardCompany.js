@@ -7,7 +7,8 @@ import SelectFieldToFilter from "./SelectFieldToFilter";
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
-import host from '../../../Host/ServerDomain'; 
+import host from '../../../Host/ServerDomain';
+import "../Style/TemplateSystemCompany.scss";
 
 class DashboardCompany extends Component {
   constructor(props) {
@@ -131,10 +132,10 @@ class DashboardCompany extends Component {
             return (
             <React.Fragment key={key}>
                        <tr className="tr-shadow">
-                        <td className="desc">{value.name}</td>
-                        <td className="desc">{value.description}</td>
-                        <td className="desc">{value.field.name}</td>
-                        <td >
+                        <td className="text-center cell-breakWord"  style={{ width: "15%" }} >{value.name}</td>
+                        <td className="text-center cell-breakWord"  style={{ width: "50%" }}>{value.description}</td>
+                        <td className="text-center cell-breakWord"  style={{ width: "25%" }}>{value.field.name}</td>
+                        <td style={{ width: "10%" }}>
                           <div className="table-data-feature">
                             <button
                               className="item"
@@ -213,7 +214,7 @@ class DashboardCompany extends Component {
                 </div>
                 <div className="row">
                   <div className="col-md-12 d-flex">
-                    <div className="card ctm-border-radius shadow-sm flex-fill ">
+                    <div className="card ctm-border-radius shadow-sm flex-fill manage-template_system-company">
                       <div className="card-header">
                         <h4 className="card-title mb-0">Quy trình mẫu</h4>
                       </div>
@@ -228,13 +229,13 @@ class DashboardCompany extends Component {
                         </div>
                         <div className="employee-office-table">
                           <div className="table-responsive">
-                            <table className="table custom-table table-hover table-department_organization">
+                            <table className="table custom-table table-hover table-template_system">
                               <thead>
                               <tr>
-                                <th className="text-center">tên</th>
-                                <th className="text-center">mô tả ngắn</th>
-                                <th className="text-center">lĩnh vực</th>
-                                <th />
+                                <th className="text-center cell-breakWord"  style={{ width: "15%" }} >tên</th>
+                                <th className="text-center cell-breakWord" style={{ width: "50%" }} >mô tả ngắn</th>
+                                <th className="text-center cell-breakWord" style={{ width: "25%" }} >lĩnh vực</th>
+                                <th style={{ width: "10%" }}/>
                               </tr>
                             </thead>
                             <tbody>
