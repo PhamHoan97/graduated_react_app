@@ -218,22 +218,16 @@ class ManageRegistration extends Component {
                 return (
                 <React.Fragment key={key}>
                 <tr className="tr-shadow">
-                    <td>
-                        <label className="au-checkbox">
-                        <input type="checkbox" />
-                        <span className="au-checkmark" />
-                        </label>
-                    </td>
-                    <td>{value.name}</td>
-                    <td>
+                    <td style={{ width: "50%" }}>{value.name}</td>
+                    <td style={{ width: "15%" }}>
                         {value.contact}
                     </td>
-                    <td className="desc">{value.address}</td>
-                    <td className="desc">{value.field}</td>
-                    <td>
+                    <td className="desc" style={{ width: "15%" }}>{value.address}</td>
+                    <td className="desc" style={{ width: "15%" }}>{value.field}</td>
+                    {/* <td>
                         {this.convertWorkforceCompany(value.workforce)}
-                    </td>
-                    <td>
+                    </td> */}
+                    <td style={{ width: "5%" }}>
                         <div className="table-data-feature">
                         <button
                             id={"info" + value.id}
@@ -381,13 +375,11 @@ class ManageRegistration extends Component {
                             <table className="table table-borderless table-data3">
                             <thead>
                                 <tr>
-                                <th />
-                                <th>Tên công ty</th>
-                                <th>Liên hệ</th>
-                                <th>Địa chỉ</th>
-                                <th>Lĩnh vực</th>
-                                <th>Nhân lực</th>
-                                <th />
+                                    <th style={{ width: "50%" }}>Tên</th>
+                                    <th style={{ width: "15%" }}>Liên hệ</th>
+                                    <th style={{ width: "15%" }}>Địa chỉ</th>
+                                    <th style={{ width: "15%" }}>Lĩnh vực</th>
+                                    <th style={{ width: "5%" }}/>
                                 </tr>
                             </thead>
                             <tbody>
