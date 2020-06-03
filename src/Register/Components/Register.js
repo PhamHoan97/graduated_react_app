@@ -110,8 +110,8 @@ class Register extends Component {
           return <Redirect to='/newletter'  />;
         }
         return (
-          <div className="page-wrapper register--page">
-            <div className="page-content--bge5">
+          <div className="page-wrapper-login-company register--page">
+            <div className="page-content-register">
               <div className="container">
                 <div className="login-wrap">
                   <div className="login-content">

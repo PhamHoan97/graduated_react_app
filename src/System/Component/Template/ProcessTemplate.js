@@ -379,7 +379,7 @@ class ProcessTemplate extends Component {
                                 <table className="table table-borderless table-data3">
                                     <thead>
                                     <tr>
-                                    <th className="text-center">Tên lĩnh vực</th>
+                                    <th className="text-center">Lĩnh vực</th>
                                     <th className="text-center">Mô tả</th>
                                     <th className="text-center"></th>
                                     </tr>

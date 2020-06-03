@@ -124,7 +124,7 @@ class CompanyLogin extends Component {
         }
 
         return (
-            <div className="page-wrapper">
+            <div className="page-wrapper-login-company">
             <div className="page-content--bge5">
               <div className="container">
                 <div className="login-wrap">

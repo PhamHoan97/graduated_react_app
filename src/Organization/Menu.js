@@ -288,7 +288,7 @@ class Menu extends Component {
                       <span>Quản lý quy trình</span>
                     </NavLink>
                   </div>
-                  <div className="col-6 align-items-center shadow-none text-center">
+                  {/* <div className="col-6 align-items-center shadow-none text-center">
                     <NavLink
                       to="/company/personal/information"
                       exact
@@ -304,7 +304,7 @@ class Menu extends Component {
                       ></i>
                       <span>Tài khoản</span>
                     </NavLink>
-                  </div>
+                  </div> */}
                   {/* <div className="col-6 align-items-center shadow-none text-center">
                     <a
                       href="settings.html"
