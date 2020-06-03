@@ -56,7 +56,8 @@
 .detail--company__page{
     margin-top: -30px;
 }
-.register--page{
+.page-content-register{
+    background: #e5e5e5;
     height: 1000px;
 }
 
@@ -111,6 +112,10 @@
     overflow: hidden;
     background: #ffffff;
     padding-bottom: 22vh;
+}
+
+.page-wrapper-login-company {
+    overflow: hidden;
 }
 
 .menu-sidebar .logo {

@@ -165,16 +165,7 @@ class ManageEmail extends Component {
                 return (
                 <React.Fragment key={key}>
                 <tr className="tr-shadow">
-                    <td>
-                        <label className="au-checkbox">
-                        <input type="checkbox" />
-                        <span className="au-checkmark" />
-                        </label>
-                    </td>
                     <td className="desc">{value.type}</td>
-                    <td className="desc">
-                        {value.to}
-                    </td>
                     <td className="desc">{this.renderUserName(value)}</td>
                     <td className="desc">{this.convertStatusEmail(value.status)}</td>
                     <td className="desc">
@@ -301,10 +292,8 @@ class ManageEmail extends Component {
                                 <table className="table table-borderless table-data3">
                                 <thead>
                                     <tr>
-                                    <th />
                                     <th>Loại</th>
                                     <th>Người nhận</th>
-                                    <th>Người gửi</th>
                                     <th>Trạng thái</th>
                                     <th>Tạo lúc </th>
                                     <th>Cập nhật  </th>

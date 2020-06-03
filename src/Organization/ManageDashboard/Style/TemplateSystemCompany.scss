@@ -1,0 +1,14 @@
+.manage-template_system-company {
+  .table-template_system {
+    width: 100%;
+    border-collapse: collapse !important;
+    table-layout: fixed !important;
+  }
+  .table-template_system .cell-breakWord {
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+  }
+  .table-template_system th {
+    text-align: center;
+  }
+}

@@ -325,7 +325,7 @@ class RoleOraganization extends Component {
                               <table className="table custom-table table-hover table-hover table-role_organization">
                                 <thead>
                                   <tr>
-                                    <th style={{ width: "10%" }}>Tên</th>
+                                    <th style={{ width: "10%" }} className="cell-breakWord">Tên</th>
                                     <th
                                       style={{ width: "30%" }}
                                       className="cell-breakWord"
@@ -345,7 +345,7 @@ class RoleOraganization extends Component {
                                       (role, index) => {
                                         return (
                                           <tr key={index}>
-                                            <td style={{ width: "10%" }}>
+                                            <td style={{ width: "10%" }} className="cell-breakWord">
                                               <h2>{role.name}</h2>
                                             </td>
                                             <td

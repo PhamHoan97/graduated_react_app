@@ -185,7 +185,7 @@ export default class ProcessDetailCompanyContainer extends Component {
             <table className="table">
                 <thead>
                 <tr>
-                    <td>Tên quy trình</td>
+                    <td>Quy trình</td>
                     <td>Deadline</td>
                     <td>Cập nhật</td>
                     <td>Thể loại</td>
