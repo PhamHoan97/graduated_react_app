@@ -48,7 +48,7 @@ class EditInformationProcessModal extends Component {
         }
         if(nextProps.idDepartmentAssign){
             var token = localStorage.getItem('token');
-            axios.get(host + `api/company/department/`+ nextProps.idDepartmentAssign + `/employee/role`,
+            axios.get(host + `/api/company/department/`+ nextProps.idDepartmentAssign + `/employee/role`,
             {
                 headers: { 'Authorization': 'Bearer ' + token}
             }).then(res => {
