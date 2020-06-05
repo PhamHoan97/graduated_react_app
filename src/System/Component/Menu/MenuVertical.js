@@ -37,8 +37,9 @@ class MenuVertical extends Component {
 
   handleLogout = (event) => {
     event.preventDefault();
+    var tokenData = localStorage.getItem('token');
     localStorage.removeItem("token");
-    axios.post(host + `/api/logout/system`)
+    axios.post(host + `/api/logout/system`, {token: tokenData})
       .then(res => {
         if(res.data.error != null){
           this.props.showAlert({

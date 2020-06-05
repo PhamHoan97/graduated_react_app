@@ -123,11 +123,12 @@ class Menu extends Component {
 
   handleLogout = (event) => {
     event.preventDefault();
+    var tokenData = localStorage.getItem('token');
     localStorage.removeItem("token");
     if(localStorage.getItem("dataForm") !== null){
       localStorage.removeItem("dataForm");
     }
-    axios.post(host + `/api/logout/employee`)
+    axios.post(host + `/api/logout/employee`, {token: tokenData})
     .then(res => {
       if(res.data.error != null){
         this.props.showAlert({
@@ -318,7 +319,7 @@ class Menu extends Component {
                 {this.renderAvatar()}
                 <span className="status online" />
               </span>
-              <span style={{marginLeft: "5px"}}>{this.state.employee.name}</span>
+              <span style={{marginLeft: "5px;"}}>{this.state.employee.name}</span>
             </a>
             <div className="dropdown-menu dropdown-menu_employee">
               <a className="dropdown-item" href="profile.html" onClick={(e) => this.openUpdateAccount(e)}>
