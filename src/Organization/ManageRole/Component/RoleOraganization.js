@@ -354,7 +354,7 @@ class RoleOraganization extends Component {
                                             >
                                               {role.description}
                                             </td>
-                                            <td style={{ width: "10%" }}>
+                                            <td style={{ width: "20%" }}>
                                               <NavLink
                                                   to={"/company/organization/department/"+
                                                   role.department_id}
@@ -370,7 +370,7 @@ class RoleOraganization extends Component {
                                                 (parseInt(role.is_process) === 1)?("Có"):("Không")
                                               }
                                             </td> */}
-                                            <td style={{ width: "35%" }}>
+                                            <td style={{ width: "25%" }}>
                                               <div className="table-action">
                                                 <NavLink
                                                   to={
