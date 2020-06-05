@@ -69,8 +69,8 @@ class ModalSendNotification extends Component {
                     });
                     setTimeout(() => {
                         self.setState({isDisplayAlert : false});
-                    }, 2000);
-                    self.props.getListNotification();
+                        self.props.getListNotification();
+                    }, 3000);
                 }
             })
             .catch(function (error) {
