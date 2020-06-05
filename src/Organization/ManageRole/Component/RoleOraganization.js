@@ -325,17 +325,17 @@ class RoleOraganization extends Component {
                               <table className="table custom-table table-hover table-hover table-role_organization">
                                 <thead>
                                   <tr>
-                                    <th style={{ width: "10%" }} className="cell-breakWord">Tên</th>
+                                    <th style={{ width: "20%" }} className="cell-breakWord">Tên</th>
                                     <th
-                                      style={{ width: "30%" }}
+                                      style={{ width: "35%" }}
                                       className="cell-breakWord"
                                     >
                                       Miêu tả
                                     </th>
                                     <th style={{ width: "20%" }}>Phòng ban</th>
-                                    <th style={{ width: "15%" }}>
+                                    {/* <th style={{ width: "15%" }}>
                                       Quyền tạo quy trình
-                                    </th>
+                                    </th> */}
                                     <th style={{ width: "25%" }}>Hành động</th>
                                   </tr>
                                 </thead>
@@ -345,11 +345,11 @@ class RoleOraganization extends Component {
                                       (role, index) => {
                                         return (
                                           <tr key={index}>
-                                            <td style={{ width: "10%" }} className="cell-breakWord">
+                                            <td style={{ width: "20%" }} className="cell-breakWord">
                                               <h2>{role.name}</h2>
                                             </td>
                                             <td
-                                              style={{ width: "40%" }}
+                                              style={{ width: "35%" }}
                                               className="cell-breakWord"
                                             >
                                               {role.description}
@@ -365,11 +365,11 @@ class RoleOraganization extends Component {
                                                 {role.department_name}{" "}
                                               </NavLink>
                                             </td>
-                                            <td style={{ width: "5%" }}>
+                                            {/* <td style={{ width: "5%" }}>
                                               {
                                                 (parseInt(role.is_process) === 1)?("Có"):("Không")
                                               }
-                                            </td>
+                                            </td> */}
                                             <td style={{ width: "35%" }}>
                                               <div className="table-action">
                                                 <NavLink
