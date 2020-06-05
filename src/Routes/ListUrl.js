@@ -49,6 +49,8 @@ import ManageNotification from '../System/Component/ManageNotification/ManageNot
 import TemplateOfField from '../System/Component/Template/TemplateOfField';
 import ViewProcessTemplate from '../Organization/ManageDashboard/Component/ViewProcessTemplate';
 import SystemViewProcess from '../Process/Components/View/SystemViewProcess';
+import ForgetPasswordCompany from '../Company/Components/ForgetPasswordCompany';
+import FormResetPasswordCompany from '../Company/Components/FormResetPasswordCompany';
 
 class ListUrl extends Component {
     render() {
@@ -106,6 +108,8 @@ class ListUrl extends Component {
                         <Route path="/system/template/field/:id" exact component={TemplateOfField} />
                         <Route path="/company/template/process/:id" exact component={ViewProcessTemplate} />
                         <Route path="/system/view/process/:id" exact component={SystemViewProcess} />
+                        <Route path="/company/reset/password" exact component={ForgetPasswordCompany} />
+                        <Route path="/company/form/reset/password/:id" exact component={FormResetPasswordCompany} />
                     </div>
                 </Router>
            </>

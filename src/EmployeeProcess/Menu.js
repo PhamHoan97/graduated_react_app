@@ -98,7 +98,7 @@ class Menu extends Component {
   handleValidateForm = (e) => {
     var regex= "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$";
     var alert = document.getElementById('alert-modal-error-update-account');
-    if(this.state.username.length <= 10){
+    if(this.state.username.length < 10){
         alert.style.display = "block";
         alert.innerHTML = "Tài khoản phải ít nhất 10 kí tự";
         e.preventDefault();
@@ -215,17 +215,16 @@ class Menu extends Component {
                 alert.innerHTML = res.data.message;
             }
       }else{ 
-          document.getElementById("button-close-update-account").click(); 
-          this.props.showAlert({
-            message: res.data.message,
-            anchorOrigin:{
-                vertical: 'top',
-                horizontal: 'right'
-            },
-            title:'Thành công',
-            severity:'success'
-          });
-          this.props.reloadEmployeePage();
+        document.getElementById("button-close-update-account").click(); 
+        this.props.showAlert({
+          message: res.data.message,
+          anchorOrigin:{
+              vertical: 'top',
+              horizontal: 'right'
+          },
+          title:'Thành công',
+          severity:'success'
+        });
       }
     }).catch(function (error) {
       alert(error);

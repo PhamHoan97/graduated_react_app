@@ -151,7 +151,7 @@ class CompanyLogin extends Component {
                             <input type="checkbox" name="remember" />Lưu tài khoản
                           </label>
                           <label>
-                            <a href="/company/forgetpassword"> Quên mật khẩu?</a>
+                            <a href="/company/reset/password"> Quên mật khẩu?</a>
                           </label>
                         </div>
                         <CheckButton onClick={this.handleSubmit} className="au-btn au-btn--block au-btn--green m-b-20" type="submit"><i className="fas fa-sign-in-alt"></i>  
