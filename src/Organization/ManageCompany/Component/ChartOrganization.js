@@ -23,7 +23,7 @@ class ChartOrganization extends Component {
             template: "mery"
         },
         "Employee": {
-            template: "deborah"
+            template: "diva"
         }
       },
       layout: OrgChart.mixed,

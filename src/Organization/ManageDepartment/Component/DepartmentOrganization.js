@@ -198,7 +198,7 @@ class DepartmentOrganization extends Component {
                             <table className="table custom-table table-hover table-department_organization">
                               <thead>
                                 <tr>
-                                  <th style={{ width: "15%" }}>Tên</th>
+                                  <th style={{ width: "15%" }} className="cell-breakWord">Tên</th>
                                   <th
                                     style={{ width: "40%" }}
                                     className="cell-breakWord"
@@ -215,7 +215,7 @@ class DepartmentOrganization extends Component {
                                     (department, index) => {
                                       return (
                                         <tr key={index}>
-                                          <td style={{ width: "15%" }}>
+                                          <td style={{ width: "15%" }} className="cell-breakWord">
                                       {department.name}{" "}
                                           </td>
                                           <td

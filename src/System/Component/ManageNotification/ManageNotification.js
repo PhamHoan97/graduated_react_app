@@ -15,6 +15,7 @@ const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
 const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
 class ManageNotification extends Component {
+  _isMounted = false;
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -30,6 +31,7 @@ class ManageNotification extends Component {
     this.getListNotification();
   };
   getListNotification = () => {
+    this._isMounted = true;
     var self = this;
     var token = localStorage.getItem("token");
     axios
@@ -37,18 +39,24 @@ class ManageNotification extends Component {
         headers: { Authorization: "Bearer " + token },
       })
       .then(function (response) {
-        if (response.data.error != null) {
-          console.log(response.data.error);
-        } else {
-          self.setState({
-            listNotification: response.data.notifications,
-          });
+        if(self._isMounted){
+          if (response.data.error != null) {
+            console.log(response.data.error);
+          } else {
+            self.setState({
+              listNotification: response.data.notifications,
+            });
+          }
         }
       })
       .catch(function (error) {
         console.log(error);
       });
   };
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
   deleteNotification = (e, idNotificationSystem) => {
     e.preventDefault();
     let self = this;

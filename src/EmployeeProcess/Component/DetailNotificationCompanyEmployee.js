@@ -76,7 +76,7 @@ export default class DetailNotificationCompanyEmployee extends Component {
           <div> {this.state.detailNotification.description}</div>
           {this.state.detailNotification.file !== null ? (
             <div className="text-center mt-3">
-              <a href={host.URL_BACKEND + '/' + this.state.detailNotification.file} className="btn btn-primary btn-lg active btn-download_document" role="button" aria-pressed="true">Tài liệu đính kèm{" "}</a>
+              <a href={host + '/' + this.state.detailNotification.file} className="btn btn-primary btn-lg active btn-download_document" role="button" aria-pressed="true">Tài liệu đính kèm{" "}</a>
             </div>
           ) : (
             <div></div>
