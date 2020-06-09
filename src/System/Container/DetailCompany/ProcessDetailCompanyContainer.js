@@ -43,6 +43,8 @@ export default class ProcessDetailCompanyContainer extends Component {
     };
 
     mergeProcesses(process1, process2){
+        console.log(process1);
+        console.log(process2);
         var processes = [];
         for (let index1 = 0; index1 < process1.length; index1++) {
             processes.push(process1[index1]);
@@ -154,33 +156,33 @@ export default class ProcessDetailCompanyContainer extends Component {
             <i className="zmdi zmdi-account-calendar" />
             Danh sách quy trình
             </h3>
-            <div className="filters m-b-45">
-            <div className="rs-select2--dark rs-select2--md m-r-10 rs-select2--border">
-                <select
-                className="js-select2 select--department__detail_company"
-                name="idChooseDepartment"
-                value={this.state.idChooseDepartment}
-                onChange={(e)=>this.handleChange(e)}
-                >
-                <option value="0">Phòng ban</option>
-                {
-                    this.showDepartmentCompany()
-                }
-                </select>
-                <div className="dropDownSelect2" />
-            </div>
-            <div className="rs-select2--dark rs-select2--sm rs-select2--border">
-                <select
-                className="js-select2 au-select-dark select--time__detail_company"
-                name="time"
-                >
-                <option value="0">Tất cả</option>
-                <option value>Theo tháng</option>
-                <option value>Theo ngày</option>
-                </select>
-                <div className="dropDownSelect2" />
-            </div>
-            </div>
+            {/* <div className="filters m-b-45">
+                <div className="rs-select2--dark rs-select2--md m-r-10 rs-select2--border">
+                    <select
+                    className="js-select2 select--department__detail_company"
+                    name="idChooseDepartment"
+                    value={this.state.idChooseDepartment}
+                    onChange={(e)=>this.handleChange(e)}
+                    >
+                    <option value="0">Phòng ban</option>
+                    {
+                        this.showDepartmentCompany()
+                    }
+                    </select>
+                    <div className="dropDownSelect2" />
+                </div>
+                <div className="rs-select2--dark rs-select2--sm rs-select2--border">
+                    <select
+                    className="js-select2 au-select-dark select--time__detail_company"
+                    name="time"
+                    >
+                    <option value="0">Tất cả</option>
+                    <option value>Theo tháng</option>
+                    <option value>Theo ngày</option>
+                    </select>
+                    <div className="dropDownSelect2" />
+                </div>
+            </div> */}
             <div className="table-responsive table-data">
             <table className="table">
                 <thead>

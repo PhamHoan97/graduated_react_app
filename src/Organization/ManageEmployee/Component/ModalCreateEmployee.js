@@ -262,7 +262,7 @@ export default class ModalCreateEmployee extends Component {
                 </div>
               </div>
               <div className="form-group mb-3">
-                <label htmlFor="exampleFormControlSelect1">Department</label>
+                <label htmlFor="exampleFormControlSelect1">Phòng ban</label>
                 <br></br>
                 <select
                   className="form-control"
@@ -270,7 +270,7 @@ export default class ModalCreateEmployee extends Component {
                   value={this.state.newDepartmentEmployee}
                   onChange={this.handleChange}
                 >
-                  <option value={0}>Choose departments</option>
+                  <option value={0}>Chọn phòng ban</option>
                   {Object.values(this.state.listDepartment).map(
                     (department, key) => {
                       return (
@@ -291,7 +291,7 @@ export default class ModalCreateEmployee extends Component {
                 )}
               </div>
               <div className="form-group mb-3">
-                <label htmlFor="exampleFormControlSelect1">Roles</label>
+                <label htmlFor="exampleFormControlSelect1">Vai trò</label>
                 <br></br>
                 <select
                   className="form-control"
@@ -299,7 +299,7 @@ export default class ModalCreateEmployee extends Component {
                   value={this.state.newRoleEmployee}
                   onChange={this.handleChange}
                 >
-                  <option value={0}>Choose roles</option>
+                  <option value={0}>Chọn vai trò</option>
                   {Object.values(this.state.listRoleDepartment).map(
                     (role, key) => {
                       return (
