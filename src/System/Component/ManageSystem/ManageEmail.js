@@ -4,6 +4,8 @@ import MenuHorizontal from "../Menu/MenuHorizontal";
 import axios from 'axios';
 import EmailInformationModal from './EmailInformationModal'
 import host from '../../../Host/ServerDomain';
+import {connect} from 'react-redux';
+import * as actions from '../../../Alert/Action/Index';
 
 class ManageEmail extends Component {
     _isMounted = false;
@@ -15,6 +17,7 @@ class ManageEmail extends Component {
             email: '',
             clickedEmail: '',  
             reload: '',
+            search: '',
         }
     }
     handleCssPage =(e,type,currentPage)=>{
@@ -253,6 +256,48 @@ class ManageEmail extends Component {
         this._isMounted = false;
     }
 
+    handleSearch = event => {
+        var searchValue = event.target.value;
+        this.setState({search: searchValue});
+    }
+
+    searchEmails = (e) => {
+        e.preventDefault(); 
+        var search = this.state.search;
+        if(search){
+            var token = localStorage.getItem('token');
+            axios.get(host + `/api/system/search/email/` + search ,
+            {
+                headers: { 'Authorization': 'Bearer ' + token}
+            }).then(res => {
+              if(res.data.error != null){
+                this.props.showAlert({
+                    message: res.data.message,
+                    anchorOrigin:{
+                        vertical: 'top',
+                        horizontal: 'right'
+                    },
+                    title:'Thất bại',
+                    severity:'error'
+                });
+              }else{
+                    this.props.showAlert({
+                        message: res.data.message,
+                        anchorOrigin:{
+                            vertical: 'top',
+                            horizontal: 'right'
+                        },
+                        title:'Thành công',
+                        severity:'success'
+                    });
+                  this.setState({email: res.data.email})
+              }
+            }).catch(function (error) {
+              alert(error);
+            });
+        }
+    }
+
     render() {
         return (
             <div className="page-wrapper">
@@ -271,22 +316,12 @@ class ManageEmail extends Component {
                             </h3>
                             <div className="table-data__tool">
                                 <div className="table-data__tool-left">
-                                <div className="rs-select2--light rs-select2--sm">
-                                    <select
-                                    className="js-select2 select--today__adminAccount"
-                                    name="time"
-                                    >
-                                    <option defaultValue>Hôm nay</option>
-                                    <option value>3 ngày gần đây</option>
-                                    <option value>1 tuần gần đây</option>
-                                    <option value>1 tháng gần đây</option>
-                                    </select>
-                                    <div className="dropDownSelect2" />
-                                </div>
-                                <button className="au-btn-filter ml-5">
-                                    <i className="zmdi zmdi-filter-list" />
-                                    Lọc
-                                </button>
+                                    <div className="rs-select2--light-search-company">
+                                        <form className="form-search-employee">
+                                            <input className="form-control" onChange={this.handleSearch} placeholder="Tìm kiếm ..." />
+                                            <button className="employee-btn--search__process" type="button" onClick={(e) => this.searchEmails(e)}><i className="zmdi zmdi-search"></i></button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                             <div className="table-responsive table-responsive-data2">
@@ -350,4 +385,19 @@ class ManageEmail extends Component {
     }
 }
 
-export default ManageEmail
+const mapStateToProps = (state, ownProps) => {
+    return {
+
+    }
+}
+
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        showAlert: (properties) => {
+            dispatch(actions.showMessageAlert(properties))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ManageEmail)

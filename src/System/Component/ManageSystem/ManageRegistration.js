@@ -8,6 +8,7 @@ import RegisterInformationModal from "./RegisterInformationModal";
 import CreateAdminAccountModal from "./CreateAdminAccountModal";
 import { connect } from "react-redux";
 import host from '../../../Host/ServerDomain';
+import * as actions from '../../../Alert/Action/Index';
 
 class ManageRegistration extends Component {
     _isMounted =false;
@@ -20,6 +21,7 @@ class ManageRegistration extends Component {
             approvedCompany: "",
             rejectedCompany:"",
             loadTableData: false,
+            search: ''
         }
     } 
 
@@ -62,21 +64,23 @@ class ManageRegistration extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         var token = localStorage.getItem('token');
-        axios.get(host + `/api/system/registration`,
-        {
-             headers: { 'Authorization': 'Bearer ' + token }
-        })
-        .then(res => {
-          if(res.data.error != null){
-              console.log(res.data.message);
-          }else{
-              if(JSON.stringify(this.state.registration) !== JSON.stringify(res.data.registrations)){
-                this.setState({registration:res.data.registrations});
-              }
-          }
-        }).catch(function (error) {
-          alert(error);
-        })
+        if(!this.state.search){
+            axios.get(host + `/api/system/registration`,
+            {
+                 headers: { 'Authorization': 'Bearer ' + token }
+            })
+            .then(res => {
+                if(res.data.error != null){
+                    console.log(res.data.message);
+                }else{
+                    if(JSON.stringify(this.state.registration) !== JSON.stringify(res.data.registrations)){
+                        this.setState({registration:res.data.registrations});
+                    }
+                }
+            }).catch(function (error) {
+              alert(error);
+            })
+        }
     }
 
     getCompanyRegisterInformation = (event, id) => {
@@ -336,108 +340,140 @@ class ManageRegistration extends Component {
         this._isMounted = false;
     }
 
-  render() {
-    return (
-    <div className="page-wrapper">
-        <MenuHorizontal />
-        <div className="page-container">
-        <MenuVertical />
-        <div className="main-content">
-            <div>
-                <div className="section__content section__content--p30">
-                    <div className="container-fluid">
-                    {/* MANAGER Company*/}
-                    <div className="row">
-                        <div className="col-md-12">
-                        <h3 className="title-5 m-b-35 manage__company--notification">
-                            Quản lý đăng kí sử dụng
-                        </h3>
-                        <div className="table-data__tool">
-                            <div className="table-data__tool-left">
-                            <div className="rs-select2--light rs-select2--sm">
-                                <select
-                                className="js-select2 select--today__adminAccount"
-                                name="time"
-                                >
-                                    <option defaultValue>Hôm nay</option>
-                                    <option value>3 ngày gần đây</option>
-                                    <option value>1 tuần gần đây</option>
-                                    <option value>1 tháng gần đây</option>
-                                </select>
-                                <div className="dropDownSelect2" />
+    handleSearch = event => {
+        var searchValue = event.target.value;
+        this.setState({search: searchValue});
+    }
+
+    searchCompanies = (e) => {
+        e.preventDefault(); 
+        var search = this.state.search;
+        if(search){
+            var token = localStorage.getItem('token');
+            axios.get(host + `/api/system/search/registration/` + search ,
+            {
+                headers: { 'Authorization': 'Bearer ' + token}
+            }).then(res => {
+              if(res.data.error != null){
+                this.props.showAlert({
+                    message: res.data.message,
+                    anchorOrigin:{
+                        vertical: 'top',
+                        horizontal: 'right'
+                    },
+                    title:'Thất bại',
+                    severity:'error'
+                });
+              }else{
+                    this.props.showAlert({
+                        message: res.data.message,
+                        anchorOrigin:{
+                            vertical: 'top',
+                            horizontal: 'right'
+                        },
+                        title:'Thành công',
+                        severity:'success'
+                    });
+                  this.setState({registration: res.data.registration})
+              }
+            }).catch(function (error) {
+              alert(error);
+            });
+        }
+    }
+
+    render() {
+        return (
+        <div className="page-wrapper">
+            <MenuHorizontal />
+            <div className="page-container">
+            <MenuVertical />
+            <div className="main-content">
+                <div>
+                    <div className="section__content section__content--p30">
+                        <div className="container-fluid">
+                        {/* MANAGER Company*/}
+                        <div className="row">
+                            <div className="col-md-12">
+                            <h3 className="title-5 m-b-35 manage__company--notification">
+                                Quản lý đăng kí sử dụng
+                            </h3>
+                            <div className="table-data__tool">
+                                <div className="table-data__tool-left">
+                                <div className="rs-select2--light-search-company">
+                                    <form className="form-search-employee">
+                                        <input className="form-control" onChange={this.handleSearch} placeholder="Tìm kiếm ..." />
+                                        <button className="employee-btn--search__process" type="button" onClick={(e) => this.searchCompanies(e)}><i className="zmdi zmdi-search"></i></button>
+                                    </form>
+                                </div>
+                                </div>
                             </div>
-                            <button className="au-btn-filter ml-5">
-                                <i className="zmdi zmdi-filter-list" />
-                                Lọc
-                            </button>
+                            <div className="table-responsive table-responsive-data2">
+                                <table className="table table-borderless table-data3">
+                                <thead>
+                                    <tr>
+                                        <th style={{ width: "5%" }}></th>
+                                        <th style={{ width: "45%" }}>Tên</th>
+                                        <th style={{ width: "15%" }}>Liên hệ</th>
+                                        <th style={{ width: "15%" }}>Địa chỉ</th>
+                                        <th style={{ width: "15%" }}>Lĩnh vực</th>
+                                        <th style={{ width: "5%" }}/>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {/* Loop to show data in table */}
+                                    {this.getRowsOfTable(this.state.activePage)}                    
+                                {/* End Loop */}
+                                </tbody>
+                                </table>
+                            </div>
                             </div>
                         </div>
-                        <div className="table-responsive table-responsive-data2">
-                            <table className="table table-borderless table-data3">
-                            <thead>
-                                <tr>
-                                    <th style={{ width: "5%" }}></th>
-                                    <th style={{ width: "45%" }}>Tên</th>
-                                    <th style={{ width: "15%" }}>Liên hệ</th>
-                                    <th style={{ width: "15%" }}>Địa chỉ</th>
-                                    <th style={{ width: "15%" }}>Lĩnh vực</th>
-                                    <th style={{ width: "5%" }}/>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            {/* Loop to show data in table */}
-                                {this.getRowsOfTable(this.state.activePage)}                    
-                            {/* End Loop */}
-                            </tbody>
-                            </table>
-                        </div>
-                        </div>
-                    </div>
-                    {/* Paginate */}
-                    <div className="row justify-content-center">
-                        <div className="col-md-3 text-center">
-                            <div className="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                                <ul className="pagination">
-                                    <li className="paginate_button page-item previous disabled" id="dataTable_previous"><a href="#4AE" aria-controls="dataTable" data-dt-idx={0} tabIndex={0} className="page-link" onClick={(e) => this.handlePrevious(e)}>Trước</a>
-                                    </li>
-                                    {/** Hiện thị số lượng page */}
-                                    {this.displayPaging()}
-                                    {/** Hiện thị nút next */}
-                                    {this.displayNextPaging()}
-                                </ul>
+                        {/* Paginate */}
+                        <div className="row justify-content-center">
+                            <div className="col-md-3 text-center">
+                                <div className="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                                    <ul className="pagination">
+                                        <li className="paginate_button page-item previous disabled" id="dataTable_previous"><a href="#4AE" aria-controls="dataTable" data-dt-idx={0} tabIndex={0} className="page-link" onClick={(e) => this.handlePrevious(e)}>Trước</a>
+                                        </li>
+                                        {/** Hiện thị số lượng page */}
+                                        {this.displayPaging()}
+                                        {/** Hiện thị nút next */}
+                                        {this.displayNextPaging()}
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    {/* End Paginate */}
-                    {/*END MANAGER Company*/}
-                    <div className="row">
-                        <div className="col-md-12">
-                        <div className="copyright">
-                            <p>
-                            Copyright © 2020 Colorlib. All rights reserved.
-                            Template by{" "}
-                            <a href="https://colorlib.com">Colorlib</a>.
-                            </p>
+                        {/* End Paginate */}
+                        {/*END MANAGER Company*/}
+                        <div className="row">
+                            <div className="col-md-12">
+                            <div className="copyright">
+                                <p>
+                                Copyright © 2020 Colorlib. All rights reserved.
+                                Template by{" "}
+                                <a href="https://colorlib.com">Colorlib</a>.
+                                </p>
+                            </div>
+                            </div>
                         </div>
                         </div>
                     </div>
+                    {/* Modal Reject Reason  */}
+                        <RejectReasonModal currentCompany={this.state.rejectedCompany}/>
+                    {/* End Modal Reject Reason */}
+                    {/* Modal Infomation Company Register*/}
+                        <RegisterInformationModal currentCompany={this.state.clickedCompany} />                    
+                    {/* End Modal Information company Register*/}
+                    {/* Modal create admin acount for company */}
+                        <CreateAdminAccountModal currentCompany = {this.state.approvedCompany}/>
+                    {/* End modal create admin acount for company */}
                     </div>
-                </div>
-                {/* Modal Reject Reason  */}
-                    <RejectReasonModal currentCompany={this.state.rejectedCompany}/>
-                {/* End Modal Reject Reason */}
-                {/* Modal Infomation Company Register*/}
-                    <RegisterInformationModal currentCompany={this.state.clickedCompany} />                    
-                {/* End Modal Information company Register*/}
-                {/* Modal create admin acount for company */}
-                    <CreateAdminAccountModal currentCompany = {this.state.approvedCompany}/>
-                {/* End modal create admin acount for company */}
                 </div>
             </div>
         </div>
-    </div>
-    );
-  }
+        );
+    }
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -446,4 +482,13 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps,)(ManageRegistration);
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        showAlert: (properties) => {
+            dispatch(actions.showMessageAlert(properties))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ManageRegistration);
