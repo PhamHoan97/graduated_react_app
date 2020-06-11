@@ -165,6 +165,7 @@ class ManageEmail extends Component {
                 return (
                 <React.Fragment key={key}>
                 <tr className="tr-shadow">
+                    <td className="desc">{key+1}</td>
                     <td className="desc">{value.type}</td>
                     <td className="desc">{this.renderUserName(value)}</td>
                     <td className="desc">{this.convertStatusEmail(value.status)}</td>
@@ -292,6 +293,7 @@ class ManageEmail extends Component {
                                 <table className="table table-borderless table-data3">
                                 <thead>
                                     <tr>
+                                    <th></th>
                                     <th>Loại</th>
                                     <th>Người nhận</th>
                                     <th>Trạng thái</th>

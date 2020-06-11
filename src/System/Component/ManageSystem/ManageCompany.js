@@ -193,7 +193,10 @@ export default class ManageCompany extends Component {
                 return (
                 <React.Fragment key={key}>
                 <tr className="tr-shadow">
-                    <td style={{ width: "50%" }}>
+                    <td style={{ width: "5%" }}>
+                        {key+1}
+                    </td>
+                    <td style={{ width: "45%" }}>
                         {value.name}
                     </td>
                     <td style={{ width: "15%" }}>
@@ -335,28 +338,17 @@ export default class ManageCompany extends Component {
                             <div className="table-data__tool">
                                 <div className="table-data__tool-left">
                                 <div className="rs-select2--light rs-select2--sm">
-                                    <select
-                                    className="js-select2 select--today__adminAccount"
-                                    name="time"
-                                    >
-                                        <option defaultValue>Hôm nay</option>
-                                        <option value>3 ngày gần đây</option>
-                                        <option value>1 tuần gần đây</option>
-                                        <option value>1 tháng gần đây</option>
-                                    </select>
-                                    <div className="dropDownSelect2" />
+                                    
                                 </div>
-                                <button className="au-btn-filter ml-5">
-                                    <i className="zmdi zmdi-filter-list" />
-                                    Lọc
-                                </button>
+          
                                 </div>
                             </div>
                             <div className="table-responsive table-responsive-data2">
                                 <table className="table table-borderless table-data3">
                                 <thead>
                                     <tr>
-                                        <th style={{ width: "50%" }}>Tên</th>
+                                        <th style={{ width: "5%" }}></th>
+                                        <th style={{ width: "45%" }}>Tên</th>
                                         <th style={{ width: "15%" }}>Liên hệ</th>
                                         <th style={{ width: "15%" }}>Địa chỉ</th>
                                         <th style={{ width: "15%" }}>Lĩnh vực</th>

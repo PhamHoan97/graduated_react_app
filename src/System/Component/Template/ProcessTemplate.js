@@ -284,6 +284,7 @@ class ProcessTemplate extends Component {
               return (
               <React.Fragment key={key}>
                          <tr className="tr-shadow">
+                          <td className="desc">{key+1}</td>
                           <td className="desc">{value.name}</td>
                           <td className="desc">{value.description}</td>
                           <td >
@@ -379,6 +380,7 @@ class ProcessTemplate extends Component {
                                 <table className="table table-borderless table-data3">
                                     <thead>
                                     <tr>
+                                    <th className="text-center"></th>
                                     <th className="text-center">Lĩnh vực</th>
                                     <th className="text-center">Mô tả</th>
                                     <th className="text-center"></th>

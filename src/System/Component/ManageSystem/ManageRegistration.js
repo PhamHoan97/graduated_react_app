@@ -218,7 +218,8 @@ class ManageRegistration extends Component {
                 return (
                 <React.Fragment key={key}>
                 <tr className="tr-shadow">
-                    <td style={{ width: "50%" }}>{value.name}</td>
+                    <td style={{ width: "5%" }}>{key+1}</td>
+                    <td style={{ width: "45%" }}>{value.name}</td>
                     <td style={{ width: "15%" }}>
                         {value.contact}
                     </td>
@@ -375,7 +376,8 @@ class ManageRegistration extends Component {
                             <table className="table table-borderless table-data3">
                             <thead>
                                 <tr>
-                                    <th style={{ width: "50%" }}>Tên</th>
+                                    <th style={{ width: "5%" }}></th>
+                                    <th style={{ width: "45%" }}>Tên</th>
                                     <th style={{ width: "15%" }}>Liên hệ</th>
                                     <th style={{ width: "15%" }}>Địa chỉ</th>
                                     <th style={{ width: "15%" }}>Lĩnh vực</th>

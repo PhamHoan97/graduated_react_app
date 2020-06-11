@@ -22,9 +22,10 @@ class ProcessItem extends Component {
     }
     return (
         <tr>
+            <td>{this.props.stt}</td>
+            <td>{this.props.code}</td>
             <td>{this.props.name}</td>
             <td>{this.props.company}</td>
-            <td>{this.props.description.substring(0,50) + '...'}</td>
             <td>{this.props.date}</td>
             <td>
               <div className="table-data-feature">

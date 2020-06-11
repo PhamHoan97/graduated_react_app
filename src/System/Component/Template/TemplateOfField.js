@@ -168,6 +168,7 @@ class TemplateOfField extends Component {
                 return (
                 <React.Fragment key={key}>
                            <tr className="tr-shadow">
+                           <td className="desc">{key+1}</td>
                             <td className="desc">{value.name}</td>
                             <td className="desc">{value.description}</td>
                             <td className="desc">{value.updated_at}</td>
@@ -255,6 +256,7 @@ class TemplateOfField extends Component {
                                 <table className="table table-borderless table-data3">
                                     <thead>
                                     <tr>
+                                    <th className="text-center"></th>
                                     <th className="text-center">Quy trình</th>
                                     <th className="text-center">Mô tả ngắn</th>
                                     <th className="text-center">Cập nhật</th>

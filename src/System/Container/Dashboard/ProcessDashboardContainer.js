@@ -31,7 +31,9 @@ class ProcessDashboardContainer extends Component {
             result = slice.map((item, index) => {
                 return <ProcessItem
                     key={index}
+                    stt={index+1}
                     id={item.id}
+                    code={item.code}
                     name={item.process_name}
                     description={item.description}
                     date={item.date}

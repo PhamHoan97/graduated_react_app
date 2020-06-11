@@ -79,7 +79,9 @@ export default class ProcessDetailCompanyContainer extends Component {
                 return(
                     <ProcessItemCompany
                        key={index}
+                       stt={index+1}
                        id={process.id}
+                       code={process.code}
                        date={process.date}
                        description={process.description}
                        name={process.name}
@@ -187,9 +189,10 @@ export default class ProcessDetailCompanyContainer extends Component {
             <table className="table">
                 <thead>
                 <tr>
+                    <td></td>
+                    <td>Mã quy trình</td>
                     <td>Quy trình</td>
                     <td>Deadline</td>
-                    <td>Cập nhật</td>
                     <td>Thể loại</td>
                     <td></td>
                 </tr>
