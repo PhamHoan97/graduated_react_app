@@ -69,7 +69,7 @@ class ViewNote extends Component {
                 <h4 className="note-title"> {this.convertTitleOfElement(this.state.currentElement)}</h4>
                 <div className="note-content form-group">
                     <form>
-                        <div className="note-content-textarea">
+                        <div className="note-content-textarea" style={{textAlign: "initial"}}>
                             {this.state.currentElement.note}
                         </div>
                     </form>

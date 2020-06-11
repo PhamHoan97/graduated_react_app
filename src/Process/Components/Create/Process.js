@@ -271,8 +271,8 @@ class Process extends Component {
           this.modeler.importXML(this.initialDiagram, function(err) {
     
           });
-          var eventBus = this.modeler.get('eventBus');
-          console.log(eventBus);
+          // var eventBus = this.modeler.get('eventBus');
+          // console.log(eventBus);
           this.modeler.on('element.click',1000, (e) => this.interactPopup(e));
     
           this.modeler.on('shape.remove',1000, (e) => this.deleteElements(e));
@@ -286,8 +286,8 @@ class Process extends Component {
       this.modeler.importXML(this.initialDiagram, function(err) {
 
       });
-      var eventBus = this.modeler.get('eventBus');
-      console.log(eventBus);
+      // var eventBus = this.modeler.get('eventBus');
+      // console.log(eventBus);
       this.modeler.on('element.click',1000, (e) => this.interactPopup(e));
 
       this.modeler.on('shape.remove',1000, (e) => this.deleteElements(e));

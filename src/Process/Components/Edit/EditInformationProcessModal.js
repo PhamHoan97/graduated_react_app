@@ -55,7 +55,6 @@ class EditInformationProcessModal extends Component {
                 if(res.data.error != null){
                     console.log(res.data.message);
                 }else{
-                    console.log(res.data); 
                     this.setState({employeesFilter: res.data.employees, selected: '', rolesFilter: res.data.roles, assign: ''});
                 }
             }).catch(function (error) {

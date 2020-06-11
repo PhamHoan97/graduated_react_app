@@ -124,12 +124,18 @@ class Intro extends Component {
             <div className="row">
               <div className="col-md-5 text-center feature--description">
                 <div className="feature--description__content">
-                  <h2>Make decisions with confidence</h2>
+                  <h2>Đưa ra quyết định với sự tự tin</h2>
+                  <div>
+                    Hành động trên dữ liệu thời gian thực, không phỏng đoán. Chúng tôi cung cấp cho bạn một
+                    Tổng quan cấp cao về nơi mọi thứ đứng trong nháy mắt để bạn
+                    biết nhóm của bạn đang đi đúng hướng.
+                  </div>
+                  {/* <h2>Make decisions with confidence</h2>
                   <div>
                     Act on real-time data, not guesses. monday.com gives you a
                     high-level overview of where things stand at glance so you
                     know your team is moving in the right direction.
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div className="col-md-7">
@@ -141,7 +147,14 @@ class Intro extends Component {
             <div className="row">
               <div className="col-md-5 text-center feature--description">
                 <div className="feature--description__content">
-                  <h2>How to Make Business Decisions with Purpose</h2>
+                  <h2>Làm thế nào để đưa ra quyết định kinh doanh</h2>
+                  <div>
+                  Quy trình là khuôn khổ để cho các công việc được diễn ra đúng phép tắc trong hoạt động của doanh nghiệp, tổ chức. Phương pháp quản lý theo quy trình là phương pháp quản lý mà ở đó doanh nghiệp đưa ra các quy tắc, các công việc mẫu và đưa ra thứ tự thực hiện chuẩn để thực hiện công việc.  
+                  Quy trình quản lý giúp:
+                  Thống nhất cách thức và thứ tự làm việc của doanh nghiệp và
+                  các công việc được diễn ra nhịp nhàng, tránh gián đoạn.
+                  </div>
+                  {/* <h2>How to Make Business Decisions with Purpose</h2>
                   <div>
                   You’ve heard the old saying: “If it ain’t broke, don’t fix it.” 
                   But with process management, you may want to throw that saying out the window. 
@@ -152,7 +165,7 @@ class Intro extends Component {
                   re-evaluating the status quo, leading to short- and long-term process improvement. 
                   So what is process management, and how can you use it to improve processes now and 
                   in the future?
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div className="col-md-7">
@@ -220,7 +233,7 @@ class Intro extends Component {
                 </div>
                 {/* Copyright */}
                 <br />
-                <div className="icon--soict">
+                {/* <div className="icon--soict">
                   <div className="container-fluid">
                     <div className="row">
                       <div className="col-md-3">
@@ -237,14 +250,14 @@ class Intro extends Component {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
               {/* Grid column */}
               <hr className="clearfix w-100 d-md-none" />
               {/* Grid column */}
               <div className="col-md-4 mt-4">
                 {/* Links */}
-                <h5 className="font-weight-bold text-uppercase mt-3 mb-4">
+                {/* <h5 className="font-weight-bold text-uppercase mt-3 mb-4">
                   HH2 Company
                 </h5>
                 <ul className="list-unstyled">
@@ -257,7 +270,7 @@ class Intro extends Component {
                   <li>
                     <a href="#!">Liên hệ</a>
                   </li>
-                </ul>
+                </ul> */}
               </div>
               {/* Grid column */}
               <hr className="clearfix w-100 d-md-none" />
@@ -271,9 +284,9 @@ class Intro extends Component {
                   <li>
                     <a href="#!">Số 1, Đại Cồ Việt Giải Phóng </a>
                   </li>
-                  <li>
+                  {/* <li>
                     <a href="#!">2020</a>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
             </div>

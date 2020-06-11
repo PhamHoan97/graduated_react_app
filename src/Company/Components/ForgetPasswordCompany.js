@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 import host from '../../Host/ServerDomain';
 
 class ForgetPasswordCompany extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props)
 
@@ -22,6 +23,8 @@ class ForgetPasswordCompany extends Component {
     }
 
     handleSubmitForm = event => {
+        this._isMounted = true;
+        var self = this;
         event.preventDefault();
         var data = {
             email: this.state.email
@@ -31,7 +34,7 @@ class ForgetPasswordCompany extends Component {
           if(res.data.error != null){
               document.getElementById('alert-error').innerHTML = "Email này không hợp lệ";
           }else{
-            this.props.showAlert({
+            self.props.showAlert({
                 message: res.data.message,
                 anchorOrigin:{
                     vertical: 'top',
@@ -40,11 +43,15 @@ class ForgetPasswordCompany extends Component {
                 title:'Thành công',
                 severity:'success'
               });
-            this.setState({isRedirectAfterSend:true});            
+              self.setState({isRedirectAfterSend:true});            
           }
         }).catch(function (error) {
           alert(error);
         })
+    }
+
+    componentWillUnmount(){
+        this._isMounted = false;
     }
 
     render() {
