@@ -290,6 +290,12 @@ class ProcessCompany extends Component {
                               <DepartmentOptionSearch />
                               <div className="dropDownSelect2" />
                             </div>
+                            <div className="rs-select2--light rs-select2--md" style={{width: "350px"}}>
+                                <form className="form-search-employee">
+                                    <input className="form-control" onChange={this.handleSearch} placeholder="Tìm kiếm nhân viên..." />
+                                    <button className="company-btn--search__process" type="button" onClick={(e) => this.searchProcesses(e)}><i className="zmdi zmdi-search"></i></button>
+                                </form>
+                            </div>
                           </div>
                           <div className="table-data__tool-right">
                             <button

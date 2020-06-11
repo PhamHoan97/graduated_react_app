@@ -383,12 +383,12 @@ class ManageCompany extends Component {
                             </h3>
                             <div className="table-data__tool">
                                 <div className="table-data__tool-left">
-                                <div className="rs-select2--light-search-company">
-                                    <form className="form-search-employee">
-                                        <input className="form-control" onChange={this.handleSearch} placeholder="Tìm kiếm công ty..." />
-                                        <button className="employee-btn--search__process" type="button" onClick={(e) => this.searchCompanies(e)}><i className="zmdi zmdi-search"></i></button>
-                                    </form>
-                                </div>
+                                    <div className="rs-select2--light-search-company">
+                                        <form className="form-search-employee">
+                                            <input className="form-control" onChange={this.handleSearch} placeholder="Tìm kiếm công ty..." />
+                                            <button className="employee-btn--search__process" type="button" onClick={(e) => this.searchCompanies(e)}><i className="zmdi zmdi-search"></i></button>
+                                        </form>
+                                    </div>
           
                                 </div>
                             </div>

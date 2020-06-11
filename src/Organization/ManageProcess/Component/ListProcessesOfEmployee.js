@@ -252,7 +252,12 @@ class ListProcessesOfEmployee extends Component {
                           <div className="card-body">
                           <div className="table-data__tool">
                             <div className="table-data__tool-left">
-            
+                              <div className="rs-select2--light-search-company">
+                                  <form className="form-search-employee">
+                                      <input className="form-control" onChange={this.handleSearch} placeholder="Tìm kiếm quy trình..." />
+                                      <button className="company-btn--search__process" type="button" onClick={(e) => this.searchProcesses(e)}><i className="zmdi zmdi-search"></i></button>
+                                  </form>
+                              </div>
                             </div>
                             <div className="table-data__tool-right">
                  

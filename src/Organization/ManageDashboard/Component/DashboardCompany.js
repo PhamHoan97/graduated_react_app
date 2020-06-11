@@ -9,6 +9,7 @@ import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import host from '../../../Host/ServerDomain';
 import "../Style/TemplateSystemCompany.scss";
+import * as actions from "../../../Alert/Action/Index";
 
 class DashboardCompany extends Component {
   constructor(props) {
@@ -18,6 +19,8 @@ class DashboardCompany extends Component {
       activePage: 1,
       isRedirectToViewProcess: false,
       idProcess: '',
+      search: '',
+      idField: '',
     } 
   }
   
@@ -132,9 +135,10 @@ class DashboardCompany extends Component {
             return (
             <React.Fragment key={key}>
                        <tr className="tr-shadow">
+                        <td className="text-center cell-breakWord"  style={{ width: "5%" }} >{key+1}</td>
                         <td className="text-center cell-breakWord"  style={{ width: "15%" }} >{value.name}</td>
                         <td className="text-center cell-breakWord"  style={{ width: "50%" }}>{value.description}</td>
-                        <td className="text-center cell-breakWord"  style={{ width: "25%" }}>{value.field.name}</td>
+                        <td className="text-center cell-breakWord"  style={{ width: "20%" }}>{value.field.name}</td>
                         <td style={{ width: "10%" }}>
                           <div className="table-data-feature">
                             <button
@@ -176,12 +180,87 @@ class DashboardCompany extends Component {
         if(res.data.error != null){
             console.log(res.data.message);
         }else{
-          this.setState({processes: res.data.processes});
+          this.setState({processes: res.data.processes, idField: nextProps.idField});
         }
       }).catch(function (error) {
         alert(error);
       });
     }
+  }
+
+  handleSearch = event => {
+    var searchValue = event.target.value;
+    this.setState({search: searchValue});
+  }
+
+  searchTemplates = (e) => {
+      e.preventDefault(); 
+      var search = this.state.search;
+      var idField = this.state.idField;
+      var token = localStorage.getItem('token');
+      if(search){
+          if(!idField){
+            axios.get(host + `/api/company/search/template/` + search ,
+            {
+                headers: { 'Authorization': 'Bearer ' + token}
+            }).then(res => {
+              if(res.data.error != null){
+                this.props.showAlert({
+                    message: res.data.message,
+                    anchorOrigin:{
+                        vertical: 'top',
+                        horizontal: 'right'
+                    },
+                    title:'Thất bại',
+                    severity:'error'
+                });
+              }else{
+                    this.props.showAlert({
+                        message: res.data.message,
+                        anchorOrigin:{
+                            vertical: 'top',
+                            horizontal: 'right'
+                        },
+                        title:'Thành công',
+                        severity:'success'
+                    });
+                  this.setState({processes: res.data.processes})
+              }
+            }).catch(function (error) {
+              alert(error);
+            });
+          }else{
+            axios.get(host + `/api/company/search/template/` + idField +'/' + search ,
+            {
+                headers: { 'Authorization': 'Bearer ' + token}
+            }).then(res => {
+              if(res.data.error != null){
+                this.props.showAlert({
+                    message: res.data.message,
+                    anchorOrigin:{
+                        vertical: 'top',
+                        horizontal: 'right'
+                    },
+                    title:'Thất bại',
+                    severity:'error'
+                });
+              }else{
+                    this.props.showAlert({
+                        message: res.data.message,
+                        anchorOrigin:{
+                            vertical: 'top',
+                            horizontal: 'right'
+                        },
+                        title:'Thành công',
+                        severity:'success'
+                    });
+                  this.setState({processes: res.data.processes})
+              }
+            }).catch(function (error) {
+              alert(error);
+            });
+          }
+      }
   }
 
   render() {
@@ -226,15 +305,25 @@ class DashboardCompany extends Component {
                               <div className="dropDownSelect2" />
                             </div>
                           </div>
+                          <div className="table-data__tool-left">
+                            <div className="rs-select2--light-search-company">
+                                <form className="form-search-employee">
+                                    <input className="form-control" onChange={this.handleSearch} placeholder="Tìm kiếm quy trình mẫu..." />
+                                    <button className="company-btn--search__process" type="button" onClick={(e) => this.searchTemplates(e)}><i className="zmdi zmdi-search"></i></button>
+                                </form>
+                            </div>
+
+                          </div>
                         </div>
                         <div className="employee-office-table">
                           <div className="table-responsive">
                             <table className="table custom-table table-hover table-template_system">
                               <thead>
                               <tr>
+                              <th className="text-center cell-breakWord"  style={{ width: "5%" }} ></th>
                                 <th className="text-center cell-breakWord"  style={{ width: "15%" }} >tên</th>
                                 <th className="text-center cell-breakWord" style={{ width: "50%" }} >mô tả ngắn</th>
-                                <th className="text-center cell-breakWord" style={{ width: "25%" }} >lĩnh vực</th>
+                                <th className="text-center cell-breakWord" style={{ width: "20%" }} >lĩnh vực</th>
                                 <th style={{ width: "10%" }}/>
                               </tr>
                             </thead>
@@ -279,4 +368,13 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps, )(DashboardCompany)
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+      showAlert: (properties) => {
+          dispatch(actions.showMessageAlert(properties))
+      }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardCompany)
