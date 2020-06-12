@@ -11,6 +11,7 @@ import Alert from '@material-ui/lab/Alert';
 import LinkPage from "../../LinkPage";
 
 export default class Template extends Component {
+  _isMounted = false;
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -35,7 +36,8 @@ export default class Template extends Component {
   }
 
   getListTypeSystem = () => {
-    var self =  this;
+    this._isMounted = true;
+    let self = this;
     var token = localStorage.getItem('token');
     var idAdmin = localStorage.getItem('admin_id')
     axios.get(host + "/api/system/notification/type/list/"+idAdmin,{
@@ -45,9 +47,11 @@ export default class Template extends Component {
       if (response.data.error != null) {
         console.log(response.data.error);
       }else{
-        self.setState({
-          listTypeSystem:response.data.types
-        })
+        if(self._isMounted){
+          self.setState({
+            listTypeSystem:response.data.types
+          })
+        }
       }
     })
     .catch(function (error) {
@@ -56,7 +60,8 @@ export default class Template extends Component {
   };
 
   getListAllTemplateSystem = () => {
-    var self =  this;
+    this._isMounted = true;
+    let self = this;
     var token = localStorage.getItem('token');
     axios.get(host + "/api/system/notification/template/list",{
       headers: { 'Authorization': 'Bearer ' + token }
@@ -65,15 +70,21 @@ export default class Template extends Component {
       if (response.data.error != null) {
         console.log(response.data.error);
       }else{
-        self.setState({
-          listTemplate:response.data.templates
-        })
+        if(self._isMounted){
+          self.setState({
+            listTemplate:response.data.templates
+          })
+        }
       }
     })
     .catch(function (error) {
         console.log(error);
     });
   };
+
+  componentWillUnmount(){
+    this._isMounted = false;
+  }
 
   handleClickNewFormBuilder = () => {
     var templates = document.getElementsByClassName("new-template");

@@ -12,6 +12,7 @@ import "../Style/TemplateSystemCompany.scss";
 import * as actions from "../../../Alert/Action/Index";
 
 class DashboardCompany extends Component {
+  _isMounted = true;
   constructor(props) {
     super(props);
     this.state = {
@@ -107,19 +108,27 @@ class DashboardCompany extends Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
+    let self = this;
     var token = localStorage.getItem('token');
     axios.get(host + `/api/company/template/processes`,
     {
         headers: { 'Authorization': 'Bearer ' + token}
     }).then(res => {
-      if(res.data.error != null){
-          console.log(res.data.message);
-      }else{
-        this.setState({processes: res.data.processes});
+      if(self._isMounted){
+        if(res.data.error != null){
+            console.log(res.data.message);
+        }else{
+          self.setState({processes: res.data.processes});
+        }
       }
     }).catch(function (error) {
       alert(error);
     });
+  }
+
+  componentWillUnmount(){
+    this._isMounted = false;
   }
 
   viewProcessTemplate = (e,id) =>{

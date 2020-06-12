@@ -65,15 +65,18 @@ class EditInformationProcessModal extends Component {
     
     componentDidMount () {
       this._isMounted = true;
+      let self = this;
       var token = localStorage.getItem('token');
       axios.get(host + `/api/company/`+ token + `/employee/role`,
       {
           headers: { 'Authorization': 'Bearer ' + token}
       }).then(res => {
-        if(res.data.error != null){
-            console.log(res.data.message);
-        }else{
-            this.setState({employeesFilter: res.data.employees,  rolesFilter: res.data.roles});
+        if(self._isMounted){
+          if(res.data.error != null){
+              console.log(res.data.message);
+          }else{
+            self.setState({employeesFilter: res.data.employees,  rolesFilter: res.data.roles});
+          }
         }
       }).catch(function (error) {
         alert(error);

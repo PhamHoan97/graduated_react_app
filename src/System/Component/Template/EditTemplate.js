@@ -12,6 +12,7 @@ import axios from 'axios';
 import host from '../../../Host/ServerDomain';
 
 class EditTemplate extends Component {
+  _isMounted = false;
     constructor(props) {
         super(props)
 
@@ -54,20 +55,28 @@ class EditTemplate extends Component {
     }
 
     componentDidMount() {
-        var token = localStorage.getItem('token');
-        var idProcess = this.props.match.params.id;
-        axios.get(host + `/api/system/field/template/` + idProcess,
-        {
-            headers: { 'Authorization': 'Bearer ' + token}
-        }).then(res => {
+      this._isMounted = true;
+      let self = this
+      var token = localStorage.getItem('token');
+      var idProcess = this.props.match.params.id;
+      axios.get(host + `/api/system/field/template/` + idProcess,
+      {
+          headers: { 'Authorization': 'Bearer ' + token}
+      }).then(res => {
+        if(self._isMounted){
           if(res.data.error != null){
               console.log(res.data.message);
           }else{
-            this.setState({process: res.data.process, name: res.data.process.name, description: res.data.process.description});
+            self.setState({process: res.data.process, name: res.data.process.name, description: res.data.process.description});
           }
-        }).catch(function (error) {
-          alert(error);
-        });
+        }
+      }).catch(function (error) {
+        alert(error);
+      });
+    }
+
+    componentWillUnmount(){
+      this._isMounted = false;
     }
 
     render() {

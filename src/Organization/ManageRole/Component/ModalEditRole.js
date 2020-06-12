@@ -7,6 +7,7 @@ import { isEmpty } from "validator";
 import { Modal } from "react-bootstrap";
 import { connect } from "react-redux";
 class ModalEditRole extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -38,6 +39,7 @@ class ModalEditRole extends Component {
   }
 
   getListDepartment = () => {
+    this._isMounted = true;
     let self = this;
     var token = localStorage.getItem("token");
     axios
@@ -48,22 +50,29 @@ class ModalEditRole extends Component {
         }
       )
       .then(function (response) {
-        if (response.data.error != null) {
-          console.log(response.data.error);
-        } else {
-          self.setState({
-            listDepartment: JSON.parse(
-              JSON.stringify(response.data.departmentCompany)
-            ),
-          });
+        if(self._isMounted){
+          if (response.data.error != null) {
+            console.log(response.data.error);
+          } else {
+            self.setState({
+              listDepartment: JSON.parse(
+                JSON.stringify(response.data.departmentCompany)
+              ),
+            });
+          }
         }
       })
       .catch(function (error) {
         console.log(error);
       });
   };
+  
   componentDidMount() {
     this.getListDepartment();
+  }
+
+  componentWillUnmount(){
+    this._isMounted = false;
   }
 
   handleChange(event) {

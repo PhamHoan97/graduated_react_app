@@ -9,6 +9,7 @@ import  {connect} from 'react-redux';
 import {showMessageAlert} from "../../../Alert/Action/Index";
 
 class ManageFormSend extends Component {
+  _isMounted = false;
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -30,21 +31,28 @@ class ManageFormSend extends Component {
   };
 
   getlistForm = () => {
-    var self = this;
+    this._isMounted = true;
+    let self = this;
     var token = localStorage.getItem("token");
     axios
       .get(host + "/api/system/notification/form/list", {
         headers: { Authorization: "Bearer " + token },
       })
       .then(function (response) {
-        self.setState({
-          listForm: response.data.forms,
-        });
+        if(self._isMounted){
+          self.setState({
+            listForm: response.data.forms,
+          });
+        }
       })
       .catch(function (error) {
         console.log(error);
       });
   };
+
+  componentWillUnmount(){
+    this._isMounted = false;
+  }
 
   deleteForm = (e,idForm) =>{
     e.preventDefault();

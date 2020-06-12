@@ -136,7 +136,6 @@ class DetailEmployeeOraganization extends Component {
     });
   }
   render() {
-    console.log(this.state.detailCompany);
     return (
       <div className="inner-wrapper manage-organization_template">
         <Header />

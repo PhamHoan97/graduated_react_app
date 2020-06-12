@@ -9,6 +9,7 @@ import { Redirect } from 'react-router-dom';
 import host from '../../../Host/ServerDomain'; 
 
 class ListProcessesOfEmployee extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props)
 
@@ -131,21 +132,29 @@ class ListProcessesOfEmployee extends Component {
     }
 
     componentDidMount() {
+        this._isMounted = true;
+        let self = this;
         var idEmployee = this.props.match.params.id;
         var token = localStorage.getItem('token');
         axios.get(host + `/api/company/processes/employee/`+ idEmployee,
         {
             headers: { 'Authorization': 'Bearer ' + token}
         }).then(res => {
-          if(res.data.error != null){
-
-          }else{
-            var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2);
-            this.setState({processes: processesResponse, employee: res.data.employee});
+          if(self._isMounted){
+            if(res.data.error != null){
+              console.log(res.data.message);
+            }else{
+              var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2);
+              self.setState({processes: processesResponse, employee: res.data.employee});
+            }
           }
         }).catch(function (error) {
           alert(error);
         });
+    }
+
+    componentWillUnmount(){
+      this._isMounted = false;
     }
 
     editProcess = (e, id) => {
