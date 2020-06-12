@@ -15,7 +15,10 @@ export default class DetailNotificationCompanyEmployee extends Component {
       detailNotification: [],
     };
   }
+
   updateStatusNotificationCompany = (idNotificationFromCompany) =>{
+    this._isMounted = true;
+    let self = this;
     var token = localStorage.getItem("token");
     axios.post(host +'/api/employee/notification/company/status/update', {
       idNotificationFromCompany:idNotificationFromCompany
@@ -23,21 +26,31 @@ export default class DetailNotificationCompanyEmployee extends Component {
         headers: { 'Authorization': 'Bearer ' + token }
     })
     .then(function (response) {
+      if(self._isMounted){
         if (response.data.error != null) {
         console.log(response.data.error);
         } else {
+          
         }
+      }
     })
     .catch(function (error) {
         console.log(error);
     });
   }
+
   UNSAFE_componentWillMount() {
     this.updateStatusNotificationCompany(this.props.match.params.id);
     this.getDetailNotificationCompany(this.props.match.params.id);
   }
+
+  componentWillUnmount(){
+    this._isMounted = false;
+  }
+
   getDetailNotificationCompany = (idNotificationCompanyEmployee) => {
-    var self = this;
+    this._isMounted = true;
+    let self = this;
     var token = localStorage.getItem("token");
     axios
       .get(
@@ -47,12 +60,14 @@ export default class DetailNotificationCompanyEmployee extends Component {
         }
       )
       .then(function (response) {
-        if (response.data.error != null) {
-          console.log(response.data.error);
-        } else {
-          self.setState({
-            detailNotification: response.data.detailNotificationCompanyEmployee,
-          })
+        if(self._isMounted){
+          if (response.data.error != null) {
+            console.log(response.data.error);
+          } else {
+            self.setState({
+              detailNotification: response.data.detailNotificationCompanyEmployee,
+            })
+          }
         }
       })
       .catch(function (error) {
