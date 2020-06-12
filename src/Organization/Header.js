@@ -80,7 +80,7 @@ class Header extends Component {
     }).then(res => {
       if(self._isMounted){
         if(res.data.error != null){
-            console.log(res.data.error);
+            console.log(res.data.message);
         }else{ 
           self.setState({username: res.data.username});
         }

@@ -7,6 +7,8 @@ import Menu from "../../Menu";
 import ModalDetailProcess from './ModalDetailProcess'; 
 import { Redirect } from 'react-router-dom';
 import host from '../../../Host/ServerDomain'; 
+import * as actionAlerts from '../../../Alert/Action/Index';
+import {connect} from 'react-redux';
 
 class ListProcessesOfEmployee extends Component {
     _isMounted = false;
@@ -18,7 +20,8 @@ class ListProcessesOfEmployee extends Component {
             activePage: 1, 
             employee: '',
             isRedirectEditProcess: false,
-            idProcess: '',   
+            idProcess: '', 
+            search: '',  
         }
     }
     handleCssPage =(e,type,currentPage)=>{
@@ -118,39 +121,78 @@ class ListProcessesOfEmployee extends Component {
         e.preventDefault();
         document.getElementById('clone-view-detail-process').click();
         this.setState({idProcess: id});
-      }
-
-    mergeProcesses(process1, process2){
-      var processes = [];
-      for (let index1 = 0; index1 < process1.length; index1++) {
-        processes.push(process1[index1]);
-      }
-      for (let index2 = 0; index2 < process2.length; index2++) {
-        processes.push(process2[index2]);
-      }
-      return processes;
     }
 
-    componentDidMount() {
-        this._isMounted = true;
-        let self = this;
-        var idEmployee = this.props.match.params.id;
-        var token = localStorage.getItem('token');
-        axios.get(host + `/api/company/processes/employee/`+ idEmployee,
-        {
-            headers: { 'Authorization': 'Bearer ' + token}
-        }).then(res => {
-          if(self._isMounted){
-            if(res.data.error != null){
-              console.log(res.data.message);
-            }else{
-              var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2);
-              self.setState({processes: processesResponse, employee: res.data.employee});
-            }
+    removeProcess = (e, id) => {
+      e.preventDefault();
+      var token = localStorage.getItem('token');
+      axios.post(host + `/api/company/process/remove/`,
+      {
+        token: token,
+        idProcess : id,
+      },
+      {
+          headers: { 'Authorization': 'Bearer ' + token}
+      }).then(res => {
+        if(res.data.error != null){
+          this.props.showAlert({
+            message: res.data.message,
+            anchorOrigin:{
+                vertical: 'top',
+                horizontal: 'right'
+            },
+            title:'Thành công',
+            severity:'error'
+          });
+        }else{
+          var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2);
+          this.props.showAlert({
+            message: res.data.message,
+            anchorOrigin:{
+                vertical: 'top',
+                horizontal: 'right'
+            },
+            title:'Thành công',
+            severity:'success'
+          });
+          this.setState({processes: processesResponse});
+        }
+      }).catch(function (error) {
+        alert(error);
+      });
+    }
+
+  mergeProcesses(process1, process2){
+    var processes = [];
+    for (let index1 = 0; index1 < process1.length; index1++) {
+      processes.push(process1[index1]);
+    }
+    for (let index2 = 0; index2 < process2.length; index2++) {
+      processes.push(process2[index2]);
+    }
+    return processes;
+  }
+
+  componentDidMount() {
+      this._isMounted = true;
+      let self = this;
+      var idEmployee = this.props.match.params.id;
+      var token = localStorage.getItem('token');
+      axios.get(host + `/api/company/processes/employee/`+ idEmployee,
+      {
+          headers: { 'Authorization': 'Bearer ' + token}
+      }).then(res => {
+        if(self._isMounted){
+          if(res.data.error != null){
+            console.log(res.data.message);
+          }else{
+            var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2);
+            self.setState({processes: processesResponse, employee: res.data.employee});
           }
-        }).catch(function (error) {
-          alert(error);
-        });
+        }
+      }).catch(function (error) {
+        alert(error);
+      });
     }
 
     componentWillUnmount(){
@@ -170,10 +212,11 @@ class ListProcessesOfEmployee extends Component {
             return (
             <React.Fragment key={key}>
                         <tr className="tr-shadow">
+                        <td className="desc">{key+1}</td>
+                        <td className="desc">{value.code}</td>
                         <td className="desc">{value.name}</td>
                         <td className="desc">{value.description.substring(0,30) + '...' }</td>
                         <td className="desc">{this.convertTypeOfProcesses(value.type)}</td>
-                        <td className="desc">{value.created_at}</td>
                         <td >
                         <div className="table-action">
                             <a
@@ -207,6 +250,7 @@ class ListProcessesOfEmployee extends Component {
                                 href="##"
                                 className="btn btn-sm btn-outline-danger"
                                 data-toggle="modal"
+                                onClick={(e) => this.removeProcess(e,value.id)}
                             >
                                 <span className="lnr lnr-trash" />{" "}
                                 Xóa
@@ -220,7 +264,51 @@ class ListProcessesOfEmployee extends Component {
         }else{
             return <tr key={key}></tr>;
         }
-    })
+      })
+    }
+
+    handleSearch = event => {
+      var searchValue = event.target.value;
+      this.setState({search: searchValue});
+    }
+  
+    searchProcesses = (e) => {
+      e.preventDefault(); 
+      var search = this.state.search;
+      var idEmployee = this.props.match.params.id;
+      var token = localStorage.getItem('token');
+      if(search){
+        axios.get(host + `/api/company/employee/`+ idEmployee +`/search/process/` + search ,
+        {
+            headers: { 'Authorization': 'Bearer ' + token}
+        }).then(res => {
+          if(res.data.error != null){
+              this.props.showAlert({
+                message: res.data.message,
+                anchorOrigin:{
+                    vertical: 'top',
+                    horizontal: 'right'
+                },
+                title:'Thất bại',
+                severity:'error'
+              });
+          }else{
+            this.props.showAlert({
+              message: res.data.message,
+              anchorOrigin:{
+                  vertical: 'top',
+                  horizontal: 'right'
+              },
+              title:'Thành công',
+              severity:'success'
+            });
+            var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2);
+            this.setState({processes: processesResponse});
+          }
+        }).catch(function (error) {
+          alert(error);
+        });
+      }
     }
 
     render() {
@@ -277,10 +365,11 @@ class ListProcessesOfEmployee extends Component {
                                   <table className="table custom-table table-hover table-department_organization">
                                     <thead>
                                     <tr>
+                                      <th className="text-center"></th>
+                                      <th className="text-center">mã quy trình</th>
                                       <th className="text-center">tên quy trình</th>
                                       <th className="text-center">mô tả ngắn</th>
                                       <th className="text-center">thể loại</th>
-                                      <th className="text-center">Tạo lúc</th>
                                       <th />
                                     </tr>
                                   </thead>
@@ -320,4 +409,20 @@ class ListProcessesOfEmployee extends Component {
     }
 }
 
-export default ListProcessesOfEmployee
+const mapStateToProps = (state, ownProps) => {
+  return {
+
+  }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+
+    showAlert: (properties) => {
+      dispatch(actionAlerts.showMessageAlert(properties));
+    },
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (ListProcessesOfEmployee);
+
