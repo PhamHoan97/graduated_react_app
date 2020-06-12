@@ -33,6 +33,27 @@ class EmployeeProcess extends Component {
         return (isAdmin ? "Người quản trị" : "Nhân viên");
     }
 
+    convertTypeOfProcesses(type){
+        var result = '';
+        switch (type) {
+          case 1:
+            result ="Cá nhân";
+            break;
+          case 2:
+            result ="Chức vụ";
+            break;
+          case 3:
+            result ="Phòng ban";
+            break;
+          case 4:
+            result ="Công ty";
+            break;
+          default:
+            break;
+        }
+        return result;
+    }
+
     renderProcessesRow = () =>{
         var processes = this.state.processes;
         return Object.values(processes).map((value, key) => {
@@ -40,10 +61,10 @@ class EmployeeProcess extends Component {
                 return (
                     <React.Fragment key={value.id}>
                             <tr className="tr-shadow">
+                                <td>{key+1}</td>
+                                <td>{value.code}</td>
                                 <td>{value.name}</td>
-                                <td>{value.description.substr(0, 30) + '...'}</td>
-                                <td>{value.created_at}</td>
-                                <td>{this.renderCreator(value.admin_id)}</td>
+                                <td>{this.convertTypeOfProcesses(value.type)}</td>
                                 <td>
                                     <div className="table-data-feature">
                                         <button
@@ -141,10 +162,10 @@ class EmployeeProcess extends Component {
                         <table className="table table-borderless table-data3">
                             <thead>
                             <tr>
-                                <th>quy trình</th>
-                                <th>mô tả ngắn </th>
-                                <th>thời gian </th>
-                                <th>Tạo</th>
+                                <th></th>
+                                <th>mã quy trình</th>
+                                <th>tên quy trình</th>
+                                <th>thể loại </th>
                                 <th></th>
                             </tr>
                             </thead>

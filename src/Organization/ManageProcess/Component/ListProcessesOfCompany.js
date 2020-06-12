@@ -26,13 +26,19 @@ class ListProcessesOfCompany extends Component {
         }
     }
 
-    mergeProcesses(process1, process2){
+    mergeProcesses(process1, process2, process3, process4){
       var processes = [];
       for (let index1 = 0; index1 < process1.length; index1++) {
         processes.push(process1[index1]);
       }
       for (let index2 = 0; index2 < process2.length; index2++) {
         processes.push(process2[index2]);
+      }
+      for (let index3 = 0; index3 < process3.length; index3++) {
+        processes.push(process3[index3]);
+      }
+      for (let index4 = 0; index4 < process4.length; index4++) {
+        processes.push(process4[index4]);
       }
       return processes;
     }
@@ -49,7 +55,7 @@ class ListProcessesOfCompany extends Component {
           if(res.data.error != null){
               console.log(res.data.message);
           }else{
-            var processesResponse = self.mergeProcesses(res.data.processes1, res.data.processes2);
+            var processesResponse = self.mergeProcesses(res.data.processes1, res.data.processes2, res.data.processes3, res.data.processes4);
             self.setState({processes: processesResponse});
           }
         }
@@ -199,7 +205,7 @@ class ListProcessesOfCompany extends Component {
             severity:'error'
           });
         }else{
-          var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2);
+          var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2, res.data.processes3, res.data.processes4);
           this.props.showAlert({
             message: res.data.message,
             anchorOrigin:{

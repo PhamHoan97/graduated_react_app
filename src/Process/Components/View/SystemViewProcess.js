@@ -38,15 +38,19 @@ class SystemViewProcess extends Component {
         this.props.passPopupStatus(false);
     }
 
-    convertToAssignInDataStore(type, employees, roles){
+    convertToAssignInDataStore(type, employees, roles, departments){
         var assign = [];
         if(type === 1){
             for (let index = 0; index < employees.length; index++) {
                 assign.push({'value': employees[index].id, 'label': employees[index].name});
             }
-        }else{
+        }else if(type === 2){
             for (let index = 0; index < roles.length; index++) {
                 assign.push({'value': roles[index].id, 'label': roles[index].name});
+            }
+        }else if(type === 3){
+            for (let index = 0; index < departments.length; index++) {
+                assign.push({'value': departments[index].id, 'label': departments[index].name});
             }
         }
         return assign;
@@ -55,10 +59,12 @@ class SystemViewProcess extends Component {
     extractDataToComponent(process){
         var detail = {
             id:process.id,
+            code:process.code,
+            type:process.type,
             name:process.name,
             description: process.description,
             time: process.update_at,
-            assign: this.convertToAssignInDataStore(process.type, process.employees, process.roles),
+            assign: this.convertToAssignInDataStore(process.type, process.employees, process.roles, process.departments),
             deadline: process.deadline,
             document: process.document,
         }
