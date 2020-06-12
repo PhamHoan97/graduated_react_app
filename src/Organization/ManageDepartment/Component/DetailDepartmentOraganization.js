@@ -69,7 +69,7 @@ class DetailEmployeeOraganization extends Component {
   getDetailRoleOrganization = (idEditRole) =>{
     var token = localStorage.getItem('token');
     var self =  this;
-    axios.get(host + '/api/company/organization/role/edit/'+idEditRole,{
+    axios.get(host + '/api/company/organization/role/detail/'+idEditRole,{
         headers: { 'Authorization': 'Bearer ' + token }
     })
     .then(function (response) {
@@ -183,7 +183,7 @@ class DetailEmployeeOraganization extends Component {
                             onClick={(e) => this.openModalAddRole(e)}
                             className="btn btn-theme button-1 text-white ctm-border-radius p-2 add-person ctm-btn-padding"
                           >
-                            <i className="fa fa-plus" /> Thêm role
+                            <i className="fa fa-plus" /> Thêm chức vụ
                           </a>
                         </li>
                       </ul>

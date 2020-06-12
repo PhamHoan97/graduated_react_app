@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import host from '../../../Host/ServerDomain'; 
 import axios from 'axios';
 import {connect} from "react-redux";
-import {showMessageAlert} from "../../../Alert/Action/Index"
+import {showMessageAlert} from "../../../Alert/Action/Index";
+import avatarMale from "../Image/avatar_employee1.png";
+import avatarFeMale from "../Image/avatar_employee2.png";
 class AccountItem extends Component {
     deleteAccount = (e,idAccount) =>{
         e.preventDefault();
@@ -69,11 +71,39 @@ class AccountItem extends Component {
     render() {
         return (
             <tr className="row100 body">
-                <td className="cell100 column1">{this.props.email}</td>
-                <td className="cell100 column2">{this.props.username}</td>
-                <td className="cell100 column3">{this.props.name}</td>
-                <td className="cell100 column4">{this.props.department_name}</td>
-                <td className="cell100 column5">
+                <td className="cell100 column4 text-center">
+                {this.props.avatar !== null &&
+                    this.props.avatar !== "" ? (
+                    <img
+                        alt="avatar employee 1"
+                        src={
+                        host +
+                        this.props.avatar
+                        }
+                        style={{width:"50px",height:"50px",borderRadius:"50%"}}
+                        className="img-fluid"
+                    />
+                    ) : (this.props.gender) ===
+                    'Nam' ? (
+                    <img
+                        alt="avataremployee 1"
+                        src={avatarMale}
+                        style={{width:"50px",height:"50px",borderRadius:"50%"}}
+                        className="img-fluid"
+                    />
+                    ) : (
+                    <img
+                        alt="avatar employee 1"
+                        src={avatarFeMale}
+                        style={{width:"50px",height:"50px",borderRadius:"50%"}}
+                        className="img-fluid"
+                    />
+                    )}
+                </td>
+                <td className="cell100 column3 text-center">{this.props.name}</td>
+                <td className="cell100 column1 text-center">{this.props.email}</td>
+                <td className="cell100 column2 text-center">{this.props.username}</td>
+                <td className="cell100 column5 text-center">
                 <a
                     className="btn--trash__department mr-5"
                     href="###"

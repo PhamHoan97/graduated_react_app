@@ -126,7 +126,7 @@ export default class CompanyInformation extends Component {
       return (
         <>
           <div className="row">
-            <div className="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
+            <div className="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
               <div className="card dash-widget ctm-border-radius shadow-sm ">
                 <div className="card-body">
                   <div className="card-icon bg-primary">
@@ -139,7 +139,7 @@ export default class CompanyInformation extends Component {
                 </div>
               </div>
             </div>
-            <div className="col-xl-4 col-lg-6 col-sm-6 col-12">
+            <div className="col-xl-3 col-lg-6 col-sm-6 col-12">
               <div className="card dash-widget ctm-border-radius shadow-sm ">
                 <div className="card-body">
                   <div className="card-icon bg-warning">
@@ -152,7 +152,20 @@ export default class CompanyInformation extends Component {
                 </div>
               </div>
             </div>
-            <div className="col-xl-4 col-lg-6 col-sm-6 col-12">
+            <div className="col-xl-3 col-lg-6 col-sm-6 col-12">
+              <div className="card dash-widget ctm-border-radius shadow-sm ">
+                <div className="card-body">
+                  <div className="card-icon bg-danger">
+                    <i className="fa fa-star-half-o" aria-hidden="true"/>
+                  </div>
+                  <div className="card-right">
+                    <h4 className="card-title">Quy trình</h4>
+                    <p className="card-text">{this.state.statisticCompany.departments}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-3 col-lg-6 col-sm-6 col-12">
               <div className="card dash-widget ctm-border-radius shadow-sm ">
                 <div className="card-body">
                   <div className="card-icon bg-success">

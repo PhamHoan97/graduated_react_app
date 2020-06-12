@@ -244,7 +244,7 @@ class RoleOraganization extends Component {
                                 className="btn btn-theme button-1 text-white ctm-border-radius p-2 add-person ctm-btn-padding add-role"
                                 onClick={(e) => this.openModalAddRole(e)}
                               >
-                                <i className="fa fa-plus" /> Thêm mới role
+                                <i className="fa fa-plus" /> Thêm mới chức vụ
                               </a>
                               <ModalCreateRole
                                 getListRole = {this.getListRole}
