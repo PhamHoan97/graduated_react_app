@@ -11,14 +11,18 @@ class EditDetail extends Component {
         }
     }
 
-    renderAssign = (data) =>{
-        var content = '';
-        if(Array.isArray(data)){
-            for (let index = 0; index < data.length; index++) {
-                content += '<p>' + data[index].label + '</p>';
+    renderAssign = (data, type) =>{
+        if(type === 4){
+            return "Toàn bộ công ty";
+        }else {
+            var content = '';
+            if(Array.isArray(data)){
+                for (let index = 0; index < data.length; index++) {
+                    content += '<p>' + data[index].label + '</p>';
+                }
             }
+            return content;
         }
-        return content;
     } 
 
     render() {
@@ -34,6 +38,19 @@ class EditDetail extends Component {
                             <div className="col-md-5 title-footer">
                                 <h4>Thông tin</h4>
                             </div>
+                        </div> 
+                        <div className="row">
+                            <div className="col-md-2">
+                            <label
+                                htmlFor="text-input"
+                                className=" form-control-label"
+                            >
+                                Mã quy trình
+                            </label>
+                            </div>
+                            <div className="col-md-10 letf-colum-detail">
+                                <p> {this.props.detail.code}</p>
+                            </div>
                         </div>   
                         <div className="row">
                             <div className="col-md-2">
@@ -41,7 +58,7 @@ class EditDetail extends Component {
                                 htmlFor="text-input"
                                 className=" form-control-label"
                             >
-                                Tên
+                                Tên quy trình
                             </label>
                             </div>
                             <div className="col-md-10 letf-colum-detail">
@@ -84,7 +101,7 @@ class EditDetail extends Component {
                             </label>
                             </div>
                             <div className="col-md-10 letf-colum-detail form"  
-                                dangerouslySetInnerHTML={{__html: this.renderAssign(this.props.detail.assign)}}>
+                                dangerouslySetInnerHTML={{__html: this.renderAssign(this.props.detail.assign, this.props.detail.type)}}>
                             </div>
                         </div>
                         <div className="row">
@@ -136,7 +153,20 @@ class EditDetail extends Component {
                                 htmlFor="text-input"
                                 className=" form-control-label"
                             >
-                                Tên 
+                                Mã quy trình
+                            </label>
+                            </div>
+                            <div className="col-md-10 letf-colum-detail">
+                                <p> {this.props.detail.code}</p>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-2">
+                            <label
+                                htmlFor="text-input"
+                                className=" form-control-label"
+                            >
+                                Tên quy trình
                             </label>
                             </div>
                             <div className="col-md-10 letf-colum-detail">

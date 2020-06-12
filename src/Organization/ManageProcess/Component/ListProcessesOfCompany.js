@@ -152,7 +152,24 @@ class ListProcessesOfCompany extends Component {
     }
     
     convertTypeOfProcesses(type){
-      return type === 1 ? "Cá nhân" : "Chức vụ";
+      var result = '';
+      switch (type) {
+        case 1:
+          result ="Cá nhân";
+          break;
+        case 2:
+          result ="Chức vụ";
+          break;
+        case 3:
+          result ="Phòng ban";
+          break;
+        case 4:
+          result ="Công ty";
+          break;
+        default:
+          break;
+      }
+      return result;
     }
 
     editProcess = (e, id) =>{
