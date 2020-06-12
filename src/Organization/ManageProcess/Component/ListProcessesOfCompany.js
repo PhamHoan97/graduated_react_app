@@ -22,6 +22,7 @@ class ListProcessesOfCompany extends Component {
           isRedirectEdit: false,
           idEdit: '',
           idProcess: '',
+          search: '',
         }
     }
 
@@ -247,10 +248,11 @@ class ListProcessesOfCompany extends Component {
               return (
               <React.Fragment key={key}>
                          <tr className="tr-shadow">
+                          <td className="desc">{key+1}</td>
+                          <td className="desc">{value.code}</td>
                           <td className="desc">{value.name}</td>
                           <td className="desc">{value.description.substring(0,30) + '...' }</td>
                           <td className="desc">{this.convertTypeOfProcesses(value.type)}</td>
-                          <td className="desc">{value.created_at}</td>
                           <td >
                           <div className="table-action">
                               <a
@@ -299,6 +301,49 @@ class ListProcessesOfCompany extends Component {
               return <tr key={key}></tr>;
           }
       })
+    }
+
+    handleSearch = event => {
+      var searchValue = event.target.value;
+      this.setState({search: searchValue});
+    }
+  
+    searchProcesses = (e) => {
+      e.preventDefault(); 
+      var search = this.state.search;
+      var token = localStorage.getItem('token');
+      if(search){
+        axios.get(host + `/api/company/process/search/` + token + '/' + search,
+        {
+            headers: { 'Authorization': 'Bearer ' + token}
+        }).then(res => {
+          if(res.data.error != null){
+              this.props.showAlert({
+                message: res.data.message,
+                anchorOrigin:{
+                    vertical: 'top',
+                    horizontal: 'right'
+                },
+                title:'Thất bại',
+                severity:'error'
+              });
+          }else{
+            this.props.showAlert({
+              message: res.data.message,
+              anchorOrigin:{
+                  vertical: 'top',
+                  horizontal: 'right'
+              },
+              title:'Thành công',
+              severity:'success'
+            });
+            var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2);
+            this.setState({processes: processesResponse});
+          }
+        }).catch(function (error) {
+          alert(error);
+        });
+      }
     }
 
     render() {
@@ -361,10 +406,11 @@ class ListProcessesOfCompany extends Component {
                                     <table className="table custom-table table-hover table-department_organization">
                                       <thead>
                                       <tr>
+                                        <th className="text-center"></th>
+                                        <th className="text-center">mã quy trình</th>
                                         <th className="text-center">tên quy trình</th>
                                         <th className="text-center">mô tả ngắn</th>
                                         <th className="text-center">thể loại</th>
-                                        <th className="text-center">Tạo lúc</th>
                                         <th />
                                       </tr>
                                     </thead>
