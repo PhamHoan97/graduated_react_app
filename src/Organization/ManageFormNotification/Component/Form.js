@@ -9,6 +9,7 @@ import axios from "axios";
 import host from '../../../Host/ServerDomain';
 
 export default class Form extends Component {
+  _isMounted = false
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -30,7 +31,8 @@ export default class Form extends Component {
   };
 
   getlistForm = () => {
-    var self = this;
+    this._isMounted = true;
+    let self = this;
     var token = localStorage.getItem("token");
     var idAdmin = localStorage.getItem("admin_id");
     axios
@@ -38,17 +40,25 @@ export default class Form extends Component {
         headers: { Authorization: "Bearer " + token },
       })
       .then(function (response) {
-        self.setState({
-          listForm: response.data.forms,
-        });
+        if(self._isMounted){
+          self.setState({
+            listForm: response.data.forms,
+          });
+        }
       })
       .catch(function (error) {
         console.log(error);
       });
   };
+
   componentDidMount() {
     this.getlistForm();
   }
+
+  componentWillUnmount(){
+    this._isMounted = false;
+  }
+
   render() {
     return (
       <div className="inner-wrapper manage-organization_template">

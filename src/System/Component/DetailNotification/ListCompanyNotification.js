@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import { getDetailNotificationAdmin } from "../../Action/Notification/Index";
 
 class ListCompanyNotification extends Component {
+  _isMounted = false;
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -16,7 +17,8 @@ class ListCompanyNotification extends Component {
     }
   }
   componentDidMount() {
-    var self = this;
+    this._isMounted = true;
+    let self = this;
     var token = localStorage.getItem("token");
     var idAdmin = localStorage.getItem("admin_id");
     axios.post(host + "/api/system/notification/company/list",{
@@ -25,17 +27,23 @@ class ListCompanyNotification extends Component {
       headers: { Authorization: "Bearer " + token },
     })
     .then(function (response) {
-      if (response.data.error != null) {
-        console.log(response.data.error);
-      } else {
-        self.setState({
-          listCompanyNotification: response.data.notificationAdmins,
-        });
+      if(self._isMounted){
+        if (response.data.error != null) {
+          console.log(response.data.error);
+        } else {
+          self.setState({
+            listCompanyNotification: response.data.notificationAdmins,
+          });
+        }
       }
     })
     .catch(function (error) {
       console.log(error);
     });
+  }
+
+  componentWillUnmount(){
+    this._isMounted = false;
   }
 
   getDetailNotificationToAdmin = (idNotificationAdmin) =>{

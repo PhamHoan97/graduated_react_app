@@ -8,6 +8,7 @@ import axios from 'axios';
 import host from '../../../Host/ServerDomain';
 import Alert from '@material-ui/lab/Alert';
 export default class CreateTemplateForm extends Component {
+  _isMounted = false;
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -32,19 +33,22 @@ export default class CreateTemplateForm extends Component {
   }
 
   getListTypeSystem = () => {
-    var self =  this;
+    this._isMounted = true;
+    let self = this;
     var token = localStorage.getItem('token');
     axios.get(host + "/api/system/notification/type/list",{
       headers: { 'Authorization': 'Bearer ' + token }
     })
     .then(function (response) {
-      if (response.data.error != null) {
-        console.log(response.data.error);
-      }else{
-        self.setState({
-          listTypeSystem:response.data.types
-        })
-      }
+      if(self._isMounted){
+        if (response.data.error != null) {
+          console.log(response.data.error);
+        }else{
+          self.setState({
+            listTypeSystem:response.data.types
+          })
+        }
+     }
     })
     .catch(function (error) {
         console.log(error);
@@ -52,24 +56,31 @@ export default class CreateTemplateForm extends Component {
   };
 
   getListAllTemplateSystem = () => {
-    var self =  this;
+    this._isMounted = true;
+    let self = this;
     var token = localStorage.getItem('token');
     axios.get(host + "/api/system/notification/template/list",{
       headers: { 'Authorization': 'Bearer ' + token }
     })
     .then(function (response) {
-      if (response.data.error != null) {
-        console.log(response.data.error);
-      }else{
-        self.setState({
-          listTemplate:response.data.templates
-        })
+      if(self._isMounted){
+        if (response.data.error != null) {
+          console.log(response.data.error);
+        }else{
+          self.setState({
+            listTemplate:response.data.templates
+          })
+        }
       }
     })
     .catch(function (error) {
         console.log(error);
     });
   };
+
+  componentWillUnmount(){
+    this._isMounted = false;
+  }
 
   handleClickNewFormBuilder = () => {
     var templates = document.getElementsByClassName("new-template");

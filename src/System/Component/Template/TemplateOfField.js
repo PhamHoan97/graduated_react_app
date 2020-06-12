@@ -12,6 +12,7 @@ import {connect} from 'react-redux';
 import * as actions from '../../../Alert/Action/Index';
 
 class TemplateOfField extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props)
 
@@ -27,20 +28,28 @@ class TemplateOfField extends Component {
     }
     
     componentDidMount() {
+        this._isMounted = true;
+        let self = this;
         var field_id = this.props.match.params.id;
         var token = localStorage.getItem('token');
         axios.get(host + `/api/system/template/field/` + field_id,
         {
             headers: { 'Authorization': 'Bearer ' + token}
         }).then(res => {
-          if(res.data.error != null){
-              console.log(res.data.error);
-          }else{ 
-            this.setState({processes: res.data.processes, field: res.data.field});
-          }
+            if(self._isMounted){
+                if(res.data.error != null){
+                    console.log(res.data.error);
+                }else{ 
+                    self.setState({processes: res.data.processes, field: res.data.field});
+                }
+            }
         }).catch(function (error) {
           alert(error);
         });
+    }
+
+    componentWillUnmount(){
+        this._isMounted = false;
     }
 
     handleCssPage =(e,type,currentPage)=>{

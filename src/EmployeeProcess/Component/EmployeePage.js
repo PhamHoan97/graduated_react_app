@@ -6,6 +6,7 @@ import * as actions from '../Actions/Index';
 import host from '../../Host/ServerDomain'; 
 
 class EmployeePage extends Component {
+    _isMounted = false
     constructor(props) {
         super(props)
 
@@ -37,23 +38,31 @@ class EmployeePage extends Component {
     }
 
     componentDidMount() {
+        this._isMounted = true;
+        let self = this;
         var token = localStorage.getItem('token');
         axios.get(host + `/api/employee/data/` + token,
         {
             headers: { 'Authorization': 'Bearer ' + token}
         }).then(res => {
-          if(res.data.error != null){
-              console.log(res.data.message);
-          }else{
-              var data = {...res.data.employee, company: res.data.company, department:res.data.department};
-              var employee = res.data.employee;
-                 employee.username_account = res.data.username_account;
-              this.props.updateEmployeeInformation(res.data.employee);
-              this.setState({employee: data});
-          }
+            if(self._isMounted){
+                if(res.data.error != null){
+                    console.log(res.data.message);
+                }else{
+                    var data = {...res.data.employee, company: res.data.company, department:res.data.department};
+                    var employee = res.data.employee;
+                        employee.username_account = res.data.username_account;
+                    self.props.updateEmployeeInformation(res.data.employee);
+                    self.setState({employee: data});
+                }
+            }
         }).catch(function (error) {
           alert(error);
         });
+    }
+
+    componentWillUnmount(){
+        this._isMounted = false;
     }
 
     render() {
