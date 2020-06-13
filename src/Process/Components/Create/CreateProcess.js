@@ -7,6 +7,7 @@ import '../../Css/Process.css';
 import {connect} from 'react-redux';
 import * as actions from '../../Actions/Index';
 import Detail from "../View/Detail";
+import {updateProcessInformation} from '../../../Organization/ManageProcess/Actions/Index';
 
 class CreateProcess extends Component {
     constructor(props) {
@@ -23,10 +24,24 @@ class CreateProcess extends Component {
         this.props.passPopupStatus(true);
     }
 
+    initStatusPopup = () => {
+        this.setState({openDetails:true});
+        this.props.passPopupStatus(true);
+    }
+
     closePopup = (event) => {
         event.preventDefault();
         this.setState({openDetails:false});
         this.props.passPopupStatus(false);
+    }
+
+    UNSAFE_componentWillMount() {
+        var processInfo = localStorage.getItem("processInfo");
+        if(processInfo){
+            var information = JSON.parse(processInfo);
+            this.props.updateProcessInformation(information);
+        }
+        this.initStatusPopup();
     }
 
     UNSAFE_componentWillReceiveProps (nextProps) {
@@ -113,6 +128,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         passPopupStatus: (status) => {
             dispatch(actions.passPopupStatus(status));
         },
+        updateProcessInformation: (information) => {
+            dispatch(updateProcessInformation(information));
+          },
     }
 }
 

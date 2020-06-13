@@ -158,6 +158,7 @@ class Header extends Component {
 
     backToHomePage = (e) => {
         e.preventDefault();
+        localStorage.removeItem("processInfo");
         this.props.resetActionToDiagram();
         this.setState({isBackHomeCompany:true});
     }

@@ -261,6 +261,7 @@ class ProcessCompany extends Component {
 
   handleOpenAddNewProcessModal = (e) => {
     e.preventDefault();
+    localStorage.removeItem("processInfo");
     this.props.resetProcessInformation();
     this.props.resetImportBpmnFile();
     this.props.resetActionToDiagram();

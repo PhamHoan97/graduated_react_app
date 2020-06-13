@@ -188,6 +188,7 @@ class FormAddProcessModal extends Component {
           file: this.state.file,
           type: this.state.type,
         }
+        localStorage.setItem("processInfo",  JSON.stringify(information));
         this.props.updateProcessInformation(information);
         this.setState({redirect: true});
       }

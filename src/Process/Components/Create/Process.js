@@ -115,7 +115,8 @@ class Process extends Component {
               title:'Thành công',
               severity:'success'
             });
-            this.setState({redirectEdit:true,idProcess: res.data.process.id});
+            localStorage.removeItem("processInfo");
+            this.setState({redirectEdit:true, idProcess: res.data.process.id});
           }
         }).catch(function (error) {
           alert(error);
@@ -279,8 +280,6 @@ class Process extends Component {
                 canvas.zoom(currentScale);
             }
           });
-          // var eventBus = this.modeler.get('eventBus');
-          // console.log(eventBus);
           this.modeler.on('element.click',1000, (e) => this.interactPopup(e));
     
           this.modeler.on('shape.remove',1000, (e) => this.deleteElements(e));
@@ -296,7 +295,6 @@ class Process extends Component {
 
       });
       // var eventBus = this.modeler.get('eventBus');
-      // console.log(eventBus);
       this.modeler.on('element.click',1000, (e) => this.interactPopup(e));
 
       this.modeler.on('shape.remove',1000, (e) => this.deleteElements(e));
