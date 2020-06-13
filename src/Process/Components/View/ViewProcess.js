@@ -33,6 +33,11 @@ class ViewProcess extends Component {
         this.props.passPopupStatus(false);
     }
 
+    initStatusPopup = () => {
+        this.setState({openDetails:true});
+        this.props.passPopupStatus(true);
+    }
+
     convertToAssignInDataStore(type, employees, roles, departments){
         var assign = [];
         if(type === 1){
@@ -128,8 +133,9 @@ class ViewProcess extends Component {
           if(res.data.error != null){
               console.log(res.data.message);
           }else{
-              this.extractDataToComponent(res.data.process);
-              this.setState({initDiagram: res.data.process.xml});
+                this.initStatusPopup();
+                this.extractDataToComponent(res.data.process);
+                this.setState({initDiagram: res.data.process.xml});
           }
         }).catch(function (error) {
           alert(error);

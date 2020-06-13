@@ -141,7 +141,7 @@ class EditProcess extends Component {
               console.log(res.data.message);
           }else{
               if(self._isMounted){
-                  this.initStatusPopup();
+                this.initStatusPopup();
                 self.extractDataToComponent(res.data.process);
                 self.setState({initDiagram: res.data.process.xml});
               }

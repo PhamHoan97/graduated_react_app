@@ -103,16 +103,32 @@ class Process extends Component {
 
     componentDidMount (){
         this.modeler.attachTo('#create-process-template-diagram');
-        this.modeler.importXML(this.initialDiagram, function(err) {
-
+        var modeler = this.modeler;
+        modeler.importXML(this.initialDiagram, function(err) {
+            modeler.get('canvas').zoom('fit-viewport');
         });
     }
 
     componentDidUpdate (){
         if(this.initialDiagram && !this.state.isRedirectEdit){
             this.modeler.attachTo('#create-process-template-diagram');
-            this.modeler.importXML(this.initialDiagram, function(err) {
-    
+            var modeler = this.modeler;
+            modeler.importXML(this.initialDiagram, function(err) {
+                var canvas = modeler.get('canvas');
+                canvas.zoom('fit-viewport');
+                var viewBox = canvas._cachedViewbox;
+                if(viewBox){
+                    var currentScale = canvas._cachedViewbox.scale;
+                    currentScale -= 0.2;
+                    canvas.zoom(currentScale);
+                }
+                // var xPoint = canvas._cachedViewbox.inner.x;
+                // var yPoint = canvas._cachedViewbox.inner.y;
+                // var xTransform = 160 - xPoint;
+                // var yTransform = 30 - yPoint;
+                // var viewPort = document.getElementsByClassName("viewport");
+                // var matrixTranform = "matrix( 1, 0, 0, 1,"+ xTransform +", " + yTransform +")";
+                // viewPort[0].style.transform  = matrixTranform;
             });
         }
     }
