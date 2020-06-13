@@ -124,7 +124,6 @@ class EditProcess extends Component {
         this.props.updateProcessInformation(detail);
         this.props.extractDataElementWhenEdit(elements, notes, comments);
         this.props.changeHeaderStatusToEdit();
-        this.props.resetActionToDiagram();
     }
 
 
@@ -249,10 +248,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         },
         changeHeaderStatusToEdit: () => {
             dispatch(actions.changeHeaderStatusToEdit());
-        },     
-        resetActionToDiagram: () => {
-            dispatch(actions.resetActionToDiagram());
-        },      
+        },          
     }
 }
 
