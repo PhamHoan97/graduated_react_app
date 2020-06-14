@@ -12,6 +12,7 @@ import { NavLink } from "react-router-dom";
 import {connect} from "react-redux"
 import {editRoleOrganization} from "../Action/Index";
 import {showMessageAlert} from "../../../Alert/Action/Index";
+import ReactPaginate from "react-paginate";
 
 class RoleOraganization extends Component {
   _isMounted = false;
@@ -24,6 +25,10 @@ class RoleOraganization extends Component {
       idDepartmentSearch:0,
       showModalNewRole: false,
       showModalEditRole: false,
+      offset: 0,
+      perPage: 10,
+      currentPage: 0,
+      pageCount: 0,
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -48,7 +53,14 @@ class RoleOraganization extends Component {
       showModalNewRole: false,
     });
   };
-  
+  handlePageClick = (e) => {
+    const selectedPage = e.selected;
+    const offset = selectedPage * this.state.perPage;
+    this.setState({
+      currentPage: selectedPage,
+      offset: offset,
+    });
+  };
   componentDidMount() {
     this.getListRole();
     this.getListDepartment();
@@ -69,6 +81,9 @@ class RoleOraganization extends Component {
           } else {
             self.setState({
               listRole: JSON.parse(JSON.stringify(response.data.roles)),
+              pageCount: Math.ceil(
+                response.data.roles.length / self.state.perPage
+              ),
             });
           }
         }
@@ -341,7 +356,12 @@ class RoleOraganization extends Component {
                                 </thead>
                                 <tbody className="text-center">
                                   {this.state.listRole.length !== 0 ? (
-                                    Object.values(this.state.listRole).map(
+                                    Object.values(
+                                      this.state.listRole.slice(
+                                        this.state.offset,
+                                        this.state.offset + this.state.perPage
+                                      )
+                                      ).map(
                                       (role, index) => {
                                         return (
                                           <tr key={index}>
@@ -412,6 +432,25 @@ class RoleOraganization extends Component {
                                   )}
                                 </tbody>
                               </table>
+                            </div>
+                          </div>
+                          <div className="row mt-5">
+                            <div className="col-md-4"></div>
+                            <div className="col-md-4 text-center">
+                              <ReactPaginate
+                                previousLabel={"Trước"}
+                                nextLabel={"Sau"}
+                                breakLabel={"..."}
+                                breakClassName={"break-me"}
+                                pageCount={this.state.pageCount}
+                                marginPagesDisplayed={2}
+                                pageRangeDisplayed={5}
+                                onPageChange={this.handlePageClick}
+                                containerClassName={"pagination"}
+                                subContainerClassName={"pages pagination"}
+                                activeClassName={"active"}
+                              />
+                              <div className="col-md-4"></div>
                             </div>
                           </div>
                         </div>

@@ -13,6 +13,7 @@ import {connect} from "react-redux"
 import ModalEditEmployeeRole from "./ModalEditEmployeeRole";
 import {NavLink} from "react-router-dom";
 import {showMessageAlert} from "../../../Alert/Action/Index";
+import ReactPaginate from "react-paginate";
 function isEmpty(obj) {
   for(var key in obj) {
       if(obj.hasOwnProperty(key))
@@ -28,6 +29,10 @@ class DetailRole extends Component {
       detailRole: {},
       showModalNewEmployee: false,
       showModalEditEmployee: false,
+      offset: 0,
+      perPage: 10,
+      currentPage: 0,
+      pageCount: 0,
     };
   }
 
@@ -55,6 +60,9 @@ class DetailRole extends Component {
             var detailRole = JSON.parse(JSON.stringify(response.data.detailRole));
             self.setState({
               detailRole: detailRole,
+              pageCount: Math.ceil(
+                detailRole.employees.length / self.state.perPage
+              ),
             });
           }
         }
@@ -76,6 +84,15 @@ class DetailRole extends Component {
     e.stopPropagation();
     this.setState({
       showModalNewEmployee: true,
+    });
+  };
+
+  handlePageClick = (e) => {
+    const selectedPage = e.selected;
+    const offset = selectedPage * this.state.perPage;
+    this.setState({
+      currentPage: selectedPage,
+      offset: offset,
     });
   };
 
@@ -207,7 +224,10 @@ class DetailRole extends Component {
                               <div className="row">
                                 <div className="col-md-9">
                                   <h4 className="page-title_detailEmployee">
-                                    Danh sách nhân viên 
+                                    Số lượng nhân viên :
+                                    <span style={{ color: "red",fontSize:"30px"}}>
+                                      {" "+this.state.detailRole.employees.length}
+                                    </span>
                                   </h4>
                                 </div>
                                 <div className="col-md-3">
@@ -255,7 +275,10 @@ class DetailRole extends Component {
                                     {this.state.detailRole.employees.length !==
                                     0 ? (
                                       Object.values(
-                                        this.state.detailRole.employees
+                                        this.state.detailRole.employees.slice(
+                                          this.state.offset,
+                                          this.state.offset + this.state.perPage
+                                        )
                                       ).map((employee, index) => {
                                         return (
                                           <tr key={index}>
@@ -366,6 +389,83 @@ class DetailRole extends Component {
                                     )}
                                   </tbody>
                                 </table>
+                              </div>
+                            </div>
+                            <div className="row mt-5">
+                              <div className="col-md-4"></div>
+                              <div className="col-md-4 text-center">
+                                <ReactPaginate
+                                  previousLabel={"Trước"}
+                                  nextLabel={"Sau"}
+                                  breakLabel={"..."}
+                                  breakClassName={"break-me"}
+                                  pageCount={this.state.pageCount}
+                                  marginPagesDisplayed={2}
+                                  pageRangeDisplayed={5}
+                                  onPageChange={this.handlePageClick}
+                                  containerClassName={"pagination"}
+                                  subContainerClassName={"pages pagination"}
+                                  activeClassName={"active"}
+                                />
+                                <div className="col-md-4"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row text-left">
+                      <div className="col-md-12 d-flex">
+                        <div className="ctm-border-radius shadow-sm card ">
+                          <div className="card-body">
+                            <div className="page-header mb-5">
+                              <div className="row">
+                                <div className="col-md-9">
+                                  <h4 className="page-title_detailEmployee">
+                                    Số lượng quy trình :
+                                    <span style={{ color: "red",fontSize:"30px"}}>
+                                    {" "+20}
+                                    </span>
+                                  </h4>
+                                </div>
+                                <div className="col-md-3">
+                                </div>
+                              </div>
+                            </div>
+                            <div className="table-back employee-office-table">
+                              <div className="table-responsive">
+                                <table className="table custom-table table-hover table-hover">
+                                  <thead>
+                                    <tr>
+                                      <th>Tên</th>
+                                      <th>Phòng ban</th>
+                                      <th>Vai trò</th>
+                                      <th>Email</th>
+                                      <th>Hành động</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                            <div className="row mt-5">
+                              <div className="col-md-4"></div>
+                              <div className="col-md-4 text-center">
+                                <ReactPaginate
+                                  previousLabel={"Trước"}
+                                  nextLabel={"Sau"}
+                                  breakLabel={"..."}
+                                  breakClassName={"break-me"}
+                                  pageCount={this.state.pageCount}
+                                  marginPagesDisplayed={2}
+                                  pageRangeDisplayed={5}
+                                  onPageChange={this.handlePageClick}
+                                  containerClassName={"pagination"}
+                                  subContainerClassName={"pages pagination"}
+                                  activeClassName={"active"}
+                                />
+                                <div className="col-md-4"></div>
                               </div>
                             </div>
                           </div>

@@ -13,7 +13,8 @@ export default class ModalCreateRoleDepartment extends Component {
       errors: {},
       newNameRole: "",
       newDescriptionRole: "",
-      newIsProcessRole: false,
+      newIsCreateProcessRole: false,
+      newIsEditProcessRole: false,
     };
     const rules = [
       {
@@ -41,10 +42,7 @@ export default class ModalCreateRoleDepartment extends Component {
 
   handleChange(event) {
     const name = event.target.name;
-    const value =
-      event.target.name === "newIsProcessRole"
-        ? event.target.checked
-        : event.target.value;
+    const value = (event.target.name === "newIsCreateProcessRole" || event.target.name === "newIsEditProcessRole")?event.target.checked:event.target.value;
     this.setState({
       [name]: value,
     });
@@ -106,12 +104,23 @@ export default class ModalCreateRoleDepartment extends Component {
               <div className="form-group">
                 <input
                   type="checkbox"
-                  name="newIsProcessRole"
-                  checked={this.state.newIsProcessRole}
+                  name="newIsCreateProcessRole"
+                  checked={this.state.newIsCreateProcessRole}
                   onChange={(event) => this.handleChange(event)}
                 />
                 <label htmlFor="name" className="ml-2">
                   Quyền tạo quy trình
+                </label>
+              </div>
+              <div className="form-group">
+                <input
+                  type="checkbox"
+                  name="newIsEditProcessRole"
+                  checked={this.state.newIsEditProcessRole}
+                  onChange={(event) => this.handleChange(event)}
+                />
+                <label htmlFor="name" className="ml-2">
+                  Quyền sửa quy trình
                 </label>
               </div>
               <div className="form-group text-left">
@@ -164,7 +173,8 @@ export default class ModalCreateRoleDepartment extends Component {
           {
             newNameRole: this.state.newNameRole,
             newDescriptionRole: this.state.newDescriptionRole,
-            newIsProcessRole: this.state.newIsProcessRole,
+            newIsCreateProcessRole: this.state.newIsCreateProcessRole,
+            newIsEditProcessRole: this.state.newIsEditProcessRole,
             newDepartmentRole: this.props.idDepartment,
           },
           {
@@ -178,6 +188,8 @@ export default class ModalCreateRoleDepartment extends Component {
             self.setState({
               newNameRole: "",
               newDescriptionRole: "",
+              newIsCreateProcessRole: false,
+              newIsEditProcessRole: false,
               isDisplayAlertSuccess: true,
             });
             setTimeout(() => {

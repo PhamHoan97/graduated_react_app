@@ -653,8 +653,7 @@ class EmployeeOrganization extends Component {
                 </div>
                 {/* End Content Employee Organization */}
                 <div className="row">
-                  <div className="col-md-3"></div>
-                  <div className="col-md-5"></div>
+                  <div className="col-md-4"></div>
                   <div className="col-md-4 text-center">
                     <ReactPaginate
                       previousLabel={"Trước"}
@@ -669,6 +668,7 @@ class EmployeeOrganization extends Component {
                       subContainerClassName={"pages pagination"}
                       activeClassName={"active"}
                     />
+                     <div className="col-md-4"></div>
                   </div>
                 </div>
               </div>
