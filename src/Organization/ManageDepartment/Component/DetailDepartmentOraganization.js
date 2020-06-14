@@ -12,6 +12,7 @@ import {editRoleOrganization} from "../Action/Index";
 import {NavLink} from "react-router-dom";
 import LinkPage from "../../LinkPage";
 import {showMessageAlert} from "../../../Alert/Action/Index";
+import ReactPaginate from "react-paginate";
 class DetailEmployeeOraganization extends Component {
   _isMounted = false;
   constructor(props, context) {
@@ -20,6 +21,10 @@ class DetailEmployeeOraganization extends Component {
       detailCompany: [],
       showModalNewRole: false,
       showModalEditRole: false,
+      offset: 0,
+      perPage: 3,
+      currentPage: 0,
+      pageCount: 0,
     };
   }
 
@@ -45,6 +50,9 @@ class DetailEmployeeOraganization extends Component {
               detailCompany: JSON.parse(
                 JSON.stringify(response.data.detailDepartment)
               ),
+              pageCount: Math.ceil(
+                response.data.detailDepartment.role.length / self.state.perPage
+              ),
             });
           }
         }
@@ -52,6 +60,15 @@ class DetailEmployeeOraganization extends Component {
       .catch(function (error) {
         console.log(error);
       });
+  };
+
+  handlePageClick = (e) => {
+    const selectedPage = e.selected;
+    const offset = selectedPage * this.state.perPage;
+    this.setState({
+      currentPage: selectedPage,
+      offset: offset,
+    });
   };
 
   UNSAFE_componentWillMount() {
@@ -69,7 +86,7 @@ class DetailEmployeeOraganization extends Component {
   getDetailRoleOrganization = (idEditRole) =>{
     var token = localStorage.getItem('token');
     var self =  this;
-    axios.get(host + '/api/company/organization/role/edit/'+idEditRole,{
+    axios.get(host + '/api/company/organization/role/detail/'+idEditRole,{
         headers: { 'Authorization': 'Bearer ' + token }
     })
     .then(function (response) {
@@ -159,7 +176,8 @@ class DetailEmployeeOraganization extends Component {
               <div className="col-xl-9 col-lg-8  col-md-12">
                 <div className="quicklink-sidebar-menu ctm-border-radius shadow-sm bg-white card">
                   <LinkPage linkPage="Phòng ban / Chi tiết"/>
-                  <div className="shadow-sm  ctm-border-radius">
+                </div>
+                <div className="card shadow-sm  ctm-border-radius">
                     <div className="card-body align-center">
                       <ul className="nav nav-tabs float-right border-0 tab-list-emp">
                         <ModalCreateRoleDepartment
@@ -182,7 +200,7 @@ class DetailEmployeeOraganization extends Component {
                             onClick={(e) => this.openModalAddRole(e)}
                             className="btn btn-theme button-1 text-white ctm-border-radius p-2 add-person ctm-btn-padding"
                           >
-                            <i className="fa fa-plus" /> Thêm role
+                            <i className="fa fa-plus" /> Thêm chức vụ
                           </a>
                         </li>
                       </ul>
@@ -203,7 +221,12 @@ class DetailEmployeeOraganization extends Component {
                         </div>
                         <div className="card-body">
                           <div className="row people-grid-row">
-                            {Object.values(this.state.detailCompany.role).map(
+                            {Object.values(
+                              this.state.detailCompany.role.slice(
+                                this.state.offset,
+                                this.state.offset + this.state.perPage
+                              )
+                              ).map(
                               (role, index) => {
                                 return (
                                   <div className="col-md-6 col-lg-6 col-xl-4" key={index}>
@@ -272,11 +295,71 @@ class DetailEmployeeOraganization extends Component {
                               }
                             )}
                           </div>
+                          <div className="row mt-5">
+                              <div className="col-md-4"></div>
+                              <div className="col-md-4 text-center">
+                                <ReactPaginate
+                                  previousLabel={"Trước"}
+                                  nextLabel={"Sau"}
+                                  breakLabel={"..."}
+                                  breakClassName={"break-me"}
+                                  pageCount={this.state.pageCount}
+                                  marginPagesDisplayed={2}
+                                  pageRangeDisplayed={5}
+                                  onPageChange={this.handlePageClick}
+                                  containerClassName={"pagination"}
+                                  subContainerClassName={"pages pagination"}
+                                  activeClassName={"active"}
+                                />
+                              </div>
+                              <div className="col-md-4"></div>
+                            </div>
                         </div>
                      </div>
                     ) : (
                       <div></div>
                     )}
+                  </div>
+                  <div className="card shadow-sm ctm-border-radius  manage-department_organization">
+                  <div className="card-header d-flex align-items-center justify-content-between">
+                    <h4 className="card-title mb-0 d-inline-block">
+                        Số lượng quy trình :
+                        <span style={{ color: "red",fontSize:"30px"}}>
+                        {" "+20}</span>
+                    </h4>
+                  </div>
+                  <div className="card-body align-center">
+                    <div className="tab-content" id="v-pills-tabContent">
+                      {/* Tab1*/}
+                      <div
+                        className="tab-pane fade active show"
+                        id="v-pills-home"
+                        role="tabpanel"
+                        aria-labelledby="v-pills-home-tab"
+                      >
+                        <div className="employee-office-table">
+                          <div className="table-responsive">
+                            <table className="table custom-table table-hover table-department_organization">
+                              <thead>
+                                <tr>
+                                  <th style={{ width: "15%" }} className="cell-breakWord">Tên</th>
+                                  <th
+                                    style={{ width: "40%" }}
+                                    className="cell-breakWord"
+                                  >
+                                    Miêu tả
+                                  </th>
+                                  <th style={{ width: "10%" }}>Viết tắt</th>
+                                  <th style={{ width: "35%" }}>Hành động</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

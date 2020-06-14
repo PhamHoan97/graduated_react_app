@@ -7,7 +7,8 @@ import LinkPage from "../../LinkPage";
 import avatarMale from "../Image/avatar_employee1.png";
 import avatarFeMale from "../Image/avatar_employee2.png";
 import axios from "axios";
-import host from '../../../Host/ServerDomain'; 
+import host from "../../../Host/ServerDomain";
+import { NavLink } from "react-router-dom";
 function isEmpty(obj) {
   for (var key in obj) {
     if (obj.hasOwnProperty(key)) return false;
@@ -36,7 +37,7 @@ export default class DetailEmployeeOraganization extends Component {
         }
       )
       .then(function (response) {
-        if(self._isMounted){
+        if (self._isMounted) {
           if (response.data.error != null) {
             console.log(response.data.error);
           } else {
@@ -59,7 +60,7 @@ export default class DetailEmployeeOraganization extends Component {
   componentWillUnmount() {
     this._isMounted = false;
   }
- 
+
   render() {
     return (
       <div className="inner-wrapper manage-organization_template">
@@ -83,7 +84,7 @@ export default class DetailEmployeeOraganization extends Component {
               </div>
               <div className="col-xl-9 col-lg-8  col-md-12">
                 <div className="quicklink-sidebar-menu ctm-border-radius shadow-sm bg-white card">
-                  <LinkPage linkPage="Nhân viên / Chi tiết "/>
+                  <LinkPage linkPage="Nhân viên / Chi tiết " />
                 </div>
                 {/*Content Detail Employee Organization */}
                 <div className="row manage-detailemployee_company text-left">
@@ -118,7 +119,8 @@ export default class DetailEmployeeOraganization extends Component {
                                           }
                                           className="img-fluid"
                                         />
-                                      ) : (this.state.detailEmployee.gender === "Nam") ? (
+                                      ) : this.state.detailEmployee.gender ===
+                                        "Nam" ? (
                                         <img
                                           alt="avataremployee 1"
                                           src={avatarMale}
@@ -202,8 +204,8 @@ export default class DetailEmployeeOraganization extends Component {
                                               <a href="##">
                                                 {" "}
                                                 {
-                                                   this.state.detailEmployee
-                                                   .gender
+                                                  this.state.detailEmployee
+                                                    .gender
                                                 }
                                               </a>
                                             </div>
@@ -234,6 +236,93 @@ export default class DetailEmployeeOraganization extends Component {
                   </div>
                 </div>
                 {/* End Content Detail Employee Organization */}
+                <div className="card shadow-sm ctm-border-radius  manage-department_organization">
+                  <div className="card-header d-flex align-items-center justify-content-between">
+                    <h4 className="card-title mb-0 d-inline-block">
+                      Số lượng quy trình :
+                      <span style={{ color: "red", fontSize: "30px" }}>
+                        {" " + 20}
+                      </span>
+                    </h4>
+                  </div>
+                  <div className="card-body align-center">
+                    <div className="tab-content" id="v-pills-tabContent">
+                      {/* Tab1*/}
+                      <div
+                        className="tab-pane fade active show"
+                        id="v-pills-home"
+                        role="tabpanel"
+                        aria-labelledby="v-pills-home-tab"
+                      >
+                        <div className="employee-office-table">
+                          <div className="table-responsive">
+                            <table className="table custom-table table-hover table-department_organization">
+                              <thead>
+                                <tr>
+                                  <th
+                                    style={{ width: "15%" }}
+                                    className="cell-breakWord"
+                                  >
+                                    Tên
+                                  </th>
+                                  <th
+                                    style={{ width: "40%" }}
+                                    className="cell-breakWord"
+                                  >
+                                    Miêu tả
+                                  </th>
+                                  <th style={{ width: "10%" }}>Viết tắt</th>
+                                  <th style={{ width: "35%" }}>Hành động</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td
+                                    style={{ width: "15%" }}
+                                    className="cell-breakWord"
+                                  >
+                                    {" "}
+                                  </td>
+                                  <td
+                                    style={{ width: "40%" }}
+                                    className="cell-breakWord"
+                                  ></td>
+                                  <td style={{ width: "10%" }}></td>
+                                  <td style={{ width: "35%" }}>
+                                    <div className="table-action">
+                                      <NavLink
+                                        to={""}
+                                        exact
+                                        className="btn btn-sm btn-outline-success"
+                                      >
+                                        <span className="lnr lnr-pencil" /> Chi
+                                        tiết
+                                      </NavLink>
+                                      <a
+                                        href="edit-review.html"
+                                        className="btn btn-sm btn-outline-success"
+                                      >
+                                        <span className="lnr lnr-pencil" /> Sửa
+                                      </a>
+                                      <a
+                                        href="##"
+                                        className="btn btn-sm btn-outline-danger"
+                                        data-toggle="modal"
+                                        data-target="#delete"
+                                      >
+                                        <span className="lnr lnr-trash" /> Xóa
+                                      </a>
+                                    </div>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

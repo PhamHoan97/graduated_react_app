@@ -145,7 +145,7 @@ class ModalEditDepartment extends Component {
 
     displayAlert = () => {
         if (this.state.isDisplayAlert) {
-        return <Alert severity="success">Lưu thành công !!!</Alert>;
+        return <Alert severity="success">Lưu thành công</Alert>;
         } else {
         return <div></div>;
         }

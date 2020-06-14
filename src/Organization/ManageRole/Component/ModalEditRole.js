@@ -17,7 +17,8 @@ class ModalEditRole extends Component {
       errorChooseDepartment: {},
       editNameRole: this.props.editRole.name,
       editDescriptionRole: this.props.editRole.description,
-      editIsProcessRole: this.props.editRole.is_process,
+      editIsCreateProcessRole: this.props.editRole.is_create_process,
+      editIsEditProcessRole: this.props.editRole.is_edit_process,
       editDepartmentRole: this.props.editRole.department_id,
     };
     const rules = [
@@ -77,10 +78,8 @@ class ModalEditRole extends Component {
 
   handleChange(event) {
     const name = event.target.name;
-    const value =
-      event.target.name === "editIsProcessRole"
-        ? event.target.checked
-        : event.target.value;
+    const value = (event.target.name === "editIsCreateProcessRole" || event.target.name === "editIsEditProcessRole")
+    ?event.target.checked:event.target.value;
     this.setState({
       [name]: value,
     });
@@ -176,12 +175,23 @@ class ModalEditRole extends Component {
               <div className="form-group">
                 <input
                   type="checkbox"
-                  name="editIsProcessRole"
-                  checked={this.state.editIsProcessRole}
+                  name="editIsCreateProcessRole"
+                  checked={this.state.editIsCreateProcessRole}
                   onChange={(event) => this.handleChange(event)}
                 />
                 <label htmlFor="name" className="ml-2">
                   Quyền tạo quy trình
+                </label>
+              </div>
+              <div className="form-group">
+                <input
+                  type="checkbox"
+                  name="editIsEditProcessRole"
+                  checked={this.state.editIsEditProcessRole}
+                  onChange={(event) => this.handleChange(event)}
+                />
+                <label htmlFor="name" className="ml-2">
+                  Quyền sửa quy trình
                 </label>
               </div>
               <div className="form-group text-left">
@@ -244,7 +254,8 @@ class ModalEditRole extends Component {
           {
             editNameRole: this.state.editNameRole,
             editDescriptionRole: this.state.editDescriptionRole,
-            editIsProcessRole: this.state.editIsProcessRole,
+            editIsCreateProcessRole: this.state.editIsCreateProcessRole,
+            editIsEditProcessRole: this.state.editIsEditProcessRole,
             idChooseRole: this.props.editRole.id,
             idChooseDepartment: this.state.editDepartmentRole,
           },
