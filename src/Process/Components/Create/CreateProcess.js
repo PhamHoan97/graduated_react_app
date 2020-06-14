@@ -72,6 +72,7 @@ class CreateProcess extends Component {
                                 </div>
                             </div>
                         </div>
+                        <div className="space-area"></div>
                         <div className="row footer-view-process">  
                             <div className="col-md-6">
                                 <Detail />
@@ -101,6 +102,7 @@ class CreateProcess extends Component {
                                 </div>
                             </div>
                         </div>
+                        <div className="space-area"></div>
                         <div className="row footer-view-process">  
                             <div className="col-md-6">
                                 <Detail />

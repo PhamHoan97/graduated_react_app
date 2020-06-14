@@ -133,7 +133,7 @@ export default class ProcessDetailCompanyContainer extends Component {
         if(parseInt(idChooseDepartment) === 0){
             axios.get(host + "/api/system/dashboard/process/company/"+this.props.idCompany)
             .then(function (response) {
-                var prosesses = self.mergeProcesses(response.data.processes1, response.data.processes2);
+                var prosesses = self.mergeProcesses(response.data.processes1, response.data.processes2, response.data.processes3, response.data.processes4);
                 self.setState({
                     listProcessDepartmentCompany: prosesses
                 })
@@ -144,7 +144,7 @@ export default class ProcessDetailCompanyContainer extends Component {
         }else{
             axios.get(host + "/api/system/dashboard/process/department/"+idChooseDepartment+"/company/"+this.props.idCompany)
             .then(function (response) {
-                var prosesses = self.mergeProcesses(response.data.processes1, response.data.processes2);
+                var prosesses = self.mergeProcesses(response.data.processes1, response.data.processes2, response.data.processes3, response.data.processes4);
                 self.setState({
                     listProcessDepartmentCompany: prosesses
                 })

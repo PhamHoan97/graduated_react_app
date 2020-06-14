@@ -184,6 +184,7 @@ class EditProcess extends Component {
                                 </div>
                             </div>
                         </div>
+                        <div className="space-area"></div>
                         <div className="row footer-view-process">  
                             <div className="col-md-6">
                                 <EditDetail />
@@ -213,6 +214,7 @@ class EditProcess extends Component {
                                 </div>
                             </div>
                         </div>
+                        <div className="space-area"></div>
                         <div className="row footer-view-process">  
                             <div className="col-md-6">
                                 <EditDetail />

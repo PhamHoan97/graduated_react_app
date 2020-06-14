@@ -238,7 +238,7 @@ class ListProcessesOfCompany extends Component {
           if(res.data.error != null){
 
           }else{
-            var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2);
+            var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2, res.data.processes3, res.data.processes4);
             this.setState({processes: processesResponse});
           }
         }).catch(function (error) {
@@ -254,7 +254,7 @@ class ListProcessesOfCompany extends Component {
           if(res.data.error != null){
 
           }else{
-            var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2);
+            var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2, res.data.processes3, res.data.processes4);
             this.setState({processes: processesResponse});
           }
         }).catch(function (error) {
@@ -360,7 +360,7 @@ class ListProcessesOfCompany extends Component {
               title:'Thành công',
               severity:'success'
             });
-            var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2);
+            var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2, res.data.processes3, res.data.processes4);
             this.setState({processes: processesResponse});
           }
         }).catch(function (error) {

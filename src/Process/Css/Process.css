@@ -22,6 +22,7 @@
     right: 0px;
     border-left: 1px solid #d9d9d9;
     height: auto;
+    background-color: #f2f2f2;
 }
 .note-content-show{
     height: auto;
@@ -246,11 +247,12 @@ div.process-view svg{
 }
 
 .footer-view-process{
-    margin-top: 70px;
+    background-color: #f2f2f2;
 }
 
 .space-area{
-    height: 50px;
+    height: 70px;
+    background-color: #f2f2f2;
 }
 
 .title-footer h4{
@@ -281,3 +283,4 @@ div.process-view svg{
     width: 100%;
     padding: 0;
 }
+

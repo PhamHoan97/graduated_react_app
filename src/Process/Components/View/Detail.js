@@ -44,7 +44,7 @@ class Detail extends Component {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-md-2">
+                            <div className="col-md-3">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
@@ -52,12 +52,12 @@ class Detail extends Component {
                                 Mã quy trình
                             </label>
                             </div>
-                            <div className="col-md-10 letf-colum-detail">
+                            <div className="col-md-9 letf-colum-detail">
                                 <p> {this.props.detail.code}</p>
                             </div>
                         </div> 
                         <div className="row">
-                            <div className="col-md-2">
+                            <div className="col-md-3">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
@@ -65,12 +65,12 @@ class Detail extends Component {
                                 Tên quy trình
                             </label>
                             </div>
-                            <div className="col-md-10 letf-colum-detail">
+                            <div className="col-md-9 letf-colum-detail">
                                 <p> {this.props.detail.name}</p>
                             </div>
                         </div>           
                         <div className="row">
-                            <div className="col-md-2">
+                            <div className="col-md-3">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
@@ -78,12 +78,12 @@ class Detail extends Component {
                                 Thời gian
                             </label>
                             </div>
-                            <div className="col-md-10 letf-colum-detail">
+                            <div className="col-md-9 letf-colum-detail">
                                 <p> {this.props.detail.time}</p>
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-md-2">
+                            <div className="col-md-3">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
@@ -91,12 +91,12 @@ class Detail extends Component {
                                 Deadline
                             </label>
                             </div>
-                            <div className="col-md-10 letf-colum-detail form">
+                            <div className="col-md-9 letf-colum-detail form">
                                 <p> {this.props.detail.deadline}</p>
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-md-2">
+                            <div className="col-md-3">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
@@ -104,12 +104,12 @@ class Detail extends Component {
                                 Giao cho
                             </label>
                             </div>
-                            <div className="col-md-10 letf-colum-detail form"  
+                            <div className="col-md-9 letf-colum-detail form"  
                                 dangerouslySetInnerHTML={{__html: this.renderEmployee(this.props.detail.assign, this.props.detail.type)}}>
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-md-2">
+                            <div className="col-md-3">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
@@ -117,12 +117,12 @@ class Detail extends Component {
                                 Mô tả
                             </label>
                             </div>
-                            <div className="col-md-10 letf-colum-detail">
+                            <div className="col-md-9 letf-colum-detail">
                                 <p> {this.props.detail.description}. </p>
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-md-2">
+                            <div className="col-md-3">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
@@ -130,7 +130,7 @@ class Detail extends Component {
                                 Tài liệu
                             </label>
                             </div>
-                            <div className="col-md-10 letf-colum-detail">
+                            <div className="col-md-9 letf-colum-detail">
                                 <p> {this.renderLinkDownloadDocument(this.props.detail)}</p>
                             </div>
                         </div>
@@ -151,7 +151,7 @@ class Detail extends Component {
                             </div>
                         </div> 
                         <div className="row">
-                            <div className="col-md-2">
+                            <div className="col-md-3">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
@@ -159,12 +159,12 @@ class Detail extends Component {
                                 Mã quy trình
                             </label>
                             </div>
-                            <div className="col-md-10 letf-colum-detail">
+                            <div className="col-md-9 letf-colum-detail">
                                 <p> {this.props.detail.code}</p>
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-md-2">
+                            <div className="col-md-3">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
@@ -172,11 +172,11 @@ class Detail extends Component {
                                 Tên quy trình
                             </label>
                             </div>
-                            <div className="col-md-10 letf-colum-detail form"  >
+                            <div className="col-md-9 letf-colum-detail form"  >
                             </div>
                         </div>           
                         <div className="row">
-                            <div className="col-md-2">
+                            <div className="col-md-3">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
@@ -184,12 +184,12 @@ class Detail extends Component {
                                 Thời gian
                             </label>
                             </div>
-                            <div className="col-md-10 letf-colum-detail">
+                            <div className="col-md-9 letf-colum-detail">
                                 <p></p>
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-md-2">
+                            <div className="col-md-3">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
@@ -197,11 +197,11 @@ class Detail extends Component {
                                 Deadline
                             </label>
                             </div>
-                            <div className="col-md-10 letf-colum-detail form"  >
+                            <div className="col-md-9 letf-colum-detail form"  >
                             </div>
                         </div> 
                         <div className="row">
-                            <div className="col-md-2">
+                            <div className="col-md-3">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
@@ -209,11 +209,11 @@ class Detail extends Component {
                                 Giao cho
                             </label>
                             </div>
-                            <div className="col-md-10 letf-colum-detail form"  >
+                            <div className="col-md-9 letf-colum-detail form"  >
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-md-2">
+                            <div className="col-md-3">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
@@ -221,12 +221,12 @@ class Detail extends Component {
                                 Mô tả
                             </label>
                             </div>
-                            <div className="col-md-10 letf-colum-detail">
+                            <div className="col-md-9 letf-colum-detail">
                                 <p> </p>
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-md-2">
+                            <div className="col-md-3">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
@@ -234,7 +234,7 @@ class Detail extends Component {
                                 Tài liệu
                             </label>
                             </div>
-                            <div className="col-md-10 letf-colum-detail">
+                            <div className="col-md-9 letf-colum-detail">
                                 <p> </p>
                             </div>
                         </div>
