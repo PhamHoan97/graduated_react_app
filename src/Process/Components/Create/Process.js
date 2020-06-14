@@ -58,6 +58,7 @@ class Process extends Component {
     
   interactPopup = (event) => {
     var element = event.element;
+    console.log(element);
     if(element.type !== "bpmn:Process"){
       this.props.passPopupStatus(true);
       this.props.updateDataOfElement(element);

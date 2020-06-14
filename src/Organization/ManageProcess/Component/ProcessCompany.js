@@ -169,7 +169,7 @@ class ProcessCompany extends Component {
 
   renderAvatarEmployee = (value) => {
     if(value.avatar){
-      return (<img alt="avatar" className="img-fluid"src= {host + value.avatar}/>);
+      return (<img alt="avatar" className="img-fluid avatar-employee" src= {host + value.avatar}/>);
     }else{
       if(value.gender === "Nam"){
         return (<img alt="avatar-default" className="img-fluid avatar-employee" src={avatarMale}/>);
