@@ -13,7 +13,7 @@ class Process extends Component {
                     <th>Mã quy trình</th>
                     <th>Tên</th>
                     <th>Công ty</th>
-                    <th>Ngày tạo</th>
+                    <th>Thể loại</th>
                     <th>Chi tiết</th>
                 </tr>
                 </thead>

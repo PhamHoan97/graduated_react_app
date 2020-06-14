@@ -39,15 +39,19 @@ class EditProcess extends Component {
         this.props.passPopupStatus(false);
     }
     
-    convertToAssignInDataStore(type, employees, roles){
+    convertToAssignInDataStore(type, employees, roles, departments){
         var assign = [];
         if(type === 1){
             for (let index = 0; index < employees.length; index++) {
                 assign.push({'value': employees[index].id, 'label': employees[index].name});
             }
-        }else{
+        }else if(type === 2){
             for (let index = 0; index < roles.length; index++) {
                 assign.push({'value': roles[index].id, 'label': roles[index].name});
+            }
+        }else if(type === 3){
+            for (let index = 0; index < departments.length; index++) {
+                assign.push({'value': departments[index].id, 'label': departments[index].name});
             }
         }
         return assign;
@@ -56,11 +60,12 @@ class EditProcess extends Component {
     extractDataToComponent(process){
         var detail = {
             id:process.id,
+            code:process.code,
             name:process.name,
             description: process.description,
             time: process.update_at,
             deadline: process.deadline,
-            assign: this.convertToAssignInDataStore(process.type,process.employees, process.roles),
+            assign: this.convertToAssignInDataStore(process.type,process.employees, process.roles, process.departments),
             type: process.type,
         }
 
@@ -119,7 +124,6 @@ class EditProcess extends Component {
         this.props.updateProcessInformation(detail);
         this.props.extractDataElementWhenEdit(elements, notes, comments);
         this.props.changeHeaderStatusToEdit();
-        this.props.resetActionToDiagram();
     }
 
 
@@ -136,7 +140,7 @@ class EditProcess extends Component {
               console.log(res.data.message);
           }else{
               if(self._isMounted){
-                  this.initStatusPopup();
+                this.initStatusPopup();
                 self.extractDataToComponent(res.data.process);
                 self.setState({initDiagram: res.data.process.xml});
               }
@@ -244,10 +248,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         },
         changeHeaderStatusToEdit: () => {
             dispatch(actions.changeHeaderStatusToEdit());
-        },     
-        resetActionToDiagram: () => {
-            dispatch(actions.resetActionToDiagram());
-        },      
+        },          
     }
 }
 

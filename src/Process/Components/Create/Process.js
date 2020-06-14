@@ -115,7 +115,8 @@ class Process extends Component {
               title:'Thành công',
               severity:'success'
             });
-            this.setState({redirectEdit:true,idProcess: res.data.process.id});
+            localStorage.removeItem("processInfo");
+            this.setState({redirectEdit:true, idProcess: res.data.process.id});
           }
         }).catch(function (error) {
           alert(error);
@@ -268,16 +269,23 @@ class Process extends Component {
     componentDidUpdate (){
         if(this.initialDiagram && !this.state.redirectEdit){
           this.modeler.attachTo('#create-process-diagram');
-          this.modeler.importXML(this.initialDiagram, function(err) {
-    
+          var modeler = this.modeler;
+          modeler.importXML(this.initialDiagram, function(err) {
+            var canvas = modeler.get('canvas');
+            canvas.zoom('fit-viewport');
+            var viewBox = canvas._cachedViewbox;
+            if(viewBox){
+                var currentScale = canvas._cachedViewbox.scale;
+                currentScale -= 0.2;
+                canvas.zoom(currentScale);
+            }
           });
-          // var eventBus = this.modeler.get('eventBus');
-          // console.log(eventBus);
           this.modeler.on('element.click',1000, (e) => this.interactPopup(e));
     
           this.modeler.on('shape.remove',1000, (e) => this.deleteElements(e));
     
           this.modeler.on('commandStack.shape.delete.revert', () => this.handleUndoDeleteElement());
+
         }
     }
 
@@ -287,12 +295,13 @@ class Process extends Component {
 
       });
       // var eventBus = this.modeler.get('eventBus');
-      // console.log(eventBus);
       this.modeler.on('element.click',1000, (e) => this.interactPopup(e));
 
       this.modeler.on('shape.remove',1000, (e) => this.deleteElements(e));
 
       this.modeler.on('commandStack.shape.delete.revert', () => this.handleUndoDeleteElement());
+
+      this.modeler.get('canvas').zoom('fit-viewport');
     }
 
     render() {

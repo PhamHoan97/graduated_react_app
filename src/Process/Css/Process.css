@@ -15,7 +15,7 @@
 }
 
 .right-column-popup{
-    width: 338px;
+    width: 400px;
     position: absolute;
     margin-top: 0px;
     z-index: 3;
@@ -199,7 +199,7 @@ div.process-view svg{
     width: 100px;
     position: absolute;
     margin-top: 320px;
-    margin-right: 305px;
+    margin-right: 365px;
     z-index: 3;
     right: 0px;
     border-left: 1px solid #d9d9d9;

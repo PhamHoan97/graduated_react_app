@@ -114,7 +114,24 @@ class ListProcessesOfEmployee extends Component {
       }
       
     convertTypeOfProcesses(type){
-    return type === 1 ? "Cá nhân" : "Chức vụ";
+      var result = '';
+      switch (type) {
+        case 1:
+          result ="Cá nhân";
+          break;
+        case 2:
+          result ="Chức vụ";
+          break;
+        case 3:
+          result ="Phòng ban";
+          break;
+        case 4:
+          result ="Công ty";
+          break;
+        default:
+          break;
+      }
+      return result;
     }
 
     openDetailProcess = (e, id) => {
@@ -145,7 +162,7 @@ class ListProcessesOfEmployee extends Component {
             severity:'error'
           });
         }else{
-          var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2);
+          var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2, res.data.processes3, res.data.processes4);
           this.props.showAlert({
             message: res.data.message,
             anchorOrigin:{
@@ -162,13 +179,19 @@ class ListProcessesOfEmployee extends Component {
       });
     }
 
-  mergeProcesses(process1, process2){
+  mergeProcesses(process1, process2, process3, process4){
     var processes = [];
     for (let index1 = 0; index1 < process1.length; index1++) {
       processes.push(process1[index1]);
     }
     for (let index2 = 0; index2 < process2.length; index2++) {
       processes.push(process2[index2]);
+    }
+    for (let index3 = 0; index3 < process3.length; index3++) {
+      processes.push(process3[index3]);
+    }
+    for (let index4 = 0; index4 < process4.length; index4++) {
+      processes.push(process4[index4]);
     }
     return processes;
   }
@@ -186,7 +209,7 @@ class ListProcessesOfEmployee extends Component {
           if(res.data.error != null){
             console.log(res.data.message);
           }else{
-            var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2);
+            var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2, res.data.processes3, res.data.processes4);
             self.setState({processes: processesResponse, employee: res.data.employee});
           }
         }

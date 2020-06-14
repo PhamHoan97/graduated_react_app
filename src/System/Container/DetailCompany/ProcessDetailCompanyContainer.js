@@ -42,15 +42,19 @@ export default class ProcessDetailCompanyContainer extends Component {
         });
     };
 
-    mergeProcesses(process1, process2){
-        console.log(process1);
-        console.log(process2);
+    mergeProcesses(process1, process2, process3, process4){
         var processes = [];
         for (let index1 = 0; index1 < process1.length; index1++) {
             processes.push(process1[index1]);
         }
         for (let index2 = 0; index2 < process2.length; index2++) {
             processes.push(process2[index2]);
+        }
+        for (let index3 = 0; index3 < process3.length; index3++) {
+            processes.push(process3[index3]);
+        }
+        for (let index4 = 0; index4 < process4.length; index4++) {
+            processes.push(process4[index4]);
         }
         return processes;
     }
@@ -62,7 +66,7 @@ export default class ProcessDetailCompanyContainer extends Component {
             headers: { 'Authorization': 'Bearer ' + token }
         })
         .then(function (response) {
-            var prosesses = self.mergeProcesses(response.data.processes1, response.data.processes2);
+            var prosesses = self.mergeProcesses(response.data.processes1, response.data.processes2, response.data.processes3, response.data.processes4);
             self.setState({
                 listProcessDepartmentCompany: prosesses
             })

@@ -9,12 +9,16 @@ class Detail extends Component {
         }
     }
 
-    renderEmployee = (employees) =>{
+    renderEmployee = (employees, type) =>{
         var content = '';
-        for (let index = 0; index < employees.length; index++) {
-            content += '<p>' + employees[index].label + '</p>';
+        if(type === 4){
+            return "Toàn bộ công ty"
+        }else{
+            for (let index = 0; index < employees.length; index++) {
+                content += '<p>' + employees[index].label + '</p>';
+            }
+            return content;
         }
-        return content;
     } 
 
     renderLinkDownloadDocument(info) {
@@ -45,7 +49,20 @@ class Detail extends Component {
                                 htmlFor="text-input"
                                 className=" form-control-label"
                             >
-                                Tên
+                                Mã quy trình
+                            </label>
+                            </div>
+                            <div className="col-md-10 letf-colum-detail">
+                                <p> {this.props.detail.code}</p>
+                            </div>
+                        </div> 
+                        <div className="row">
+                            <div className="col-md-2">
+                            <label
+                                htmlFor="text-input"
+                                className=" form-control-label"
+                            >
+                                Tên quy trình
                             </label>
                             </div>
                             <div className="col-md-10 letf-colum-detail">
@@ -88,7 +105,7 @@ class Detail extends Component {
                             </label>
                             </div>
                             <div className="col-md-10 letf-colum-detail form"  
-                                dangerouslySetInnerHTML={{__html: this.renderEmployee(this.props.detail.assign)}}>
+                                dangerouslySetInnerHTML={{__html: this.renderEmployee(this.props.detail.assign, this.props.detail.type)}}>
                             </div>
                         </div>
                         <div className="row">
@@ -139,7 +156,20 @@ class Detail extends Component {
                                 htmlFor="text-input"
                                 className=" form-control-label"
                             >
-                                Tên
+                                Mã quy trình
+                            </label>
+                            </div>
+                            <div className="col-md-10 letf-colum-detail">
+                                <p> {this.props.detail.code}</p>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-2">
+                            <label
+                                htmlFor="text-input"
+                                className=" form-control-label"
+                            >
+                                Tên quy trình
                             </label>
                             </div>
                             <div className="col-md-10 letf-colum-detail form"  >

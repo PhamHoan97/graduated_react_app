@@ -158,6 +158,8 @@ class Header extends Component {
 
     backToHomePage = (e) => {
         e.preventDefault();
+        localStorage.removeItem("processInfo");
+        this.props.resetActionToDiagram();
         this.setState({isBackHomeCompany:true});
     }
 
@@ -254,7 +256,7 @@ class Header extends Component {
                     <div className="row">
                         <div className="col-md-10 text-left"> 
                             <Dropdown drop={"left"}>
-                                <Dropdown.Toggle id="dropdown-action" variant="actions" bsPrefix="dropdown">
+                                <Dropdown.Toggle id="dropdown-action" variant="actions btn-info back-home-btn" bsPrefix="dropdown">
                                     <div className="button-area-go-back" onClick={(e) => this.backToHomePage(e)}>
                                         <span className="text-go-back"> Trang chủ</span>
                                     </div>
@@ -355,6 +357,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         exportDiagramAsBPMNEdit: () => {
             dispatch(actions.exportDiagramAsBPMNEdit())
         },
+        resetActionToDiagram: () => {
+            dispatch(actions.resetActionToDiagram());
+        }, 
     }
 }
 
