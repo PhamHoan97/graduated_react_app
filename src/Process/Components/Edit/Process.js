@@ -40,6 +40,7 @@ class Process extends Component {
     if(element.type !== "bpmn:Process"){
       this.props.passPopupStatus(true);
       this.props.updateDataOfElement(element);
+      this.props.resetDefaultAssignedEmployeeElement();
     }  
   }
 
@@ -243,6 +244,14 @@ class Process extends Component {
     return true;
   }
 
+  changeNameElement = (event) => {
+    var element = event.element;
+    var name = element.businessObject.name;
+    if(element.type !== "bpmn:StartEvent" && element.type !== "bpmn:EndEvent"){
+      this.props.updateNameOfElement(element, name);
+    }
+  }
+
   componentDidUpdate(){
       this.modeler.attachTo('#create-process-diagram');
       var modeler = this.modeler;
@@ -257,12 +266,13 @@ class Process extends Component {
         }
       });
       // var eventBus = this.modeler.get('eventBus');
-      // console.log(eventBus);
       this.modeler.on('element.click',1000, (e) => this.interactPopup(e));
 
       this.modeler.on('shape.remove',1000, (e) => this.deleteElements(e));
 
       this.modeler.on('commandStack.shape.delete.revert', (e) => this.handleUndoDeleteElement(e));
+
+      this.modeler.on('shape.changed',1000, (e) => this.changeNameElement(e));
   }
 
   render() {
@@ -303,7 +313,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       },
       showAlert: (properties) => {
         dispatch(actionAlerts.showMessageAlert(properties))
-      }
+      },
+      resetDefaultAssignedEmployeeElement: () => {
+        dispatch(actions.resetDefaultAssignedEmployeeElement());
+      },
+      updateNameOfElement: (element, name) => {
+        dispatch(actions.updateNameOfElement(element, name));
+      },
   }
 }
 

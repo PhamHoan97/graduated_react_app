@@ -31,7 +31,7 @@ const formatGroupLabel = data => (
     </div>
 );
 
-class SelectEmployeeOfProcessType extends Component {
+class SelectEmployeeOfProcessTypeInProcess extends Component {
     _isMounted = false;
     constructor(props) {
         super(props)
@@ -124,4 +124,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SelectEmployeeOfProcessType);
+export default connect(mapStateToProps, mapDispatchToProps)(SelectEmployeeOfProcessTypeInProcess);

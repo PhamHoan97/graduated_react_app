@@ -79,10 +79,10 @@ export const exportDiagramAsBPMN =()=> {
     }
 }
 
-export const extractDataElementWhenEdit = (elements, notes, comments)=> {
+export const extractDataElementWhenEdit = (elements, notes, comments, assigns, files, issavenotes, names)=> {
     return {
         type: types.EXTRACTDATAELEMENTWHENEDIT,
-        elements, notes, comments
+        elements, notes, comments, assigns, files, issavenotes, names
     }
 }
 
@@ -168,4 +168,10 @@ export const updateNameOfElement = (element, name)=> {
     }
 }
 
+export const changeIsSaveNoteToFalse = (element)=> {
+    return {
+        type: types.CHANGEISSAVENOTETOFALSE,
+        element
+    }
+}
 

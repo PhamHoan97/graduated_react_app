@@ -81,7 +81,7 @@ class FormAddProcessModal extends Component {
         var options = [];
         var employees = this.state.employeesFilter;
         for (let index = 0; index < employees.length; index++) {
-            var option = {value: employees[index].id_employee, label: employees[index].name + "-" + employees[index].department_name};
+            var option = {value: employees[index].id_employee, label: employees[index].name + " (" + employees[index].department_name + ")"};
             options.push(option);
         }
         return options;
@@ -91,7 +91,7 @@ class FormAddProcessModal extends Component {
       var options = [];
       var roles = this.state.rolesFilter;
       for (let index = 0; index < roles.length; index++) {
-          var option = {value: roles[index].id_role, label: roles[index].department_name + "-" + roles[index].role};
+          var option = {value: roles[index].id_role, label: roles[index].department_name + " (" + roles[index].role + ")"};
           options.push(option);
       }
       return options;

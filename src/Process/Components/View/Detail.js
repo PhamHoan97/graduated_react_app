@@ -15,7 +15,7 @@ class Detail extends Component {
             return "Toàn bộ công ty"
         }else{
             for (let index = 0; index < employees.length; index++) {
-                content += '<p>' + employees[index].label + '</p>';
+                content += '<p className="form-control">' + employees[index].label + '</p>';
             }
             return content;
         }

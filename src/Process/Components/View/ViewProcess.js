@@ -57,6 +57,7 @@ class ViewProcess extends Component {
     }
 
     extractDataToComponent(process){
+        console.log(process)
         var detail = {
             id:process.id,
             code:process.code,
@@ -72,9 +73,15 @@ class ViewProcess extends Component {
         var notes = [];
         var comments = [];
         var elements = [];
+        var assigns = [];
+        var files = [];
+        var names = [];
+        var issavenotes = [];
         for (var indexM = 0; indexM < process.elements.length; indexM++) {
             var eNotes = {};
             var eComments = [];
+            var eAssigns = [];
+            var eFiles = [];
             for (var indexN = 0; indexN < process.element_notes.length; indexN++) {
                 if(process.elements[indexM].id === process.element_notes[indexN].element_id){
                     eNotes = {
@@ -84,6 +91,23 @@ class ViewProcess extends Component {
                     notes.push({
                         id:process.elements[indexM].element, 
                         note: process.element_notes[indexN].content,
+                    });
+                    eAssigns = {
+                        id: process.elements[indexM].element, 
+                        assign: JSON.parse(process.element_notes[indexN].assign),
+                    };
+                    assigns.push({
+                        id:process.elements[indexM].element, 
+                        assign: JSON.parse(process.element_notes[indexN].assign),
+                    });
+
+                    eFiles = {
+                        id: process.elements[indexM].element, 
+                        file: process.element_notes[indexN].document,
+                    };
+                    files.push({
+                        id:process.elements[indexM].element, 
+                        file: process.element_notes[indexN].document,
                     });
                 }                
             }
@@ -109,18 +133,34 @@ class ViewProcess extends Component {
                 id: process.elements[indexM].element,
                 type: process.elements[indexM].type,
                 comments: eComments,
+                name: process.elements[indexM].name,
             }
             if(eNotes.note){
                 element.note = eNotes.note;
             }else{
                 element.note = "";
             }
+            if(eAssigns.assign){
+                element.assign = eAssigns.assign;
+            }else{
+                element.assign = "";
+            }
+            if(eFiles.file){
+                element.file = eFiles.file;
+            }else{
+                element.file = "";
+            }
             
             elements.push(element);
+
+            names.push({
+                id: process.elements[indexM].element, 
+                name: process.elements[indexM].name,
+            });
         }
 
         this.props.updateProcessInformation(detail);
-        this.props.extractDataElementWhenEdit(elements, notes, comments);
+        this.props.extractDataElementWhenEdit(elements, notes, comments, assigns, files, issavenotes, names);
     }
 
     componentDidMount() {
@@ -230,8 +270,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         passPopupStatus: (status) => {
             dispatch(actions.passPopupStatus(status));
         },
-        extractDataElementWhenEdit: (elements, notes, comments) => {
-            dispatch(actions.extractDataElementWhenEdit(elements, notes, comments))
+        extractDataElementWhenEdit: (elements, notes, comments, assigns, files, issavenotes, names) => {
+            dispatch(actions.extractDataElementWhenEdit(elements, notes, comments, assigns, files, issavenotes, names))
         },
         updateProcessInformation: (information) => {
             dispatch(updateProcessInformation(information));

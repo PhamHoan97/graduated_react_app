@@ -9,7 +9,6 @@ const initialState = {
     comments:[],
     isSaveNotes: [],
     names: [],
-    currenNameShow: '',
 }
 
 function isExistElementInStore(elements, element) {
@@ -82,7 +81,7 @@ var elementReducers = (state = initialState, action) => {
                     type: action.element.type,
                     note: "",
                     assign: "",
-                    file: "",
+                    file: "", 
                     comments: [],
                     isSaveNote: false,
                 }
@@ -263,10 +262,11 @@ var elementReducers = (state = initialState, action) => {
                     break;
                 }
             }
-            state.elements.splice(deleteIndexElement,1);
+            var newElementDelete = state.elements;
+            newElementDelete.splice(deleteIndexElement,1);
             state.current = "";
 
-            return state;
+            return {...state, elements: newElementDelete};
         case types.UPDATENAMEOFELEMENT:
             var updateElements = [];
             //update name in element
@@ -279,7 +279,7 @@ var elementReducers = (state = initialState, action) => {
                 updateElements.push(jx);
             }
             if(Op !== 1){
-                //no elements in store
+                //no element in store
                 var oldelementsInUpdateName = state.elements;
                 element = {
                     id: action.element.id,
@@ -311,7 +311,6 @@ var elementReducers = (state = initialState, action) => {
             return {...state, elements: updateElements};
         case types.HANDLE_UNDO_AFTER_DELETE_ELEMENT:
             var deletedElement = action.element;
-            console.log(deletedElement);
             var undoElement = {
                 id: deletedElement.id,
                 name: deletedElement.businessObject.name,
@@ -319,6 +318,7 @@ var elementReducers = (state = initialState, action) => {
                 note: "",
                 assign: "",
                 file: "",
+                isSaveNote: true,
                 comments:[]
             }
             //undo note
@@ -339,6 +339,7 @@ var elementReducers = (state = initialState, action) => {
                     undoElement.files = state.files[indexU].file;
                 }
             }
+
             //undo comments
             for (var indexN = 0; indexN < state.comments.length; indexN++) {
                 if(state.comments[indexN].id === undoElement.id){
@@ -346,10 +347,33 @@ var elementReducers = (state = initialState, action) => {
                 }
             }
 
-            state.elements.push(undoElement);
-            return state;
+            var newElementUndo = state.elements;
+                newElementUndo.push(undoElement);
+            return {...state, elements: newElementUndo};
         case types.EXTRACTDATAELEMENTWHENEDIT:
-            return {...state, elements: action.elements, notes: action.notes, comments: action.comments, current: ''};
+            return {
+                    ...state, 
+                    elements: action.elements, 
+                    notes: action.notes, 
+                    comments: action.comments, 
+                    assigns: action.assigns, 
+                    files: action.files, 
+                    isSaveNotes: action.issavenotes, 
+                    names: action.names, 
+                    current: ''
+                };
+        case types.CHANGEISSAVENOTETOFALSE:
+            var updateElementsIsSaveNote = [];
+            //update isSaveNote in element
+            for (var jy of state.elements) {
+                if(action.element.id === jy.id){
+                    jy.isSaveNote = false;
+                }
+                updateElementsIsSaveNote.push(jy);
+            }
+            //update isSaveNote in current
+            state.current.isSaveNote = false;
+            return {...state, elements: updateElementsIsSaveNote};
         default:
             return state;
     }

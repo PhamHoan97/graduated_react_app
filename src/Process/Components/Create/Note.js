@@ -20,7 +20,6 @@ class Note extends Component {
             savedNote: false,
             fileElement: '',
             assignElement: '',
-            currentNameShow: '',
         }
     }
 
@@ -68,11 +67,6 @@ class Note extends Component {
     }
 
     UNSAFE_componentWillReceiveProps (nextProps) {
-        if(nextProps.currenNameShow){
-            this.setState({
-                currentNameShow: nextProps.currentNameShow,
-            });
-        }
         if(nextProps.currentElement.isSaveNote){
             this.setState({
                 currentElement: nextProps.currentElement,
@@ -123,12 +117,13 @@ class Note extends Component {
         var assign = this.state.assignElement;
         var note = this.state.note;
         this.props.saveNoteForElement(note, assign, file);
-        this.setState({savedNote:true});
+        this.setState({savedNote:true, fileElement: ""});
     }
     
     updateNoteForElement = (event) => {
         event.preventDefault();
         this.props.updateDefaultAssignedEmployeeElement(this.state.assignElement);
+        this.props.changeIsSaveNoteToFalse(this.state.currentElement);
         this.setState({savedNote:false});
     }
 
@@ -183,7 +178,7 @@ class Note extends Component {
     renderEmployee = (employees) =>{
         var content = '';
         for (let index = 0; index < employees.length; index++) {
-            content += '<p>' + employees[index].label + '</p>';
+            content += '<p className="form-control">' + employees[index].label + '</p>';
         }
         return content;
     } 
@@ -192,7 +187,7 @@ class Note extends Component {
         if(url){
             return (<a className="link-download-document" target="_blank" href={host + '/' + url}> Tải tài liệu tại đây</a>);
         }else{
-            return (<></>)
+            return (<span className="form-control">Không có tài liệu</span>);
         }
     }
 
@@ -244,8 +239,8 @@ class Note extends Component {
                                 Nội dung
                             </label>
                         </div>
-                        <div className="note-content-show">
-                            <p>{this.state.currentElement.note}</p>
+                        <div className="note-content-show-name">
+                            <p className="form-control">{this.state.currentElement.note}</p>
                         </div>
                         <div className="row">
                             <label
@@ -255,7 +250,7 @@ class Note extends Component {
                                 Tài liệu
                             </label>
                         </div>
-                        <div className="note-content-show">
+                        <div className="note-content-show-name">
                             <p> {this.renderLinkDownloadDocument(this.state.currentElement.file)}</p>
                         </div>
                         <Button onClick={(e) => this.deleteNoteForElement(e)} variant="danger" className="delete-note-button">Xóa ghi chú</Button>
@@ -330,7 +325,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         },
         showAlert: (properties) => {
             dispatch(actionAlerts.showMessageAlert(properties))
-          },
+        },
+        changeIsSaveNoteToFalse: (element) => {
+            dispatch(actions.changeIsSaveNoteToFalse(element));
+        },
     }
 }
 

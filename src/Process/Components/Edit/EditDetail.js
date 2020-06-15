@@ -18,7 +18,7 @@ class EditDetail extends Component {
             var content = '';
             if(Array.isArray(data)){
                 for (let index = 0; index < data.length; index++) {
-                    content += '<p>' + data[index].label + '</p>';
+                    content += '<p className="form-control">' + data[index].label + '</p>';
                 }
             }
             return content;
