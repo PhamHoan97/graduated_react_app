@@ -27,6 +27,12 @@
 .note-content-show{
     height: auto;
     text-align: left;
+    margin-left: 20px;
+}
+
+.note-content-show-name{
+    height: auto;
+    text-align: left;
 }
 
 .note-title{
@@ -47,6 +53,7 @@
     height: 310px;
     padding: 10px;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 .comment-element{
     width: 100%;
@@ -282,5 +289,9 @@ div.process-view svg{
     position: relative;
     width: 100%;
     padding: 0;
+}
+
+.form-control-label-note{
+    margin-left: 20px;
 }
 

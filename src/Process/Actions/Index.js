@@ -14,10 +14,10 @@ export const updateDataOfElements = (element)=>{
     }
 }
 
-export const saveNoteForElement = (note)=>{
+export const saveNoteForElement = (note, assign, file)=>{
     return {
         type: types.SAVE_NOTE_FOR_ELEMENT,
-        note,
+        note, assign, file
     }
 }
 
@@ -134,4 +134,38 @@ export const resetActionToDiagram =()=> {
         type: types.RESETACTIONTODIAGRAM,
     }
 }
+
+export const updateAssignedEmployeeElement = (assign)=> {
+    return {
+        type: types.UPDATEASSIGNEDEMPLOYEEFORELEMENT,
+        assign
+    }
+}
+
+export const resetAssignedEmployeeElement = ()=> {
+    return {
+        type: types.RESETASSIGNEDEMPLOYEEFORELEMENT,
+    }
+}
+
+export const updateDefaultAssignedEmployeeElement = (assign)=> {
+    return {
+        type: types.UPDATEDEFAULTASSIGNEDEMPLOYEEFORELEMENT,
+        assign
+    }
+}
+
+export const resetDefaultAssignedEmployeeElement = ()=> {
+    return {
+        type: types.RESETDEFAULTASSIGNEDEMPLOYEEFORELEMENT,
+    }
+}
+
+export const updateNameOfElement = (element, name)=> {
+    return {
+        type: types.UPDATENAMEOFELEMENT,
+        element, name
+    }
+}
+
 

@@ -29,26 +29,31 @@ class SelectFieldToFilter extends Component {
 
     componentDidMount() {
         this._isMounted = true;
+        var self = this
         var token = localStorage.getItem('token');
         axios.get(host + `/api/company/field`,
         {
             headers: { 'Authorization': 'Bearer ' + token}
         }).then(res => {
-          if(res.data.error != null){
-              console.log(res.data.message);
-          }else{
-              var data = res.data.fields;
-              var optionsData = this.convertToOptionsSelect(data);
-              this.setState({options:optionsData});
-          }
+            if(self._isMounted){
+                if(res.data.error != null){
+                    console.log(res.data.message);
+                }else{
+                    var data = res.data.fields;
+                    var optionsData = this.convertToOptionsSelect(data);
+                    self.setState({options:optionsData});
+                }
+            }
         }).catch(function (error) {
           alert(error);
         });
     }
 
     changeSelectField = (event) =>{
-        var currentSelect = event.value;
-        this.props.updateIdFieldSelect(currentSelect);
+        if(this.state.options){
+            var currentSelect = event.value;
+            this.props.updateIdFieldSelect(currentSelect);
+        }
     }
 
     render() {

@@ -4,7 +4,12 @@ const initialState = {
     elements:[],
     current: "",
     notes: [],
+    assigns: [],
+    files: [],
     comments:[],
+    isSaveNotes: [],
+    names: [],
+    currenNameShow: '',
 }
 
 function isExistElementInStore(elements, element) {
@@ -57,11 +62,29 @@ var elementReducers = (state = initialState, action) => {
             var oldelements = state.elements;
             if(!isExistElementInStore(oldelements, action.element)){
                 //add new element
-                var element = {
+                var element;
+                var nameElement;
+                if(action.element.businessObject && action.element.businessObject.name){
+                    nameElement = action.element.businessObject.name;
+                }else{
+                    if(action.element.type === "bpmn:StartEvent"){
+                        nameElement = "Bắt đầu quy trình";
+                    }
+                    else if(action.element.type === "bpmn:EndEvent"){
+                        nameElement = "Kết thúc quy trình";
+                    }else {
+                        nameElement = "";
+                    }
+                }
+                element = {
                     id: action.element.id,
-                    type:action.element.type,
+                    name: nameElement,
+                    type: action.element.type,
                     note: "",
+                    assign: "",
+                    file: "",
                     comments: [],
+                    isSaveNote: false,
                 }
                 oldelements.push(element);
                 return {...state, elements: oldelements, current: element} 
@@ -76,6 +99,13 @@ var elementReducers = (state = initialState, action) => {
             for (var x of state.elements) {
                 if(state.current.id === x.id){
                     x.note = action.note;
+                    if(action.assign){
+                        x.assign = action.assign;
+                    }
+                    if(action.file){
+                        x.file = action.file;
+                    }
+                    x.isSaveNote = true;
                 }
                 updateNoteElements.push(x);
             }
@@ -89,9 +119,23 @@ var elementReducers = (state = initialState, action) => {
             //update old note
             if(typeof mark !== "undefined"){
                 state.notes[mark] = {id:state.current.id, note: action.note};
+                if(action.assign){
+                    state.assigns[mark] = {id:state.current.id, assign: action.assign};
+                }
+                if(action.file){
+                    state.files[mark] = {id:state.current.id, file: action.file};
+                }
+                state.isSaveNotes[mark] = {id:state.current.id, isSaveNote: true};
             }else{
                 //push new note
                 state.notes.push({id:state.current.id, note: action.note});
+                if(action.assign){
+                    state.assigns.push({id:state.current.id, assign: action.assign});
+                }
+                if(action.file){
+                    state.files.push({id:state.current.id, file: action.file});
+                }
+                state.isSaveNotes.push({id:state.current.id, isSaveNote: true});
             }
             return {...state, elements: updateNoteElements};
         case types.DELETE_NOTE_FOR_ELEMENT:
@@ -100,6 +144,9 @@ var elementReducers = (state = initialState, action) => {
             for (var p of state.elements) {
                 if(state.current.id === p.id){
                     p.note = "";
+                    p.assign = "";
+                    p.file = "";
+                    p.isSaveNote = false;
                 }
                 deleteNoteElements.push(p);
             }
@@ -112,7 +159,35 @@ var elementReducers = (state = initialState, action) => {
             }
             //delete note in notes
             state.notes.splice(markDeleteNote,1);
-            return {...state, elements: deleteNoteElements, notes:state.notes};
+            //get index of assigns if delete note of element
+            var markDeleteAssign;
+            for (var indexT = 0; indexT < state.assigns.length; indexT++) {
+                if(state.assigns[indexT].id === state.current.id){
+                    markDeleteAssign = indexT;
+                }
+            }
+            //delete assign in assigns
+            state.assigns.splice(markDeleteAssign,1);
+            //get index of files if delete note of element
+            var markDeleteFile;
+            for (var indexL = 0; indexL < state.files.length; indexL++) {
+                if(state.files[indexL].id === state.current.id){
+                    markDeleteFile = indexL;
+                }
+            }
+            //delete files in notes
+            state.files.splice(markDeleteFile,1);
+            //get index of isSaveNotes if delete note of element
+            var markDeleteIsSaveNote;
+            for (var indexX = 0; indexX < state.isSaveNotes.length; indexX++) {
+                if(state.isSaveNotes[indexX].id === state.current.id){
+                    markDeleteIsSaveNote = indexX;
+                }
+            }
+            //delete isSaveNotes in notes
+            state.isSaveNotes.splice(markDeleteIsSaveNote,1);
+
+            return {...state, elements: deleteNoteElements, notes:state.notes, assigns:state.assigns, files:state.files, isSaveNotes: state.isSaveNotes};
         case types.SAVE_COMMENT_FOR_ELEMENT:
             var updateCommentElements = [];
             var dataComment= {
@@ -192,18 +267,76 @@ var elementReducers = (state = initialState, action) => {
             state.current = "";
 
             return state;
+        case types.UPDATENAMEOFELEMENT:
+            var updateElements = [];
+            //update name in element
+            var Op = 0;
+            for (var jx of state.elements) {
+                if(action.element.id === jx.id){
+                    jx.name = action.name;
+                    Op = 1;
+                }
+                updateElements.push(jx);
+            }
+            if(Op !== 1){
+                //no elements in store
+                var oldelementsInUpdateName = state.elements;
+                element = {
+                    id: action.element.id,
+                    name: action.name,
+                    type: action.element.type,
+                    note: "",
+                    assign: "",
+                    file: "",
+                    comments: [],
+                    isSaveNote: false,
+                }
+                oldelementsInUpdateName.push(element);
+                return {...state, elements: oldelementsInUpdateName}
+            }
+            //get index of names if update name for element
+            var markName;
+            for (var indexJ = 0; indexJ < state.names.length; indexJ++) {
+                if(state.names[indexJ].id === action.element.id){
+                    markName = indexJ;
+                }
+            }
+             //update old name
+            if(typeof markName !== "undefined"){
+                state.names[markName] = {id:action.element.id, name: action.name};
+            }else{
+            //push new name
+                state.names.push({id:action.element.id, name: action.name});
+            }
+            return {...state, elements: updateElements};
         case types.HANDLE_UNDO_AFTER_DELETE_ELEMENT:
             var deletedElement = action.element;
+            console.log(deletedElement);
             var undoElement = {
                 id: deletedElement.id,
+                name: deletedElement.businessObject.name,
                 type: deletedElement.type,
                 note: "",
+                assign: "",
+                file: "",
                 comments:[]
             }
             //undo note
             for (var indexM = 0; indexM < state.notes.length; indexM++) {
                 if(state.notes[indexM].id === undoElement.id){
                     undoElement.note = state.notes[indexM].note;
+                }
+            }
+            //undo assign
+            for (var indexO = 0; indexO < state.assigns.length; indexO++) {
+                if(state.assigns[indexO].id === undoElement.id){
+                    undoElement.assign = state.assigns[indexO].assign;
+                }
+            }
+            //undo file
+            for (var indexU = 0; indexU < state.files.length; indexU++) {
+                if(state.files[indexU].id === undoElement.id){
+                    undoElement.files = state.files[indexU].file;
                 }
             }
             //undo comments

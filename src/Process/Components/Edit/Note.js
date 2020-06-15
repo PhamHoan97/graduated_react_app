@@ -48,7 +48,10 @@ class Note extends Component {
                 break; 
             case "bpmn:Collaboration":
                 result =  "Hợp tác";
-                break;                       
+                break;   
+            case "bpmn:SequenceFlow":
+                result =  "Chuyển giao";
+                break;                      
             default:
                 result =  "Mới";
                 break;
