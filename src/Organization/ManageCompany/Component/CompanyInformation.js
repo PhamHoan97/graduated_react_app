@@ -160,7 +160,7 @@ export default class CompanyInformation extends Component {
                   </div>
                   <div className="card-right">
                     <h4 className="card-title">Quy trình</h4>
-                    <p className="card-text">{this.state.statisticCompany.departments}</p>
+                    <p className="card-text">{this.state.statisticCompany.processes}</p>
                   </div>
                 </div>
               </div>
