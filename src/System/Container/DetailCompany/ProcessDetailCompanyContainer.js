@@ -3,16 +3,33 @@ import DepartmentItemCompany from "../../Component/DetailCompany/Process/Departm
 import ProcessItemCompany from "../../Component/DetailCompany/Process/ProcessItemCompany";
 import host from "../../../Host/ServerDomain";
 import axios from "axios";
-
+import ReactPaginate from "react-paginate";
 export default class ProcessDetailCompanyContainer extends Component {
   _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
       listProcessDepartmentCompany: [],
+      idChooseType: 0,
+      offset: 0,
+      perPage: 7,
+      currentPage: 0,
+      pageCount: 0,
+      searchText: "",
     };
-    this.handleChange = this.handleChange.bind(this);
+    this.handleChangeSelectType = this.handleChangeSelectType.bind(this);
+    this.handleChangeSearchProcesses = this.handleChangeSearchProcesses.bind(
+      this
+    );
   }
+  handlePageClick = (e) => {
+    const selectedPage = e.selected;
+    const offset = selectedPage * this.state.perPage;
+    this.setState({
+      currentPage: selectedPage,
+      offset: offset,
+    });
+  };
   componentDidMount() {
     this.getListProcessDepartmentCompany();
   }
@@ -21,12 +38,71 @@ export default class ProcessDetailCompanyContainer extends Component {
     this._isMounted = false;
   }
 
-  handleChange(event) {
+  handleChangeSearchProcesses(event) {
+    const searchText = event.target.value;
+    console.log(searchText);
+    this.setState({
+      searchText: searchText,
+    });
+  }
+  submitSearchProcesses(event) {
+    event.preventDefault();
+    // call api to get processes with text
+    var self = this;
+    var token = localStorage.getItem("token");
+    axios
+      .post(
+        host + "/api/system/company/detail/search",
+        {
+          searchText: this.state.searchText,
+          idCompany: this.props.idCompany,
+        },
+        {
+          headers: { Authorization: "Bearer " + token },
+        }
+      )
+      .then(function (response) {
+        self.setState({
+          listProcessDepartmentCompany: response.data.processes,
+          pageCount: Math.ceil(
+            response.data.processes.length / self.state.perPage
+          ),
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  handleChangeSelectType(event) {
     const name = event.target.name;
     const value = event.target.value;
-    this.setState({
-      [name]: value,
-    });
+    // call api to fiter with type processes
+    var self = this;
+    var token = localStorage.getItem("token");
+    axios
+      .post(
+        host + "/api/system/company/detail/type/filter",
+        {
+          type: value,
+          idCompany: this.props.idCompany,
+        },
+        {
+          headers: { Authorization: "Bearer " + token },
+        }
+      )
+      .then(function (response) {
+        self.setState({
+          listProcessDepartmentCompany: response.data.processes,
+          pageCount: Math.ceil(
+            response.data.processes.length / self.state.perPage
+          ),
+          [name]: value,
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   mergeProcesses(process1, process2, process3, process4) {
@@ -65,6 +141,7 @@ export default class ProcessDetailCompanyContainer extends Component {
         );
         self.setState({
           listProcessDepartmentCompany: prosesses,
+          pageCount: Math.ceil(prosesses.length / self.state.perPage),
         });
       })
       .catch(function (error) {
@@ -75,22 +152,24 @@ export default class ProcessDetailCompanyContainer extends Component {
   showProcesseDepartmentCompany = () => {
     var listProcessDepartmentCompany = this.state.listProcessDepartmentCompany;
     if (listProcessDepartmentCompany.length > 0) {
-      var result = listProcessDepartmentCompany.map((process, index) => {
-        return (
-          <ProcessItemCompany
-            key={index}
-            stt={index + 1}
-            id={process.id}
-            code={process.code}
-            date={process.date}
-            description={process.description}
-            name={process.name}
-            deadline={process.deadline}
-            type={process.type}
-          />
-        );
-      });
-      return result;
+        var result = listProcessDepartmentCompany
+        .slice(this.state.offset, this.state.offset + this.state.perPage)
+        .map((process, index) => {
+          return (
+            <ProcessItemCompany
+              key={index}
+              stt={index + 1}
+              id={process.id}
+              code={process.code}
+              date={process.date}
+              description={process.description}
+              name={process.name}
+              deadline={process.deadline}
+              type={process.type}
+            />
+          );
+        });
+        return result;
     } else {
       return (
         <tr>
@@ -133,7 +212,7 @@ export default class ProcessDetailCompanyContainer extends Component {
                   <select
                     className="js-select2 select--department__detail_company"
                     name="idChooseType"
-                    onChange={(e) => this.handleChange(e)}
+                    onChange={(e) => this.handleChangeSelectType(e)}
                   >
                     <option value="0">Thể loại</option>
                     <option value="4">Công ty</option>
@@ -150,12 +229,14 @@ export default class ProcessDetailCompanyContainer extends Component {
                   <div className="rs-select2--light-search-company">
                     <form className="form-search-employee">
                       <input
+                        onChange={(e) => this.handleChangeSearchProcesses(e)}
                         className="form-control"
                         placeholder="Tìm kiếm quy trình..."
                       />
                       <button
                         className="company-btn--search__process"
                         type="button"
+                        onClick={(e) => this.submitSearchProcesses(e)}
                       >
                         <i className="zmdi zmdi-search"></i>
                       </button>
@@ -180,6 +261,25 @@ export default class ProcessDetailCompanyContainer extends Component {
             </thead>
             <tbody>{this.showProcesseDepartmentCompany()}</tbody>
           </table>
+          <div className="row">
+            <div className="col-md-4"></div>
+            <div className="col-md-4 text-center">
+              <ReactPaginate
+                previousLabel={"Trước"}
+                nextLabel={"Sau"}
+                breakLabel={"..."}
+                breakClassName={"break-me"}
+                pageCount={this.state.pageCount}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={this.handlePageClick}
+                containerClassName={"pagination"}
+                subContainerClassName={"pages pagination"}
+                activeClassName={"active"}
+              />
+            </div>
+            <div className="col-md-4"></div>
+          </div>
         </div>
       </div>
     );
