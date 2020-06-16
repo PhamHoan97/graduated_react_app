@@ -150,7 +150,7 @@ class DetailNotificationComponent extends Component {
                   color: "#ffffff",
                 }}
               >
-                Back
+                Quay lại
               </NavLink>
             </button>
           </div>
@@ -166,9 +166,9 @@ class DetailNotificationComponent extends Component {
           <span className="contact100-form-title">
             {this.state.detailNotification[0].name_form}
           </span>
-          <div className="description">
+          {/* <div className="description">
             {this.state.detailNotification[0].description_form}
-          </div>
+          </div> */}
           <div className="content-formio">
             <div id="formio"></div>
             <a
@@ -210,7 +210,7 @@ class DetailNotificationComponent extends Component {
     ) {
       return (
         <div className="content-notification text-center">
-          <div> {this.state.detailNotification[0].name}</div>
+          <h3 className="contact100-form-title"> {this.state.detailNotification[0].name}</h3>
           <div> {this.state.detailNotification[0].description}</div>
           {this.state.detailNotification[0].file !== null ? (
             <div className="text-center mt-3">
@@ -232,7 +232,7 @@ class DetailNotificationComponent extends Component {
           <div className="container-fluid">
             <div className="row mb-4 mt-4">
               <div className="col-sm-6 col-md-4">
-                <h3 className="page-title_employee">Danh sách thông báo</h3>
+                {/* <h3 className="page-title_employee"></h3> */}
               </div>
             </div>
             <div className="row">

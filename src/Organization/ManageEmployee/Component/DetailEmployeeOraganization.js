@@ -8,21 +8,58 @@ import avatarMale from "../Image/avatar_employee1.png";
 import avatarFeMale from "../Image/avatar_employee2.png";
 import axios from "axios";
 import host from "../../../Host/ServerDomain";
-import { NavLink } from "react-router-dom";
+import * as actionAlerts from '../../../Alert/Action/Index';
+import {connect} from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import ModalDetailProcess from './ModalDetailProcess'; 
 function isEmpty(obj) {
   for (var key in obj) {
     if (obj.hasOwnProperty(key)) return false;
   }
   return true;
 }
-export default class DetailEmployeeOraganization extends Component {
+class DetailEmployeeOraganization extends Component {
   _isMounted = false;
   constructor(props, context) {
     super(props, context);
     this.state = {
       detailEmployee: {},
+      processes: "",
+      isRedirectEditProcess: false,
+      idProcess: "",
+      search: "",
+      offset: 0,
+      perPage: 5,
+      currentPage: 0,
+      pageCount: 0,
     };
   }
+  convertTypeOfProcesses(type) {
+    var result = "";
+    switch (type) {
+      case 1:
+        result = "Cá nhân";
+        break;
+      case 2:
+        result = "Chức vụ";
+        break;
+      case 3:
+        result = "Phòng ban";
+        break;
+      case 4:
+        result = "Công ty";
+        break;
+      default:
+        break;
+    }
+    return result;
+  }
+
+  openDetailProcess = (e, id) => {
+    e.preventDefault();
+    document.getElementById("clone-view-detail-process").click();
+    this.setState({ idProcess: id });
+  };
   getDetailEmployeeOrganization = () => {
     this._isMounted = true;
     var token = localStorage.getItem("token");
@@ -54,14 +91,168 @@ export default class DetailEmployeeOraganization extends Component {
         console.log(error);
       });
   };
+
+  mergeProcesses(process1, process2, process3, process4) {
+    var processes = [];
+    for (let index1 = 0; index1 < process1.length; index1++) {
+      processes.push(process1[index1]);
+    }
+    for (let index2 = 0; index2 < process2.length; index2++) {
+      processes.push(process2[index2]);
+    }
+    for (let index3 = 0; index3 < process3.length; index3++) {
+      processes.push(process3[index3]);
+    }
+    for (let index4 = 0; index4 < process4.length; index4++) {
+      processes.push(process4[index4]);
+    }
+    return processes;
+  }
+
+  getProcessEmployee = () => {
+    this._isMounted = true;
+    let self = this;
+    var idEmployee = this.props.match.params.idEmployee;
+    var token = localStorage.getItem("token");
+    axios
+      .get(host + `/api/company/processes/employee/` + idEmployee, {
+        headers: { Authorization: "Bearer " + token },
+      })
+      .then((res) => {
+        if (self._isMounted) {
+          if (res.data.error != null) {
+            console.log(res.data.message);
+          } else {
+            var processesResponse = this.mergeProcesses(
+              res.data.processes1,
+              res.data.processes2,
+              res.data.processes3,
+              res.data.processes4
+            );
+            self.setState({
+              processes: processesResponse,
+            });
+          }
+        }
+      })
+      .catch(function (error) {
+        alert(error);
+      });
+  };
   componentDidMount() {
     this.getDetailEmployeeOrganization();
+    this.getProcessEmployee();
   }
   componentWillUnmount() {
     this._isMounted = false;
   }
+  editProcess = (e, id) => {
+    e.preventDefault();
+    this.setState({ isRedirectEditProcess: true, idProcess: id });
+  };
+
+  handleSearch = (event) => {
+    var searchValue = event.target.value;
+    this.setState({ search: searchValue });
+  };
+
+  searchProcesses = (e) => {
+    e.preventDefault();
+    var search = this.state.search;
+    var idEmployee = this.props.match.params.idEmployee;
+    var token = localStorage.getItem("token");
+    if (search) {
+      axios
+        .get(
+          host +
+            `/api/company/employee/` +
+            idEmployee +
+            `/search/process/` +
+            search,
+          {
+            headers: { Authorization: "Bearer " + token },
+          }
+        )
+        .then((res) => {
+          if (res.data.error != null) {
+            this.props.showAlert({
+              message: 'Lỗi xóa quy trình nhân viên',
+              anchorOrigin: {
+                vertical: "top",
+                horizontal: "right",
+              },
+              title: "Thất bại",
+              severity: "error",
+            });
+          } else {
+            this.props.showAlert({
+              message: 'Xóa thành công quy trình',
+              anchorOrigin: {
+                vertical: "top",
+                horizontal: "right",
+              },
+              title: "Thành công",
+              severity: "success",
+            });
+            var processesResponse = this.mergeProcesses(
+              res.data.processes1,
+              res.data.processes2,
+              res.data.processes3,
+              res.data.processes4
+            );
+            this.setState({ processes: processesResponse });
+          }
+        })
+        .catch(function (error) {
+          alert(error);
+        });
+    }
+  };
+
+  removeProcess = (e, id) => {
+    e.preventDefault();
+    var self = this;
+    var token = localStorage.getItem('token');
+    axios.post(host + `/api/company/process/type/employee/delete`,
+    {
+      token: token,
+      idEmployee: this.props.match.params.idEmployee,
+      idProcess : id,
+    },
+    {
+        headers: { 'Authorization': 'Bearer ' + token}
+    }).then(res => {
+      if(res.data.error != null){
+        self.props.showAlert({
+          message: 'Lỗi xóa quy trình',
+          anchorOrigin:{
+              vertical: 'top',
+              horizontal: 'right'
+          },
+          title:'Lỗi',
+          severity:'error'
+        });
+      }else{
+        self.props.showAlert({
+          message: 'Xóa thành công quy trình',
+          anchorOrigin:{
+              vertical: 'top',
+              horizontal: 'right'
+          },
+          title:'Thành công',
+          severity:'success'
+        });
+        self.getProcessEmployee();
+      }
+    }).catch(function (error) {
+      alert(error);
+    });
+  }
 
   render() {
+    if (this.state.isRedirectEditProcess) {
+      return <Redirect to={"/process/edit/" + this.state.idProcess} />;
+    }
     return (
       <div className="inner-wrapper manage-organization_template">
         <Header />
@@ -236,89 +427,129 @@ export default class DetailEmployeeOraganization extends Component {
                   </div>
                 </div>
                 {/* End Content Detail Employee Organization */}
-                <div className="card shadow-sm ctm-border-radius  manage-department_organization">
+                <div className="card shadow-sm ctm-border-radius  manage-detailemployee_company">
                   <div className="card-header d-flex align-items-center justify-content-between">
                     <h4 className="card-title mb-0 d-inline-block">
-                      Số lượng quy trình :
-                      <span style={{ color: "red", fontSize: "30px" }}>
-                        {" " + 20}
-                      </span>
+                      Danh sách quy trình
                     </h4>
                   </div>
                   <div className="card-body align-center">
-                    <div className="tab-content" id="v-pills-tabContent">
-                      {/* Tab1*/}
-                      <div
-                        className="tab-pane fade active show"
-                        id="v-pills-home"
-                        role="tabpanel"
-                        aria-labelledby="v-pills-home-tab"
-                      >
-                        <div className="employee-office-table">
-                          <div className="table-responsive">
-                            <table className="table custom-table table-hover table-department_organization">
-                              <thead>
-                                <tr>
-                                  <th
-                                    style={{ width: "15%" }}
-                                    className="cell-breakWord"
-                                  >
-                                    Tên
-                                  </th>
-                                  <th
-                                    style={{ width: "40%" }}
-                                    className="cell-breakWord"
-                                  >
-                                    Miêu tả
-                                  </th>
-                                  <th style={{ width: "10%" }}>Viết tắt</th>
-                                  <th style={{ width: "35%" }}>Hành động</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td
-                                    style={{ width: "15%" }}
-                                    className="cell-breakWord"
-                                  >
-                                    {" "}
-                                  </td>
-                                  <td
-                                    style={{ width: "40%" }}
-                                    className="cell-breakWord"
-                                  ></td>
-                                  <td style={{ width: "10%" }}></td>
-                                  <td style={{ width: "35%" }}>
-                                    <div className="table-action">
-                                      <NavLink
-                                        to={""}
-                                        exact
-                                        className="btn btn-sm btn-outline-success"
-                                      >
-                                        <span className="lnr lnr-pencil" /> Chi
-                                        tiết
-                                      </NavLink>
-                                      <a
-                                        href="edit-review.html"
-                                        className="btn btn-sm btn-outline-success"
-                                      >
-                                        <span className="lnr lnr-pencil" /> Sửa
-                                      </a>
-                                      <a
-                                        href="##"
-                                        className="btn btn-sm btn-outline-danger"
-                                        data-toggle="modal"
-                                        data-target="#delete"
-                                      >
-                                        <span className="lnr lnr-trash" /> Xóa
-                                      </a>
-                                    </div>
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
+                    <div className="table-data__tool">
+                      <div className="table-data__tool-left">
+                        <div className="rs-select2--light-search-company">
+                          <form className="form-search-employee">
+                            <input
+                              className="form-control"
+                              onChange={this.handleSearch}
+                              placeholder="Tìm kiếm quy trình..."
+                            />
+                            <button
+                              className="company-btn--search__process"
+                              type="button"
+                              onClick={(e) => this.searchProcesses(e)}
+                            >
+                              <i className="zmdi zmdi-search"></i>
+                            </button>
+                          </form>
                         </div>
+                      </div>
+                      <div className="table-data__tool-right"></div>
+                    </div>
+                    <div className="employee-office-table">
+                      <div className="table-responsive">
+                        <table className="table custom-table table-hover table-process_type--employee">
+                          <thead>
+                            <tr>
+                              <th style={{ width: "5%" }}
+                                        className="cell-breakWord text-center">STT</th>
+                              <th style={{ width: "15%" }}
+                                        className="cell-breakWord text-center">Mã</th>
+                              <th style={{ width: "15%" }}
+                                        className="cell-breakWord text-center">Tên</th>
+                              <th style={{ width: "35%" }}
+                                      className="cell-breakWord text-center">Mô tả</th>
+                              <th style={{ width: "10%" }} className="text-center">Thể loại</th>
+                              <th style={{ width: "25%" }}>
+                                      </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {this.state.processes.length !== 0 ? (
+                              Object.values(
+                                this.state.processes.slice(
+                                  this.state.offset,
+                                  this.state.offset + this.state.perPage
+                                )
+                              ).map((process, index) => {
+                                return (
+                                  <tr className="tr-shadow" key={index}>
+                                    <td style={{ width: "5%" }}
+                                        className="cell-breakWord text-center">{index + 1}</td>
+                                    <td style={{ width: "5%" }}
+                                        className="cell-breakWord text-center">{process.code}</td>
+                                    <td style={{ width: "5%" }}
+                                        className="cell-breakWord text-center">{process.name}</td>
+                                    <td style={{ width: "5%" }}
+                                        className="cell-breakWord text-center">
+                                      {process.description}
+                                    </td>
+                                    <td style={{ width: "10%" }}>
+                                      {this.convertTypeOfProcesses(process.type)}
+                                    </td>
+                                    <td style={{ width: "25%" }}>
+                                      <div className="table-action">
+                                        <a
+                                          href="##"
+                                          className="btn btn-sm btn-outline-success mr-2"
+                                          onClick={(e) =>
+                                            this.openDetailProcess(e, process.id)
+                                          }
+                                        >
+                                          <span className="lnr lnr-pencil" />{" "}
+                                          Chi tiết
+                                        </a>
+                                        <a
+                                          href="##"
+                                          id="clone-view-detail-process"
+                                          data-toggle="modal"
+                                          data-target="#view-detail-process"
+                                          className="btn btn-sm btn-outline-success mr-2"
+                                          style={{ display: "none" }}
+                                        >
+                                          <span className="lnr lnr-pencil" />{" "}
+                                          Chi tiết
+                                        </a>
+                                        <a
+                                          href="##"
+                                          className="btn btn-sm btn-outline-warning mr-2"
+                                          onClick={(e) =>
+                                            this.editProcess(e, process.id)
+                                          }
+                                        >
+                                          <span className="lnr lnr-pencil" />{" "}
+                                          Sửa
+                                        </a>
+                                        <a
+                                          href="##"
+                                          className="btn btn-sm btn-outline-danger"
+                                          data-toggle="modal"
+                                          onClick={(e) =>
+                                            this.removeProcess(e, process.id)
+                                          }
+                                        >
+                                          <span className="lnr lnr-trash" /> Xóa
+                                        </a>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                );
+                              })
+                            ) : (
+                              <tr></tr>
+                            )}
+                          </tbody>
+                        </table>
+                        <ModalDetailProcess  idProcess={this.state.idProcess} />
                       </div>
                     </div>
                   </div>
@@ -331,3 +562,18 @@ export default class DetailEmployeeOraganization extends Component {
     );
   }
 }
+const mapStateToProps = (state, ownProps) => {
+  return {
+
+  }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+
+    showAlert: (properties) => {
+      dispatch(actionAlerts.showMessageAlert(properties));
+    },
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps) (DetailEmployeeOraganization);

@@ -1,0 +1,21 @@
+.manage-detailrole_organization {
+    .table-process_type--role {
+      width: 100%;
+      border-collapse: collapse !important;
+      table-layout: fixed !important;
+    }
+    .table-process_type--role .cell-breakWord {
+      overflow-wrap: break-word;
+      white-space: pre-wrap;
+    }
+    .table-process_type--role th {
+      text-align: center;
+    }
+    .table-process_type--role td {
+      border-top: 1px solid #dee2e6;
+    }
+    .table-process_type--role .btn-sm {
+      margin-right: 10px;
+    }
+  }
+  

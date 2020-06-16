@@ -1,0 +1,21 @@
+.manage-department_organization {
+    .table-process_type--department {
+      width: 100%;
+      border-collapse: collapse !important;
+      table-layout: fixed !important;
+    }
+    .table-process_type--department .cell-breakWord {
+      overflow-wrap: break-word;
+      white-space: pre-wrap;
+    }
+    .table-process_type--department th {
+      text-align: center;
+    }
+    .table-process_type--department td {
+      border-top: 1px solid #dee2e6;
+    }
+    .table-process_type--department .btn-sm {
+      margin-right: 10px;
+    }
+  }
+  
