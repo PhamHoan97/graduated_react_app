@@ -37,7 +37,7 @@ class SelectEmployeeOfProcessTypeInProcess extends Component {
         super(props)
 
         this.state = {
-            employeesAssign: '',
+            employeesAssign: [],
             selected: '',
         }
     }

@@ -11,7 +11,7 @@ class SelectFieldToFilter extends Component {
         super(props)
 
         this.state = {
-            options: '',     
+            options: [],     
         }
     }
 

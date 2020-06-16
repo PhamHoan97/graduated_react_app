@@ -45,7 +45,7 @@ class FormAddProcessModal extends Component {
             if(res.data.error != null){
                 console.log(res.data.message);
             }else{
-                this.setState({employeesFilter: res.data.employees, rolesFilter: res.data.roles, selected: '', assign: ''});
+                this.setState({employeesFilter: res.data.employees, rolesFilter: res.data.roles});
             }
           }).catch(function (error) {
             alert(error);

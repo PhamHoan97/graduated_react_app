@@ -8,6 +8,7 @@ import * as actions from '../../../Organization/ManageProcess/Actions/Index';
 import DatePicker from "react-datepicker";
 import FormCheck from 'react-bootstrap/FormCheck';
 import host from '../../../Host/ServerDomain';
+import * as actionAlerts from '../../../Alert/Action/Index';
 
 class EditInformationProcessModal extends Component {
     _isMounted = false;
@@ -35,7 +36,22 @@ class EditInformationProcessModal extends Component {
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
-        if(nextProps.detail){
+      if(nextProps.detail){
+        if(nextProps.idDepartmentAssign){
+          var token = localStorage.getItem('token');
+          axios.get(host + `/api/company/department/`+ nextProps.idDepartmentAssign + `/employee/role`,
+          {
+              headers: { 'Authorization': 'Bearer ' + token}
+          }).then(res => {
+              if(res.data.error != null){
+                  console.log(res.data.message);
+              }else{
+                  this.setState({employeesFilter: res.data.employees, rolesFilter: res.data.roles});
+              }
+          }).catch(function (error) {
+              alert(error);
+          }); 
+        }else{
           this.setState({
             detail : nextProps.detail,
             selected: nextProps.detail.assign,
@@ -47,21 +63,7 @@ class EditInformationProcessModal extends Component {
             assign: nextProps.detail.assign,
           });
         }
-        if(nextProps.idDepartmentAssign){
-            var token = localStorage.getItem('token');
-            axios.get(host + `/api/company/department/`+ nextProps.idDepartmentAssign + `/employee/role`,
-            {
-                headers: { 'Authorization': 'Bearer ' + token}
-            }).then(res => {
-                if(res.data.error != null){
-                    console.log(res.data.message);
-                }else{
-                    this.setState({employeesFilter: res.data.employees, selected: '', rolesFilter: res.data.roles, assign: ''});
-                }
-            }).catch(function (error) {
-                alert(error);
-            }); 
-        }
+      }
     }
     
     componentDidMount () {
@@ -76,7 +78,7 @@ class EditInformationProcessModal extends Component {
           if(res.data.error != null){
               console.log(res.data.message);
           }else{
-            self.setState({employeesFilter: res.data.employees,  rolesFilter: res.data.roles, departmentsFilter: res.data.departments});
+            self.setState({employeesFilter: res.data.employees, rolesFilter: res.data.roles, departmentsFilter: res.data.departments});
           }
         }
       }).catch(function (error) {
@@ -240,7 +242,7 @@ class EditInformationProcessModal extends Component {
     }
 
     renderRowAssign = () =>{
-      if(!this.state.type){
+      if(!this.state.type || this.state.type === 4){
         return (<div></div>);
       }
       else if(this.state.type === 1){
@@ -343,6 +345,22 @@ class EditInformationProcessModal extends Component {
       else {
         return (<div></div>);
       }
+    }
+
+    resetDataOfProcess = (e) => {
+      e.preventDefault();
+      this.props.showAlert({
+        message: "Phục hổi mặc định thông tin của quy trình",
+        anchorOrigin:{
+            vertical: 'top',
+            horizontal: 'right'
+        },
+        title:'Thành công',
+        severity:'success'
+      });
+      setTimeout(function(){ 
+        window.location.reload();
+      }, 2000);
     }
 
     render() {
@@ -450,9 +468,14 @@ class EditInformationProcessModal extends Component {
                               <div className="col col-md-3">
                               </div>
                               <div className="col-12 col-md-9">
-                                <button type="submit" className="btn btn-primary" style={{float:"left"}}>
-                                    Cập nhật
-                                </button>
+                                <div className="btn btn-group" style={{float:"left", padding: "0"}}>
+                                  <button type="submit" className="btn btn-primary" style={{float:"left"}}>
+                                      Cập nhật
+                                  </button>
+                                  <button type="button" className="btn btn-danger" onClick={(e) => this.resetDataOfProcess(e)} style={{float:"left", marginLeft:"5px"}}>
+                                      Reset
+                                  </button>
+                                </div>
                               </div>
                             </div>
                           </Form>
@@ -487,7 +510,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     updateProcessInformation: (information) => {
       dispatch(actions.updateProcessInformation(information));
-    }
+    },
+    showAlert: (properties) => {
+      dispatch(actionAlerts.showMessageAlert(properties))
+    },
   }
 }
 

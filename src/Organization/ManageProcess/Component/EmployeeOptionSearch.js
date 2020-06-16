@@ -11,7 +11,7 @@ class EmployeeOptionSearch extends Component {
         super(props)
 
         this.state = {
-            options: ''      
+            options: [],      
         }
     }
 
