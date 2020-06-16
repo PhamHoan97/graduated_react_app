@@ -58,7 +58,6 @@ class EditProcess extends Component {
     }
 
     extractDataToComponent(process){
-        console.log(process);
         var detail = {
             id:process.id,
             code:process.code,

@@ -66,7 +66,7 @@ class ViewNote extends Component {
 
     renderLinkDownloadDocument(url) {
         if(url){
-            return (<a className="link-download-document" target="_blank" href={host + '/' + url}> Tải tài liệu tại đây</a>);
+            return (<a className="link-download-document" target="_blank"  rel="noopener noreferrer" href={host + '/' + url}> Tải tài liệu tại đây</a>);
         }else{
             return (<span className="form-control">Không có tài liệu</span>);
         }

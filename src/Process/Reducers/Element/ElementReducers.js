@@ -256,16 +256,16 @@ var elementReducers = (state = initialState, action) => {
             return {...state, elements: updateDeleteElements};
         case types.DELETE_ELEMENT:
             var deleteIndexElement;
+            var newElementDelete = state.elements;
             for (var indexH = 0; indexH < state.elements.length; indexH++) {
-                if(state.current.id === state.elements[indexH].id){
+                if(action.element.id === state.elements[indexH].id){
                     deleteIndexElement = indexH;
+                    newElementDelete = state.elements;
+                    newElementDelete.splice(deleteIndexElement,1);
+                    state.current = "";
                     break;
                 }
             }
-            var newElementDelete = state.elements;
-            newElementDelete.splice(deleteIndexElement,1);
-            state.current = "";
-
             return {...state, elements: newElementDelete};
         case types.UPDATENAMEOFELEMENT:
             var updateElements = [];
