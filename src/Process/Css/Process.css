@@ -30,6 +30,10 @@
     margin-left: 20px;
 }
 
+.content-show{
+    height: 300px;
+}
+
 .note-content-show-name{
     height: auto;
     text-align: left;

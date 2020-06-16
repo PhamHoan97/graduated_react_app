@@ -54,7 +54,7 @@ class Menu extends Component {
     }).then(res => {
       if(self._isMounted){
         if(res.data.error != null){
-            console.log(res.data.error);
+            console.log(res.data.message);
         }else{ 
           self.setState({notifications: res.data.notifications});
         }

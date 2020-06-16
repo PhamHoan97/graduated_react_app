@@ -243,7 +243,7 @@ class Note extends Component {
                             </label>
                         </div>
                         <div className="note-content-show-name">
-                            <p className="form-control">{this.state.currentElement.note}</p>
+                            <p className="form-control content-show">{this.state.currentElement.note}</p>
                         </div>
                         <div className="row">
                             <label

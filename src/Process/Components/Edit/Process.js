@@ -272,7 +272,7 @@ class Process extends Component {
 
       this.modeler.on('commandStack.shape.delete.revert', (e) => this.handleUndoDeleteElement(e));
 
-      this.modeler.on('shape.changed',1000, (e) => this.changeNameElement(e));
+      // this.modeler.on('shape.changed',1000, (e) => this.changeNameElement(e));
   }
 
   render() {
