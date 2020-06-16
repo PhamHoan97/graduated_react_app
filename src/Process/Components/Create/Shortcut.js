@@ -146,7 +146,7 @@ class Shortcut extends Component {
                         htmlFor="text-input"
                         className=" form-control-label"
                     >
-                        Lasso Tool		
+                        Space Tool		
                     </label>
                     </div>
                     <div className="col-md-6">

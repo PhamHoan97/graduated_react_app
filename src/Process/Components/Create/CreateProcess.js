@@ -8,6 +8,7 @@ import {connect} from 'react-redux';
 import * as actions from '../../Actions/Index';
 import Detail from "../View/Detail";
 import {updateProcessInformation} from '../../../Organization/ManageProcess/Actions/Index';
+import Templates from './Templates';
 
 class CreateProcess extends Component {
     constructor(props) {
@@ -77,8 +78,8 @@ class CreateProcess extends Component {
                             <div className="col-md-6">
                                 <Detail />
                             </div>
-                            <div className="col-md-3">
-                                
+                            <div className="col-md-4">
+                                <Templates />
                             </div>
                         </div>
                         <div className="space-area"></div>
@@ -107,8 +108,8 @@ class CreateProcess extends Component {
                             <div className="col-md-6">
                                 <Detail />
                             </div>
-                            <div className="col-md-3">
-                                
+                            <div className="col-md-4">
+                                <Templates />
                             </div>
                         </div>
                         <div className="space-area"></div>

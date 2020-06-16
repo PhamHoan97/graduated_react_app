@@ -290,7 +290,7 @@ class Header extends Component {
                                             Phím tắt
                                         </div>
                                     </Dropdown.Item>
-                                    <Dropdown.Item>
+                                    <Dropdown.Item href="https://www.youtube.com/watch?v=PXOjuei5jt4&t=639s" target="_blank" rel="noopener noreferrer">
                                         <div className="action-title">
                                             Hướng dẫn
                                         </div>

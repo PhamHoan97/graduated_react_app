@@ -98,6 +98,7 @@ class Process extends Component {
         data.append('information',  JSON.stringify(this.props.detail));
         data.append('token', tokenData);
         data.append('file',  this.props.detail.file);
+        data.append('templates',  JSON.stringify(this.props.templates));
 
         axios.post(host + `/api/company/process/new`,
         data,
@@ -340,6 +341,7 @@ const mapStateToProps = (state, ownProps) => {
       isExportBPMN: state.processReducers.actionReducers.isExportBPMN,
       detail: state.addProcessReducers.informationProcessReducer.information,
       importData: state.processReducers.headerReducers.importData,
+      templates: state.processReducers.templateReducers.templates,
   }
 }
 

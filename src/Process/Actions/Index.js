@@ -175,3 +175,17 @@ export const changeIsSaveNoteToFalse = (element)=> {
     }
 }
 
+export const updateFileTemplatesForProcess = (templates)=> {
+    return {
+        type: types.UPDATE_FILE_TEMPLATES_FOR_PROCESS,
+        templates
+    }
+}
+
+export const updateFileTemplatesInEditProcess = (templates)=> {
+    return {
+        type: types.UPDATE_FILE_TEMPLATES_IN_EDIT_PROCESS,
+        templates
+    }
+}
+

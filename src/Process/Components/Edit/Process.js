@@ -69,6 +69,7 @@ class Process extends Component {
         data.append('information',  JSON.stringify(this.props.detail));
         data.append('token', tokenData);
         data.append('file',  this.props.detail.file);
+        data.append('templates',  JSON.stringify(this.props.editTemplates));
         
         axios.post(host + `/api/company/process/edit`,
         data,
@@ -272,7 +273,7 @@ class Process extends Component {
 
       this.modeler.on('commandStack.shape.delete.revert', (e) => this.handleUndoDeleteElement(e));
 
-      // this.modeler.on('shape.changed',1000, (e) => this.changeNameElement(e));
+      this.modeler.on('shape.changed',1000, (e) => this.changeNameElement(e));
   }
 
   render() {
@@ -294,6 +295,7 @@ const mapStateToProps = (state, ownProps) => {
       isExportImageEdit: state.processReducers.actionReducers.isExportImageEdit,
       isExportBPMNEdit: state.processReducers.actionReducers.isExportBPMNEdit,
       detail: state.addProcessReducers.informationProcessReducer.information,
+      editTemplates: state.processReducers.templateReducers.editTemplates,
   }
 }
 

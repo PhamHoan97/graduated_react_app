@@ -10,6 +10,7 @@ import Detail from './Detail';
 import axios from 'axios';
 import {updateProcessInformation} from '../../../Organization/ManageProcess/Actions/Index';
 import host from '../../../Host/ServerDomain';
+import ViewTemplates from './ViewTemplates';
 
 class ViewProcess extends Component {
     constructor(props) {
@@ -57,7 +58,6 @@ class ViewProcess extends Component {
     }
 
     extractDataToComponent(process){
-        console.log(process)
         var detail = {
             id:process.id,
             code:process.code,
@@ -77,6 +77,7 @@ class ViewProcess extends Component {
         var files = [];
         var names = [];
         var issavenotes = [];
+        var templates = process.templates;
         for (var indexM = 0; indexM < process.elements.length; indexM++) {
             var eNotes = {};
             var eComments = [];
@@ -159,6 +160,7 @@ class ViewProcess extends Component {
             });
         }
 
+        this.props.updateFileTemplatesInEditProcess(templates);
         this.props.updateProcessInformation(detail);
         this.props.extractDataElementWhenEdit(elements, notes, comments, assigns, files, issavenotes, names);
     }
@@ -217,8 +219,8 @@ class ViewProcess extends Component {
                             <div className="col-md-6">
                                 <Detail />
                             </div>
-                            <div className="col-md-3">
-
+                            <div className="col-md-4">
+                                <ViewTemplates />
                             </div>
                         </div>
                         <div className="space-area"></div>
@@ -247,8 +249,8 @@ class ViewProcess extends Component {
                             <div className="col-md-6">
                                 <Detail />
                             </div>
-                            <div className="col-md-3">
-
+                            <div className="col-md-4">
+                                <ViewTemplates />
                             </div>
                         </div>
                         <div className="space-area"></div>
@@ -275,6 +277,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         },
         updateProcessInformation: (information) => {
             dispatch(updateProcessInformation(information));
+        },
+        updateFileTemplatesInEditProcess: (templates) => {
+            dispatch(actions.updateFileTemplatesInEditProcess(templates));
         },
     }
 }

@@ -418,7 +418,7 @@ class ProcessCompany extends Component {
                               <thead>
                               <tr>
                                 <th className="text-center"></th>
-                                <th className="text-center">avatar</th>
+                                <th className="text-center">hình ảnh</th>
                                 <th className="text-center">tên</th>
                                 <th className="text-center">phòng ban</th>
                                 <th className="text-center">vai trò</th>

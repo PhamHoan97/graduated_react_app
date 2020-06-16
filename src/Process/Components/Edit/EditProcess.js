@@ -10,6 +10,7 @@ import axios from 'axios';
 import EditDetail from './EditDetail';
 import {updateProcessInformation} from '../../../Organization/ManageProcess/Actions/Index';
 import host from '../../../Host/ServerDomain';
+import EditTemplates from './EditTemplates';
 
 class EditProcess extends Component {
     _isMounted = false;
@@ -76,6 +77,7 @@ class EditProcess extends Component {
         var files = [];
         var issavenotes = [];
         var names = [];
+        var templates = process.templates;
         for (var indexM = 0; indexM < process.elements.length; indexM++) {
             var eNotes = {};
             var eComments = [];
@@ -165,6 +167,7 @@ class EditProcess extends Component {
             });
         }
 
+        this.props.updateFileTemplatesInEditProcess(templates);
         this.props.updateProcessInformation(detail);
         this.props.extractDataElementWhenEdit(elements, notes, comments, assigns, files, issavenotes, names);
         this.props.changeHeaderStatusToEdit();
@@ -233,8 +236,8 @@ class EditProcess extends Component {
                             <div className="col-md-6">
                                 <EditDetail />
                             </div>
-                            <div className="col-md-3">
-
+                            <div className="col-md-4">
+                                <EditTemplates />
                             </div>
                         </div>
                         <div className="space-area"></div>
@@ -263,8 +266,8 @@ class EditProcess extends Component {
                             <div className="col-md-6">
                                 <EditDetail />
                             </div>
-                            <div className="col-md-3">
-
+                            <div className="col-md-4">
+                                <EditTemplates />
                             </div>
                         </div>
                         <div className="space-area"></div>
@@ -295,6 +298,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         changeHeaderStatusToEdit: () => {
             dispatch(actions.changeHeaderStatusToEdit());
         },          
+        updateFileTemplatesInEditProcess: (templates) => {
+            dispatch(actions.updateFileTemplatesInEditProcess(templates));
+        },
     }
 }
 
