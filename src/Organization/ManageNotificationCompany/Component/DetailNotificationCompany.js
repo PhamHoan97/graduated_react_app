@@ -141,9 +141,9 @@ class DetailNotificationComponent extends Component {
           <span className="contact100-form-title">
             {this.state.detailNotification[0].name_form}
           </span>
-          <div className="description">
+          {/* <div className="description">
             {this.state.detailNotification[0].description_form}
-          </div>
+          </div> */}
           <div className="content-formio">
             <div id="formio"></div>
             <a
@@ -187,7 +187,9 @@ class DetailNotificationComponent extends Component {
     ) {
       return (
         <div className="content-notification text-center">
-          <div> {this.state.detailNotification[0].name}</div>
+          <div className="card-header">
+            <h3 className="card-title mb-0">{this.state.detailNotification[0].name}</h3>
+          </div>
           <div> {this.state.detailNotification[0].description}</div>
           {this.state.detailNotification[0].file !== null ? (
             <div className="text-center mt-3">
@@ -233,9 +235,6 @@ class DetailNotificationComponent extends Component {
                 <div className="row">
                   <div className="col-md-12 d-flex">
                     <div className="card ctm-border-radius shadow-sm flex-fill detail-notification_company">
-                      <div className="card-header">
-                        <h4 className="card-title mb-0">Thông báo</h4>
-                      </div>
                       <div className="card-body">
                         {this.showDetailNotification()}
                         <div className="container-contact100 mt-3">
