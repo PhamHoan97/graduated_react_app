@@ -85,15 +85,21 @@ class Account extends Component {
   }
 
   handleSubmitCreateAccount = (e) => {
+    console.log(this.validator.validate(this.state))
+    console.log(this.state.selectedOption)
     var errorNoEmployee = {};
     if (
       this.state.selectedOption === null ||
       !isEmpty(this.validator.validate(this.state).username) ||
       !isEmpty(this.validator.validate(this.state).password)
     ) {
-      errorNoEmployee = {
-        selectedOption: "Select employee is required.",
-      };
+      if(this.state.selectedOption === null){
+        errorNoEmployee = {
+          selectedOption: "Select employee is required.",
+        };
+      }else{
+        errorNoEmployee = {}
+      }
       this.setState({
         errors: this.validator.validate(this.state),
         errorsSelect: errorNoEmployee,
@@ -335,12 +341,12 @@ class Account extends Component {
                                         this.handleChange(event)
                                       }
                                     />
-                                    {errors.userNameEmployee && (
+                                    {errors.username && (
                                       <div
                                         className="validation"
                                         style={{ display: "block" }}
                                       >
-                                        {errors.userNameEmployee}
+                                        {errors.username}
                                       </div>
                                     )}
                                   </div>
@@ -358,12 +364,12 @@ class Account extends Component {
                                       }
                                       placeholder="password"
                                     />
-                                    {errors.passwordEmployee && (
+                                    {errors.password && (
                                       <div
                                         className="validation"
                                         style={{ display: "block" }}
                                       >
-                                        {errors.passwordEmployee}
+                                        {errors.password}
                                       </div>
                                     )}
                                   </div>
