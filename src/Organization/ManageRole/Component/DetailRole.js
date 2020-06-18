@@ -1,22 +1,25 @@
 import React, { Component } from "react";
 import "../../Style/Organization.scss";
+import "../Style/DetailRole.scss";
 import Header from "../../Header";
 import LinkPage from "../../LinkPage";
 import Menu from "../../Menu";
-import host from '../../../Host/ServerDomain'; 
+import host from "../../../Host/ServerDomain";
 import axios from "axios";
 import avatarMale from "../Image/avatar_employee1.png";
 import avatarFeMale from "../Image/avatar_employee2.png";
 import ModalCreateEmployeeRole from "./ModalCreateEmployeeRole";
 import { editEmployeeOrganization } from "../Action/Index";
-import {connect} from "react-redux"
+import { connect } from "react-redux";
 import ModalEditEmployeeRole from "./ModalEditEmployeeRole";
-import {NavLink} from "react-router-dom";
-import {showMessageAlert} from "../../../Alert/Action/Index";
+import { NavLink } from "react-router-dom";
+import { showMessageAlert } from "../../../Alert/Action/Index";
+import ReactPaginate from "react-paginate";
+import ModalDetailProcess from './ModalDetailProcess';
+import { Redirect } from 'react-router-dom';
 function isEmpty(obj) {
-  for(var key in obj) {
-      if(obj.hasOwnProperty(key))
-          return false;
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)) return false;
   }
   return true;
 }
@@ -28,7 +31,27 @@ class DetailRole extends Component {
       detailRole: {},
       showModalNewEmployee: false,
       showModalEditEmployee: false,
+      listProcesses:[],
+      offset: 0,
+      perPage: 10,
+      currentPage: 0,
+      pageCount: 0,
+      offsetProcess: 0,
+      perPageProcess: 5,
+      currentPageProcess: 0,
+      pageCountProcess: 0,
+      idProcess: '',
+      isRedirectEditProcess: false,
     };
+  }
+  editProcess = (e, id) => {
+    e.preventDefault();
+    this.setState({isRedirectEditProcess: true, idProcess: id});
+  }
+  openDetailProcess = (e, id) => {
+    e.preventDefault();
+    document.getElementById('clone-view-detail-process').click();
+    this.setState({idProcess: id});
   }
 
   getInformationDetailRole = () => {
@@ -47,14 +70,18 @@ class DetailRole extends Component {
         }
       )
       .then(function (response) {
-        if(self._isMounted){
+        if (self._isMounted) {
           if (response.data.error != null) {
             console.log(response.data.error);
           } else {
-            console.log(response.data.detailRole)
-            var detailRole = JSON.parse(JSON.stringify(response.data.detailRole));
+            var detailRole = JSON.parse(
+              JSON.stringify(response.data.detailRole)
+            );
             self.setState({
               detailRole: detailRole,
+              pageCount: Math.ceil(
+                detailRole.employees.length / self.state.perPage
+              ),
             });
           }
         }
@@ -63,13 +90,46 @@ class DetailRole extends Component {
         console.log(error);
       });
   };
-  
+  getProcessesTypeRole = () => {
+    this._isMounted = true;
+    var self = this;
+    var token = localStorage.getItem("token");
+    axios
+      .post(
+        host + "/api/company/process/type/role",{
+          token:token,
+          idRole:this.props.match.params.idRole
+        },
+        {
+          headers: { Authorization: "Bearer " + token },
+        }
+      )
+      .then(function (response) {
+        if (self._isMounted) {
+          if (response.data.error != null) {
+            console.log(response.data.error);
+          } else {
+            self.setState({
+              listProcesses: response.data.processes,
+              pageCountProcess: Math.ceil(
+                response.data.processes.length / self.state.perPageProcess
+              ),
+            });
+          }
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   componentWillUnmount() {
     this._isMounted = false;
   }
- 
+
   componentDidMount() {
     this.getInformationDetailRole();
+    this.getProcessesTypeRole();
   }
   openModalAddEmployee = (e) => {
     e.preventDefault();
@@ -78,6 +138,54 @@ class DetailRole extends Component {
       showModalNewEmployee: true,
     });
   };
+
+  handlePageClick = (e) => {
+    const selectedPage = e.selected;
+    const offset = selectedPage * this.state.perPage;
+    this.setState({
+      currentPage: selectedPage,
+      offset: offset,
+    });
+  };
+
+  handlePageClickProcess = (e) => {
+    const selectedPage = e.selected;
+    const offset = selectedPage * this.state.perPageProcess;
+    this.setState({
+      currentPageProcess: selectedPage,
+      offsetProcess: offset,
+    });
+  };
+
+  deleteProcessTypeRole = (e,idProcess) =>{
+    e.preventDefault();
+    let self = this;
+    var token = localStorage.getItem('token');
+    axios.post(host + '/api/company/process/type/role/delete',{
+        idRole:this.props.match.params.idRole,
+        idProcess:idProcess,
+    },{
+        headers: { 'Authorization': 'Bearer ' + token }
+    })
+    .then(function (response) {
+        if (response.data.error != null) {
+        } else {
+            self.props.showAlert({
+              message:'Xóa quy trình chức vụ thành công ',
+              anchorOrigin:{
+                  vertical: 'top',
+                  horizontal: 'right'
+              },
+              title:'Success',
+              severity:'success'
+            });
+            self.getProcessesTypeRole();
+        }
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+  }
 
   closeModalAddEmployee = () => {
     this.setState({
@@ -102,13 +210,13 @@ class DetailRole extends Component {
         if (response.data.error != null) {
         } else {
           self.props.showAlert({
-            message:'Xóa nhân viên thành công ',
-            anchorOrigin:{
-                vertical: 'top',
-                horizontal: 'right'
+            message: "Xóa nhân viên thành công ",
+            anchorOrigin: {
+              vertical: "top",
+              horizontal: "right",
             },
-            title:'Success',
-            severity:'success'
+            title: "Success",
+            severity: "success",
           });
           self.getInformationDetailRole();
         }
@@ -134,9 +242,7 @@ class DetailRole extends Component {
     var self = this;
     axios
       .get(
-        host +
-          "/api/company/organization/employee/detail/" +
-          idEditEmployee,
+        host + "/api/company/organization/employee/detail/" + idEditEmployee,
         {
           headers: { Authorization: "Bearer " + token },
         }
@@ -160,6 +266,9 @@ class DetailRole extends Component {
   };
 
   render() {
+    if(this.state.isRedirectEditProcess){
+      return <Redirect to={'/process/edit/' + this.state.idProcess} />
+    }
     return (
       <div className="inner-wrapper manage-organization_template">
         <Header />
@@ -178,13 +287,13 @@ class DetailRole extends Component {
                   minHeight: "1px",
                 }}
               >
-                <Menu/>
+                <Menu />
               </div>
               <div className="col-xl-9 col-lg-8  col-md-12">
                 <div className="quicklink-sidebar-menu ctm-border-radius shadow-sm bg-white card">
-                  <LinkPage linkPage="Vai trò / Chi tiết"/>
+                  <LinkPage linkPage="Vai trò / Chi tiết" />
                 </div>
-                {(!isEmpty(this.state.detailRole)) ? (
+                {!isEmpty(this.state.detailRole) ? (
                   <>
                     <div className="card shadow-sm  ctm-border-radius">
                       <div className="card-body text-center">
@@ -207,31 +316,51 @@ class DetailRole extends Component {
                               <div className="row">
                                 <div className="col-md-9">
                                   <h4 className="page-title_detailEmployee">
-                                    Danh sách nhân viên 
+                                    Danh sách nhân viên
+                                    {/* <span
+                                      style={{ color: "red", fontSize: "30px" }}
+                                    >
+                                      {" " +
+                                        this.state.detailRole.employees.length}
+                                    </span> */}
                                   </h4>
                                 </div>
                                 <div className="col-md-3">
                                   <ModalCreateEmployeeRole
-                                    getInformationDetailRole={this.getInformationDetailRole}
-                                    idRole = {this.props.match.params.idRole}
-                                    idDepartment = {this.props.match.params.idDepartment}
+                                    getInformationDetailRole={
+                                      this.getInformationDetailRole
+                                    }
+                                    idRole={this.props.match.params.idRole}
+                                    idDepartment={
+                                      this.props.match.params.idDepartment
+                                    }
                                     showModal={this.state.showModalNewEmployee}
                                     close={() => this.closeModalAddEmployee()}
                                   />
                                   {this.state.showModalEditEmployee === true ? (
                                     <ModalEditEmployeeRole
-                                      getInformationDetailRole={this.getInformationDetailRole}
-                                      idRole = {this.props.match.params.idRole}
-                                      idDepartment = {this.props.match.params.idDepartment}
-                                      showModal={this.state.showModalEditEmployee}
-                                      close={() => this.closeModalEditEmployee()}
+                                      getInformationDetailRole={
+                                        this.getInformationDetailRole
+                                      }
+                                      idRole={this.props.match.params.idRole}
+                                      idDepartment={
+                                        this.props.match.params.idDepartment
+                                      }
+                                      showModal={
+                                        this.state.showModalEditEmployee
+                                      }
+                                      close={() =>
+                                        this.closeModalEditEmployee()
+                                      }
                                     />
                                   ) : (
                                     <div></div>
                                   )}
                                   <a
                                     href="add-employee.html"
-                                    onClick={(e) => this.openModalAddEmployee(e)}
+                                    onClick={(e) =>
+                                      this.openModalAddEmployee(e)
+                                    }
                                     className="btn btn-theme button-1 text-white ctm-border-radius p-2 add-person ctm-btn-padding"
                                   >
                                     <i className="fa fa-plus" /> Thêm nhân viên
@@ -255,7 +384,10 @@ class DetailRole extends Component {
                                     {this.state.detailRole.employees.length !==
                                     0 ? (
                                       Object.values(
-                                        this.state.detailRole.employees
+                                        this.state.detailRole.employees.slice(
+                                          this.state.offset,
+                                          this.state.offset + this.state.perPage
+                                        )
                                       ).map((employee, index) => {
                                         return (
                                           <tr key={index}>
@@ -265,33 +397,30 @@ class DetailRole extends Component {
                                                 className="avatar"
                                               >
                                                 {employee.avatar !== null &&
-                                              employee.avatar !== "" ? (
-                                                <img
-                                                  alt="avatar employee 1"
-                                                  src={
-                                                    host +
-                                                    employee.avatar
-                                                  }
-                                                  className="img-fluid"
-                                                />
-                                              ) : (employee.gender) ===
-                                                'Nam' ? (
-                                                <img
-                                                  alt="avataremployee 1"
-                                                  src={avatarMale}
-                                                  className="img-fluid"
-                                                />
-                                              ) : (
-                                                <img
-                                                  alt="avatar employee 1"
-                                                  src={avatarFeMale}
-                                                  className="img-fluid"
-                                                />
-                                              )}
+                                                employee.avatar !== "" ? (
+                                                  <img
+                                                    alt="avatar employee 1"
+                                                    src={host + employee.avatar}
+                                                    className="img-fluid"
+                                                  />
+                                                ) : employee.gender ===
+                                                  "Nam" ? (
+                                                  <img
+                                                    alt="avataremployee 1"
+                                                    src={avatarMale}
+                                                    className="img-fluid"
+                                                  />
+                                                ) : (
+                                                  <img
+                                                    alt="avatar employee 1"
+                                                    src={avatarFeMale}
+                                                    className="img-fluid"
+                                                  />
+                                                )}
                                               </a>
                                               <h2>
                                                 <a href="employment.html">
-                                                 {employee.name}
+                                                  {employee.name}
                                                 </a>
                                               </h2>
                                             </td>
@@ -308,10 +437,7 @@ class DetailRole extends Component {
                                                 {employee.department_name}{" "}
                                               </NavLink>
                                             </td>
-                                            <td>
-                                              {" "}
-                                                {employee.role_name}{" "}
-                                            </td>
+                                            <td> {employee.role_name} </td>
                                             <td>{employee.email}</td>
                                             <td>
                                               <div className="dropdown action-label drop-active">
@@ -321,21 +447,32 @@ class DetailRole extends Component {
                                                   data-toggle="dropdown"
                                                 >
                                                   {" "}
-                                                  Hành động <i className="caret" />
+                                                  Hành động{" "}
+                                                  <i className="caret" />
                                                 </a>
                                                 <div className="dropdown-menu">
                                                   <a
-                                                      className="dropdown-item"
-                                                      href="##"
-                                                      onClick={(e) => this.openModalEditEmployee(e,employee.id)}
-                                                    >
-                                                      {" "}
-                                                      Sửa
-                                                    </a>
+                                                    className="dropdown-item"
+                                                    href="##"
+                                                    onClick={(e) =>
+                                                      this.openModalEditEmployee(
+                                                        e,
+                                                        employee.id
+                                                      )
+                                                    }
+                                                  >
+                                                    {" "}
+                                                    Sửa
+                                                  </a>
                                                   <a
                                                     className="dropdown-item"
                                                     href="##"
-                                                    onClick={(e) => this.deleteEmployee(e,employee.id)}
+                                                    onClick={(e) =>
+                                                      this.deleteEmployee(
+                                                        e,
+                                                        employee.id
+                                                      )
+                                                    }
                                                   >
                                                     {" "}
                                                     Xóa
@@ -368,6 +505,202 @@ class DetailRole extends Component {
                                 </table>
                               </div>
                             </div>
+                            <div className="row mt-5">
+                              <div className="col-md-4"></div>
+                              <div className="col-md-4 text-center">
+                                <ReactPaginate
+                                  previousLabel={"Trước"}
+                                  nextLabel={"Sau"}
+                                  breakLabel={"..."}
+                                  breakClassName={"break-me"}
+                                  pageCount={this.state.pageCount}
+                                  marginPagesDisplayed={2}
+                                  pageRangeDisplayed={5}
+                                  onPageChange={this.handlePageClick}
+                                  containerClassName={"pagination"}
+                                  subContainerClassName={"pages pagination"}
+                                  activeClassName={"active"}
+                                />
+                                <div className="col-md-4"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-12 d-flex">
+                        <div className="card ctm-border-radius shadow-sm flex-fill manage-detailrole_organization">
+                          <div className="card-header">
+                            <h4 className="card-title mb-0">
+                              Danh sách quy trình
+                            </h4>
+                          </div>
+                          <div className="card-body">
+                            <div
+                              className="tab-content"
+                              id="v-pills-tabContent"
+                            >
+                              {/* Tab1*/}
+                              <div
+                                className="tab-pane fade active show"
+                                id="v-pills-home"
+                                role="tabpanel"
+                                aria-labelledby="v-pills-home-tab"
+                              >
+                                <div className="employee-office-table">
+                                  <div className="table-responsive">
+                                    <table className="table custom-table table-hover table-process_type--role">
+                                      <thead>
+                                        <tr>
+                                          <th
+                                            style={{ width: "5%" }}
+                                            className="cell-breakWord text-center"
+                                          >
+                                            STT
+                                          </th>
+                                          <th
+                                            style={{ width: "15%" }}
+                                            className="cell-breakWord text-center"
+                                          >
+                                            Mã
+                                          </th>
+                                          <th
+                                            style={{ width: "15%" }}
+                                            className="cell-breakWord text-center"
+                                          >
+                                            Tên
+                                          </th>
+                                          <th
+                                            style={{ width: "35%" }}
+                                            className="cell-breakWord text-center"
+                                          >
+                                            Miêu tả
+                                          </th>
+                                          <th
+                                            style={{ width: "10%" }}
+                                            className="text-center"
+                                          >
+                                            Thể loại
+                                          </th>
+                                          <th style={{ width: "25%" }}></th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        {this.state.listProcesses.length !==
+                                        0 ? (
+                                          Object.values(
+                                            this.state.listProcesses.slice(
+                                              this.state.offsetProcess,
+                                              this.state.offsetProcess +
+                                                this.state.perPageProcess
+                                            )
+                                          ).map((process, index) => {
+                                            return (
+                                              <tr key={index}>
+                                                <td
+                                                  style={{ width: "5%" }}
+                                                  className="cell-breakWord text-center"
+                                                >
+                                                  {index + 1}
+                                                </td>
+                                                <td
+                                                  style={{ width: "10%" }}
+                                                  className="cell-breakWord text-center"
+                                                >
+                                                  {process.code}{" "}
+                                                </td>
+                                                <td
+                                                  style={{ width: "15%" }}
+                                                  className="cell-breakWord text-center"
+                                                >
+                                                  {process.name}
+                                                </td>
+                                                <td
+                                                  style={{ width: "35%" }}
+                                                  className="cell-breakWord text-center"
+                                                >
+                                                  {process.description}
+                                                </td>
+                                                <td
+                                                  style={{ width: "10%" }}
+                                                  className="text-center"
+                                                >
+                                                  Chức vụ
+                                                </td>
+                                                <td style={{ width: "25%" }}>
+                                                  <div className="table-action">
+                                                  <a
+                                                      href="##"
+                                                      className="btn btn-sm btn-outline-success"
+                                                      onClick={(e) => this.openDetailProcess(e, process.id)}
+                                                  >
+                                                      <span className="lnr lnr-pencil" />
+                                                      Chi tiết
+                                                  </a>
+                                                  <a
+                                                      href="##"
+                                                      id="clone-view-detail-process"
+                                                      data-toggle="modal"
+                                                      data-target="#view-detail-process"
+                                                      className="btn btn-sm btn-outline-success"
+                                                      style={{display:"none"}}
+                                                  >
+                                                      <span className="lnr lnr-pencil" />{" "}
+                                                      Chi tiết
+                                                  </a>
+                                                    <a
+                                                      href="edit-review.html"
+                                                      className="btn btn-sm btn-outline-success mr-2 ml-2"
+                                                      onClick={(e) => this.editProcess(e,process.id)}
+                                                    >
+                                                      <span className="lnr lnr-pencil" />{" "}
+                                                      Sửa
+                                                    </a>
+                                                    <a
+                                                      href="##"
+                                                      className="btn btn-sm btn-outline-danger"
+                                                      onClick={(e) => this.deleteProcessTypeRole(e,process.id)}
+                                                    >
+                                                      <span className="lnr lnr-trash" />{" "}
+                                                      Xóa
+                                                    </a>
+                                                  </div>
+                                                </td>
+                                              </tr>
+                                            );
+                                          })
+                                        ) : (
+                                          <tr></tr>
+                                        )}
+                                      </tbody>
+                                    </table>
+                                    <div className="row mt-5">
+                                      <div className="col-md-4"></div>
+                                      <div className="col-md-4 text-center">
+                                        <ReactPaginate
+                                          previousLabel={"Trước"}
+                                          nextLabel={"Sau"}
+                                          breakLabel={"..."}
+                                          breakClassName={"break-me"}
+                                          pageCount={this.state.pageCountProcess}
+                                          marginPagesDisplayed={2}
+                                          pageRangeDisplayed={5}
+                                          onPageChange={this.handlePageClickProcess}
+                                          containerClassName={"pagination"}
+                                          subContainerClassName={
+                                            "pages pagination"
+                                          }
+                                          activeClassName={"active"}
+                                        />
+                                      </div>
+                                      <div className="col-md-4"></div>
+                                    </div>
+                                    <ModalDetailProcess  idProcess={this.state.idProcess} />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -390,8 +723,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(editEmployeeOrganization(detailEmployee));
     },
     showAlert: (properties) => {
-      dispatch(showMessageAlert(properties))
-    }
+      dispatch(showMessageAlert(properties));
+    },
   };
 };
 export default connect(null, mapDispatchToProps)(DetailRole);

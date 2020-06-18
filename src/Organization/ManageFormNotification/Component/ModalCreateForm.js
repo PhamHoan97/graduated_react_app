@@ -9,6 +9,7 @@ import host from '../../../Host/ServerDomain';
 import Alert from '@material-ui/lab/Alert';
 
 export default class ModalCreateForm extends Component {
+      _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -30,18 +31,25 @@ export default class ModalCreateForm extends Component {
     componentDidMount() {
         this.getListTemplate();
         this.getlistType();
-
     }
+
+    componentWillUnmount(){
+        this._isMounted = false;
+    }
+
     getListTemplate =() =>{
-        var self =  this;
+        this._isMounted = true;
+        let self = this;
         var token = localStorage.getItem('token');
         axios.get(host + "/api/system/notification/template/list",{
             headers: { 'Authorization': 'Bearer ' + token }
         })
         .then(function (response) {
-            self.setState({
-                listTemplate:response.data.templates
-            })
+            if(self._isMounted){
+                self.setState({
+                    listTemplate:response.data.templates
+                });
+            }
         })
         .catch(function (error) {
             console.log(error);
@@ -57,16 +65,19 @@ export default class ModalCreateForm extends Component {
         })
     }
     getlistType =() =>{
-        var self =  this;
+        this._isMounted = true;
+        let self = this;
         var token = localStorage.getItem('token');
         var idAdmin = localStorage.getItem('admin_id');
         axios.get(host + "/api/system/notification/type/list/"+idAdmin,{
             headers: { 'Authorization': 'Bearer ' + token }
         })
         .then(function (response) {
-            self.setState({
-                listType:response.data.types
-            })
+            if(self._isMounted){
+                self.setState({
+                    listType:response.data.types
+                })
+            }
         })
         .catch(function (error) {
             console.log(error);

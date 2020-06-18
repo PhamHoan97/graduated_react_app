@@ -1,11 +1,36 @@
-.manage-organization_template .manage-detailCompany_organization .title-detail_company{
-    font-size:17px !important;
-    font-weight: 600 !important;
-    margin-right:15px !important;
-    font-family: initial;
+.manage-organization_template
+  .manage-detailCompany_organization
+  .title-detail_company {
+  font-size: 17px !important;
+  font-weight: 600 !important;
+  margin-right: 15px !important;
+  font-family: initial;
 }
-.manage-organization_template .manage-detailCompany_organization .avatar-company{
-   border-radius:50%;
-   height: 100px;
-   widows: 100px;
+.manage-organization_template
+  .manage-detailCompany_organization
+  .avatar-company {
+  border-radius: 50%;
+  height: 100px;
+  widows: 100px;
+}
+.manage-organization_template {
+  .table-process_type--company {
+    width: 100%;
+    border-collapse: collapse !important;
+    table-layout: fixed !important;
+  }
+
+  .table-process_type--company .cell-breakWord {
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+  }
+  .table-process_type--company th {
+    text-align: center;
+  }
+  .table-process_type--company td {
+    border-top: 1px solid #dee2e6;
+  }
+  .table-process_type--company .btn-sm {
+    margin-right: 10px;
+  }
 }

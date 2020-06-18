@@ -173,14 +173,11 @@ class AdminAcountTable extends Component {
                 <React.Fragment key={key}>
                         <tr className="tr-shadow">
                             <td>
-                                <label className="au-checkbox">
-                                <input type="checkbox" />
-                                <span className="au-checkmark" />
-                                </label>
+                                {key+1}
                             </td>
                             <td>{value.username}</td>
                             <td>{value.password.substr(0, 15) + '...'}</td>
-                            <td className="desc">{value.updated_at}</td>
+                            {/* <td>{value.updated_at}</td> */}
                             <td className="desc">
                                 <button onClick={this.sendEmailHandle.bind(this,value.id)} type="button" className="btn btn-danger">Gửi Email</button>
                             </td>
@@ -204,7 +201,7 @@ class AdminAcountTable extends Component {
                             <th/>
                             <th>Tài khoản</th>
                             <th>Mật khẩu</th>
-                            <th>Cập nhật </th>
+                            {/* <th>Cập nhật </th> */}
                             <th>Hành động</th>
                             <th/>
                         </tr>

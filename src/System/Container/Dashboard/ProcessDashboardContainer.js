@@ -31,7 +31,10 @@ class ProcessDashboardContainer extends Component {
             result = slice.map((item, index) => {
                 return <ProcessItem
                     key={index}
+                    stt={index+1}
                     id={item.id}
+                    code={item.code}
+                    type={item.type}
                     name={item.process_name}
                     description={item.description}
                     date={item.date}
@@ -58,13 +61,19 @@ class ProcessDashboardContainer extends Component {
         this._isMounted = false;
     }
 
-    mergeProcesses(process1, process2){
+    mergeProcesses(process1, process2, process3, process4){
         var processes = [];
         for (let index1 = 0; index1 < process1.length; index1++) {
             processes.push(process1[index1]);
         }
         for (let index2 = 0; index2 < process2.length; index2++) {
             processes.push(process2[index2]);
+        }
+        for (let index3 = 0; index3 < process3.length; index3++) {
+            processes.push(process3[index3]);
+        }
+        for (let index4 = 0; index4 < process4.length; index4++) {
+            processes.push(process4[index4]);
         }
         return processes;
     }
@@ -83,7 +92,7 @@ class ProcessDashboardContainer extends Component {
             if (response.data.error != null) {
             } else {
                 if(self._isMounted){
-                    var listProcess = self.mergeProcesses(response.data.processes1, response.data.processes2);
+                    var listProcess = self.mergeProcesses(response.data.processes1, response.data.processes2, response.data.processes3, response.data.processes4);
                     self.setState({
                         listProcess: listProcess,
                         pageCount: Math.ceil(listProcess.length / self.state.perPage),

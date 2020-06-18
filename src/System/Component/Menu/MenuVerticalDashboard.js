@@ -72,6 +72,10 @@ class MenuVerticalDashboard extends Component {
     })
   }
 
+  componentWillUnmount(){
+    this._isMounted = false;
+  }
+
   handleLogout = (event) => {
     event.preventDefault();
     var tokenData = localStorage.getItem('token');

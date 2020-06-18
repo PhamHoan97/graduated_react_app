@@ -12,6 +12,7 @@ import {connect} from 'react-redux';
 import host from '../../../Host/ServerDomain'; 
 
 class ViewProcessTemplate extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props)
 
@@ -22,20 +23,28 @@ class ViewProcessTemplate extends Component {
     }
 
     componentDidMount() {
+        this._isMounted = true;
+        let self = this;
         var idProcess = this.props.match.params.id;
         var token = localStorage.getItem('token');
         axios.get(host + `/api/company/template/process/` + idProcess,
         {
             headers: { 'Authorization': 'Bearer ' + token}
         }).then(res => {
-          if(res.data.error != null){
-              console.log(res.data.message);
-          }else{
-            this.setState({name: res.data.process.name, xml: res.data.process.xml});
-        }
+          if(self._isMounted){
+            if(res.data.error != null){
+                console.log(res.data.message);
+            }else{
+              self.setState({name: res.data.process.name, xml: res.data.process.xml});
+            }
+          }
         }).catch(function (error) {
           alert(error);
         });
+    }
+    
+    componentWillUnmount(){
+      this._isMounted = false;
     }
 
     exportBpmnFile = (e) => {

@@ -31,8 +31,7 @@ export default class ModalTypeTemplate extends Component {
         this.validator = new Validator(rules);
         this.handleChange = this.handleChange.bind(this);
     }
-    //WARNING! To be deprecated in React v17. Use new lifecycle static getDerivedStateFromProps instead.
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         this.setState({
             errors: {},
         })

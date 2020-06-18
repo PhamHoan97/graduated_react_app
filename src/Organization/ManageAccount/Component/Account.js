@@ -85,15 +85,21 @@ class Account extends Component {
   }
 
   handleSubmitCreateAccount = (e) => {
+    console.log(this.validator.validate(this.state))
+    console.log(this.state.selectedOption)
     var errorNoEmployee = {};
     if (
       this.state.selectedOption === null ||
       !isEmpty(this.validator.validate(this.state).username) ||
       !isEmpty(this.validator.validate(this.state).password)
     ) {
-      errorNoEmployee = {
-        selectedOption: "Select employee is required.",
-      };
+      if(this.state.selectedOption === null){
+        errorNoEmployee = {
+          selectedOption: "Select employee is required.",
+        };
+      }else{
+        errorNoEmployee = {}
+      }
       this.setState({
         errors: this.validator.validate(this.state),
         errorsSelect: errorNoEmployee,
@@ -155,7 +161,11 @@ class Account extends Component {
   }
 
   handleChangeEmployee = (selectedOption) => {
+    var nameEmployee = selectedOption.label;
+    var userNameEmployee = nameEmployee.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(' ').join('')+selectedOption.value;
+    document.getElementById("inputUserNameGenerate").value = userNameEmployee;
     this.setState({
+      username:userNameEmployee,
       selectedOption,
     });
   };
@@ -177,7 +187,7 @@ class Account extends Component {
             var employees = response.data.employees;
             for (var i = 0; i < employees.length; i++) {
               options.push({
-                label: employees[i].name + "-" + employees[i].email,
+                label: employees[i].name,
                 value: employees[i].id,
               });
             }
@@ -227,16 +237,11 @@ class Account extends Component {
   }
 
   generateAdminAccount = (event) => {
-    var userNameEmployee =
-      Math.random().toString(36).substring(7) +
-      Math.random().toString(36).substring(7);
     var passwordEmployee =
       Math.random().toString(36).substring(7) +
       Math.random().toString(36).substring(7);
-    document.getElementById("inputUserNameGenerate").value = userNameEmployee;
     document.getElementById("inputPasswordGenerate").value = passwordEmployee;
     this.setState({
-      username: userNameEmployee,
       password: passwordEmployee,
     });
   };
@@ -254,7 +259,8 @@ class Account extends Component {
             username={account.username}
             email={account.email}
             idAccount={account.id}
-            department_name={account.department_name}
+            gender={account.gender}
+            avatar={account.avatar}
             initial_password={account.initial_password}
           />
         );
@@ -335,12 +341,12 @@ class Account extends Component {
                                         this.handleChange(event)
                                       }
                                     />
-                                    {errors.userNameEmployee && (
+                                    {errors.username && (
                                       <div
                                         className="validation"
                                         style={{ display: "block" }}
                                       >
-                                        {errors.userNameEmployee}
+                                        {errors.username}
                                       </div>
                                     )}
                                   </div>
@@ -358,12 +364,12 @@ class Account extends Component {
                                       }
                                       placeholder="password"
                                     />
-                                    {errors.passwordEmployee && (
+                                    {errors.password && (
                                       <div
                                         className="validation"
                                         style={{ display: "block" }}
                                       >
-                                        {errors.passwordEmployee}
+                                        {errors.password}
                                       </div>
                                     )}
                                   </div>
@@ -379,7 +385,7 @@ class Account extends Component {
                                         className="fa fa-refresh"
                                         aria-hidden="true"
                                       />{" "}
-                                      Tự động sinh tài khoản
+                                      Tự động sinh mật khẩu
                                     </button>
                                   </div>
                                 </div>
@@ -430,15 +436,15 @@ class Account extends Component {
                               <table>
                                 <thead>
                                   <tr className="row100 head">
-                                    <th className="cell100 column1">Email</th>
-                                    <th className="cell100 column2">
+                                    <th className="cell100 column4 text-center">
+                                      Hình ảnh
+                                    </th>
+                                    <th className="cell100 column3 text-center">Tên nhân viên</th>
+                                    <th className="cell100 column1 text-center">Email</th>
+                                    <th className="cell100 column2 text-center">
                                       Tên tài khoản
                                     </th>
-                                    <th className="cell100 column3">Tên nhân viên</th>
-                                    <th className="cell100 column4">
-                                      Tên phòng ban
-                                    </th>
-                                    <th className="cell100 column5"></th>
+                                    <th className="cell100 column5 text-center"></th>
                                   </tr>
                                 </thead>
                               </table>

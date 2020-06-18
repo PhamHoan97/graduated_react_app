@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../../Css/Process.css';
 import {connect} from 'react-redux';
+import host from '../../../Host/ServerDomain';
 
 class ViewNote extends Component {
     constructor(props) {
@@ -63,14 +64,85 @@ class ViewNote extends Component {
         }
     }
 
+    renderLinkDownloadDocument(url) {
+        if(url){
+            return (<a className="link-download-document" target="_blank"  rel="noopener noreferrer" href={host + '/' + url}> Tải tài liệu tại đây</a>);
+        }else{
+            return (<span className="form-control">Không có tài liệu</span>);
+        }
+    }
+
+    renderName(element){
+        if(element.type !== "bpmn:StartEvent" && element.type !== "bpmn:EndEvent"){
+            return (
+                <>
+                <div className="row">
+                    <label
+                        htmlFor="note-element"
+                        className="form-control-label-note"
+                    >
+                        Tên công việc
+                    </label>
+                </div>
+                <div className="note-content-show-name">
+                    <p className="form-control">{element.name}</p>
+                </div>
+                </>
+            )
+        }else{
+           return (<></>);
+        }
+    }
+
+    renderEmployee = (employees) =>{
+        var content = '';
+        if(employees){
+       for (let index = 0; index < employees.length; index++) {
+            content += '<p className="form-control">' + employees[index].label + '</p>';
+        }
+        }
+        return content;
+    } 
+
     render() {
         return (
             <section className="note-element">
                 <h4 className="note-title"> {this.convertTitleOfElement(this.state.currentElement)}</h4>
                 <div className="note-content form-group">
                     <form>
+                        {this.renderName(this.state.currentElement)}
+                        <div className="row">
+                            <label
+                                htmlFor="note-element"
+                                className="form-control-label-note"
+                            >
+                                Giao cho
+                            </label>
+                        </div>
+                        <div className="note-content-show" dangerouslySetInnerHTML={{__html: this.renderEmployee(this.state.currentElement.assign)}}>
+                            
+                        </div>
+                        <div className="row">
+                            <label
+                                htmlFor="note-element"
+                                className="form-control-label-note"
+                            >
+                                Nội dung
+                            </label>
+                        </div>
                         <div className="note-content-textarea" style={{textAlign: "initial"}}>
-                            {this.state.currentElement.note}
+                            <p className="form-control content-show">{this.state.currentElement.note}</p>
+                        </div>
+                        <div className="row">
+                            <label
+                                htmlFor="note-element"
+                                className="form-control-label-note"
+                            >
+                                Tài liệu
+                            </label>
+                        </div>
+                        <div className="note-content-show-name">
+                            <p> {this.renderLinkDownloadDocument(this.state.currentElement.file)}</p>
                         </div>
                     </form>
                 </div>

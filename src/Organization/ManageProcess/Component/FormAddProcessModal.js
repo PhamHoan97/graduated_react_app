@@ -22,6 +22,7 @@ class FormAddProcessModal extends Component {
         this.state = {
           employeesFilter: '',
           rolesFilter: '',
+          departmentsFilter: '',
           selected: '', 
           name: '',
           description: '',
@@ -44,7 +45,7 @@ class FormAddProcessModal extends Component {
             if(res.data.error != null){
                 console.log(res.data.message);
             }else{
-                this.setState({employeesFilter: res.data.employees, rolesFilter: res.data.roles, selected: '', assign: ''});
+                this.setState({employeesFilter: res.data.employees, rolesFilter: res.data.roles});
             }
           }).catch(function (error) {
             alert(error);
@@ -64,7 +65,7 @@ class FormAddProcessModal extends Component {
           if(res.data.error != null){
               console.log(res.data.message);
           }else{
-            self.setState({employeesFilter: res.data.employees, rolesFilter: res.data.roles});
+            self.setState({employeesFilter: res.data.employees, rolesFilter: res.data.roles, departmentsFilter: res.data.departments});
           }
         }
       }).catch(function (error) {
@@ -80,21 +81,31 @@ class FormAddProcessModal extends Component {
         var options = [];
         var employees = this.state.employeesFilter;
         for (let index = 0; index < employees.length; index++) {
-            var option = {value: employees[index].id_employee, label: employees[index].name + "-" + employees[index].department_name};
+            var option = {value: employees[index].id_employee, label: employees[index].name + " (" + employees[index].department_name + ")"};
             options.push(option);
         }
         return options;
-    }
+      }
 
     convertRolesToOptions(){
       var options = [];
       var roles = this.state.rolesFilter;
       for (let index = 0; index < roles.length; index++) {
-          var option = {value: roles[index].id_role, label: roles[index].department_name + "-" + roles[index].role};
+          var option = {value: roles[index].id_role, label: roles[index].department_name + " (" + roles[index].role + ")"};
           options.push(option);
       }
       return options;
-  }
+    }
+
+    convertDepartmentsToOptions(){
+      var options = [];
+      var departments = this.state.departmentsFilter;
+      for (let index = 0; index < departments.length; index++) {
+          var option = {value: departments[index].id_department, label: departments[index].department_name};
+          options.push(option);
+      }
+      return options;
+    }
     
     getCurrentTime (){
       var date = new Date();
@@ -129,7 +140,11 @@ class FormAddProcessModal extends Component {
 
     handleChangeSelectRole = selectedOption => {
       this.setState({selected: selectedOption, assign: selectedOption});
-   };
+    };
+
+    handleChangeSelectDepartment = selectedOption => {
+      this.setState({selected: selectedOption, assign: selectedOption});
+    };
 
     handleChangeDeadline = date => {
       this.setState({
@@ -159,11 +174,12 @@ class FormAddProcessModal extends Component {
 
     handleSubmitAddProcess = (e) => {
       e.preventDefault();
-      if(!this.state.assign){
+      if(!this.state.assign && this.state.type !== 4){
 
       }else{
         document.getElementById('close-modal-add-new-process').click();
         var information = {
+          code : Math.random().toString(36).substring(7) + Math.random().toString(36).substring(7),
           name :this.state.name,
           description: this.state.description,
           assign: this.state.assign,
@@ -172,6 +188,7 @@ class FormAddProcessModal extends Component {
           file: this.state.file,
           type: this.state.type,
         }
+        localStorage.setItem("processInfo",  JSON.stringify(information));
         this.props.updateProcessInformation(information);
         this.setState({redirect: true});
       }
@@ -188,13 +205,59 @@ class FormAddProcessModal extends Component {
     }
 
     handleChangeTypeEmployee= event => {
-      document.getElementById('check-type-assign-2').checked = false;
-      this.setState({type: 1 ,selected: ''});
+      if(event.target.checked){
+        document.getElementById('check-type-assign-2').checked = false;
+        document.getElementById('check-type-assign-3').checked = false;
+        document.getElementById('check-type-assign-4').checked = false;
+        this.setState({type: 1 ,selected: ''});
+      }else{
+        document.getElementById('check-type-assign-2').checked = false;
+        document.getElementById('check-type-assign-3').checked = false;
+        document.getElementById('check-type-assign-4').checked = false;
+        this.setState({type: '' ,selected: ''});
+      }
     }
 
     handleChangeTypeRole= event => {
-      document.getElementById('check-type-assign-1').checked = false;
-      this.setState({type: 2, selected: ''});
+      if(event.target.checked){
+        document.getElementById('check-type-assign-1').checked = false;
+        document.getElementById('check-type-assign-3').checked = false;
+        document.getElementById('check-type-assign-4').checked = false;
+        this.setState({type: 2, selected: ''});
+      }else{
+        document.getElementById('check-type-assign-1').checked = false;
+        document.getElementById('check-type-assign-3').checked = false;
+        document.getElementById('check-type-assign-4').checked = false;
+        this.setState({type: '', selected: ''});
+      }
+    }
+
+    handleChangeTypeDepartment = event => {
+      if(event.target.checked){
+        document.getElementById('check-type-assign-1').checked = false;
+        document.getElementById('check-type-assign-2').checked = false;
+        document.getElementById('check-type-assign-4').checked = false;
+        this.setState({type: 3, selected: ''});
+      }else{
+        document.getElementById('check-type-assign-1').checked = false;
+        document.getElementById('check-type-assign-2').checked = false;
+        document.getElementById('check-type-assign-4').checked = false;
+        this.setState({type: '', selected: ''});      
+      }
+    }
+
+    handleChangeTypeCompany = event => {
+      if(event.target.checked){
+        document.getElementById('check-type-assign-1').checked = false;
+        document.getElementById('check-type-assign-2').checked = false;
+        document.getElementById('check-type-assign-3').checked = false;
+        this.setState({type: 4, selected: ''});
+      }else{
+        document.getElementById('check-type-assign-1').checked = false;
+        document.getElementById('check-type-assign-2').checked = false;
+        document.getElementById('check-type-assign-3').checked = false;
+        this.setState({type: '', selected: ''});
+      }
     }
 
     renderRowAssign = () =>{
@@ -203,14 +266,78 @@ class FormAddProcessModal extends Component {
       }
       else if(this.state.type === 1){
         return (
-          <Select placeholder="Lựa chọn nhân viên" id="select-employee-to-assign" required value={this.state.selected} components={animatedComponents} 
-          isMulti options={this.convertEmployeesToOptions()} onChange={this.handleChangeSelectEmployee} />
+          <div className="row form-group">
+            <div className="col col-md-3">
+              <label
+                htmlFor="disabled-input"
+                className=" form-control-label"
+              >
+                Giao cho
+              </label>
+            </div>
+            <div className="col-12 col-md-9">
+              <Select placeholder="Lựa chọn nhân viên" id="select-employee-to-assign" required value={this.state.selected} components={animatedComponents} 
+              isMulti options={this.convertEmployeesToOptions()} onChange={this.handleChangeSelectEmployee} />
+            </div>
+          </div>
         );
-      }else{
+      }else if(this.state.type === 2){
         return(
-          <Select placeholder="Lựa chọn chức vụ" id="select-employee-to-assign" required value={this.state.selected} components={animatedComponents} 
-          isMulti options={this.convertRolesToOptions()} onChange={this.handleChangeSelectRole} />
+          <div className="row form-group">
+            <div className="col col-md-3">
+              <label
+                htmlFor="disabled-input"
+                className=" form-control-label"
+              >
+                Giao cho
+              </label>
+            </div>
+            <div className="col-12 col-md-9">
+              <Select placeholder="Lựa chọn chức vụ" id="select-employee-to-assign" required value={this.state.selected} components={animatedComponents} 
+              isMulti options={this.convertRolesToOptions()} onChange={this.handleChangeSelectRole} />
+            </div>
+         </div>
         );
+      }else if(this.state.type === 3){
+        return(
+          <div className="row form-group">
+            <div className="col col-md-3">
+              <label
+                htmlFor="disabled-input"
+                className=" form-control-label"
+              >
+                Giao cho
+              </label>
+            </div>
+            <div className="col-12 col-md-9">
+              <Select placeholder="Lựa chọn phòng ban" id="select-department-to-assign" required value={this.state.selected} components={animatedComponents} 
+              isMulti options={this.convertDepartmentsToOptions()} onChange={this.handleChangeSelectDepartment} />
+            </div>
+         </div>
+        );
+      }
+    }
+
+    renderFilterDepartment = () =>{
+      if(!this.state.type || this.state.type === 1 || this.state.type === 2){
+        return (
+          <div className="row form-group">
+            <div className="col col-md-3">
+              <label
+                htmlFor="disabled-input"
+                className=" form-control-label"
+              >
+                Phòng ban
+              </label>
+            </div>
+            <div className="col-12 col-md-9">
+              <SelectDepartmentToAssign />
+            </div>
+          </div>
+        );
+      }
+      else {
+        return (<div></div>);
       }
     }
 
@@ -283,19 +410,6 @@ class FormAddProcessModal extends Component {
                               htmlFor="disabled-input"
                               className=" form-control-label"
                             >
-                              Phòng ban
-                            </label>
-                          </div>
-                          <div className="col-12 col-md-9">
-                            <SelectDepartmentToAssign />
-                          </div>
-                        </div>
-                        <div className="row form-group">
-                          <div className="col col-md-3">
-                            <label
-                              htmlFor="disabled-input"
-                              className=" form-control-label"
-                            >
                               Kiểu giao
                             </label>
                           </div>
@@ -308,21 +422,22 @@ class FormAddProcessModal extends Component {
                               <FormCheck.Input value="2" name="type2" type={"checkbox"} id="check-type-assign-2" onChange={this.handleChangeTypeRole} />
                               <FormCheck.Label>Chức vụ</FormCheck.Label>
                             </Form.Check>
+                            <Form.Check style={{marginLeft:"5%"}}>
+                              <FormCheck.Input value="3" name="type3" type={"checkbox"} id="check-type-assign-3" onChange={this.handleChangeTypeDepartment} />
+                              <FormCheck.Label>Phòng ban</FormCheck.Label>
+                            </Form.Check>
+                            <Form.Check style={{marginLeft:"5%"}}>
+                              <FormCheck.Input value="4" name="type4" type={"checkbox"} id="check-type-assign-4" onChange={this.handleChangeTypeCompany} />
+                              <FormCheck.Label>Công ty</FormCheck.Label>
+                            </Form.Check>
                           </div>
                         </div>
-                        <div className="row form-group">
-                          <div className="col col-md-3">
-                            <label
-                              htmlFor="disabled-input"
-                              className=" form-control-label"
-                            >
-                              Giao cho
-                            </label>
-                          </div>
-                          <div className="col-12 col-md-9">
-                            {this.renderRowAssign()}
-                          </div>
-                        </div>
+                        {/* renderFilterDepartment */}
+                          {this.renderFilterDepartment()}
+                        {/* renderFilterDepartment */}
+                        {/* renderAssign */}
+                          {this.renderRowAssign()}
+                        {/* renderAssign */}
                         <div className="row form-group">
                           <div className="col col-md-3">
                             <Form.Label>Tài liệu</Form.Label>

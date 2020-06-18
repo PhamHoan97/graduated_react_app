@@ -15,15 +15,26 @@
 }
 
 .right-column-popup{
-    width: 338px;
+    width: 400px;
     position: absolute;
     margin-top: 0px;
     z-index: 3;
     right: 0px;
     border-left: 1px solid #d9d9d9;
     height: auto;
+    background-color: #f2f2f2;
 }
 .note-content-show{
+    height: auto;
+    text-align: left;
+    margin-left: 20px;
+}
+
+.content-show{
+    height: 300px;
+}
+
+.note-content-show-name{
     height: auto;
     text-align: left;
 }
@@ -46,6 +57,7 @@
     height: 310px;
     padding: 10px;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 .comment-element{
     width: 100%;
@@ -192,14 +204,14 @@ div.process-interact svg{
 }
 
 div.process-view svg{
-    height: 500px;
+    height: 685px;
 }
 
 .button-details-right-open{
     width: 100px;
     position: absolute;
     margin-top: 320px;
-    margin-right: 305px;
+    margin-right: 365px;
     z-index: 3;
     right: 0px;
     border-left: 1px solid #d9d9d9;
@@ -246,11 +258,12 @@ div.process-view svg{
 }
 
 .footer-view-process{
-    margin-top: 70px;
+    background-color: #f2f2f2;
 }
 
 .space-area{
-    height: 50px;
+    height: 70px;
+    background-color: #f2f2f2;
 }
 
 .title-footer h4{
@@ -281,3 +294,8 @@ div.process-view svg{
     width: 100%;
     padding: 0;
 }
+
+.form-control-label-note{
+    margin-left: 20px;
+}
+

@@ -6,8 +6,11 @@ import CompanyInformationModal from "./CompanyInformationModal";
 import axios from 'axios';
 import MoreAdminAccountModal from "./MoreAdminAccountModal";
 import host from '../../../Host/ServerDomain';
+import "../../Style/Company/Company.css";
+import {connect} from 'react-redux';
+import * as actions from '../../../Alert/Action/Index';
 
-export default class ManageCompany extends Component {
+class ManageCompany extends Component {
     _isMounted = false;
     constructor(props) {
         super(props)
@@ -17,6 +20,7 @@ export default class ManageCompany extends Component {
             clickedCompany: "",
             clickedNew: "",
             statistic: "",
+            search: ''
         }
     } 
 
@@ -193,7 +197,10 @@ export default class ManageCompany extends Component {
                 return (
                 <React.Fragment key={key}>
                 <tr className="tr-shadow">
-                    <td style={{ width: "50%" }}>
+                    <td style={{ width: "5%" }}>
+                        {key+1}
+                    </td>
+                    <td style={{ width: "45%" }}>
                         {value.name}
                     </td>
                     <td style={{ width: "15%" }}>
@@ -280,6 +287,48 @@ export default class ManageCompany extends Component {
         })
     }
 
+    handleSearch = event => {
+        var searchValue = event.target.value;
+        this.setState({search: searchValue});
+    }
+
+    searchCompanies = (e) => {
+        e.preventDefault(); 
+        var search = this.state.search;
+        if(search){
+            var token = localStorage.getItem('token');
+            axios.get(host + `/api/system/search/company/` + search ,
+            {
+                headers: { 'Authorization': 'Bearer ' + token}
+            }).then(res => {
+              if(res.data.error != null){
+                this.props.showAlert({
+                    message: res.data.message,
+                    anchorOrigin:{
+                        vertical: 'top',
+                        horizontal: 'right'
+                    },
+                    title:'Thất bại',
+                    severity:'error'
+                });
+              }else{
+                    this.props.showAlert({
+                        message: res.data.message,
+                        anchorOrigin:{
+                            vertical: 'top',
+                            horizontal: 'right'
+                        },
+                        title:'Thành công',
+                        severity:'success'
+                    });
+                  this.setState({companies: res.data.companies})
+              }
+            }).catch(function (error) {
+              alert(error);
+            });
+        }
+    }
+
     render() {
         return (
         <div className="page-wrapper">
@@ -334,29 +383,21 @@ export default class ManageCompany extends Component {
                             </h3>
                             <div className="table-data__tool">
                                 <div className="table-data__tool-left">
-                                <div className="rs-select2--light rs-select2--sm">
-                                    <select
-                                    className="js-select2 select--today__adminAccount"
-                                    name="time"
-                                    >
-                                        <option defaultValue>Hôm nay</option>
-                                        <option value>3 ngày gần đây</option>
-                                        <option value>1 tuần gần đây</option>
-                                        <option value>1 tháng gần đây</option>
-                                    </select>
-                                    <div className="dropDownSelect2" />
-                                </div>
-                                <button className="au-btn-filter ml-5">
-                                    <i className="zmdi zmdi-filter-list" />
-                                    Lọc
-                                </button>
+                                    <div className="rs-select2--light-search-company">
+                                        <form className="form-search-employee">
+                                            <input className="form-control" onChange={this.handleSearch} placeholder="Tìm kiếm công ty..." />
+                                            <button className="employee-btn--search__process" type="button" onClick={(e) => this.searchCompanies(e)}><i className="zmdi zmdi-search"></i></button>
+                                        </form>
+                                    </div>
+          
                                 </div>
                             </div>
                             <div className="table-responsive table-responsive-data2">
                                 <table className="table table-borderless table-data3">
                                 <thead>
                                     <tr>
-                                        <th style={{ width: "50%" }}>Tên</th>
+                                        <th style={{ width: "5%" }}></th>
+                                        <th style={{ width: "45%" }}>Tên</th>
                                         <th style={{ width: "15%" }}>Liên hệ</th>
                                         <th style={{ width: "15%" }}>Địa chỉ</th>
                                         <th style={{ width: "15%" }}>Lĩnh vực</th>
@@ -415,3 +456,20 @@ export default class ManageCompany extends Component {
         );
     }
 }
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+
+    }
+}
+
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        showAlert: (properties) => {
+            dispatch(actions.showMessageAlert(properties))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ManageCompany)

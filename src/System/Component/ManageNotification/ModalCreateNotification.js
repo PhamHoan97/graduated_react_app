@@ -26,12 +26,12 @@ export default class ModalCreateNotification extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleChangeFile = this.handleChangeFile.bind(this);
     }
-    //WARNING! To be deprecated in React v17. Use new lifecycle static getDerivedStateFromProps instead.
+
     UNSAFE_componentWillMount() {
         this.getlistForm();
     }
-    //WARNING! To be deprecated in React v17. Use new lifecycle static getDerivedStateFromProps instead.
-    componentWillReceiveProps(nextProps) {
+
+    UNSAFE_componentWillReceiveProps(nextProps) {
         this.setState({
             errorDescription: {},
             errorName: {},

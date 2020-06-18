@@ -13,6 +13,9 @@ import '../Css/ManagerProcess.css';
 import  { Redirect } from 'react-router-dom';
 import * as actionHeaders from '../../../Process/Actions/Index';
 import host from '../../../Host/ServerDomain';
+import * as actionAlerts from '../../../Alert/Action/Index';
+import avatarMale from "../../ManageEmployee/Image/avatar_employee1.png";
+import avatarFeMale from "../../ManageEmployee/Image/avatar_employee2.png";
 
 class ProcessCompany extends Component {
   _isMounted = false;
@@ -24,6 +27,8 @@ class ProcessCompany extends Component {
       currentEmployee: '',
       idEmployee: '',
       isRedirectEmployeeProcess: false,
+      idDepartment: '',
+      search: '',
     }
   }
 
@@ -162,6 +167,18 @@ class ProcessCompany extends Component {
     this.setState({isRedirectEmployeeProcess:true, idEmployee: id})
   }
 
+  renderAvatarEmployee = (value) => {
+    if(value.avatar){
+      return (<img alt="avatar" className="img-fluid avatar-employee" src= {host + value.avatar}/>);
+    }else{
+      if(value.gender === "Nam"){
+        return (<img alt="avatar-default" className="img-fluid avatar-employee" src={avatarMale}/>);
+      }else{
+        return (<img alt="avatar-default" className="img-fluid avatar-employee" src={avatarFeMale}/>);
+      }
+    }
+  }
+
   renderTableRow = (pageNumber) => {
     var employees = this.state.employees;
     var locationStart = pageNumber * 8 - 8;
@@ -170,10 +187,11 @@ class ProcessCompany extends Component {
             return (
             <React.Fragment key={key}>
                        <tr className="tr-shadow">
+                        <td className="desc">{key+1}</td>
+                        <td className="desc">{this.renderAvatarEmployee(value)}</td>
                         <td className="desc">{value.name}</td>
                         <td className="desc">{value.department_name}</td>
                         <td className="desc">{value.role_name}</td>
-                        <td className="desc">{value.address}</td>
                         <td className="desc">{value.phone}</td>
                         <td >
                           <div className="table-data-feature">
@@ -233,7 +251,7 @@ class ProcessCompany extends Component {
         if(res.data.error != null){
             console.log(res.data.message);
         }else{
-            this.setState({employees: res.data.employees});
+            this.setState({employees: res.data.employees, idDepartment: nextProps.idDepartmentSearch});
         }
       }).catch(function (error) {
         alert(error);
@@ -243,10 +261,86 @@ class ProcessCompany extends Component {
 
   handleOpenAddNewProcessModal = (e) => {
     e.preventDefault();
+    localStorage.removeItem("processInfo");
     this.props.resetProcessInformation();
     this.props.resetImportBpmnFile();
     this.props.resetActionToDiagram();
     document.getElementById('clone-button-add-new-process').click();
+  }
+
+  handleSearch = event => {
+    var searchValue = event.target.value;
+    this.setState({search: searchValue});
+  }
+
+  searchEmployees = (e) => {
+      e.preventDefault(); 
+      var search = this.state.search;
+      var idDepartment = this.state.idDepartment;
+      var token = localStorage.getItem('token');
+      if(search){
+          if(!idDepartment){
+            axios.get(host + `/api/company/search/employee/` + token + '/' + search ,
+            {
+                headers: { 'Authorization': 'Bearer ' + token}
+            }).then(res => {
+              if(res.data.error != null){
+                  this.props.showAlert({
+                    message: res.data.message,
+                    anchorOrigin:{
+                        vertical: 'top',
+                        horizontal: 'right'
+                    },
+                    title:'Thất bại',
+                    severity:'error'
+                  });
+              }else{
+                this.props.showAlert({
+                  message: res.data.message,
+                  anchorOrigin:{
+                      vertical: 'top',
+                      horizontal: 'right'
+                  },
+                  title:'Thành công',
+                  severity:'success'
+                });
+                this.setState({employees: res.data.employees})
+              }
+            }).catch(function (error) {
+              alert(error);
+            });
+          }else{
+            axios.get(host + `/api/company/search/employee/department/` + idDepartment + '/' + search ,
+            {
+                headers: { 'Authorization': 'Bearer ' + token}
+            }).then(res => {
+              if(res.data.error != null){
+                this.props.showAlert({
+                  message: res.data.message,
+                  anchorOrigin:{
+                      vertical: 'top',
+                      horizontal: 'right'
+                  },
+                  title:'Thất bại',
+                  severity:'error'
+                });
+              }else{
+                  this.props.showAlert({
+                    message: res.data.message,
+                    anchorOrigin:{
+                        vertical: 'top',
+                        horizontal: 'right'
+                    },
+                    title:'Thành công',
+                    severity:'success'
+                  });
+                  this.setState({employees: res.data.employees})
+              }
+            }).catch(function (error) {
+              alert(error);
+            });
+          }
+      }
   }
 
   render() {
@@ -290,6 +384,12 @@ class ProcessCompany extends Component {
                               <DepartmentOptionSearch />
                               <div className="dropDownSelect2" />
                             </div>
+                            <div className="rs-select2--light rs-select2--md" style={{width: "350px"}}>
+                                <form className="form-search-employee">
+                                    <input className="form-control" onChange={this.handleSearch} placeholder="Tìm kiếm nhân viên..." />
+                                    <button className="company-btn--search__process" type="button" onClick={(e) => this.searchEmployees(e)}><i className="zmdi zmdi-search"></i></button>
+                                </form>
+                            </div>
                           </div>
                           <div className="table-data__tool-right">
                             <button
@@ -317,10 +417,11 @@ class ProcessCompany extends Component {
                             <table className="table custom-table table-hover table-department_organization">
                               <thead>
                               <tr>
+                                <th className="text-center"></th>
+                                <th className="text-center">hình ảnh</th>
                                 <th className="text-center">tên</th>
                                 <th className="text-center">phòng ban</th>
                                 <th className="text-center">vai trò</th>
-                                <th className="text-center">địa chỉ</th>
                                 <th className="text-center">số điện thoại</th>
                                 <th />
                               </tr>
@@ -378,6 +479,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     resetActionToDiagram: () => {
       dispatch(actionHeaders.resetActionToDiagram());
+    },
+    showAlert: (properties) => {
+      dispatch(actionAlerts.showMessageAlert(properties));
     },
   }
 }

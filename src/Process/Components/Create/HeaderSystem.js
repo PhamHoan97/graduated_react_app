@@ -55,6 +55,7 @@ class HeaderSystem extends Component {
 
     backToHomePage = (e) => {
         e.preventDefault();
+        this.props.resetActionToDiagram();
         this.setState({isBackHomeSystem:true});
     }
 
@@ -68,7 +69,7 @@ class HeaderSystem extends Component {
                     <div className="row">
                         <div className="col-md-10 text-left"> 
                             <Dropdown drop={"left"}>
-                                <Dropdown.Toggle id="dropdown-action" variant="actions" bsPrefix="dropdown">
+                                <Dropdown.Toggle id="dropdown-action" variant="actions btn-info back-home-btn" bsPrefix="dropdown">
                                     <div className="button-area-go-back" onClick={(e) => this.backToHomePage(e)}>
                                         <span className="text-go-back"> Trang chủ</span>
                                     </div>
@@ -173,6 +174,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         showAlert: (properties) => {
             dispatch(alertActions.showMessageAlert(properties));
         },
+        resetActionToDiagram: () => {
+            dispatch(actions.resetActionToDiagram());
+        }, 
     }
 }
 

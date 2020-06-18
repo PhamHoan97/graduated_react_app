@@ -14,10 +14,10 @@ export const updateDataOfElements = (element)=>{
     }
 }
 
-export const saveNoteForElement = (note)=>{
+export const saveNoteForElement = (note, assign, file)=>{
     return {
         type: types.SAVE_NOTE_FOR_ELEMENT,
-        note,
+        note, assign, file
     }
 }
 
@@ -79,10 +79,10 @@ export const exportDiagramAsBPMN =()=> {
     }
 }
 
-export const extractDataElementWhenEdit = (elements, notes, comments)=> {
+export const extractDataElementWhenEdit = (elements, notes, comments, assigns, files, issavenotes, names)=> {
     return {
         type: types.EXTRACTDATAELEMENTWHENEDIT,
-        elements, notes, comments
+        elements, notes, comments, assigns, files, issavenotes, names
     }
 }
 
@@ -132,6 +132,60 @@ export const exportDiagramAsBPMNEdit =()=> {
 export const resetActionToDiagram =()=> {
     return {
         type: types.RESETACTIONTODIAGRAM,
+    }
+}
+
+export const updateAssignedEmployeeElement = (assign)=> {
+    return {
+        type: types.UPDATEASSIGNEDEMPLOYEEFORELEMENT,
+        assign
+    }
+}
+
+export const resetAssignedEmployeeElement = ()=> {
+    return {
+        type: types.RESETASSIGNEDEMPLOYEEFORELEMENT,
+    }
+}
+
+export const updateDefaultAssignedEmployeeElement = (assign)=> {
+    return {
+        type: types.UPDATEDEFAULTASSIGNEDEMPLOYEEFORELEMENT,
+        assign
+    }
+}
+
+export const resetDefaultAssignedEmployeeElement = ()=> {
+    return {
+        type: types.RESETDEFAULTASSIGNEDEMPLOYEEFORELEMENT,
+    }
+}
+
+export const updateNameOfElement = (element, name)=> {
+    return {
+        type: types.UPDATENAMEOFELEMENT,
+        element, name
+    }
+}
+
+export const changeIsSaveNoteToFalse = (element)=> {
+    return {
+        type: types.CHANGEISSAVENOTETOFALSE,
+        element
+    }
+}
+
+export const updateFileTemplatesForProcess = (templates)=> {
+    return {
+        type: types.UPDATE_FILE_TEMPLATES_FOR_PROCESS,
+        templates
+    }
+}
+
+export const updateFileTemplatesInEditProcess = (templates)=> {
+    return {
+        type: types.UPDATE_FILE_TEMPLATES_IN_EDIT_PROCESS,
+        templates
     }
 }
 

@@ -83,8 +83,16 @@ class EditProcess extends Component {
 
     componentDidUpdate (){
         this.modeler.attachTo('#create-process-template-diagram');
-        this.modeler.importXML(this.initialDiagram, function(err) {
-
+        var modeler = this.modeler;
+        modeler.importXML(this.initialDiagram, function(err) {
+            var canvas = modeler.get('canvas');
+            canvas.zoom('fit-viewport');
+            var viewBox = canvas._cachedViewbox;
+            if(viewBox){
+                var currentScale = canvas._cachedViewbox.scale;
+                currentScale -= 0.2;
+                canvas.zoom(currentScale);
+            }
         });
     }
 

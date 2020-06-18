@@ -178,8 +178,16 @@ class View extends Component {
 
     componentDidUpdate (){
         this.modeler.attachTo('#view-process-diagram');
-        this.modeler.importXML(this.initialDiagram, function(err) {
-
+        var modeler = this.modeler;
+        modeler.importXML(this.initialDiagram, function(err) {
+          var canvas = modeler.get('canvas');
+          canvas.zoom('fit-viewport');
+          var viewBox = canvas._cachedViewbox;
+          if(viewBox){
+              var currentScale = canvas._cachedViewbox.scale;
+              currentScale -= 0.1;
+              canvas.zoom(currentScale);
+          }
         });
         this.modeler.on('element.click',1000, (e) => this.interactPopup(e));
         this.modeler.on('element.dblclick',1500, function(event) {
@@ -188,6 +196,7 @@ class View extends Component {
 
         var tool = document.getElementsByClassName("djs-palette")[0];
         tool.style.visibility  = "hidden"; 
+
     }
 
     render() {

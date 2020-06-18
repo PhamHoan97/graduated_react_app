@@ -26,7 +26,7 @@ export default class ModalCreateNotification extends Component {
         this.handleChangeFile = this.handleChangeFile.bind(this);
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         this.setState({
             errorDescription: {},
             errorName: {},

@@ -9,6 +9,7 @@ import host from '../../../Host/ServerDomain';
 import Alert from '@material-ui/lab/Alert';
 
 export default class ModalCreateForm extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -26,29 +27,37 @@ export default class ModalCreateForm extends Component {
         };
         this.handleChange = this.handleChange.bind(this);
     }
-    //WARNING! To be deprecated in React v17. Use new lifecycle static getDerivedStateFromProps instead.
+    
     UNSAFE_componentWillMount() {
         this.getListTemplate();
         this.getlistType();
 
     }
     getListTemplate =() =>{
-        var self =  this;
+        this._isMounted = true;
+        let self = this;
         var token = localStorage.getItem('token');
         axios.get(host + "/api/system/notification/template/list",{
             headers: { 'Authorization': 'Bearer ' + token }
         })
         .then(function (response) {
-            self.setState({
-                listTemplate:response.data.templates
-            })
+            if(self._isMounted){
+                self.setState({
+                    listTemplate:response.data.templates
+                })
+            }
         })
         .catch(function (error) {
             console.log(error);
         });
     }
-    //WARNING! To be deprecated in React v17. Use new lifecycle static getDerivedStateFromProps instead.
-    componentWillReceiveProps(nextProps) {
+
+    
+    componentWillUnmount(){
+        this._isMounted = false;
+    }
+
+    UNSAFE_componentWillReceiveProps(nextProps) {
         this.setState({
             errorTemplate: {},
             errorType: {},
@@ -56,21 +65,26 @@ export default class ModalCreateForm extends Component {
             errorName: {},
         })
     }
+
     getlistType =() =>{
-        var self =  this;
+        this._isMounted = true;
+        let self = this;
         var token = localStorage.getItem('token');
         axios.get(host + "/api/system/notification/type/list",{
             headers: { 'Authorization': 'Bearer ' + token }
         })
         .then(function (response) {
-            self.setState({
-                listType:response.data.types
-            })
+            if(self._isMounted){
+                self.setState({
+                    listType:response.data.types
+                })
+            }
         })
         .catch(function (error) {
             console.log(error);
         });
     }
+
     handleChange(event) {
         const name = event.target.name;
         const value = event.target.value;

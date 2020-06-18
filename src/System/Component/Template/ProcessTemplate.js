@@ -29,6 +29,7 @@ class ProcessTemplate extends Component {
             fieldNameUpdate: '',
             fieldDescriptionUpdate: '',
             fieldIdUpdate: '',
+            search: '',
         }
     }
 
@@ -284,6 +285,7 @@ class ProcessTemplate extends Component {
               return (
               <React.Fragment key={key}>
                          <tr className="tr-shadow">
+                          <td className="desc">{key+1}</td>
                           <td className="desc">{value.name}</td>
                           <td className="desc">{value.description}</td>
                           <td >
@@ -335,6 +337,49 @@ class ProcessTemplate extends Component {
       })
     }
 
+    
+    handleSearch = event => {
+      var searchValue = event.target.value;
+      this.setState({search: searchValue});
+  }
+
+  searchFields = (e) => {
+      e.preventDefault(); 
+      var search = this.state.search;
+      if(search){
+          var token = localStorage.getItem('token');
+          axios.get(host + `/api/system/search/field/` + search ,
+          {
+              headers: { 'Authorization': 'Bearer ' + token}
+          }).then(res => {
+            if(res.data.error != null){
+              this.props.showAlert({
+                  message: res.data.message,
+                  anchorOrigin:{
+                      vertical: 'top',
+                      horizontal: 'right'
+                  },
+                  title:'Thất bại',
+                  severity:'error'
+              });
+            }else{
+                  this.props.showAlert({
+                      message: res.data.message,
+                      anchorOrigin:{
+                          vertical: 'top',
+                          horizontal: 'right'
+                      },
+                      title:'Thành công',
+                      severity:'success'
+                  });
+                this.setState({fields: res.data.field})
+            }
+          }).catch(function (error) {
+            alert(error);
+          });
+      }
+  }
+
     render() {
         if(this.state.isRedirectCreateProcess){
           return <Redirect to={'/system/create/template/' + this.state.idField} />;
@@ -359,8 +404,11 @@ class ProcessTemplate extends Component {
                         <div className="card-body">
                             <div className="table-data__tool">
                                 <div className="table-data__tool-left">
-                                <div className="rs-select2--light rs-select2--md">
-        
+                                <div className="rs-select2--light-search-company">
+                                    <form className="form-search-employee">
+                                        <input className="form-control" onChange={this.handleSearch} placeholder="Tìm kiếm lĩnh vực..." />
+                                        <button className="employee-btn--search__process" type="button" onClick={(e) => this.searchFields(e)}><i className="zmdi zmdi-search"></i></button>
+                                    </form>
                                 </div>
                                 </div>
                                 <div className="table-data__tool-right">
@@ -379,6 +427,7 @@ class ProcessTemplate extends Component {
                                 <table className="table table-borderless table-data3">
                                     <thead>
                                     <tr>
+                                    <th className="text-center"></th>
                                     <th className="text-center">Lĩnh vực</th>
                                     <th className="text-center">Mô tả</th>
                                     <th className="text-center"></th>

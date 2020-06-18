@@ -10,6 +10,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 class Header extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -70,19 +71,28 @@ class Header extends Component {
   };
 
   componentDidMount() {
+    this._isMounted = true;
+    let self = this;
     var token = localStorage.getItem('token');
     axios.get(host + `/api/company/account/information/` + token,
     {
         headers: { 'Authorization': 'Bearer ' + token}
     }).then(res => {
-      if(res.data.error != null){
-          console.log(res.data.error);
-      }else{ 
-        this.setState({username: res.data.username});
+      if(self._isMounted){
+        if(res.data.error != null){
+            console.log(res.data.message);
+        }else{ 
+          self.setState({username: res.data.username});
+        }
       }
     }).catch(function (error) {
       alert(error);
     });
+  }
+
+  
+  componentWillUnmount(){
+    this._isMounted = false;
   }
   
   UNSAFE_componentWillReceiveProps(nextProps){

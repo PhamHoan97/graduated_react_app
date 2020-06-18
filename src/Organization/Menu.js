@@ -166,7 +166,7 @@ class Menu extends Component {
                         className="fa fa-level-up pr-0 pb-lg-2 font-23"
                         aria-hidden="true"
                       />
-                      <span>Quyền</span>
+                      <span>Chức vụ</span>
                     </NavLink>
                   </div>
                   {/* <div className="col-6 align-items-center shadow-none text-center">

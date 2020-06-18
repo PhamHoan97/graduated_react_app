@@ -36,9 +36,11 @@ export default class ModalCreateNotification extends Component {
             errorName: {},
         })
     }
+
     componentWillUnmount() {
         this._isMounted = false;
     }
+
     getlistForm = () => {
         this._isMounted = true;
         var self = this;
@@ -68,7 +70,7 @@ export default class ModalCreateNotification extends Component {
     }
     displayAlert = () =>{
         if(this.state.isDisplayAlert){
-            return <Alert severity="success">Lưu thanhc công </Alert>;
+            return <Alert severity="success">Lưu thành công </Alert>;
         }else{
             return <div></div>
         }
@@ -136,16 +138,19 @@ export default class ModalCreateNotification extends Component {
 
         }
     };
+
     onSubmit = (event) => {
         event.preventDefault();
         this.form.validateAll();
     };
+
     handleChangeFile = (event) => {
         console.log(event.target.files[0]);
         this.setState({
             newFileNotification: event.target.files[0]
         });
     }
+    
     render() {
         const {errorName} = this.state;
         const {errorDescription} = this.state;

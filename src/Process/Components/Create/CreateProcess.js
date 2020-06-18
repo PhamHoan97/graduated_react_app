@@ -7,6 +7,8 @@ import '../../Css/Process.css';
 import {connect} from 'react-redux';
 import * as actions from '../../Actions/Index';
 import Detail from "../View/Detail";
+import {updateProcessInformation} from '../../../Organization/ManageProcess/Actions/Index';
+import Templates from './Templates';
 
 class CreateProcess extends Component {
     constructor(props) {
@@ -23,10 +25,24 @@ class CreateProcess extends Component {
         this.props.passPopupStatus(true);
     }
 
+    initStatusPopup = () => {
+        this.setState({openDetails:true});
+        this.props.passPopupStatus(true);
+    }
+
     closePopup = (event) => {
         event.preventDefault();
         this.setState({openDetails:false});
         this.props.passPopupStatus(false);
+    }
+
+    UNSAFE_componentWillMount() {
+        var processInfo = localStorage.getItem("processInfo");
+        if(processInfo){
+            var information = JSON.parse(processInfo);
+            this.props.updateProcessInformation(information);
+        }
+        this.initStatusPopup();
     }
 
     UNSAFE_componentWillReceiveProps (nextProps) {
@@ -57,12 +73,13 @@ class CreateProcess extends Component {
                                 </div>
                             </div>
                         </div>
+                        <div className="space-area"></div>
                         <div className="row footer-view-process">  
                             <div className="col-md-6">
                                 <Detail />
                             </div>
-                            <div className="col-md-3">
-                                
+                            <div className="col-md-4">
+                                <Templates />
                             </div>
                         </div>
                         <div className="space-area"></div>
@@ -86,12 +103,13 @@ class CreateProcess extends Component {
                                 </div>
                             </div>
                         </div>
+                        <div className="space-area"></div>
                         <div className="row footer-view-process">  
                             <div className="col-md-6">
                                 <Detail />
                             </div>
-                            <div className="col-md-3">
-                                
+                            <div className="col-md-4">
+                                <Templates />
                             </div>
                         </div>
                         <div className="space-area"></div>
@@ -113,6 +131,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         passPopupStatus: (status) => {
             dispatch(actions.passPopupStatus(status));
         },
+        updateProcessInformation: (information) => {
+            dispatch(updateProcessInformation(information));
+          },
     }
 }
 

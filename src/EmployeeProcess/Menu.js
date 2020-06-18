@@ -11,7 +11,7 @@ import './Css/Notification.css';
 import * as actionAlerts from '../Alert/Action/Index';
 
 class Menu extends Component {
-
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -45,19 +45,27 @@ class Menu extends Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
+    let self = this;
     var token = localStorage.getItem('token');
     axios.get(host + `/api/employee/five/process/notification/` + token,
     {
         headers: { 'Authorization': 'Bearer ' + token}
     }).then(res => {
-      if(res.data.error != null){
-          console.log(res.data.error);
-      }else{ 
-        this.setState({notifications: res.data.notifications});
+      if(self._isMounted){
+        if(res.data.error != null){
+            console.log(res.data.message);
+        }else{ 
+          self.setState({notifications: res.data.notifications});
+        }
       }
     }).catch(function (error) {
       alert(error);
     });
+  }
+
+  componentWillUnmount(){
+    this._isMounted = false;
   }
   
   renderAvatar = () =>{

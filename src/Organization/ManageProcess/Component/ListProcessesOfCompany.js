@@ -22,16 +22,23 @@ class ListProcessesOfCompany extends Component {
           isRedirectEdit: false,
           idEdit: '',
           idProcess: '',
+          search: '',
         }
     }
 
-    mergeProcesses(process1, process2){
+    mergeProcesses(process1, process2, process3, process4){
       var processes = [];
       for (let index1 = 0; index1 < process1.length; index1++) {
         processes.push(process1[index1]);
       }
       for (let index2 = 0; index2 < process2.length; index2++) {
         processes.push(process2[index2]);
+      }
+      for (let index3 = 0; index3 < process3.length; index3++) {
+        processes.push(process3[index3]);
+      }
+      for (let index4 = 0; index4 < process4.length; index4++) {
+        processes.push(process4[index4]);
       }
       return processes;
     }
@@ -48,7 +55,7 @@ class ListProcessesOfCompany extends Component {
           if(res.data.error != null){
               console.log(res.data.message);
           }else{
-            var processesResponse = self.mergeProcesses(res.data.processes1, res.data.processes2);
+            var processesResponse = self.mergeProcesses(res.data.processes1, res.data.processes2, res.data.processes3, res.data.processes4);
             self.setState({processes: processesResponse});
           }
         }
@@ -151,7 +158,24 @@ class ListProcessesOfCompany extends Component {
     }
     
     convertTypeOfProcesses(type){
-      return type === 1 ? "Cá nhân" : "Chức vụ";
+      var result = '';
+      switch (type) {
+        case 1:
+          result ="Cá nhân";
+          break;
+        case 2:
+          result ="Chức vụ";
+          break;
+        case 3:
+          result ="Phòng ban";
+          break;
+        case 4:
+          result ="Công ty";
+          break;
+        default:
+          break;
+      }
+      return result;
     }
 
     editProcess = (e, id) =>{
@@ -181,7 +205,7 @@ class ListProcessesOfCompany extends Component {
             severity:'error'
           });
         }else{
-          var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2);
+          var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2, res.data.processes3, res.data.processes4);
           this.props.showAlert({
             message: res.data.message,
             anchorOrigin:{
@@ -214,7 +238,7 @@ class ListProcessesOfCompany extends Component {
           if(res.data.error != null){
 
           }else{
-            var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2);
+            var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2, res.data.processes3, res.data.processes4);
             this.setState({processes: processesResponse});
           }
         }).catch(function (error) {
@@ -230,7 +254,7 @@ class ListProcessesOfCompany extends Component {
           if(res.data.error != null){
 
           }else{
-            var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2);
+            var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2, res.data.processes3, res.data.processes4);
             this.setState({processes: processesResponse});
           }
         }).catch(function (error) {
@@ -247,10 +271,11 @@ class ListProcessesOfCompany extends Component {
               return (
               <React.Fragment key={key}>
                          <tr className="tr-shadow">
+                          <td className="desc">{key+1}</td>
+                          <td className="desc">{value.code}</td>
                           <td className="desc">{value.name}</td>
                           <td className="desc">{value.description.substring(0,30) + '...' }</td>
                           <td className="desc">{this.convertTypeOfProcesses(value.type)}</td>
-                          <td className="desc">{value.created_at}</td>
                           <td >
                           <div className="table-action">
                               <a
@@ -301,6 +326,49 @@ class ListProcessesOfCompany extends Component {
       })
     }
 
+    handleSearch = event => {
+      var searchValue = event.target.value;
+      this.setState({search: searchValue});
+    }
+  
+    searchProcesses = (e) => {
+      e.preventDefault(); 
+      var search = this.state.search;
+      var token = localStorage.getItem('token');
+      if(search){
+        axios.get(host + `/api/company/process/search/` + token + '/' + search,
+        {
+            headers: { 'Authorization': 'Bearer ' + token}
+        }).then(res => {
+          if(res.data.error != null){
+              this.props.showAlert({
+                message: res.data.message,
+                anchorOrigin:{
+                    vertical: 'top',
+                    horizontal: 'right'
+                },
+                title:'Thất bại',
+                severity:'error'
+              });
+          }else{
+            this.props.showAlert({
+              message: res.data.message,
+              anchorOrigin:{
+                  vertical: 'top',
+                  horizontal: 'right'
+              },
+              title:'Thành công',
+              severity:'success'
+            });
+            var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2, res.data.processes3, res.data.processes4);
+            this.setState({processes: processesResponse});
+          }
+        }).catch(function (error) {
+          alert(error);
+        });
+      }
+    }
+
     render() {
         if(this.state.isRedirectEdit){
           return <Redirect to={'/process/edit/' + this.state.idEdit} />;
@@ -348,7 +416,12 @@ class ListProcessesOfCompany extends Component {
                                 </div>
                               </div>
                               <div className="table-data__tool-right">
-                   
+                                <div className="rs-select2--light-search-company">
+                                    <form className="form-search-employee">
+                                        <input className="form-control" onChange={this.handleSearch} placeholder="Tìm kiếm quy trình..." />
+                                        <button className="company-btn--search__process" type="button" onClick={(e) => this.searchProcesses(e)}><i className="zmdi zmdi-search"></i></button>
+                                    </form>
+                                </div>
                               </div>
                             </div>
                               <div className="employee-office-table">
@@ -356,10 +429,11 @@ class ListProcessesOfCompany extends Component {
                                     <table className="table custom-table table-hover table-department_organization">
                                       <thead>
                                       <tr>
+                                        <th className="text-center"></th>
+                                        <th className="text-center">mã quy trình</th>
                                         <th className="text-center">tên quy trình</th>
                                         <th className="text-center">mô tả ngắn</th>
                                         <th className="text-center">thể loại</th>
-                                        <th className="text-center">Tạo lúc</th>
                                         <th />
                                       </tr>
                                     </thead>

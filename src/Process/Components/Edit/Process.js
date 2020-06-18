@@ -40,6 +40,7 @@ class Process extends Component {
     if(element.type !== "bpmn:Process"){
       this.props.passPopupStatus(true);
       this.props.updateDataOfElement(element);
+      this.props.resetDefaultAssignedEmployeeElement();
     }  
   }
 
@@ -68,6 +69,7 @@ class Process extends Component {
         data.append('information',  JSON.stringify(this.props.detail));
         data.append('token', tokenData);
         data.append('file',  this.props.detail.file);
+        data.append('templates',  JSON.stringify(this.props.editTemplates));
         
         axios.post(host + `/api/company/process/edit`,
         data,
@@ -243,18 +245,35 @@ class Process extends Component {
     return true;
   }
 
+  changeNameElement = (event) => {
+    var element = event.element;
+    var name = element.businessObject.name;
+    if(element.type !== "bpmn:StartEvent" && element.type !== "bpmn:EndEvent"){
+      this.props.updateNameOfElement(element, name);
+    }
+  }
+
   componentDidUpdate(){
       this.modeler.attachTo('#create-process-diagram');
-      this.modeler.importXML(this.initialDiagram, function(err) {
-
+      var modeler = this.modeler;
+      modeler.importXML(this.initialDiagram, function(err) {
+        var canvas = modeler.get('canvas');
+        canvas.zoom('fit-viewport');
+        var viewBox = canvas._cachedViewbox;
+        if(viewBox){
+            var currentScale = canvas._cachedViewbox.scale;
+            currentScale -= 0.2;
+            canvas.zoom(currentScale);
+        }
       });
       // var eventBus = this.modeler.get('eventBus');
-      // console.log(eventBus);
       this.modeler.on('element.click',1000, (e) => this.interactPopup(e));
 
       this.modeler.on('shape.remove',1000, (e) => this.deleteElements(e));
 
-      this.modeler.on('commandStack.shape.delete.revert', () => this.handleUndoDeleteElement());
+      this.modeler.on('commandStack.shape.delete.revert', (e) => this.handleUndoDeleteElement(e));
+
+      this.modeler.on('shape.changed',1000, (e) => this.changeNameElement(e));
   }
 
   render() {
@@ -276,6 +295,7 @@ const mapStateToProps = (state, ownProps) => {
       isExportImageEdit: state.processReducers.actionReducers.isExportImageEdit,
       isExportBPMNEdit: state.processReducers.actionReducers.isExportBPMNEdit,
       detail: state.addProcessReducers.informationProcessReducer.information,
+      editTemplates: state.processReducers.templateReducers.editTemplates,
   }
 }
 
@@ -295,7 +315,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       },
       showAlert: (properties) => {
         dispatch(actionAlerts.showMessageAlert(properties))
-      }
+      },
+      resetDefaultAssignedEmployeeElement: () => {
+        dispatch(actions.resetDefaultAssignedEmployeeElement());
+      },
+      updateNameOfElement: (element, name) => {
+        dispatch(actions.updateNameOfElement(element, name));
+      },
   }
 }
 

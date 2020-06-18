@@ -27,6 +27,16 @@ class ProcessItemCompany extends Component {
         return (
             <tr>
                 <td>
+                    <span className="table-data__info">
+                        <h6> {this.props.stt} </h6>
+                    </span>
+                </td>
+                <td>
+                <span className="table-data__info">
+                    <h6> {this.props.code} </h6>
+                </span>
+                </td>
+                <td>
                 <span className="table-data__info">
                     <h6> {this.props.name} </h6>
                 </span>
@@ -36,9 +46,9 @@ class ProcessItemCompany extends Component {
                     <h6>{this.props.deadline}</h6>
                 </div>
                 </td>
-                <td>
+                {/* <td>
                 <span className="date">{this.props.date}</span>
-                </td>
+                </td> */}
                 <td>
                 <span className="table-data__info">
                     <h6> {this.convertTypeOfProcesses(this.props.type)} </h6>

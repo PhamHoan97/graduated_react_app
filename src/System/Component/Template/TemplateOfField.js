@@ -8,8 +8,11 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import  { Redirect } from 'react-router-dom';
 import host from '../../../Host/ServerDomain';
+import {connect} from 'react-redux';
+import * as actions from '../../../Alert/Action/Index';
 
 class TemplateOfField extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props)
 
@@ -20,24 +23,33 @@ class TemplateOfField extends Component {
             isRedirectEditProcess: false,
             idProcess: '',  
             isRedirectCreateProcess: false,
+            search: '',
         }
     }
     
     componentDidMount() {
+        this._isMounted = true;
+        let self = this;
         var field_id = this.props.match.params.id;
         var token = localStorage.getItem('token');
         axios.get(host + `/api/system/template/field/` + field_id,
         {
             headers: { 'Authorization': 'Bearer ' + token}
         }).then(res => {
-          if(res.data.error != null){
-              console.log(res.data.error);
-          }else{ 
-            this.setState({processes: res.data.processes, field: res.data.field});
-          }
+            if(self._isMounted){
+                if(res.data.error != null){
+                    console.log(res.data.error);
+                }else{ 
+                    self.setState({processes: res.data.processes, field: res.data.field});
+                }
+            }
         }).catch(function (error) {
           alert(error);
         });
+    }
+
+    componentWillUnmount(){
+        this._isMounted = false;
     }
 
     handleCssPage =(e,type,currentPage)=>{
@@ -168,6 +180,7 @@ class TemplateOfField extends Component {
                 return (
                 <React.Fragment key={key}>
                            <tr className="tr-shadow">
+                           <td className="desc">{key+1}</td>
                             <td className="desc">{value.name}</td>
                             <td className="desc">{value.description}</td>
                             <td className="desc">{value.updated_at}</td>
@@ -211,6 +224,48 @@ class TemplateOfField extends Component {
         })
     }
 
+    handleSearch = event => {
+        var searchValue = event.target.value;
+        this.setState({search: searchValue});
+    }
+
+    searchTemplates = (e) => {
+        e.preventDefault(); 
+        var search = this.state.search;
+        if(search){
+            var token = localStorage.getItem('token');
+            axios.get(host + `/api/system/search/template/` + this.props.match.params.id +'/' + search ,
+            {
+                headers: { 'Authorization': 'Bearer ' + token}
+            }).then(res => {
+              if(res.data.error != null){
+                this.props.showAlert({
+                    message: res.data.message,
+                    anchorOrigin:{
+                        vertical: 'top',
+                        horizontal: 'right'
+                    },
+                    title:'Thất bại',
+                    severity:'error'
+                });
+              }else{
+                    this.props.showAlert({
+                        message: res.data.message,
+                        anchorOrigin:{
+                            vertical: 'top',
+                            horizontal: 'right'
+                        },
+                        title:'Thành công',
+                        severity:'success'
+                    });
+                  this.setState({processes: res.data.processes})
+              }
+            }).catch(function (error) {
+              alert(error);
+            });
+        }
+    }
+
     render() {
         if(this.state.isRedirectEditProcess){
             return <Redirect to={'/system/edit/template/' + this.state.idProcess} />;
@@ -235,9 +290,12 @@ class TemplateOfField extends Component {
                         <div className="card-body">
                             <div className="table-data__tool">
                                 <div className="table-data__tool-left">
-                                <div className="rs-select2--light rs-select2--md">
-        
-                                </div>
+                                    <div className="rs-select2--light-search-company">
+                                        <form className="form-search-employee">
+                                            <input className="form-control" onChange={this.handleSearch} placeholder="Tìm kiếm quy trình mẫu..." />
+                                            <button className="employee-btn--search__process" type="button" onClick={(e) => this.searchTemplates(e)}><i className="zmdi zmdi-search"></i></button>
+                                        </form>
+                                    </div>
                                 </div>
                                 <div className="table-data__tool-right">
                                 <button
@@ -255,6 +313,7 @@ class TemplateOfField extends Component {
                                 <table className="table table-borderless table-data3">
                                     <thead>
                                     <tr>
+                                    <th className="text-center"></th>
                                     <th className="text-center">Quy trình</th>
                                     <th className="text-center">Mô tả ngắn</th>
                                     <th className="text-center">Cập nhật</th>
@@ -331,4 +390,19 @@ class TemplateOfField extends Component {
     }
 }
 
-export default TemplateOfField
+const mapStateToProps = (state, ownProps) => {
+    return {
+
+    }
+}
+
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        showAlert: (properties) => {
+            dispatch(actions.showMessageAlert(properties))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TemplateOfField)

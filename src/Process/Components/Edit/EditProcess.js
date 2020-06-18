@@ -10,6 +10,7 @@ import axios from 'axios';
 import EditDetail from './EditDetail';
 import {updateProcessInformation} from '../../../Organization/ManageProcess/Actions/Index';
 import host from '../../../Host/ServerDomain';
+import EditTemplates from './EditTemplates';
 
 class EditProcess extends Component {
     _isMounted = false;
@@ -39,15 +40,19 @@ class EditProcess extends Component {
         this.props.passPopupStatus(false);
     }
     
-    convertToAssignInDataStore(type, employees, roles){
+    convertToAssignInDataStore(type, employees, roles, departments){
         var assign = [];
         if(type === 1){
             for (let index = 0; index < employees.length; index++) {
                 assign.push({'value': employees[index].id, 'label': employees[index].name});
             }
-        }else{
+        }else if(type === 2){
             for (let index = 0; index < roles.length; index++) {
                 assign.push({'value': roles[index].id, 'label': roles[index].name});
+            }
+        }else if(type === 3){
+            for (let index = 0; index < departments.length; index++) {
+                assign.push({'value': departments[index].id, 'label': departments[index].name});
             }
         }
         return assign;
@@ -56,30 +61,55 @@ class EditProcess extends Component {
     extractDataToComponent(process){
         var detail = {
             id:process.id,
+            code:process.code,
             name:process.name,
             description: process.description,
             time: process.update_at,
             deadline: process.deadline,
-            assign: this.convertToAssignInDataStore(process.type,process.employees, process.roles),
+            assign: this.convertToAssignInDataStore(process.type,process.employees, process.roles, process.departments),
             type: process.type,
         }
 
         var notes = [];
         var comments = [];
         var elements = [];
+        var assigns = [];
+        var files = [];
+        var issavenotes = [];
+        var names = [];
+        var templates = process.templates;
         for (var indexM = 0; indexM < process.elements.length; indexM++) {
             var eNotes = {};
             var eComments = [];
+            var eAssigns = [];
+            var eFiles = [];
             var isSaved = false;
             for (var indexN = 0; indexN < process.element_notes.length; indexN++) {
                 if(process.elements[indexM].id === process.element_notes[indexN].element_id){
                     eNotes = {
                             id: process.elements[indexM].element, 
-                            note: process.element_notes[indexN].content, 
+                            note: process.element_notes[indexN].content,
                         };
                     notes.push({
                         id:process.elements[indexM].element, 
                         note: process.element_notes[indexN].content,
+                    });
+                    eAssigns = {
+                        id: process.elements[indexM].element, 
+                        assign: JSON.parse(process.element_notes[indexN].assign),
+                    };
+                    assigns.push({
+                        id:process.elements[indexM].element, 
+                        assign: JSON.parse(process.element_notes[indexN].assign),
+                    });
+
+                    eFiles = {
+                        id: process.elements[indexM].element, 
+                        file: process.element_notes[indexN].document,
+                    };
+                    files.push({
+                        id:process.elements[indexM].element, 
+                        file: process.element_notes[indexN].document,
                     });
                 }                
             }
@@ -106,20 +136,41 @@ class EditProcess extends Component {
                 type: process.elements[indexM].type,
                 comments: eComments,
                 isSaved: isSaved,
+                name: process.elements[indexM].name,
+                isSaveNote: true,
             }
             if(eNotes.note){
                 element.note = eNotes.note;
             }else{
                 element.note = "";
             }
-            
+            if(eAssigns.assign){
+                element.assign = eAssigns.assign;
+            }else{
+                element.assign = "";
+            }
+            if(eFiles.file){
+                element.file = eFiles.file;
+            }else{
+                element.file = "";
+            }
             elements.push(element);
+
+            issavenotes.push({
+                id: process.elements[indexM].element, 
+                isSaveNote: true,
+            });
+
+            names.push({
+                id: process.elements[indexM].element, 
+                name: process.elements[indexM].name,
+            });
         }
 
+        this.props.updateFileTemplatesInEditProcess(templates);
         this.props.updateProcessInformation(detail);
-        this.props.extractDataElementWhenEdit(elements, notes, comments);
+        this.props.extractDataElementWhenEdit(elements, notes, comments, assigns, files, issavenotes, names);
         this.props.changeHeaderStatusToEdit();
-        this.props.resetActionToDiagram();
     }
 
 
@@ -136,7 +187,7 @@ class EditProcess extends Component {
               console.log(res.data.message);
           }else{
               if(self._isMounted){
-                  this.initStatusPopup();
+                this.initStatusPopup();
                 self.extractDataToComponent(res.data.process);
                 self.setState({initDiagram: res.data.process.xml});
               }
@@ -180,12 +231,13 @@ class EditProcess extends Component {
                                 </div>
                             </div>
                         </div>
+                        <div className="space-area"></div>
                         <div className="row footer-view-process">  
                             <div className="col-md-6">
                                 <EditDetail />
                             </div>
-                            <div className="col-md-3">
-
+                            <div className="col-md-4">
+                                <EditTemplates />
                             </div>
                         </div>
                         <div className="space-area"></div>
@@ -209,12 +261,13 @@ class EditProcess extends Component {
                                 </div>
                             </div>
                         </div>
+                        <div className="space-area"></div>
                         <div className="row footer-view-process">  
                             <div className="col-md-6">
                                 <EditDetail />
                             </div>
-                            <div className="col-md-3">
-
+                            <div className="col-md-4">
+                                <EditTemplates />
                             </div>
                         </div>
                         <div className="space-area"></div>
@@ -236,18 +289,18 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         passPopupStatus: (status) => {
             dispatch(actions.passPopupStatus(status));
         },
-        extractDataElementWhenEdit: (elements, notes, comments) => {
-            dispatch(actions.extractDataElementWhenEdit(elements, notes, comments))
+        extractDataElementWhenEdit: (elements, notes, comments, assigns, files, issavenotes, names) => {
+            dispatch(actions.extractDataElementWhenEdit(elements, notes, comments, assigns, files, issavenotes, names))
         },
         updateProcessInformation: (information) => {
             dispatch(updateProcessInformation(information));
         },
         changeHeaderStatusToEdit: () => {
             dispatch(actions.changeHeaderStatusToEdit());
-        },     
-        resetActionToDiagram: () => {
-            dispatch(actions.resetActionToDiagram());
-        },      
+        },          
+        updateFileTemplatesInEditProcess: (templates) => {
+            dispatch(actions.updateFileTemplatesInEditProcess(templates));
+        },
     }
 }
 

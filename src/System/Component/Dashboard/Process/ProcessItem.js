@@ -16,16 +16,38 @@ class ProcessItem extends Component {
     this.setState({isRedirectToViewProcess:true, idProcess: id});
   }
 
+  convertTypeOfProcesses(type){
+    var result = '';
+    switch (type) {
+      case 1:
+        result ="Cá nhân";
+        break;
+      case 2:
+        result ="Chức vụ";
+        break;
+      case 3:
+        result ="Phòng ban";
+        break;
+      case 4:
+        result ="Công ty";
+        break;
+      default:
+        break;
+    }
+    return result;
+  }
+
   render() {
     if(this.state.isRedirectToViewProcess){
       return <Redirect to={'/system/view/process/' + this.state.idProcess} />
     }
     return (
         <tr>
+            <td>{this.props.stt}</td>
+            <td>{this.props.code}</td>
             <td>{this.props.name}</td>
             <td>{this.props.company}</td>
-            <td>{this.props.description.substring(0,50) + '...'}</td>
-            <td>{this.props.date}</td>
+            <td>{this.convertTypeOfProcesses(this.props.type)}</td>
             <td>
               <div className="table-data-feature">
                 <button

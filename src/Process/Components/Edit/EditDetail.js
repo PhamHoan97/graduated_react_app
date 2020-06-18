@@ -11,14 +11,18 @@ class EditDetail extends Component {
         }
     }
 
-    renderAssign = (data) =>{
-        var content = '';
-        if(Array.isArray(data)){
-            for (let index = 0; index < data.length; index++) {
-                content += '<p>' + data[index].label + '</p>';
+    renderAssign = (data, type) =>{
+        if(type === 4){
+            return "Toàn bộ công ty";
+        }else {
+            var content = '';
+            if(Array.isArray(data)){
+                for (let index = 0; index < data.length; index++) {
+                    content += '<p className="form-control">' + data[index].label + '</p>';
+                }
             }
+            return content;
         }
-        return content;
     } 
 
     render() {
@@ -34,22 +38,35 @@ class EditDetail extends Component {
                             <div className="col-md-5 title-footer">
                                 <h4>Thông tin</h4>
                             </div>
-                        </div>   
+                        </div> 
                         <div className="row">
-                            <div className="col-md-2">
+                            <div className="col-md-3">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
                             >
-                                Tên
+                                Mã quy trình
                             </label>
                             </div>
-                            <div className="col-md-10 letf-colum-detail">
+                            <div className="col-md-9 letf-colum-detail">
+                                <p> {this.props.detail.code}</p>
+                            </div>
+                        </div>   
+                        <div className="row">
+                            <div className="col-md-3">
+                            <label
+                                htmlFor="text-input"
+                                className=" form-control-label"
+                            >
+                                Tên quy trình
+                            </label>
+                            </div>
+                            <div className="col-md-9 letf-colum-detail">
                                 <p>{this.props.detail.name}</p>
                             </div>
                         </div>         
                         <div className="row">
-                            <div className="col-md-2">
+                            <div className="col-md-3">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
@@ -57,12 +74,12 @@ class EditDetail extends Component {
                                 Thời gian
                             </label>
                             </div>
-                            <div className="col-md-10 letf-colum-detail">
+                            <div className="col-md-9 letf-colum-detail">
                                 <p> {this.props.detail.time}</p>
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-md-2">
+                            <div className="col-md-3">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
@@ -70,12 +87,12 @@ class EditDetail extends Component {
                                 Deadline
                             </label>
                             </div>
-                            <div className="col-md-10 letf-colum-detail">
+                            <div className="col-md-9 letf-colum-detail">
                                 <p> {this.props.detail.deadline}</p>
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-md-2">
+                            <div className="col-md-3">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
@@ -83,12 +100,12 @@ class EditDetail extends Component {
                                 Giao cho
                             </label>
                             </div>
-                            <div className="col-md-10 letf-colum-detail form"  
-                                dangerouslySetInnerHTML={{__html: this.renderAssign(this.props.detail.assign)}}>
+                            <div className="col-md-9 letf-colum-detail form"  
+                                dangerouslySetInnerHTML={{__html: this.renderAssign(this.props.detail.assign, this.props.detail.type)}}>
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-md-2">
+                            <div className="col-md-3">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
@@ -96,14 +113,14 @@ class EditDetail extends Component {
                                 Mô tả
                             </label>
                             </div>
-                            <div className="col-md-10 letf-colum-detail">
+                            <div className="col-md-9 letf-colum-detail">
                                 <p> {this.props.detail.description}. </p>
                             </div>
                         </div>
                         <div className="row" style={{marginTop:"10px"}}>
-                            <div className="col-md-2">
+                            <div className="col-md-3">
                             </div>
-                            <div className="col-md-10 letf-colum-detail">
+                            <div className="col-md-9 letf-colum-detail">
                                 <button 
                                     type="button"
                                     className="btn btn-primary iso-btn"                   
@@ -131,20 +148,33 @@ class EditDetail extends Component {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-md-2">
+                            <div className="col-md-3">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
                             >
-                                Tên 
+                                Mã quy trình
                             </label>
                             </div>
-                            <div className="col-md-10 letf-colum-detail">
+                            <div className="col-md-9 letf-colum-detail">
+                                <p> {this.props.detail.code}</p>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-3">
+                            <label
+                                htmlFor="text-input"
+                                className=" form-control-label"
+                            >
+                                Tên quy trình
+                            </label>
+                            </div>
+                            <div className="col-md-9 letf-colum-detail">
                                 <p></p>
                             </div>
                         </div>            
                         <div className="row">
-                            <div className="col-md-2">
+                            <div className="col-md-3">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
@@ -152,12 +182,12 @@ class EditDetail extends Component {
                                 Thời gian
                             </label>
                             </div>
-                            <div className="col-md-10 letf-colum-detail">
+                            <div className="col-md-9 letf-colum-detail">
                             <p></p>
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-md-2">
+                            <div className="col-md-3">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
@@ -165,12 +195,12 @@ class EditDetail extends Component {
                                 Deadline
                             </label>
                             </div>
-                            <div className="col-md-10 letf-colum-detail">
+                            <div className="col-md-9 letf-colum-detail">
                                 <p></p>
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-md-2">
+                            <div className="col-md-3">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
@@ -178,11 +208,11 @@ class EditDetail extends Component {
                                 Giao cho
                             </label>
                             </div>
-                            <div className="col-md-10 letf-colum-detail form"  >
+                            <div className="col-md-9 letf-colum-detail form"  >
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-md-2">
+                            <div className="col-md-3">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
@@ -190,14 +220,14 @@ class EditDetail extends Component {
                                 Mô tả
                             </label>
                             </div>
-                            <div className="col-md-10 letf-colum-detail">
+                            <div className="col-md-9 letf-colum-detail">
                                 <p> </p>
                             </div>
                         </div>
                         <div className="row" style={{marginTop:"10px"}}>
-                            <div className="col-md-2">
+                            <div className="col-md-3">
                             </div>
-                            <div className="col-md-10 letf-colum-detail">
+                            <div className="col-md-9 letf-colum-detail">
                                 <button className="btn btn-primary iso-btn"> Sửa</button>
                             </div>
                         </div>
