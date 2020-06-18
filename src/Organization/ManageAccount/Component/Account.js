@@ -41,27 +41,27 @@ class Account extends Component {
         field: "username",
         method: "isEmpty",
         validWhen: false,
-        message: "The username field is required.",
+        message: "Tài khoản đăng nhập là bắt buộc",
       },
       {
         field: "username",
         method: "isLength",
         args: [{ min: 7 }],
         validWhen: true,
-        message: "The username must be at least 7 characters.",
+        message: "Tài khoản đăng nhập có ít nhất 7 kí tự",
       },
       {
         field: "password",
         method: "isEmpty",
         validWhen: false,
-        message: "The password field is required.",
+        message: "Mật khẩu là bắt buộc",
       },
       {
         field: "password",
         method: "isLength",
         args: [{ min: 7 }],
         validWhen: true,
-        message: "The password must be at least 7 characters.",
+        message: "Mật khẩu có ít nhất 7 kí tự",
       },
     ];
     this.validator = new Validator(rules);
@@ -85,8 +85,6 @@ class Account extends Component {
   }
 
   handleSubmitCreateAccount = (e) => {
-    console.log(this.validator.validate(this.state))
-    console.log(this.state.selectedOption)
     var errorNoEmployee = {};
     if (
       this.state.selectedOption === null ||
@@ -95,7 +93,7 @@ class Account extends Component {
     ) {
       if(this.state.selectedOption === null){
         errorNoEmployee = {
-          selectedOption: "Select employee is required.",
+          selectedOption: "Lựa chọn nhân viên là yêu cầu",
         };
       }else{
         errorNoEmployee = {}
