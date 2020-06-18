@@ -181,14 +181,23 @@ class EmployeeOrganization extends Component {
       )
       .then(function (response) {
         if (response.data.error != null) {
-        } else {
           self.props.showAlert({
-            message:'Xóa nhân viên thành công ',
+            message:response.data.error,
             anchorOrigin:{
                 vertical: 'top',
                 horizontal: 'right'
             },
-            title:'Success',
+            title:'Thất bại',
+            severity:'error'
+          });
+        } else {
+          self.props.showAlert({
+            message:response.data.message,
+            anchorOrigin:{
+                vertical: 'top',
+                horizontal: 'right'
+            },
+            title:'Thành công',
             severity:'success'
           });
           self.getListEmployee();

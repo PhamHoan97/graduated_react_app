@@ -80,7 +80,7 @@ class ManageNotification extends Component {
                 vertical: 'top',
                 horizontal: 'right'
             },
-            title:'Success',
+            title:'Thành công',
             severity:'success'
           });
           self.getListNotification();

@@ -109,14 +109,23 @@ class RoleOraganization extends Component {
     })
     .then(function (response) {
         if (response.data.error != null) {
+          self.props.showAlert({
+            message:response.data.error,
+            anchorOrigin:{
+                vertical: 'top',
+                horizontal: 'right'
+            },
+            title:'Thất bại',
+            severity:'error'
+          });
         } else {
             self.props.showAlert({
-              message:'Xóa vai trò nhân viên thành công ',
+              message:response.data.message,
               anchorOrigin:{
                   vertical: 'top',
                   horizontal: 'right'
               },
-              title:'Success',
+              title:'Thành công',
               severity:'success'
             });
             self.getListRole();

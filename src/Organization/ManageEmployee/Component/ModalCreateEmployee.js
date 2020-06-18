@@ -5,7 +5,9 @@ import Validator from "../Utils/Validator";
 import host from '../../../Host/ServerDomain'; 
 import { isEmpty } from "validator";
 import { Modal } from "react-bootstrap";
-export default class ModalCreateEmployee extends Component {
+import {showMessageAlert} from "../../../Alert/Action/Index";
+import { connect } from "react-redux";
+class ModalCreateEmployee extends Component {
   _isMounted = false;
   constructor(props) {
     super(props);
@@ -119,7 +121,15 @@ export default class ModalCreateEmployee extends Component {
       .then(function (response) {
         if(self._isMounted){
           if (response.data.error != null) {
-            console.log(response.data.error);
+            self.props.showAlert({
+              message:response.data.error,
+              anchorOrigin:{
+                  vertical: 'top',
+                  horizontal: 'right'
+              },
+              title:'Thất bại',
+              severity:'error'
+            });
           } else {
             self.setState({
               listDepartment: JSON.parse(
@@ -445,10 +455,20 @@ export default class ModalCreateEmployee extends Component {
                 newRoleEmployee:0,
                 newAvatarEmployee:"",
                 inputKey: Date.now(),
-                isDisplayAlertSuccess: true,
+                isDisplayAlertSuccess: false,
                 isDisplayAlertFailEmail: false,
             });
+            self.props.showAlert({
+              message:response.data.message,
+              anchorOrigin:{
+                  vertical: 'top',
+                  horizontal: 'right'
+              },
+              title:'Thành công',
+              severity:'success'
+            });
             setTimeout(() => {
+              self.props.close();
               self.setState({
                 isDisplayAlertFailEmail: false,
                 isDisplayAlertSuccess: false,
@@ -463,3 +483,12 @@ export default class ModalCreateEmployee extends Component {
     }
   };
 }
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    showAlert: (properties) => {
+      dispatch(showMessageAlert(properties))
+    }
+  };
+};
+export default connect(null, mapDispatchToProps)(ModalCreateEmployee);

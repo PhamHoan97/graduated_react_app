@@ -217,6 +217,15 @@ class DetailEmployeeOraganization extends Component {
     })
     .then(function (response) {
         if (response.data.error != null) {
+          self.props.showAlert({
+            message:response.data.error,
+            anchorOrigin:{
+                vertical: 'top',
+                horizontal: 'right'
+            },
+            title:'Thất bại',
+            severity:'error'
+          });
         } else {
             self.props.showAlert({
               message:'Xóa quy trình phòng ban thành công ',
@@ -224,7 +233,7 @@ class DetailEmployeeOraganization extends Component {
                   vertical: 'top',
                   horizontal: 'right'
               },
-              title:'Success',
+              title:'Thành công',
               severity:'success'
             });
             self.getProcessesTypeDepartment();

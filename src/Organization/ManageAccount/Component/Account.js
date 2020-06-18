@@ -119,6 +119,15 @@ class Account extends Component {
         )
         .then(function (response) {
           if (response.data.error != null) {
+            self.props.showAlert({
+              message:response.data.error,
+              anchorOrigin:{
+                  vertical: 'top',
+                  horizontal: 'right'
+              },
+              title:'Thất bại',
+              severity:'error'
+            });
             console.log(response.data.error);
           } else {
             document.getElementById("inputUserNameGenerate").value = "";
@@ -133,12 +142,12 @@ class Account extends Component {
             self.getAllEmployeeNoAccount();
             self.getListAccounts();
             self.props.showAlert({
-              message:'Tạo tài khoản thành công ',
+              message:response.data.message,
               anchorOrigin:{
                   vertical: 'top',
                   horizontal: 'right'
               },
-              title:'Success',
+              title:'Thành công',
               severity:'success'
             })
           }
