@@ -38,17 +38,28 @@ class ModalDetailProcess extends Component {
         }
     }
 
-    renderAssign = (employees, roles) => {
+    renderAssign = (process) => {
         var content = '';
-        if(employees){
+        if(process.type === 1){
+          var employees = process.employees;
             for (let index = 0; index < employees.length; index++) {
                 content += employees[index].name + ', ';
             }
         }
-        if(roles){
+        if(process.type === 2){
+          var roles = process.roles;
             for (let index = 0; index < roles.length; index++) {
                 content += roles[index].name + ', ';
             }
+        }
+        if(process.type === 3){
+          var departments = process.departments;
+            for (let index = 0; index < departments.length; index++) {
+                content += departments[index].name + ', ';
+            }
+        }
+        if(process.type === 4){
+          content = "Toàn bộ công ty";
         }
         return content;
     }
@@ -128,7 +139,7 @@ class ModalDetailProcess extends Component {
                             </label>
                           </div>
                           <div className="col-12 col-md-9">
-                            <span className="">{this.renderAssign(this.state.process.employees, this.state.process.roles)}</span> 
+                            <span className="">{this.renderAssign(this.state.process)}</span> 
                           </div>
                         </div>
                         <div className="row form-group">

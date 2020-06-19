@@ -38,21 +38,32 @@ class ModalDetailProcess extends Component {
         }
     }
 
-    renderAssign = (employees, roles) => {
-        var content = '';
-        if(employees){
-            for (let index = 0; index < employees.length; index++) {
-                content += employees[index].name + ', ';
-            }
-        }
-        if(roles){
-            for (let index = 0; index < roles.length; index++) {
-                content += roles[index].name + ', ';
-            }
-        }
-        return content;
-    }
+    renderAssign = (process) => {
+      var content = '';
+      if(process.type === 1){
+        var employees = process.employees;
+          for (let index = 0; index < employees.length; index++) {
+              content += employees[index].name + ', ';
+          }
+      }
+      if(process.type === 2){
+        var roles = process.roles;
+          for (let index = 0; index < roles.length; index++) {
+              content += roles[index].name + ', ';
+          }
+      }
+      if(process.type === 3){
+        var departments = process.departments;
+          for (let index = 0; index < departments.length; index++) {
+              content += departments[index].name + ', ';
+          }
+      }
+      if(process.type === 4){
+        content = "Toàn bộ công ty";
+      }
+      return content;
     
+    }
     render() {
         return (
             <div
@@ -94,14 +105,14 @@ class ModalDetailProcess extends Component {
                             <span className="">{this.state.process.name}</span>
                           </div>
                         </div>
-                        {/* <div className="row form-group">
+                        <div className="row form-group">
                           <div className="col col-md-3">
                             <Form.Label>Mô tả ngắn</Form.Label>
                           </div>
                           <div className="col-12 col-md-9">
                           <span className="">{this.state.process.description}</span>
                           </div>
-                        </div> */}
+                        </div>
                         <div className="row form-group">
                           <div className="col col-md-3">
                             <Form.Label>Thời gian</Form.Label>
@@ -118,7 +129,7 @@ class ModalDetailProcess extends Component {
                             {this.state.process.deadline}
                           </div>
                         </div>
-                        {/* <div className="row form-group">
+                        <div className="row form-group">
                           <div className="col col-md-3">
                             <label
                               htmlFor="disabled-input"
@@ -128,9 +139,9 @@ class ModalDetailProcess extends Component {
                             </label>
                           </div>
                           <div className="col-12 col-md-9">
-                            Toàn bộ nhân viên 
+                            <span className="">{this.renderAssign(this.state.process)}</span> 
                           </div>
-                        </div> */}
+                        </div>
                         <div className="row form-group">
                           <div className="col col-md-3">
                             <label

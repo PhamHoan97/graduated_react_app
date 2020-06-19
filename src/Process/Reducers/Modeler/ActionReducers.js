@@ -46,6 +46,8 @@ var actionReducers = (state = initialState, action) => {
                 isExportSVGEdit: 0,
                 isExportImageEdit: 0,
                 isExportBPMNEdit: 0,
+                isSave:0,
+                isEdit:0,
             };
         default:
             return state;

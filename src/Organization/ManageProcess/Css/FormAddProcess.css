@@ -12,3 +12,8 @@
     height: auto;
     width: auto;
 }
+
+.form-check-label-1{
+    padding-left: 0.25rem;
+    margin-bottom: 0;
+}
