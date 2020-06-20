@@ -84,6 +84,8 @@ class RoleOraganization extends Component {
               pageCount: Math.ceil(
                 response.data.roles.length / self.state.perPage
               ),
+              currentPage: 0,
+              offset:0
             });
           }
         }
@@ -109,14 +111,23 @@ class RoleOraganization extends Component {
     })
     .then(function (response) {
         if (response.data.error != null) {
+          self.props.showAlert({
+            message:response.data.error,
+            anchorOrigin:{
+                vertical: 'top',
+                horizontal: 'right'
+            },
+            title:'Thất bại',
+            severity:'error'
+          });
         } else {
             self.props.showAlert({
-              message:'Xóa vai trò nhân viên thành công ',
+              message:response.data.message,
               anchorOrigin:{
                   vertical: 'top',
                   horizontal: 'right'
               },
-              title:'Success',
+              title:'Thành công',
               severity:'success'
             });
             self.getListRole();
@@ -449,6 +460,7 @@ class RoleOraganization extends Component {
                                 containerClassName={"pagination"}
                                 subContainerClassName={"pages pagination"}
                                 activeClassName={"active"}
+                                forcePage={this.state.currentPage}
                               />
                               <div className="col-md-4"></div>
                             </div>

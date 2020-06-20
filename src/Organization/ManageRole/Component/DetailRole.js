@@ -33,11 +33,11 @@ class DetailRole extends Component {
       showModalEditEmployee: false,
       listProcesses:[],
       offset: 0,
-      perPage: 10,
+      perPage: 7,
       currentPage: 0,
       pageCount: 0,
       offsetProcess: 0,
-      perPageProcess: 5,
+      perPageProcess: 4,
       currentPageProcess: 0,
       pageCountProcess: 0,
       idProcess: '',
@@ -82,6 +82,8 @@ class DetailRole extends Component {
               pageCount: Math.ceil(
                 detailRole.employees.length / self.state.perPage
               ),
+              currentPage: 0,
+              offset: 0,
             });
           }
         }
@@ -114,6 +116,8 @@ class DetailRole extends Component {
               pageCountProcess: Math.ceil(
                 response.data.processes.length / self.state.perPageProcess
               ),
+              currentPageProcess: 0,
+              offsetProcess: 0,
             });
           }
         }
@@ -169,6 +173,15 @@ class DetailRole extends Component {
     })
     .then(function (response) {
         if (response.data.error != null) {
+          self.props.showAlert({
+            message:response.data.error,
+            anchorOrigin:{
+                vertical: 'top',
+                horizontal: 'right'
+            },
+            title:'Thất bại',
+            severity:'error'
+          });
         } else {
             self.props.showAlert({
               message:'Xóa quy trình chức vụ thành công ',
@@ -176,7 +189,7 @@ class DetailRole extends Component {
                   vertical: 'top',
                   horizontal: 'right'
               },
-              title:'Success',
+              title:'Thành công',
               severity:'success'
             });
             self.getProcessesTypeRole();
@@ -208,14 +221,23 @@ class DetailRole extends Component {
       )
       .then(function (response) {
         if (response.data.error != null) {
+          self.props.showAlert({
+            message:response.data.error,
+            anchorOrigin:{
+                vertical: 'top',
+                horizontal: 'right'
+            },
+            title:'Thất bại',
+            severity:'error'
+          });
         } else {
           self.props.showAlert({
-            message: "Xóa nhân viên thành công ",
+            message:response.data.message,
             anchorOrigin: {
               vertical: "top",
               horizontal: "right",
             },
-            title: "Success",
+            title: "Thành công",
             severity: "success",
           });
           self.getInformationDetailRole();
@@ -520,6 +542,7 @@ class DetailRole extends Component {
                                   containerClassName={"pagination"}
                                   subContainerClassName={"pages pagination"}
                                   activeClassName={"active"}
+                                  forcePage={this.state.currentPage}
                                 />
                                 <div className="col-md-4"></div>
                               </div>
@@ -572,17 +595,17 @@ class DetailRole extends Component {
                                             Tên
                                           </th>
                                           <th
-                                            style={{ width: "35%" }}
+                                            style={{ width: "45%" }}
                                             className="cell-breakWord text-center"
                                           >
                                             Miêu tả
                                           </th>
-                                          <th
+                                          {/* <th
                                             style={{ width: "10%" }}
                                             className="text-center"
                                           >
                                             Thể loại
-                                          </th>
+                                          </th> */}
                                           <th style={{ width: "25%" }}></th>
                                         </tr>
                                       </thead>
@@ -617,17 +640,17 @@ class DetailRole extends Component {
                                                   {process.name}
                                                 </td>
                                                 <td
-                                                  style={{ width: "35%" }}
+                                                  style={{ width: "45%" }}
                                                   className="cell-breakWord text-center"
                                                 >
                                                   {process.description}
                                                 </td>
-                                                <td
+                                                {/* <td
                                                   style={{ width: "10%" }}
                                                   className="text-center"
                                                 >
                                                   Chức vụ
-                                                </td>
+                                                </td> */}
                                                 <td style={{ width: "25%" }}>
                                                   <div className="table-action">
                                                   <a
@@ -692,11 +715,11 @@ class DetailRole extends Component {
                                             "pages pagination"
                                           }
                                           activeClassName={"active"}
+                                          forcePage={this.state.currentPageProcess}
                                         />
                                       </div>
                                       <div className="col-md-4"></div>
                                     </div>
-                                    <ModalDetailProcess  idProcess={this.state.idProcess} />
                                   </div>
                                 </div>
                               </div>
@@ -713,6 +736,7 @@ class DetailRole extends Component {
             </div>
           </div>
         </div>
+        <ModalDetailProcess  idProcess={this.state.idProcess} />
       </div>
     );
   }

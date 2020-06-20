@@ -5,8 +5,9 @@ import axios from "axios";
 import host from '../../../Host/ServerDomain'; 
 import { Modal } from "react-bootstrap";
 import Validator from '../Utils/Validator';
-
-export default class ModalCreateDepartment extends Component {
+import {showMessageAlert} from "../../../Alert/Action/Index";
+import { connect } from "react-redux";
+class ModalCreateDepartment extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -157,16 +158,34 @@ export default class ModalCreateDepartment extends Component {
           )
           .then(function (response) {
             if (response.data.error != null) {
-              console.log(response.data.error);
+              self.props.showAlert({
+                message:response.data.error,
+                anchorOrigin:{
+                    vertical: 'top',
+                    horizontal: 'right'
+                },
+                title:'Thất bại',
+                severity:'error'
+              });
             } else {
               self.setState({
-                isDisplayAlert: true,
+                isDisplayAlert: false,
                 newNameDepartment: "",
                 errors: {},
                 newSignatureDepartment: "",
                 newDescriptionDepartment: "",
               });
+              self.props.showAlert({
+                message:response.data.message,
+                anchorOrigin:{
+                    vertical: 'top',
+                    horizontal: 'right'
+                },
+                title:'Thành công',
+                severity:'success'
+              });
               setTimeout(() => {
+                self.props.close();
                 self.setState({ isDisplayAlert: false });
               }, 2000);
               self.props.getListDepartment();
@@ -178,3 +197,11 @@ export default class ModalCreateDepartment extends Component {
       };
     }
 }
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    showAlert: (properties) => {
+      dispatch(showMessageAlert(properties))
+    }
+  }
+}
+export default connect(null,mapDispatchToProps)(ModalCreateDepartment);

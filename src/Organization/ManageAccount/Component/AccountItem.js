@@ -17,17 +17,26 @@ class AccountItem extends Component {
         })
         .then(function (response) {
             if (response.data.error != null) {
-                console.log(response.data.error);
-            }else{
-                self.props.rerenderParentCallback();
                 self.props.showAlert({
-                    message:'Xóa tài khoản thành công',
+                    message:response.data.error,
                     anchorOrigin:{
                         vertical: 'top',
                         horizontal: 'right'
                     },
-                    title:'Success',
-                    severity:'warning'
+                    title:'Thất bại',
+                    severity:'error'
+                  });
+                console.log(response.data.error);
+            }else{
+                self.props.rerenderParentCallback();
+                self.props.showAlert({
+                    message:response.data.message,
+                    anchorOrigin:{
+                        vertical: 'top',
+                        horizontal: 'right'
+                    },
+                    title:'Thành công',
+                    severity:'success'
                   })
             }
         })
@@ -58,7 +67,7 @@ class AccountItem extends Component {
                     vertical: 'top',
                     horizontal: 'right'
                 },
-                title:'Success',
+                title:'Thành công',
                 severity:'success'
               })
             console.log(res.data);

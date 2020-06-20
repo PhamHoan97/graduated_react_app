@@ -427,7 +427,15 @@ class ModalEditEmployee extends Component {
         )
         .then(function (response) {
           if (response.data.error != null && response.status === 200) {
-            console.log(response.data.error);
+            self.props.showAlert({
+              message:response.data.error,
+              anchorOrigin:{
+                  vertical: 'top',
+                  horizontal: 'right'
+              },
+              title:'Thất bại',
+              severity:'error'
+            });
             self.setState({
               isDisplayAlertSuccess: false,
               isDisplayAlertFailEmail: true,
@@ -439,7 +447,15 @@ class ModalEditEmployee extends Component {
               });
             }, 5000);
           } else if (response.data.error != null && response.status === 400) {
-            console.log(response.data.error);
+            self.props.showAlert({
+              message:response.data.error,
+              anchorOrigin:{
+                  vertical: 'top',
+                  horizontal: 'right'
+              },
+              title:'Thất bại',
+              severity:'error'
+            });
           } else {
             self.setState({
               isDisplayAlertSuccess: true,

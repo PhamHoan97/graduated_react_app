@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import Alert from "@material-ui/lab/Alert";
 import axios from "axios";
 import Validator from "../Utils/Validator";
-import host from '../../../Host/ServerDomain'; 
+import host from '../../../Host/ServerDomain';
 import { isEmpty } from "validator";
 import { Modal } from "react-bootstrap";
-export default class ModalCreateEmployeeRole extends Component {
+import {showMessageAlert} from "../../../Alert/Action/Index";
+import { connect } from "react-redux";
+class ModalCreateEmployeeRole extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -257,10 +259,20 @@ export default class ModalCreateEmployeeRole extends Component {
               newEmailEmployee: "",
               newPhoneEmployee: "",
               inputKey: Date.now(),
-              isDisplayAlertSuccess: true,
+              isDisplayAlertSuccess: false,
               isDisplayAlertFailEmail: false,
             });
+            self.props.showAlert({
+              message:response.data.message,
+              anchorOrigin:{
+                  vertical: 'top',
+                  horizontal: 'right'
+              },
+              title:'Thành công',
+              severity:'success'
+            });
             setTimeout(() => {
+              self.props.close();
               self.setState({
                 isDisplayAlertFailEmail: false,
                 isDisplayAlertSuccess: false,
@@ -275,3 +287,11 @@ export default class ModalCreateEmployeeRole extends Component {
     }
   };
 }
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    showAlert: (properties) => {
+      dispatch(showMessageAlert(properties))
+    }
+  };
+};
+export default connect(null, mapDispatchToProps)(ModalCreateEmployeeRole);

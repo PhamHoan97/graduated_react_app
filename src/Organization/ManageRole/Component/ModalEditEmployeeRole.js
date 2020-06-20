@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import Alert from "@material-ui/lab/Alert";
 import axios from "axios";
 import Validator from "../Utils/Validator";
-import host from '../../../Host/ServerDomain'; 
+import host from '../../../Host/ServerDomain';
 import { isEmpty } from "validator";
 import { Modal } from "react-bootstrap";
 import { connect } from "react-redux";
-
+import {showMessageAlert} from "../../../Alert/Action/Index";
 
 class ModalEditEmployeeRole extends Component {
     constructor(props) {
@@ -256,6 +256,15 @@ class ModalEditEmployeeRole extends Component {
             }, 5000);
           } else if (response.data.error != null && response.status === 400) {
             console.log(response.data.error);
+            self.props.showAlert({
+              message:response.data.error,
+              anchorOrigin:{
+                  vertical: 'top',
+                  horizontal: 'right'
+              },
+              title:'Thất bại',
+              severity:'error'
+            });
           } else {
             self.setState({
               isDisplayAlertSuccess: true,
@@ -284,4 +293,11 @@ const mapStateToProps = (state, ownProps) => {
         .editEmployeeOrganization,
   };
 };
-export default connect(mapStateToProps, null)(ModalEditEmployeeRole);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    showAlert: (properties) => {
+      dispatch(showMessageAlert(properties))
+    }
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(ModalEditEmployeeRole);

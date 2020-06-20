@@ -185,13 +185,14 @@ class DetailNotificationComponent extends Component {
       this.state.detailNotification.length !== 0 &&
       this.state.isDisplayContentForm === true
     ) {
+      console.log(this.state.detailNotification[0].file !== '');
       return (
         <div className="content-notification text-center">
           <div className="card-header">
             <h3 className="card-title mb-0">{this.state.detailNotification[0].name}</h3>
           </div>
           <div> {this.state.detailNotification[0].description}</div>
-          {this.state.detailNotification[0].file !== null ? (
+          {(this.state.detailNotification[0].file !== null && this.state.detailNotification[0].file !== '') ? (
             <div className="text-center mt-3">
               <a
                 href={host + '/' + this.state.detailNotification[0].file}

@@ -129,7 +129,7 @@ class CompanyOrganization extends Component {
                   vertical: 'top',
                   horizontal: 'right'
               },
-              title:'Success',
+              title:'Thành công',
               severity:'success'
             });
             self.getProcessesTypeCompany();
@@ -219,10 +219,10 @@ class CompanyOrganization extends Component {
                                       >
                                         Tên
                                       </th>
-                                      <th style={{ width: "35%" }}
+                                      <th style={{ width: "45%" }}
                                       className="cell-breakWord text-center"
                                       >Miêu tả</th>
-                                      <th style={{ width: "10%" }} className="text-center">Thể loại</th>
+                                      {/* <th style={{ width: "10%" }} className="text-center">Thể loại</th> */}
                                       <th style={{ width: "25%" }}>
                                       </th>
                                     </tr>
@@ -253,14 +253,14 @@ class CompanyOrganization extends Component {
                                         {process.name}
                                         </td>
                                         <td
-                                          style={{ width: "35%" }}
+                                          style={{ width: "45%" }}
                                           className="cell-breakWord text-center"
                                         >
                                            {process.description}
                                         </td>
-                                        <td style={{ width: "10%" }} className="text-center">
+                                        {/* <td style={{ width: "10%" }} className="text-center">
                                           Công ty
-                                        </td>
+                                        </td> */}
                                         <td style={{ width: "25%" }}>
                                           <div className="table-action">
                                             <a
