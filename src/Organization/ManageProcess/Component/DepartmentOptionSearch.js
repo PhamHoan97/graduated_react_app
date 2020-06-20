@@ -22,7 +22,7 @@ class DepartmentOptionSearch extends Component {
     }
 
     convertToOptionsSelect(data){
-        var options = [];
+        var options = [{value: '', label: 'Tất cả phòng ban'}];
         for (let index = 0; index < data.length; index++) {
             options.push({value: data[index].id, label: data[index].name});    
         }
@@ -58,7 +58,8 @@ class DepartmentOptionSearch extends Component {
     render() {
         return (
             <Select options={this.state.options} 
-            placeholder="Chọn"
+            defaultValue={this.state.options[0]}
+            placeholder="Chọn phòng ban"
             onChange={(e) => this.changeDepartmentOptionSearch(e)}/>
 
         )

@@ -29,6 +29,7 @@ class ProcessCompany extends Component {
       isRedirectEmployeeProcess: false,
       idDepartment: '',
       search: '',
+      initEmployees: '',
     }
   }
 
@@ -133,7 +134,7 @@ class ProcessCompany extends Component {
         if(res.data.error != null){
             console.log(res.data.message);
         }else{
-          self.setState({employees: res.data.employees});
+          self.setState({employees: res.data.employees, initEmployees: res.data.employees});
         }
       }
     }).catch(function (error) {
@@ -256,6 +257,8 @@ class ProcessCompany extends Component {
       }).catch(function (error) {
         alert(error);
       });
+    }else{
+      this.setState({employees: this.state.initEmployees});
     }
   }
 
@@ -340,6 +343,8 @@ class ProcessCompany extends Component {
               alert(error);
             });
           }
+      }else{
+        this.setState({employees: this.state.initEmployees});
       }
   }
 

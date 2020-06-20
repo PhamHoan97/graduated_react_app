@@ -20,7 +20,8 @@ class ManageCompany extends Component {
             clickedCompany: "",
             clickedNew: "",
             statistic: "",
-            search: ''
+            search: '',
+            initCompanies: "", 
         }
     } 
 
@@ -135,7 +136,7 @@ class ManageCompany extends Component {
                 if(res.data.error != null){
                     console.log(res.data.message);
                 }else{
-                    self.setState({companies:res.data.companies, statistic:res.data.statistic});
+                    self.setState({companies: res.data.companies, statistic: res.data.statistic, initCompanies: res.data.companies});
                 }
             }
         }).catch(function (error) {
@@ -326,6 +327,8 @@ class ManageCompany extends Component {
             }).catch(function (error) {
               alert(error);
             });
+        }else{
+            this.setState({companies: this.state.initCompanies});
         }
     }
 

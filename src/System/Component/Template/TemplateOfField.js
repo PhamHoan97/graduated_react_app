@@ -24,6 +24,7 @@ class TemplateOfField extends Component {
             idProcess: '',  
             isRedirectCreateProcess: false,
             search: '',
+            initProcesses: '',
         }
     }
     
@@ -40,7 +41,7 @@ class TemplateOfField extends Component {
                 if(res.data.error != null){
                     console.log(res.data.error);
                 }else{ 
-                    self.setState({processes: res.data.processes, field: res.data.field});
+                    self.setState({processes: res.data.processes, field: res.data.field, initProcesses: res.data.processes});
                 }
             }
         }).catch(function (error) {
@@ -258,11 +259,13 @@ class TemplateOfField extends Component {
                         title:'Thành công',
                         severity:'success'
                     });
-                  this.setState({processes: res.data.processes})
+                  this.setState({processes: res.data.processes});
               }
             }).catch(function (error) {
               alert(error);
             });
+        }else{
+            this.setState({processes: this.state.initProcesses});
         }
     }
 
@@ -283,7 +286,7 @@ class TemplateOfField extends Component {
                   <div className="container-fluid">
                     <div className="row">
                       <div className="col-md-12">
-                            <h3 className="title-field">Quy trình mẫu của lĩnh vực {this.state.field.name}</h3>
+                            <h3 className="title-field">Quy trình mẫu của lĩnh vực <span class="text-danger">{this.state.field.name}</span></h3>
                         </div>
                     </div>
                     <div className="row field-form">

@@ -18,6 +18,7 @@ class ManageEmail extends Component {
             clickedEmail: '',  
             reload: '',
             search: '',
+            initEmail: '',
         }
     }
     handleCssPage =(e,type,currentPage)=>{
@@ -244,7 +245,7 @@ class ManageEmail extends Component {
                 if(res.data.error != null){
                     console.log(res.data.message);
                 }else{
-                    self.setState({email:res.data.email});
+                    self.setState({email: res.data.email, initEmail: res.data.email});
                 }
             }
         }).catch(function (error) {
@@ -295,6 +296,8 @@ class ManageEmail extends Component {
             }).catch(function (error) {
               alert(error);
             });
+        }else{
+            this.setState({email: this.state.initEmail}); 
         }
     }
 

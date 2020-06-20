@@ -3,6 +3,8 @@ import  { Redirect } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import axios from 'axios';
 import host from '../../Host/ServerDomain'; 
+import * as actionAlerts from '../../Alert/Action/Index';
+import {connect} from 'react-redux';
 
 class EmployeeProcess extends Component {
     constructor(props) {
@@ -12,7 +14,8 @@ class EmployeeProcess extends Component {
             processes: [],
             click: '',
             isRedirect: false,
-            search: ''
+            search: '',
+            initProcesses: [],
         }
     }
 
@@ -20,6 +23,7 @@ class EmployeeProcess extends Component {
         if(nextProps.processes){
           this.setState({
             processes: nextProps.processes, 
+            initProcesses: nextProps.processes, 
           });
         }
     }
@@ -122,23 +126,60 @@ class EmployeeProcess extends Component {
         this.setState({search: searchValue});
     }
 
+    mergeProcesses(process1, process2, process3, process4){
+        var processes = [];
+        for (let index1 = 0; index1 < process1.length; index1++) {
+          processes.push(process1[index1]);
+        }
+        for (let index2 = 0; index2 < process2.length; index2++) {
+          processes.push(process2[index2]);
+        }
+        for (let index3 = 0; index3 < process3.length; index3++) {
+          processes.push(process3[index3]);
+        }
+        for (let index4 = 0; index4 < process4.length; index4++) {
+          processes.push(process4[index4]);
+        }
+        return processes;
+    }
+
     searchProcesses = (e) => {
         e.preventDefault(); 
         var search = this.state.search;
         if(search){
             var token = localStorage.getItem('token');
-            axios.get(host + `/api/employee/search/process/` + search ,
+            axios.get(host + `/api/employee/search/process/` + token + '/' + search ,
             {
                 headers: { 'Authorization': 'Bearer ' + token}
             }).then(res => {
               if(res.data.error != null){
-                  console.log(res.data.message);
+                this.props.showAlert({
+                    message: res.data.message,
+                    anchorOrigin:{
+                        vertical: 'top',
+                        horizontal: 'right'
+                    },
+                    title:'Thất bại',
+                    severity:'error'
+                  });
               }else{
-                  this.setState({processes: res.data.processes})
+                var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2, res.data.processes3, res.data.processes4);
+                this.setState({processes: processesResponse});
+                this.props.showAlert({
+                    message: res.data.message,
+                    anchorOrigin:{
+                        vertical: 'top',
+                        horizontal: 'right'
+                    },
+                    title:'Thành công',
+                    severity:'success'
+                  });
               }
             }).catch(function (error) {
               alert(error);
             });
+        }else{
+            this.setState({processes: this.state.initProcesses});
         }
     }
 
@@ -203,4 +244,18 @@ class EmployeeProcess extends Component {
     }
 }
 
-export default EmployeeProcess;
+const mapStateToProps = (state, ownProps) => {
+    return {
+  
+    }
+  }
+  
+  const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+      showAlert: (properties) => {
+        dispatch(actionAlerts.showMessageAlert(properties))
+      },
+    }
+  }
+  
+export default connect(mapStateToProps, mapDispatchToProps )(EmployeeProcess)

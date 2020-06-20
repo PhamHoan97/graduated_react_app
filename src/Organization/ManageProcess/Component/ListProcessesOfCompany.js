@@ -23,6 +23,7 @@ class ListProcessesOfCompany extends Component {
           idEdit: '',
           idProcess: '',
           search: '',
+          initProcesses: '',
         }
     }
 
@@ -56,7 +57,7 @@ class ListProcessesOfCompany extends Component {
               console.log(res.data.message);
           }else{
             var processesResponse = self.mergeProcesses(res.data.processes1, res.data.processes2, res.data.processes3, res.data.processes4);
-            self.setState({processes: processesResponse});
+            self.setState({processes: processesResponse, initProcesses: processesResponse});
           }
         }
       }).catch(function (error) {
@@ -218,7 +219,7 @@ class ListProcessesOfCompany extends Component {
             title:'Thành công',
             severity:'success'
           });
-          this.setState({processes: processesResponse});
+          this.setState({processes: processesResponse, initProcesses: processesResponse});
         }
       }).catch(function (error) {
         alert(error);
@@ -247,6 +248,8 @@ class ListProcessesOfCompany extends Component {
         }).catch(function (error) {
           alert(error);
         });
+      }else{
+        this.setState({processes: this.state.initProcesses});
       }
 
       if(nextProps.idEmployee){
@@ -263,6 +266,8 @@ class ListProcessesOfCompany extends Component {
         }).catch(function (error) {
           alert(error);
         });
+      }else{
+        this.setState({processes: this.state.initProcesses});
       }
     }
 
@@ -338,38 +343,39 @@ class ListProcessesOfCompany extends Component {
       e.preventDefault(); 
       var search = this.state.search;
       var token = localStorage.getItem('token');
-      if(search){
-        axios.get(host + `/api/company/process/search/` + token + '/' + search,
-        {
-            headers: { 'Authorization': 'Bearer ' + token}
-        }).then(res => {
-          if(res.data.error != null){
-              this.props.showAlert({
-                message: res.data.message,
-                anchorOrigin:{
-                    vertical: 'top',
-                    horizontal: 'right'
-                },
-                title:'Thất bại',
-                severity:'error'
-              });
-          }else{
+      if(!search){
+        search = "all";
+      }
+      axios.get(host + `/api/company/process/search/` + token + '/' + search,
+      {
+          headers: { 'Authorization': 'Bearer ' + token}
+      }).then(res => {
+        if(res.data.error != null){
             this.props.showAlert({
               message: res.data.message,
               anchorOrigin:{
                   vertical: 'top',
                   horizontal: 'right'
               },
-              title:'Thành công',
-              severity:'success'
+              title:'Thất bại',
+              severity:'error'
             });
-            var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2, res.data.processes3, res.data.processes4);
-            this.setState({processes: processesResponse});
-          }
-        }).catch(function (error) {
-          alert(error);
-        });
-      }
+        }else{
+          this.props.showAlert({
+            message: res.data.message,
+            anchorOrigin:{
+                vertical: 'top',
+                horizontal: 'right'
+            },
+            title:'Thành công',
+            severity:'success'
+          });
+          var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2, res.data.processes3, res.data.processes4);
+          this.setState({processes: processesResponse});
+        }
+      }).catch(function (error) {
+        alert(error);
+      });
     }
 
     render() {

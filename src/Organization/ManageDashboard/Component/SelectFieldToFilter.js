@@ -16,7 +16,7 @@ class SelectFieldToFilter extends Component {
     }
 
     convertToOptionsSelect(data){
-        var options = [];
+        var options = [{value: '', label: 'Tất cả lĩnh vực'}];
         for (let index = 0; index < data.length; index++) {
             options.push({value: data[index].id, label: data[index].name});    
         }
@@ -59,7 +59,7 @@ class SelectFieldToFilter extends Component {
     render() {
         return (
             <Select options={this.state.options} 
-                placeholder="Chọn"
+                placeholder="Chọn lịnh vực"
                 onChange={(e) => this.changeSelectField(e)}
             />
 

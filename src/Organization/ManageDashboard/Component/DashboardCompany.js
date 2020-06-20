@@ -22,6 +22,7 @@ class DashboardCompany extends Component {
       idProcess: '',
       search: '',
       idField: '',
+      initProcesses: '',
     } 
   }
   
@@ -119,7 +120,7 @@ class DashboardCompany extends Component {
         if(res.data.error != null){
             console.log(res.data.message);
         }else{
-          self.setState({processes: res.data.processes});
+          self.setState({processes: res.data.processes, initProcesses: res.data.processes});
         }
       }
     }).catch(function (error) {
@@ -194,6 +195,8 @@ class DashboardCompany extends Component {
       }).catch(function (error) {
         alert(error);
       });
+    }else{
+      this.setState({processes: this.state.initProcesses});
     }
   }
 
@@ -269,6 +272,8 @@ class DashboardCompany extends Component {
               alert(error);
             });
           }
+      }else{
+        this.setState({processes: this.state.initProcesses});
       }
   }
 
