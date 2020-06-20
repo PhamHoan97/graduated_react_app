@@ -6,6 +6,7 @@ import host from '../../../Host/ServerDomain';
 import { isEmpty } from "validator";
 import { Modal } from "react-bootstrap";
 import { connect } from "react-redux";
+import {showMessageAlert} from "../../../Alert/Action/Index";
 class ModalEditRoleDepartment extends Component {
   constructor(props) {
     super(props);
@@ -184,6 +185,15 @@ class ModalEditRoleDepartment extends Component {
         )
         .then(function (response) {
           if (response.data.error != null) {
+            self.props.showAlert({
+              message:response.data.error,
+              anchorOrigin:{
+                  vertical: 'top',
+                  horizontal: 'right'
+              },
+              title:'Thất bại',
+              severity:'error'
+            });
             console.log(response.data.error);
           } else {
             self.setState({
@@ -207,4 +217,11 @@ const mapStateToProps = (state, ownProps) => {
       state.organizationReducers.departmentOrganizationReducer.editRoleOrganization,
   };
 };
-export default connect(mapStateToProps, null)(ModalEditRoleDepartment);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    showAlert: (properties) => {
+      dispatch(showMessageAlert(properties))
+    }
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(ModalEditRoleDepartment);

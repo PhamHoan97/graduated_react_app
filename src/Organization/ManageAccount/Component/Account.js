@@ -6,13 +6,14 @@ import "../Style/Util.scss";
 import Header from "../../Header";
 import Menu from "../../Menu";
 import Validator from "../Utils/Validator";
-import host from '../../../Host/ServerDomain'; 
+import host from "../../../Host/ServerDomain";
 import Select from "react-select";
 import axios from "axios";
 import LinkPage from "../../LinkPage";
 import AccountItem from "./AccountItem";
-import {connect} from "react-redux";
-import {showMessageAlert} from "../../../Alert/Action/Index"
+import { connect } from "react-redux";
+import { showMessageAlert } from "../../../Alert/Action/Index";
+import ReactPaginate from "react-paginate";
 const colourStyles = {
   control: (styles) => ({ ...styles, backgroundColor: "white" }),
   option: (styles, { data, isDisabled, isFocused, isSelected }) => {
@@ -77,12 +78,25 @@ class Account extends Component {
     options: [],
     listAccounts: [],
     employees: [],
+    offset: 0,
+    perPage: 1,
+    currentPage: 0,
+    pageCount: 0,
   };
 
   rerenderParentCallback() {
     this.getAllEmployeeNoAccount();
     this.getListAccounts();
   }
+
+  handlePageClick = (e) => {
+    const selectedPage = e.selected;
+    const offset = selectedPage * this.state.perPage;
+    this.setState({
+      currentPage: selectedPage,
+      offset: offset,
+    });
+  };
 
   handleSubmitCreateAccount = (e) => {
     var errorNoEmployee = {};
@@ -91,12 +105,12 @@ class Account extends Component {
       !isEmpty(this.validator.validate(this.state).username) ||
       !isEmpty(this.validator.validate(this.state).password)
     ) {
-      if(this.state.selectedOption === null){
+      if (this.state.selectedOption === null) {
         errorNoEmployee = {
           selectedOption: "Lựa chọn nhân viên là yêu cầu",
         };
-      }else{
-        errorNoEmployee = {}
+      } else {
+        errorNoEmployee = {};
       }
       this.setState({
         errors: this.validator.validate(this.state),
@@ -120,13 +134,13 @@ class Account extends Component {
         .then(function (response) {
           if (response.data.error != null) {
             self.props.showAlert({
-              message:response.data.error,
-              anchorOrigin:{
-                  vertical: 'top',
-                  horizontal: 'right'
+              message: response.data.error,
+              anchorOrigin: {
+                vertical: "top",
+                horizontal: "right",
               },
-              title:'Thất bại',
-              severity:'error'
+              title: "Thất bại",
+              severity: "error",
             });
             console.log(response.data.error);
           } else {
@@ -142,14 +156,14 @@ class Account extends Component {
             self.getAllEmployeeNoAccount();
             self.getListAccounts();
             self.props.showAlert({
-              message:response.data.message,
-              anchorOrigin:{
-                  vertical: 'top',
-                  horizontal: 'right'
+              message: response.data.message,
+              anchorOrigin: {
+                vertical: "top",
+                horizontal: "right",
               },
-              title:'Thành công',
-              severity:'success'
-            })
+              title: "Thành công",
+              severity: "success",
+            });
           }
         })
         .catch(function (error) {
@@ -157,7 +171,6 @@ class Account extends Component {
         });
     }
   };
-
 
   handleChange(event) {
     const name = event.target.name;
@@ -169,10 +182,16 @@ class Account extends Component {
 
   handleChangeEmployee = (selectedOption) => {
     var nameEmployee = selectedOption.label;
-    var userNameEmployee = nameEmployee.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(' ').join('')+selectedOption.value;
+    var userNameEmployee =
+      nameEmployee
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .split(" ")
+        .join("") + selectedOption.value;
     document.getElementById("inputUserNameGenerate").value = userNameEmployee;
     this.setState({
-      username:userNameEmployee,
+      username: userNameEmployee,
       selectedOption,
     });
   };
@@ -186,7 +205,7 @@ class Account extends Component {
         headers: { Authorization: "Bearer " + token },
       })
       .then(function (response) {
-        if(self._isMounted){
+        if (self._isMounted) {
           if (response.data.error != null) {
             console.log(response.data.error);
           } else {
@@ -219,12 +238,17 @@ class Account extends Component {
         headers: { Authorization: "Bearer " + token },
       })
       .then(function (response) {
-        if(self._isMounted){
+        if (self._isMounted) {
           if (response.data.error != null) {
             console.log(response.data.error);
           } else {
             self.setState({
               listAccounts: response.data.accounts,
+              pageCount: Math.ceil(
+                response.data.accounts.length / self.state.perPage
+              ),
+              currentPage: 0,
+              offset: 0,
             });
           }
         }
@@ -233,7 +257,7 @@ class Account extends Component {
         console.log(error);
       });
   };
-  
+
   componentDidMount() {
     // get all employee no account
     this.getAllEmployeeNoAccount();
@@ -256,7 +280,12 @@ class Account extends Component {
   showItemAccount = (accounts) => {
     var result;
     if (accounts.length > 0) {
-      result = accounts.map((account, index) => {
+      result = Object.values(
+        accounts.slice(
+          this.state.offset,
+          this.state.offset + this.state.perPage
+        )
+      ).map((account, index) => {
         return (
           <AccountItem
             rerenderParentCallback={this.rerenderParentCallback}
@@ -306,7 +335,7 @@ class Account extends Component {
                   minHeight: "1px",
                 }}
               >
-                <Menu/>
+                <Menu />
               </div>
               <div className="col-xl-9 col-lg-8  col-md-12">
                 <div className="quicklink-sidebar-menu ctm-border-radius shadow-sm bg-white card ">
@@ -398,7 +427,9 @@ class Account extends Component {
                                 </div>
                                 <div className="col-md-6">
                                   <div className="form-group">
-                                    <label htmlFor="telephone">Danh sách nhân viên</label>
+                                    <label htmlFor="telephone">
+                                      Danh sách nhân viên
+                                    </label>
                                     <Select
                                       styles={colourStyles}
                                       value={selectedOption}
@@ -446,8 +477,12 @@ class Account extends Component {
                                     <th className="cell100 column4 text-center">
                                       Hình ảnh
                                     </th>
-                                    <th className="cell100 column3 text-center">Tên nhân viên</th>
-                                    <th className="cell100 column1 text-center">Email</th>
+                                    <th className="cell100 column3 text-center">
+                                      Tên nhân viên
+                                    </th>
+                                    <th className="cell100 column1 text-center">
+                                      Email
+                                    </th>
                                     <th className="cell100 column2 text-center">
                                       Tên tài khoản
                                     </th>
@@ -468,6 +503,26 @@ class Account extends Component {
                           </div>
                         </div>
                       </div>
+                      <div className="row">
+                        <div className="col-md-4"></div>
+                        <div className="col-md-4 text-center">
+                          <ReactPaginate
+                            previousLabel={"Trước"}
+                            nextLabel={"Sau"}
+                            breakLabel={"..."}
+                            breakClassName={"break-me"}
+                            pageCount={this.state.pageCount}
+                            marginPagesDisplayed={2}
+                            pageRangeDisplayed={5}
+                            onPageChange={this.handlePageClick}
+                            containerClassName={"pagination"}
+                            subContainerClassName={"pages pagination"}
+                            activeClassName={"active"}
+                            forcePage={this.state.currentPage}
+                          />
+                        </div>
+                        <div className="col-md-4"></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -482,8 +537,8 @@ class Account extends Component {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     showAlert: (properties) => {
-      dispatch(showMessageAlert(properties))
-    }
-  }
-}
+      dispatch(showMessageAlert(properties));
+    },
+  };
+};
 export default connect(null, mapDispatchToProps)(Account);

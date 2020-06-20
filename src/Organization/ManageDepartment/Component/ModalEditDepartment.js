@@ -6,6 +6,7 @@ import { Modal } from "react-bootstrap";
 import Validator from "../Utils/Validator";
 import { connect } from "react-redux";
 import { isEmpty } from "validator";
+import {showMessageAlert} from "../../../Alert/Action/Index";
 
 class ModalEditDepartment extends Component {
     constructor(props) {
@@ -175,7 +176,15 @@ class ModalEditDepartment extends Component {
             })
             .then(function (response) {
                 if (response.data.error != null) {
-                console.log(response.data.error);
+                    self.props.showAlert({
+                        message:response.data.error,
+                        anchorOrigin:{
+                            vertical: 'top',
+                            horizontal: 'right'
+                        },
+                        title:'Thất bại',
+                        severity:'error'
+                      });
                 } else {
                 self.setState({
                     isDisplayAlert: true,
@@ -192,6 +201,14 @@ class ModalEditDepartment extends Component {
         }
     };
 }
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+      showAlert: (properties) => {
+        dispatch(showMessageAlert(properties))
+      }
+    }
+}
 const mapStateToProps = (state, ownProps) => {
     return {
         editDepartment:
@@ -199,4 +216,4 @@ const mapStateToProps = (state, ownProps) => {
             .editDepartmentOrganization,
     };
 };
-export default connect(mapStateToProps, null)(ModalEditDepartment);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalEditDepartment);

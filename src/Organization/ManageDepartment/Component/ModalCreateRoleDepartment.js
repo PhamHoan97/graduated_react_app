@@ -5,7 +5,9 @@ import Validator from "../Utils/Validator";
 import host from '../../../Host/ServerDomain'; 
 import { isEmpty } from "validator";
 import { Modal } from "react-bootstrap";
-export default class ModalCreateRoleDepartment extends Component {
+import {showMessageAlert} from "../../../Alert/Action/Index";
+import { connect } from "react-redux";
+class ModalCreateRoleDepartment extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -183,6 +185,15 @@ export default class ModalCreateRoleDepartment extends Component {
         )
         .then(function (response) {
           if (response.data.error != null) {
+            self.props.showAlert({
+              message:response.data.error,
+              anchorOrigin:{
+                  vertical: 'top',
+                  horizontal: 'right'
+              },
+              title:'Thất bại',
+              severity:'error'
+            });
             console.log(response.data.error);
           } else {
             self.setState({
@@ -190,9 +201,19 @@ export default class ModalCreateRoleDepartment extends Component {
               newDescriptionRole: "",
               newIsCreateProcessRole: false,
               newIsEditProcessRole: false,
-              isDisplayAlertSuccess: true,
+              isDisplayAlertSuccess: false,
+            });
+            self.props.showAlert({
+              message:response.data.message,
+              anchorOrigin:{
+                  vertical: 'top',
+                  horizontal: 'right'
+              },
+              title:'Thành công',
+              severity:'success'
             });
             setTimeout(() => {
+              self.props.close();
               self.setState({
                 isDisplayAlertSuccess: false,
               });
@@ -206,3 +227,11 @@ export default class ModalCreateRoleDepartment extends Component {
     }
   };
 }
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    showAlert: (properties) => {
+      dispatch(showMessageAlert(properties))
+    }
+  }
+}
+export default connect(null,mapDispatchToProps)(ModalCreateRoleDepartment);

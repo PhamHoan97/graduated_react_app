@@ -212,7 +212,7 @@ class DetailNotificationComponent extends Component {
         <div className="content-notification text-center">
           <h3 className="contact100-form-title"> {this.state.detailNotification[0].name}</h3>
           <div> {this.state.detailNotification[0].description}</div>
-          {this.state.detailNotification[0].file !== null ? (
+          {(this.state.detailNotification[0].file !== null && this.state.detailNotification[0].file !== '')? (
             <div className="text-center mt-3">
               <a href={host + '/' + this.state.detailNotification[0].file} className="btn btn-primary btn-lg active btn-download_document" role="button" aria-pressed="true">Tài liệu đính kèm{" "}</a>
             </div>

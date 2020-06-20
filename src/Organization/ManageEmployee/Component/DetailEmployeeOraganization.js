@@ -11,7 +11,8 @@ import host from "../../../Host/ServerDomain";
 import * as actionAlerts from '../../../Alert/Action/Index';
 import {connect} from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import ModalDetailProcess from './ModalDetailProcess'; 
+import ModalDetailProcess from './ModalDetailProcess';
+import ReactPaginate from "react-paginate";
 function isEmpty(obj) {
   for (var key in obj) {
     if (obj.hasOwnProperty(key)) return false;
@@ -29,7 +30,7 @@ class DetailEmployeeOraganization extends Component {
       idProcess: "",
       search: "",
       offset: 0,
-      perPage: 5,
+      perPage: 7,
       currentPage: 0,
       pageCount: 0,
     };
@@ -59,6 +60,14 @@ class DetailEmployeeOraganization extends Component {
     e.preventDefault();
     document.getElementById("clone-view-detail-process").click();
     this.setState({ idProcess: id });
+  };
+  handlePageClick = (e) => {
+    const selectedPage = e.selected;
+    const offset = selectedPage * this.state.perPage;
+    this.setState({
+      currentPage: selectedPage,
+      offset: offset,
+    });
   };
   getDetailEmployeeOrganization = () => {
     this._isMounted = true;
@@ -131,6 +140,11 @@ class DetailEmployeeOraganization extends Component {
             );
             self.setState({
               processes: processesResponse,
+              pageCount: Math.ceil(
+                processesResponse.length / self.state.perPage
+              ),
+              currentPage: 0,
+              offset: 0,
             });
           }
         }
@@ -200,7 +214,14 @@ class DetailEmployeeOraganization extends Component {
               res.data.processes3,
               res.data.processes4
             );
-            this.setState({ processes: processesResponse });
+            this.setState({ 
+              processes: processesResponse,
+              pageCount: Math.ceil(
+                processesResponse.length / this.state.perPage
+              ),
+              currentPage: 0,
+              offset: 0,
+            });
           }
         })
         .catch(function (error) {
@@ -549,6 +570,28 @@ class DetailEmployeeOraganization extends Component {
                             )}
                           </tbody>
                         </table>
+                        <div className="row mt-5">
+                          <div className="col-md-4"></div>
+                          <div className="col-md-4 text-center">
+                            <ReactPaginate
+                              previousLabel={"Trước"}
+                              nextLabel={"Sau"}
+                              breakLabel={"..."}
+                              breakClassName={"break-me"}
+                              pageCount={this.state.pageCount}
+                              marginPagesDisplayed={2}
+                              pageRangeDisplayed={5}
+                              onPageChange={this.handlePageClick}
+                              containerClassName={"pagination"}
+                              subContainerClassName={
+                                "pages pagination"
+                              }
+                              activeClassName={"active"}
+                              forcePage={this.state.currentPage}
+                            />
+                          </div>
+                          <div className="col-md-4"></div>
+                        </div>
                         <ModalDetailProcess  idProcess={this.state.idProcess} />
                       </div>
                     </div>

@@ -28,6 +28,10 @@ class DetailEmployeeOraganization extends Component {
       perPage: 3,
       currentPage: 0,
       pageCount: 0,
+      offsetProcess: 0,
+      perPageProcess: 3,
+      currentPageProcess: 0,
+      pageCountProcess: 0,
       idProcess: '',
       isRedirectEditProcess: false,
     };
@@ -66,6 +70,8 @@ class DetailEmployeeOraganization extends Component {
               pageCount: Math.ceil(
                 response.data.detailDepartment.role.length / self.state.perPage
               ),
+              currentPage: 0,
+              offset: 0,
             });
           }
         }
@@ -96,9 +102,11 @@ class DetailEmployeeOraganization extends Component {
           } else {
             self.setState({
               listProcesses: response.data.processes,
-              pageCount: Math.ceil(
-                response.data.processes.length / self.state.perPage
+              pageCountProcess: Math.ceil(
+                response.data.processes.length / self.state.perPageProcess
               ),
+              currentPageProcess: 0,
+              offsetProcess: 0,
             });
           }
         }
@@ -114,6 +122,14 @@ class DetailEmployeeOraganization extends Component {
     this.setState({
       currentPage: selectedPage,
       offset: offset,
+    });
+  };
+  handlePageClickProcess = (e) => {
+    const selectedPage = e.selected;
+    const offset = selectedPage * this.state.perPageProcess;
+    this.setState({
+      currentPageProcess: selectedPage,
+      offsetProcess: offset,
     });
   };
 
@@ -188,14 +204,23 @@ class DetailEmployeeOraganization extends Component {
       )
       .then(function (response) {
         if (response.data.error != null) {
+          self.props.showAlert({
+            message:response.data.error,
+            anchorOrigin:{
+                vertical: 'top',
+                horizontal: 'right'
+            },
+            title:'Thất bại',
+            severity:'error'
+          });
         } else {
           self.props.showAlert({
-            message: "Xóa vai trò nhân viên thành công ",
+            message: response.data.message,
             anchorOrigin: {
               vertical: "top",
               horizontal: "right",
             },
-            title: "Success",
+            title: "Thành công",
             severity: "success",
           });
           self.getDetailDepartment();
@@ -410,6 +435,7 @@ class DetailEmployeeOraganization extends Component {
                               containerClassName={"pagination"}
                               subContainerClassName={"pages pagination"}
                               activeClassName={"active"}
+                              forcePage={this.state.currentPage}
                             />
                           </div>
                           <div className="col-md-4"></div>
@@ -477,8 +503,8 @@ class DetailEmployeeOraganization extends Component {
                                 {this.state.listProcesses.length !== 0 ? (
                                   Object.values(
                                     this.state.listProcesses.slice(
-                                      this.state.offset,
-                                      this.state.offset + this.state.perPage
+                                      this.state.offsetProcess,
+                                      this.state.offsetProcess + this.state.perPageProcess
                                     )
                                   ).map((process, index) => {
                                     return (
@@ -568,11 +594,12 @@ class DetailEmployeeOraganization extends Component {
                                   nextLabel={"Sau"}
                                   breakLabel={"..."}
                                   breakClassName={"break-me"}
-                                  pageCount={this.state.pageCount}
+                                  pageCount={this.state.pageCountProcess}
                                   marginPagesDisplayed={2}
                                   pageRangeDisplayed={5}
-                                  onPageChange={this.handlePageClick}
+                                  onPageChange={this.handlePageClickProcess}
                                   containerClassName={"pagination"}
+                                  forcePage={this.state.currentPageProcess}
                                   subContainerClassName={"pages pagination"}
                                   activeClassName={"active"}
                                 />

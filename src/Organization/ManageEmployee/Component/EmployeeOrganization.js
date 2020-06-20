@@ -30,7 +30,7 @@ class EmployeeOrganization extends Component {
       showModalEditEmployee: false,
       offset: 0,
       listProcess: [],
-      perPage: 7,
+      perPage: 10,
       currentPage: 0,
       pageCount: 0,
     };
@@ -147,6 +147,8 @@ class EmployeeOrganization extends Component {
               pageCount: Math.ceil(
                 response.data.employees.length / self.state.perPage
               ),
+              currentPage: 0,
+              offset:0
             });
           }
         }
@@ -200,12 +202,12 @@ class EmployeeOrganization extends Component {
             title:'Thành công',
             severity:'success'
           });
-          self.getListEmployee();
         }
       })
       .catch(function (error) {
         console.log(error);
       });
+      this.getListEmployee();
   };
 
   getListDepartment = () => {
@@ -269,6 +271,7 @@ class EmployeeOrganization extends Component {
       });
   }
   render() {
+    console.log(this.state.listEmployee);
     return (
       <div className="inner-wrapper manage-organization_template">
         <Header />
@@ -676,6 +679,7 @@ class EmployeeOrganization extends Component {
                       containerClassName={"pagination"}
                       subContainerClassName={"pages pagination"}
                       activeClassName={"active"}
+                      forcePage={this.state.currentPage}
                     />
                   </div>
                    <div className="col-md-4"></div>

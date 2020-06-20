@@ -84,6 +84,8 @@ class RoleOraganization extends Component {
               pageCount: Math.ceil(
                 response.data.roles.length / self.state.perPage
               ),
+              currentPage: 0,
+              offset:0
             });
           }
         }
@@ -458,6 +460,7 @@ class RoleOraganization extends Component {
                                 containerClassName={"pagination"}
                                 subContainerClassName={"pages pagination"}
                                 activeClassName={"active"}
+                                forcePage={this.state.currentPage}
                               />
                               <div className="col-md-4"></div>
                             </div>
