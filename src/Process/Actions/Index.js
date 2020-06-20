@@ -189,3 +189,9 @@ export const updateFileTemplatesInEditProcess = (templates)=> {
     }
 }
 
+export const clickOpenModalEditProcessInfo = ()=> {
+    return {
+        type: types.CLICK_OPEN_MODAL_EDIT_PROCESS_INFO,
+    }
+}
+

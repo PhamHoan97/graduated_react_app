@@ -9,13 +9,31 @@ class Detail extends Component {
         }
     }
 
-    renderEmployee = (employees, type) =>{
+    renderEmployee = (assign, type) =>{
         var content = '';
         if(type === 4){
-            return "Toàn bộ công ty"
-        }else{
+            return "Toàn bộ công ty";
+        }if(type === 5){
+            var employees = assign.employees;
+            var roles = assign.roles;
+            var departments = assign.departments;
             for (let index = 0; index < employees.length; index++) {
                 content += '<p className="form-control">' + employees[index].label + '</p>';
+            }
+            if(roles){
+                for (let index = 0; index < roles.length; index++) {
+                    content += '<p className="form-control">' + roles[index].label + '</p>';
+                } 
+            }
+            if(departments){
+                for (let index = 0; index < departments.length; index++) {
+                    content += '<p className="form-control">' + departments[index].label + '</p>';
+                } 
+            }
+            return content;
+        }else{
+            for (let index = 0; index < assign.length; index++) {
+                content += '<p className="form-control">' + assign[index].label + '</p>';
             }
             return content;
         }
@@ -108,7 +126,7 @@ class Detail extends Component {
                                 dangerouslySetInnerHTML={{__html: this.renderEmployee(this.props.detail.assign, this.props.detail.type)}}>
                             </div>
                         </div>
-                        <div className="row">
+                        <div className="row" style={{marginTop:"10px"}}>
                             <div className="col-md-3">
                             <label
                                 htmlFor="text-input"

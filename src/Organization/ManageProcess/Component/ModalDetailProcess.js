@@ -39,27 +39,43 @@ class ModalDetailProcess extends Component {
     }
 
     renderAssign = (process) => {
+      console.log(process)
         var content = '';
+        var employees = process.employeesDetail;
+        var departments = process.departments;
+        var roles = process.rolesDetail;
         if(process.type === 1){
-          var employees = process.employees;
-            for (let index = 0; index < employees.length; index++) {
-                content += employees[index].name + ', ';
-            }
+          for (let index = 0; index < employees.length; index++) {
+              content += employees[index].name + ', ';
+          }
         }
         if(process.type === 2){
-          var roles = process.roles;
-            for (let index = 0; index < roles.length; index++) {
-                content += roles[index].name + ', ';
-            }
+          for (let index = 0; index < roles.length; index++) {
+              content += roles[index].name + ', ';
+          }
         }
         if(process.type === 3){
-          var departments = process.departments;
-            for (let index = 0; index < departments.length; index++) {
-                content += departments[index].name + ', ';
-            }
+          for (let index = 0; index < departments.length; index++) {
+              content += departments[index].name + ', ';
+          }
         }
         if(process.type === 4){
           content = "Toàn bộ công ty";
+        }
+        if(process.type === 5){
+          for (let index = 0; index < employees.length; index++) {
+              content += employees[index].name + ', ';
+          }
+          if(roles){
+            for (let index = 0; index < departments.length; index++) {
+              content += departments[index].name + ', ';
+            }
+          }
+          if(departments){
+            for (let index = 0; index < roles.length; index++) {
+              content += roles[index].name + ', ';
+            }
+          }
         }
         return content;
     }

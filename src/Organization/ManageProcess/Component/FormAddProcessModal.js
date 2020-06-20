@@ -36,6 +36,9 @@ class FormAddProcessModal extends Component {
           selectedDepartments: '', 
           selectedRoles: '', 
           collabration: '',
+          initRolesFilter: '',
+          initDepartmentsFilter: '',
+          initEmployeesFilter: '',
         }
     }
 
@@ -61,7 +64,7 @@ class FormAddProcessModal extends Component {
       this._isMounted = true;
       let self = this;
       var token = localStorage.getItem('token');
-      axios.get(host  + `/api/company/`+ token + `/employee/role`,
+      axios.get(host  + `/api/company/`+ token + `/employee/role/department`,
       {
           headers: { 'Authorization': 'Bearer ' + token}
       }).then(res => {
@@ -69,7 +72,14 @@ class FormAddProcessModal extends Component {
           if(res.data.error != null){
               console.log(res.data.message);
           }else{
-            self.setState({employeesFilter: res.data.employees, rolesFilter: res.data.roles, departmentsFilter: res.data.departments});
+            self.setState({
+              employeesFilter: res.data.employees, 
+              rolesFilter: res.data.roles, 
+              departmentsFilter: res.data.departments,
+              initRolesFilter: res.data.roles,
+              initDepartmentsFilter: res.data.departments,
+              initEmployeesFilter: res.data.employees,
+            });
           }
         }
       }).catch(function (error) {
@@ -82,20 +92,20 @@ class FormAddProcessModal extends Component {
     }
 
     convertEmployeesToOptions(){
-        var options = [];
-        var employees = this.state.employeesFilter;
-        for (let index = 0; index < employees.length; index++) {
-            var option = {value: employees[index].id_employee, label: employees[index].name + " (" + employees[index].department_name + ")"};
-            options.push(option);
-        }
-        return options;
+      var options = [];
+      var employees = this.state.employeesFilter;
+      for (let index = 0; index < employees.length; index++) {
+          var option = {value: employees[index].id_employee, label: employees[index].name + " (" + employees[index].department_name + '-' +employees[index].role_name + ")"};
+          options.push(option);
       }
+      return options;
+    }
 
     convertRolesToOptions(){
       var options = [];
       var roles = this.state.rolesFilter;
       for (let index = 0; index < roles.length; index++) {
-          var option = {value: roles[index].id_role, label: roles[index].department_name + " (" + roles[index].role + ")"};
+          var option = {value: roles[index].id_role, label: roles[index].role + " (" + roles[index].department_name + ")"};
           options.push(option);
       }
       return options;
@@ -151,7 +161,31 @@ class FormAddProcessModal extends Component {
     };
 
     handleChangeSelectEmployeeCollabration = selectedOption => {
-      this.setState({selectedEmployees: selectedOption});
+      console.log(selectedOption);
+      var token = localStorage.getItem('token');
+      var data = {
+        listEmployees: selectedOption,
+        token: token,
+      }
+      this.setState({ selectedEmployees: selectedOption})
+      axios.post(host + `/api/company/organization/department/role/except/employee`,
+      data,
+      {
+          headers: { 'Authorization': 'Bearer ' + token}
+      }).then(res => {
+        if(res.data.error != null){
+            console.log(res.data.message);
+        }else{
+          this.setState({
+            rolesFilter: res.data.roles, 
+            departmentsFilter: res.data.departments,
+            selectedDepartments: '',
+            selectedRoles: '',
+          });
+        }
+      }).catch(function (error) {
+        alert(error);
+      });
     }
 
     handleChangeSelectRoleCollabration = selectedOption => {
@@ -190,19 +224,37 @@ class FormAddProcessModal extends Component {
 
     handleSubmitAddProcess = (e) => {
       e.preventDefault();
-      if((!this.state.assign && this.state.type !== 4)){
-
+      if((!this.state.assign && this.state.type !== 4 && this.state.type !== 5) || 
+        (this.state.type === 5 && !this.state.selectedEmployees) ||
+        (this.state.type === 5 && !this.state.selectedRoles && !this.state.selectedDepartments)
+      ){
+        
       }else{
         document.getElementById('close-modal-add-new-process').click();
         var information = {
           code : Math.random().toString(36).substring(7) + Math.random().toString(36).substring(7),
           name :this.state.name,
           description: this.state.description,
-          assign: this.state.assign,
           time: this.getCurrentTime(),
           deadline: this.convertDate(this.state.deadline),
           file: this.state.file,
           type: this.state.type,
+        }
+        if(this.state.type !== 5){
+          information.assign = this.state.assign;
+        }else{
+          var assignCollabration = {};
+          var typeCollabration;
+          assignCollabration.employees = this.state.selectedEmployees;
+          if(this.state.collabration === 1){
+            assignCollabration.roles = this.state.selectedRoles;
+            typeCollabration = 1;
+          }else if(this.state.collabration === 2){
+            assignCollabration.departments = this.state.selectedDepartments;
+            typeCollabration = 2;
+          }
+          information.assign = assignCollabration;
+          information.collabration = typeCollabration;
         }
         localStorage.setItem("processInfo",  JSON.stringify(information));
         this.props.updateProcessInformation(information);
@@ -233,6 +285,9 @@ class FormAddProcessModal extends Component {
           selectedDepartments: '', 
           selectedRoles: '', 
           collabration: '',
+          rolesFilter: this.state.initRolesFilter,
+          departmentsFilter: this.state.initDepartmentsFilter,
+          employeesFilter: this.state.initEmployeesFilter,
         });
       }else{
         document.getElementById('check-type-assign-2').checked = false;
@@ -256,6 +311,9 @@ class FormAddProcessModal extends Component {
           selectedDepartments: '', 
           selectedRoles: '', 
           collabration: '',
+          rolesFilter: this.state.initRolesFilter,
+          departmentsFilter: this.state.initDepartmentsFilter,
+          employeesFilter: this.state.initEmployeesFilter,
         });
       }else{
         document.getElementById('check-type-assign-1').checked = false;
@@ -279,6 +337,9 @@ class FormAddProcessModal extends Component {
           selectedDepartments: '', 
           selectedRoles: '', 
           collabration: '',
+          rolesFilter: this.state.initRolesFilter,
+          departmentsFilter: this.state.initDepartmentsFilter,
+          employeesFilter: this.state.initEmployeesFilter,
         });
       }else{
         document.getElementById('check-type-assign-1').checked = false;
@@ -302,6 +363,9 @@ class FormAddProcessModal extends Component {
           selectedDepartments: '', 
           selectedRoles: '', 
           collabration: '',
+          rolesFilter: this.state.initRolesFilter,
+          departmentsFilter: this.state.initDepartmentsFilter,
+          employeesFilter: this.state.initEmployeesFilter,
         });
       }else{
         document.getElementById('check-type-assign-1').checked = false;
@@ -325,6 +389,9 @@ class FormAddProcessModal extends Component {
           selectedDepartments: '', 
           selectedRoles: '', 
           collabration: '',
+          rolesFilter: this.state.initRolesFilter,
+          departmentsFilter: this.state.initDepartmentsFilter,
+          employeesFilter: this.state.initEmployeesFilter,
         });
       }else{
         document.getElementById('check-type-assign-1').checked = false;

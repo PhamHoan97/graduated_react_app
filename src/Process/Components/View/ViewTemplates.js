@@ -27,7 +27,7 @@ class ViewTemplates extends Component {
                             <th>{value.name}</th>
                             <td>
                                 <div className="btn-group mr-2" role="group">
-                                    <a className="btn btn-info" href={host + '/' + value.link}>Tải về</a>
+                                    <a className="btn btn-success" href={host + '/' + value.link}>Tải về <i className="fas fa-download"></i></a>
                                 </div>
                             </td>
                         </tr>
