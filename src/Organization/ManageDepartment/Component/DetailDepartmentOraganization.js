@@ -485,17 +485,17 @@ class DetailEmployeeOraganization extends Component {
                                     Tên
                                   </th>
                                   <th
-                                    style={{ width: "35%" }}
+                                    style={{ width: "45%" }}
                                     className="cell-breakWord text-center"
                                   >
                                     Miêu tả
                                   </th>
-                                  <th
+                                  {/* <th
                                     style={{ width: "10%" }}
                                     className="text-center"
                                   >
                                     Thể loại
-                                  </th>
+                                  </th> */}
                                   <th style={{ width: "25%" }}></th>
                                 </tr>
                               </thead>
@@ -528,17 +528,17 @@ class DetailEmployeeOraganization extends Component {
                                           {process.name}
                                         </td>
                                         <td
-                                          style={{ width: "35%" }}
+                                          style={{ width: "45%" }}
                                           className="cell-breakWord text-center"
                                         >
                                           {process.description}
                                         </td>
-                                        <td
+                                        {/* <td
                                           style={{ width: "10%" }}
                                           className="text-center"
                                         >
                                           Phòng ban
-                                        </td>
+                                        </td> */}
                                         <td style={{ width: "25%" }}>
                                           <div className="table-action">
                                           <a
@@ -606,7 +606,6 @@ class DetailEmployeeOraganization extends Component {
                               </div>
                               <div className="col-md-4"></div>
                             </div>
-                            <ModalDetailProcess  idProcess={this.state.idProcess} />
                           </div>
                         </div>
                       </div>
@@ -617,6 +616,7 @@ class DetailEmployeeOraganization extends Component {
             </div>
           </div>
         </div>
+        <ModalDetailProcess  idProcess={this.state.idProcess} />
       </div>
     );
   }

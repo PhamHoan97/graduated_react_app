@@ -237,10 +237,9 @@ class DetailEmployeeOraganization extends Component {
     e.preventDefault();
     var self = this;
     var token = localStorage.getItem('token');
-    axios.post(host + `/api/company/process/type/employee/delete`,
+    axios.post(host + `/api/company/process/employee/delete`,
     {
       token: token,
-      idEmployee: this.props.match.params.idEmployee,
       idProcess : id,
     },
     {
@@ -258,7 +257,7 @@ class DetailEmployeeOraganization extends Component {
         });
       }else{
         self.props.showAlert({
-          message: 'Xóa thành công quy trình',
+          message: res.data.message,
           anchorOrigin:{
               vertical: 'top',
               horizontal: 'right'
@@ -490,9 +489,9 @@ class DetailEmployeeOraganization extends Component {
                                         className="cell-breakWord text-center">Mã</th>
                               <th style={{ width: "15%" }}
                                         className="cell-breakWord text-center">Tên</th>
-                              <th style={{ width: "35%" }}
+                              <th style={{ width: "45%" }}
                                       className="cell-breakWord text-center">Mô tả</th>
-                              <th style={{ width: "10%" }} className="text-center">Thể loại</th>
+                              {/* <th style={{ width: "10%" }} className="text-center">Thể loại</th> */}
                               <th style={{ width: "25%" }}>
                                       </th>
                             </tr>
@@ -509,17 +508,17 @@ class DetailEmployeeOraganization extends Component {
                                   <tr className="tr-shadow" key={index}>
                                     <td style={{ width: "5%" }}
                                         className="cell-breakWord text-center">{index + 1}</td>
-                                    <td style={{ width: "5%" }}
+                                    <td style={{ width: "15%" }}
                                         className="cell-breakWord text-center">{process.code}</td>
-                                    <td style={{ width: "5%" }}
+                                    <td style={{ width: "15%" }}
                                         className="cell-breakWord text-center">{process.name}</td>
-                                    <td style={{ width: "5%" }}
+                                    <td style={{ width: "45%" }}
                                         className="cell-breakWord text-center">
                                       {process.description}
                                     </td>
-                                    <td style={{ width: "10%" }}>
+                                    {/* <td style={{ width: "10%" }}>
                                       {this.convertTypeOfProcesses(process.type)}
-                                    </td>
+                                    </td> */}
                                     <td style={{ width: "25%" }}>
                                       <div className="table-action">
                                         <a
@@ -595,7 +594,6 @@ class DetailEmployeeOraganization extends Component {
                           </div>
                           <div className="col-md-4"></div>
                         </div>
-                        <ModalDetailProcess  idProcess={this.state.idProcess} />
                       </div>
                     </div>
                   </div>
@@ -604,6 +602,7 @@ class DetailEmployeeOraganization extends Component {
             </div>
           </div>
         </div>
+        <ModalDetailProcess  idProcess={this.state.idProcess} />
       </div>
     );
   }
