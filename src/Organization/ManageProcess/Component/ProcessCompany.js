@@ -125,7 +125,7 @@ class ProcessCompany extends Component {
     this._isMounted = true;
     let self = this;
     var token = localStorage.getItem('token');
-    axios.get(host + `/api/company/`+ token + `/employee/role`,
+    axios.get(host + `/api/company/`+ token + `/employee/role/department`,
     {
         headers: { 'Authorization': 'Bearer ' + token}
     }).then(res => {

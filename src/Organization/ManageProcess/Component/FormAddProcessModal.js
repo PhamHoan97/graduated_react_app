@@ -32,6 +32,13 @@ class FormAddProcessModal extends Component {
           file: '',
           type: '',
           redirect: false,
+          selectedEmployees: '', 
+          selectedDepartments: '', 
+          selectedRoles: '', 
+          collabration: '',
+          initRolesFilter: '',
+          initDepartmentsFilter: '',
+          initEmployeesFilter: '',
         }
     }
 
@@ -57,7 +64,7 @@ class FormAddProcessModal extends Component {
       this._isMounted = true;
       let self = this;
       var token = localStorage.getItem('token');
-      axios.get(host  + `/api/company/`+ token + `/employee/role`,
+      axios.get(host  + `/api/company/`+ token + `/employee/role/department`,
       {
           headers: { 'Authorization': 'Bearer ' + token}
       }).then(res => {
@@ -65,7 +72,14 @@ class FormAddProcessModal extends Component {
           if(res.data.error != null){
               console.log(res.data.message);
           }else{
-            self.setState({employeesFilter: res.data.employees, rolesFilter: res.data.roles, departmentsFilter: res.data.departments});
+            self.setState({
+              employeesFilter: res.data.employees, 
+              rolesFilter: res.data.roles, 
+              departmentsFilter: res.data.departments,
+              initRolesFilter: res.data.roles,
+              initDepartmentsFilter: res.data.departments,
+              initEmployeesFilter: res.data.employees,
+            });
           }
         }
       }).catch(function (error) {
@@ -78,20 +92,20 @@ class FormAddProcessModal extends Component {
     }
 
     convertEmployeesToOptions(){
-        var options = [];
-        var employees = this.state.employeesFilter;
-        for (let index = 0; index < employees.length; index++) {
-            var option = {value: employees[index].id_employee, label: employees[index].name + " (" + employees[index].department_name + ")"};
-            options.push(option);
-        }
-        return options;
+      var options = [];
+      var employees = this.state.employeesFilter;
+      for (let index = 0; index < employees.length; index++) {
+          var option = {value: employees[index].id_employee, label: employees[index].name + " (" + employees[index].department_name + '-' +employees[index].role_name + ")"};
+          options.push(option);
       }
+      return options;
+    }
 
     convertRolesToOptions(){
       var options = [];
       var roles = this.state.rolesFilter;
       for (let index = 0; index < roles.length; index++) {
-          var option = {value: roles[index].id_role, label: roles[index].department_name + " (" + roles[index].role + ")"};
+          var option = {value: roles[index].id_role, label: roles[index].role + " (" + roles[index].department_name + ")"};
           options.push(option);
       }
       return options;
@@ -146,6 +160,42 @@ class FormAddProcessModal extends Component {
       this.setState({selected: selectedOption, assign: selectedOption});
     };
 
+    handleChangeSelectEmployeeCollabration = selectedOption => {
+      console.log(selectedOption);
+      var token = localStorage.getItem('token');
+      var data = {
+        listEmployees: selectedOption,
+        token: token,
+      }
+      this.setState({ selectedEmployees: selectedOption})
+      axios.post(host + `/api/company/organization/department/role/except/employee`,
+      data,
+      {
+          headers: { 'Authorization': 'Bearer ' + token}
+      }).then(res => {
+        if(res.data.error != null){
+            console.log(res.data.message);
+        }else{
+          this.setState({
+            rolesFilter: res.data.roles, 
+            departmentsFilter: res.data.departments,
+            selectedDepartments: '',
+            selectedRoles: '',
+          });
+        }
+      }).catch(function (error) {
+        alert(error);
+      });
+    }
+
+    handleChangeSelectRoleCollabration = selectedOption => {
+      this.setState({selectedRoles: selectedOption});
+    }
+
+    handleChangeSelectDepartmentCollabration = selectedOption => {
+      this.setState({selectedDepartments: selectedOption});
+    }
+
     handleChangeDeadline = date => {
       this.setState({
         deadline: date
@@ -174,19 +224,37 @@ class FormAddProcessModal extends Component {
 
     handleSubmitAddProcess = (e) => {
       e.preventDefault();
-      if(!this.state.assign && this.state.type !== 4){
-
+      if((!this.state.assign && this.state.type !== 4 && this.state.type !== 5) || 
+        (this.state.type === 5 && !this.state.selectedEmployees) ||
+        (this.state.type === 5 && !this.state.selectedRoles && !this.state.selectedDepartments)
+      ){
+        
       }else{
         document.getElementById('close-modal-add-new-process').click();
         var information = {
           code : Math.random().toString(36).substring(7) + Math.random().toString(36).substring(7),
           name :this.state.name,
           description: this.state.description,
-          assign: this.state.assign,
           time: this.getCurrentTime(),
           deadline: this.convertDate(this.state.deadline),
           file: this.state.file,
           type: this.state.type,
+        }
+        if(this.state.type !== 5){
+          information.assign = this.state.assign;
+        }else{
+          var assignCollabration = {};
+          var typeCollabration;
+          assignCollabration.employees = this.state.selectedEmployees;
+          if(this.state.collabration === 1){
+            assignCollabration.roles = this.state.selectedRoles;
+            typeCollabration = 1;
+          }else if(this.state.collabration === 2){
+            assignCollabration.departments = this.state.selectedDepartments;
+            typeCollabration = 2;
+          }
+          information.assign = assignCollabration;
+          information.collabration = typeCollabration;
         }
         localStorage.setItem("processInfo",  JSON.stringify(information));
         this.props.updateProcessInformation(information);
@@ -209,11 +277,23 @@ class FormAddProcessModal extends Component {
         document.getElementById('check-type-assign-2').checked = false;
         document.getElementById('check-type-assign-3').checked = false;
         document.getElementById('check-type-assign-4').checked = false;
-        this.setState({type: 1 ,selected: ''});
+        document.getElementById('check-type-assign-5').checked = false;
+        this.setState({
+          type: 1 ,
+          selected: '',
+          selectedEmployees: '', 
+          selectedDepartments: '', 
+          selectedRoles: '', 
+          collabration: '',
+          rolesFilter: this.state.initRolesFilter,
+          departmentsFilter: this.state.initDepartmentsFilter,
+          employeesFilter: this.state.initEmployeesFilter,
+        });
       }else{
         document.getElementById('check-type-assign-2').checked = false;
         document.getElementById('check-type-assign-3').checked = false;
         document.getElementById('check-type-assign-4').checked = false;
+        document.getElementById('check-type-assign-5').checked = false;
         this.setState({type: '' ,selected: ''});
       }
     }
@@ -223,11 +303,23 @@ class FormAddProcessModal extends Component {
         document.getElementById('check-type-assign-1').checked = false;
         document.getElementById('check-type-assign-3').checked = false;
         document.getElementById('check-type-assign-4').checked = false;
-        this.setState({type: 2, selected: ''});
+        document.getElementById('check-type-assign-5').checked = false;
+        this.setState({
+          type: 2, 
+          selected: '',
+          selectedEmployees: '', 
+          selectedDepartments: '', 
+          selectedRoles: '', 
+          collabration: '',
+          rolesFilter: this.state.initRolesFilter,
+          departmentsFilter: this.state.initDepartmentsFilter,
+          employeesFilter: this.state.initEmployeesFilter,
+        });
       }else{
         document.getElementById('check-type-assign-1').checked = false;
         document.getElementById('check-type-assign-3').checked = false;
         document.getElementById('check-type-assign-4').checked = false;
+        document.getElementById('check-type-assign-5').checked = false;
         this.setState({type: '', selected: ''});
       }
     }
@@ -237,11 +329,23 @@ class FormAddProcessModal extends Component {
         document.getElementById('check-type-assign-1').checked = false;
         document.getElementById('check-type-assign-2').checked = false;
         document.getElementById('check-type-assign-4').checked = false;
-        this.setState({type: 3, selected: ''});
+        document.getElementById('check-type-assign-5').checked = false;
+        this.setState({
+          type: 3, 
+          selected: '',
+          selectedEmployees: '', 
+          selectedDepartments: '', 
+          selectedRoles: '', 
+          collabration: '',
+          rolesFilter: this.state.initRolesFilter,
+          departmentsFilter: this.state.initDepartmentsFilter,
+          employeesFilter: this.state.initEmployeesFilter,
+        });
       }else{
         document.getElementById('check-type-assign-1').checked = false;
         document.getElementById('check-type-assign-2').checked = false;
         document.getElementById('check-type-assign-4').checked = false;
+        document.getElementById('check-type-assign-5').checked = false;
         this.setState({type: '', selected: ''});      
       }
     }
@@ -251,12 +355,82 @@ class FormAddProcessModal extends Component {
         document.getElementById('check-type-assign-1').checked = false;
         document.getElementById('check-type-assign-2').checked = false;
         document.getElementById('check-type-assign-3').checked = false;
-        this.setState({type: 4, selected: ''});
+        document.getElementById('check-type-assign-5').checked = false;
+        this.setState({
+          type: 4, 
+          selected: '',
+          selectedEmployees: '', 
+          selectedDepartments: '', 
+          selectedRoles: '', 
+          collabration: '',
+          rolesFilter: this.state.initRolesFilter,
+          departmentsFilter: this.state.initDepartmentsFilter,
+          employeesFilter: this.state.initEmployeesFilter,
+        });
       }else{
         document.getElementById('check-type-assign-1').checked = false;
         document.getElementById('check-type-assign-2').checked = false;
         document.getElementById('check-type-assign-3').checked = false;
+        document.getElementById('check-type-assign-5').checked = false;
         this.setState({type: '', selected: ''});
+      }
+    }
+
+    handleChangeColabration = event => {
+      if(event.target.checked){
+        document.getElementById('check-type-assign-1').checked = false;
+        document.getElementById('check-type-assign-2').checked = false;
+        document.getElementById('check-type-assign-3').checked = false;
+        document.getElementById('check-type-assign-4').checked = false;
+        this.setState({
+          type: 5, 
+          selected: '',
+          selectedEmployees: '', 
+          selectedDepartments: '', 
+          selectedRoles: '', 
+          collabration: '',
+          rolesFilter: this.state.initRolesFilter,
+          departmentsFilter: this.state.initDepartmentsFilter,
+          employeesFilter: this.state.initEmployeesFilter,
+        });
+      }else{
+        document.getElementById('check-type-assign-1').checked = false;
+        document.getElementById('check-type-assign-2').checked = false;
+        document.getElementById('check-type-assign-3').checked = false;
+        document.getElementById('check-type-assign-4').checked = false;
+        this.setState({type: '', selected: ''});
+      }
+    }
+
+    handleChangeTypeRoleCollabration = event => {
+      if(event.target.checked){
+        document.getElementById('check-type-collabration-2').checked = false;
+        this.setState({
+          collabration: 1,
+          selectedDepartments: '',
+        });
+      }else{
+        document.getElementById('check-type-collabration-2').checked = false;
+        this.setState({
+          collabration: '',
+          selectedRoles: '',
+        });
+      }
+    }
+
+    handleChangeTypeDepartmentCollabration = event => {
+      if(event.target.checked){
+        document.getElementById('check-type-collabration-1').checked = false;
+        this.setState({
+          collabration: 2,
+          selectedRoles: '',
+        });
+      }else{
+        document.getElementById('check-type-collabration-1').checked = false;
+        this.setState({
+          collabration: '',
+          selectedDepartments: '',
+        });
       }
     }
 
@@ -293,7 +467,7 @@ class FormAddProcessModal extends Component {
               </label>
             </div>
             <div className="col-12 col-md-9">
-              <Select placeholder="Lựa chọn chức vụ" id="select-employee-to-assign" required value={this.state.selected} components={animatedComponents} 
+              <Select placeholder="Lựa chọn chức vụ" id="select-role-to-assign" required value={this.state.selected} components={animatedComponents} 
               isMulti options={this.convertRolesToOptions()} onChange={this.handleChangeSelectRole} />
             </div>
          </div>
@@ -316,7 +490,89 @@ class FormAddProcessModal extends Component {
          </div>
         );
       }
+      else if(this.state.type === 5){
+        return(
+            <>
+              <div className="row form-group">
+                <div className="col col-md-3">
+                  <label
+                    htmlFor="disabled-input"
+                    className=" form-control-label"
+                  >
+                    Nhân viên
+                  </label>
+                </div>
+                <div className="col-12 col-md-9">
+                <Select placeholder="Lựa chọn nhân viên" id="select-employee-to-assign-1" required value={this.state.selectedEmployees} components={animatedComponents} 
+                  isMulti options={this.convertEmployeesToOptions()} onChange={this.handleChangeSelectEmployeeCollabration} />
+                </div>
+              </div>
+              <div className="row form-group">
+                <div className="col col-md-3">
+                  <label
+                    htmlFor="disabled-input"
+                    className=" form-control-label"
+                  >
+                    Kiểu kết hợp
+                  </label>
+                </div>
+                <div className="col-12 col-md-9" style={{display:"flex"}} key={`custom-inline-radio-1`}>
+                  <Form.Check>
+                    <FormCheck.Input value="1" name="collabration1" id="check-type-collabration-1" type={"checkbox"} onChange={this.handleChangeTypeRoleCollabration} />
+                    <FormCheck.Label className="form-check-label-1">Chức vụ</FormCheck.Label>
+                  </Form.Check>
+                  <Form.Check style={{marginLeft:"5%"}}>
+                    <FormCheck.Input value="2" name="collabration2" type={"checkbox"} id="check-type-collabration-2" onChange={this.handleChangeTypeDepartmentCollabration} />
+                    <FormCheck.Label className="form-check-label-1">Phòng ban</FormCheck.Label>
+                  </Form.Check>
+                </div>
+              </div>
+              {this.renderAssignCollabration()}
+          </>
+        );
+      }
     }
+
+    renderAssignCollabration = () =>{
+      if(this.state.collabration === 1){
+        return (
+          <div className="row form-group">
+            <div className="col col-md-3">
+              <label
+                htmlFor="disabled-input"
+                className=" form-control-label"
+              >
+                Chức vụ
+              </label>
+            </div>
+            <div className="col-12 col-md-9">
+              <Select placeholder="Lựa chọn chức vụ" id="select-role-to-assign-1" required value={this.state.selectedRoles} components={animatedComponents} 
+                isMulti options={this.convertRolesToOptions()} onChange={this.handleChangeSelectRoleCollabration} />
+            </div>
+          </div>
+        );
+      }else if(this.state.collabration === 2){
+        return (
+          <div className="row form-group">
+            <div className="col col-md-3">
+              <label
+                htmlFor="disabled-input"
+                className=" form-control-label"
+              >
+                Phòng ban
+              </label>
+            </div>
+            <div className="col-12 col-md-9">
+              <Select placeholder="Lựa chọn phòng ban" id="select-department-to-assign-1" required value={this.state.selectedDepartments} components={animatedComponents} 
+                isMulti options={this.convertDepartmentsToOptions()} onChange={this.handleChangeSelectDepartmentCollabration} />
+            </div>
+          </div>
+        );
+      }else {
+        return (<div></div>);
+      }
+    }
+
 
     renderFilterDepartment = () =>{
       if(!this.state.type || this.state.type === 1 || this.state.type === 2){
@@ -327,7 +583,7 @@ class FormAddProcessModal extends Component {
                 htmlFor="disabled-input"
                 className=" form-control-label"
               >
-                Phòng ban
+                Hỗ trợ tìm kiếm
               </label>
             </div>
             <div className="col-12 col-md-9">
@@ -416,19 +672,23 @@ class FormAddProcessModal extends Component {
                           <div className="col-12 col-md-9" style={{display:"flex"}} key={`custom-inline-radio`}>
                           <Form.Check>
                               <FormCheck.Input value="1" name="type1" id="check-type-assign-1" type={"checkbox"} onChange={this.handleChangeTypeEmployee} />
-                              <FormCheck.Label>Cá nhân</FormCheck.Label>
+                              <FormCheck.Label className="form-check-label-1">Cá nhân</FormCheck.Label>
                             </Form.Check>
                             <Form.Check style={{marginLeft:"5%"}}>
                               <FormCheck.Input value="2" name="type2" type={"checkbox"} id="check-type-assign-2" onChange={this.handleChangeTypeRole} />
-                              <FormCheck.Label>Chức vụ</FormCheck.Label>
+                              <FormCheck.Label className="form-check-label-1">Chức vụ</FormCheck.Label>
+                            </Form.Check>
+                            <Form.Check style={{marginLeft:"5%"}}>
+                              <FormCheck.Input value="5" name="type5" type={"checkbox"} id="check-type-assign-5" onChange={this.handleChangeColabration} />
+                              <FormCheck.Label className="form-check-label-1">Kết hợp</FormCheck.Label>
                             </Form.Check>
                             <Form.Check style={{marginLeft:"5%"}}>
                               <FormCheck.Input value="3" name="type3" type={"checkbox"} id="check-type-assign-3" onChange={this.handleChangeTypeDepartment} />
-                              <FormCheck.Label>Phòng ban</FormCheck.Label>
+                              <FormCheck.Label className="form-check-label-1">Phòng ban</FormCheck.Label>
                             </Form.Check>
                             <Form.Check style={{marginLeft:"5%"}}>
                               <FormCheck.Input value="4" name="type4" type={"checkbox"} id="check-type-assign-4" onChange={this.handleChangeTypeCompany} />
-                              <FormCheck.Label>Công ty</FormCheck.Label>
+                              <FormCheck.Label className="form-check-label-1">Công ty</FormCheck.Label>
                             </Form.Check>
                           </div>
                         </div>

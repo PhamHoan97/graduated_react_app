@@ -119,8 +119,8 @@ class EditTemplates extends Component {
                             <th>{value.name}</th>
                             <td>
                                 <div className="btn-group mr-2" role="group">
-                                    <a className="btn btn-info" href={host + '/' + value.link}>Tải về</a>
-                                    <a style={{marginLeft: "5px"}} href="##" className="btn btn-danger" onClick={(e) => this.deleteTemplate(e, value.id)}> Xóa</a>
+                                    <a className="btn btn-info" href={host + '/' + value.link}>Tải về <i className="fas fa-download"></i></a>
+                                    <a style={{marginLeft: "5px"}} href="##" className="btn btn-danger" onClick={(e) => this.deleteTemplate(e, value.id)}> Xóa <i className="fas fa-trash"></i></a>
                                 </div>
                             </td>
                         </tr>
@@ -147,7 +147,7 @@ class EditTemplates extends Component {
                             <tr>
                                 <th></th>
                                 <td >
-                                    <button className="btn btn-success" onClick={(e) => this.openModalCreateTemplate(e)}>Thêm mới</button>
+                                    <button className="btn btn-success" onClick={(e) => this.openModalCreateTemplate(e)}>Thêm mới <i className="fas fa-plus-square"></i></button>
                                 </td>
                             </tr>
                         </tbody>

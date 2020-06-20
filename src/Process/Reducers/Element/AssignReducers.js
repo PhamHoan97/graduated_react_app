@@ -11,7 +11,7 @@ var assignReducers = (state = initialState, action) => {
         case types.UPDATEASSIGNEDEMPLOYEEFORELEMENT:
             return {...state, assignElement: action.assign};
         case types.UPDATEDEFAULTASSIGNEDEMPLOYEEFORELEMENT:
-            var newCount = state.count + 1
+            var newCount = state.count + 1;
             return {...state, defaultSelect: action.assign, count: newCount};    
         case types.RESETDEFAULTASSIGNEDEMPLOYEEFORELEMENT:
             return {...state, defaultSelect: ""};   

@@ -55,6 +55,30 @@ class EditProcess extends Component {
                 assign.push({'value': departments[index].id, 'label': departments[index].name});
             }
         }
+        else if(type === 5){
+            var assignEmployees = [];
+            var assignRoles = [];
+            var assignDepartments = [];
+            for (let index = 0; index < employees.length; index++) {
+                assignEmployees.push({
+                    'value': employees[index].id, 
+                    'label': employees[index].name, 
+                });
+            }
+            for (let index = 0; index < roles.length; index++) {
+                assignRoles.push({
+                    'value': roles[index].id, 
+                    'label': roles[index].name, 
+                });
+            }
+            for (let index = 0; index < departments.length; index++) {
+                assignDepartments.push({
+                    'value': departments[index].id, 
+                    'label': departments[index].name
+                });
+            }
+            assign = {"employees" : assignEmployees, "roles" : assignRoles, "departments" : assignDepartments};
+        }
         return assign;
     }
 
@@ -66,8 +90,10 @@ class EditProcess extends Component {
             description: process.description,
             time: process.update_at,
             deadline: process.deadline,
-            assign: this.convertToAssignInDataStore(process.type,process.employees, process.roles, process.departments),
+            assign: this.convertToAssignInDataStore(process.type, process.employeesDetail, process.rolesDetail, process.departments),
             type: process.type,
+            collabration: process.collabration,
+            document: process.document,
         }
 
         var notes = [];

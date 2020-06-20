@@ -38,17 +38,44 @@ class ModalDetailProcess extends Component {
         }
     }
 
-    renderAssign = (employees, roles) => {
+    renderAssign = (process) => {
+      console.log(process)
         var content = '';
-        if(employees){
-            for (let index = 0; index < employees.length; index++) {
-                content += employees[index].name + ', ';
-            }
+        var employees = process.employeesDetail;
+        var departments = process.departments;
+        var roles = process.rolesDetail;
+        if(process.type === 1){
+          for (let index = 0; index < employees.length; index++) {
+              content += employees[index].name + ', ';
+          }
         }
-        if(roles){
-            for (let index = 0; index < roles.length; index++) {
-                content += roles[index].name + ', ';
+        if(process.type === 2){
+          for (let index = 0; index < roles.length; index++) {
+              content += roles[index].name + ', ';
+          }
+        }
+        if(process.type === 3){
+          for (let index = 0; index < departments.length; index++) {
+              content += departments[index].name + ', ';
+          }
+        }
+        if(process.type === 4){
+          content = "Toàn bộ công ty";
+        }
+        if(process.type === 5){
+          for (let index = 0; index < employees.length; index++) {
+              content += employees[index].name + ', ';
+          }
+          if(roles){
+            for (let index = 0; index < departments.length; index++) {
+              content += departments[index].name + ', ';
             }
+          }
+          if(departments){
+            for (let index = 0; index < roles.length; index++) {
+              content += roles[index].name + ', ';
+            }
+          }
         }
         return content;
     }
@@ -128,7 +155,7 @@ class ModalDetailProcess extends Component {
                             </label>
                           </div>
                           <div className="col-12 col-md-9">
-                            <span className="">{this.renderAssign(this.state.process.employees, this.state.process.roles)}</span> 
+                            <span className="">{this.renderAssign(this.state.process)}</span> 
                           </div>
                         </div>
                         <div className="row form-group">

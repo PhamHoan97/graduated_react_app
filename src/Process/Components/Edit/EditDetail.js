@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import EditInformationProcessModal from './EditInformationProcessModal';
+import * as actions from '../../Actions/Index';
+import * as actionAlerts from '../../../Alert/Action/Index';
 
 class EditDetail extends Component {
     constructor(props) {
@@ -11,19 +13,58 @@ class EditDetail extends Component {
         }
     }
 
-    renderAssign = (data, type) =>{
+    renderAssign = (assign, type) =>{
+        var content = '';
         if(type === 4){
             return "Toàn bộ công ty";
-        }else {
-            var content = '';
-            if(Array.isArray(data)){
-                for (let index = 0; index < data.length; index++) {
-                    content += '<p className="form-control">' + data[index].label + '</p>';
+        }else if(type === 5){
+            var employees = assign.employees;
+            for (let index = 0; index < employees.length; index++) {
+                content += '<p className="form-control">' + employees[index].label + '</p>';
+            }
+            if(assign.roles){
+                var roles = assign.roles;
+                for (let index = 0; index < roles.length; index++) {
+                    content += '<p className="form-control">' + roles[index].label + '</p>';
+                }
+            }
+            if(assign.departments){
+                var departments = assign.departments;
+                for (let index = 0; index < departments.length; index++) {
+                    content += '<p className="form-control">' + departments[index].label + '</p>';
                 }
             }
             return content;
         }
+        else{
+            for (let index = 0; index < assign.length; index++) {
+                content += '<p className="form-control">' + assign[index].label + '</p>';
+            }
+            return content;
+        }
     } 
+
+    openEditProcessModal = (e) => {
+        e.preventDefault();
+        document.getElementById('clone-button-edit-process').click();
+        this.props.clickOpenModalEditProcessInfo();
+    }
+
+    resetDataOfProcess = (e) => {
+        e.preventDefault();
+        this.props.showAlert({
+          message: "Phục hổi mặc định thông tin của quy trình",
+          anchorOrigin:{
+              vertical: 'top',
+              horizontal: 'right'
+          },
+          title:'Thành công',
+          severity:'success'
+        });
+        setTimeout(function(){ 
+          window.location.reload();
+        }, 1000);
+    }
 
     render() {
         if(this.props.detail && this.props.detail.time){
@@ -100,11 +141,11 @@ class EditDetail extends Component {
                                 Giao cho
                             </label>
                             </div>
-                            <div className="col-md-9 letf-colum-detail form"  
+                            <div className="col-md-9 letf-colum-detail"  
                                 dangerouslySetInnerHTML={{__html: this.renderAssign(this.props.detail.assign, this.props.detail.type)}}>
                             </div>
                         </div>
-                        <div className="row">
+                        <div className="row" style={{marginTop:"10px"}}>
                             <div className="col-md-3">
                             <label
                                 htmlFor="text-input"
@@ -121,13 +162,28 @@ class EditDetail extends Component {
                             <div className="col-md-3">
                             </div>
                             <div className="col-md-9 letf-colum-detail">
-                                <button 
-                                    type="button"
-                                    className="btn btn-primary iso-btn"                   
-                                    data-toggle="modal"
-                                    data-target="#form-edit-process">
-                                    Sửa
-                                </button>
+                                <div className="btn-group">
+                                    <button 
+                                        type="button"
+                                        className="btn btn-primary iso-btn"                   
+                                        onClick={(e) => this.openEditProcessModal(e)}
+                                    >
+                                        Sửa <i className="far fa-edit"></i>
+                                    </button>
+                                    <button 
+                                        id = "clone-button-edit-process"
+                                        type="button"
+                                        className="btn btn-primary iso-btn"                   
+                                        data-toggle="modal"
+                                        data-target="#form-edit-process"
+                                        style={{display: "none"}}
+                                    >
+                                        Sửa 
+                                    </button>
+                                    <button type="button" className="btn btn-danger" onClick={(e) => this.resetDataOfProcess(e)} style={{float:"left", marginLeft:"5px"}}>
+                                        Phục hồi <i className="fas fa-undo"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -228,7 +284,23 @@ class EditDetail extends Component {
                             <div className="col-md-3">
                             </div>
                             <div className="col-md-9 letf-colum-detail">
-                                <button className="btn btn-primary iso-btn"> Sửa</button>
+                                <button 
+                                    type="button"
+                                    className="btn btn-primary iso-btn"                   
+                                    onClick={(e) => this.openEditProcessModal(e)}
+                                >
+                                    Sửa <i className="far fa-edit"></i>
+                                </button>
+                                <button 
+                                    id = "clone-button-edit-process"
+                                    type="button"
+                                    className="btn btn-primary iso-btn"                   
+                                    data-toggle="modal"
+                                    data-target="#form-edit-process"
+                                    style={{display: "none"}}
+                                >
+                                    Sửa
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -245,4 +317,15 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps)(EditDetail)
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        clickOpenModalEditProcessInfo: () => {
+            dispatch(actions.clickOpenModalEditProcessInfo())
+        },
+        showAlert: (properties) => {
+            dispatch(actionAlerts.showMessageAlert(properties))
+          },
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditDetail)

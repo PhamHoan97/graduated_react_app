@@ -8,7 +8,6 @@ import * as actions from '../../../Organization/ManageProcess/Actions/Index';
 import DatePicker from "react-datepicker";
 import FormCheck from 'react-bootstrap/FormCheck';
 import host from '../../../Host/ServerDomain';
-import * as actionAlerts from '../../../Alert/Action/Index';
 
 class EditInformationProcessModal extends Component {
     _isMounted = false;
@@ -27,6 +26,14 @@ class EditInformationProcessModal extends Component {
           file: '',
           type: '',
           assign: '',
+          code: '',
+          selectedEmployees: '', 
+          selectedDepartments: '', 
+          selectedRoles: '', 
+          collabration: '',
+          initRolesFilter: '',
+          initDepartmentsFilter: '',
+          initEmployeesFilter: '',
         }
     }
 
@@ -37,8 +44,8 @@ class EditInformationProcessModal extends Component {
 
     UNSAFE_componentWillReceiveProps(nextProps) {
       if(nextProps.detail){
+        var token = localStorage.getItem('token');
         if(nextProps.idDepartmentAssign){
-          var token = localStorage.getItem('token');
           axios.get(host + `/api/company/department/`+ nextProps.idDepartmentAssign + `/employee/role`,
           {
               headers: { 'Authorization': 'Bearer ' + token}
@@ -52,16 +59,62 @@ class EditInformationProcessModal extends Component {
               alert(error);
           }); 
         }else{
-          this.setState({
-            detail : nextProps.detail,
-            selected: nextProps.detail.assign,
-            name: nextProps.detail.name,
-            description: nextProps.detail.description,
-            id: nextProps.detail.id,
-            type: nextProps.detail.type,
-            deadline: this.convertddMMyyyyToDate(nextProps.detail.deadline),
-            assign: nextProps.detail.assign,
-          });
+          if(nextProps.detail.type !== 5){
+            this.setState({
+              detail : nextProps.detail,
+              selected: nextProps.detail.assign,
+              name: nextProps.detail.name,
+              description: nextProps.detail.description,
+              id: nextProps.detail.id,
+              type: nextProps.detail.type,
+              deadline: this.convertddMMyyyyToDate(nextProps.detail.deadline),
+              assign: nextProps.detail.assign,
+              code: nextProps.detail.code,
+            });
+          }else{
+            var assign = nextProps.detail.assign;
+            var employees = assign.employees;
+            var departments = assign.departments;
+            var roles = assign.roles;
+            var collabration;
+            if(roles && roles.length){
+              collabration = 1; 
+            }else{
+              collabration = 2;
+            }
+            var data = {
+              listEmployees: employees,
+              token: token,
+            }
+            axios.post(host + `/api/company/organization/department/role/except/employee`,
+            data,
+            {
+                headers: { 'Authorization': 'Bearer ' + token}
+            }).then(res => {
+              if(res.data.error != null){
+                  console.log(res.data.message);
+              }else{
+                this.setState({
+                  detail : nextProps.detail,
+                  name: nextProps.detail.name,
+                  description: nextProps.detail.description,
+                  id: nextProps.detail.id,
+                  type: nextProps.detail.type,
+                  deadline: this.convertddMMyyyyToDate(nextProps.detail.deadline),
+                  assign: nextProps.detail.assign,
+                  code: nextProps.detail.code,
+                  selectedEmployees: employees, 
+                  selectedDepartments: departments, 
+                  selectedRoles: roles, 
+                  collabration: collabration,
+                  rolesFilter: res.data.roles, 
+                  departmentsFilter: res.data.departments,
+                });
+              }
+            }).catch(function (error) {
+              alert(error);
+            });
+          }
         }
       }
     }
@@ -70,7 +123,7 @@ class EditInformationProcessModal extends Component {
       this._isMounted = true;
       let self = this;
       var token = localStorage.getItem('token');
-      axios.get(host + `/api/company/`+ token + `/employee/role`,
+      axios.get(host + `/api/company/`+ token + `/employee/role/department`,
       {
           headers: { 'Authorization': 'Bearer ' + token}
       }).then(res => {
@@ -78,7 +131,14 @@ class EditInformationProcessModal extends Component {
           if(res.data.error != null){
               console.log(res.data.message);
           }else{
-            self.setState({employeesFilter: res.data.employees, rolesFilter: res.data.roles, departmentsFilter: res.data.departments});
+            self.setState({
+              employeesFilter: res.data.employees, 
+              rolesFilter: res.data.roles, 
+              departmentsFilter: res.data.departments,
+              initRolesFilter: res.data.roles,
+              initDepartmentsFilter: res.data.departments,
+              initEmployeesFilter: res.data.employees,
+            });
           }
         }
       }).catch(function (error) {
@@ -94,17 +154,18 @@ class EditInformationProcessModal extends Component {
       var options = [];
       var employees = this.state.employeesFilter;
       for (let index = 0; index < employees.length; index++) {
-          var option = {value: employees[index].id_employee, label: employees[index].name + " (" + employees[index].department_name + ')'};
+          var option = {value: employees[index].id_employee, label: employees[index].name + " (" + employees[index].department_name + '-' +employees[index].role_name + ")"};
           options.push(option);
       }
       return options;
     }
 
+
     convertRolesToOptions(){
       var options = [];
       var roles = this.state.rolesFilter;
       for (let index = 0; index < roles.length; index++) {
-          var option = {value: roles[index].id_role, label: roles[index].department_name + " (" + roles[index].role + ")"};
+          var option = {value: roles[index].id_role, label: roles[index].role + " (" + roles[index].department_name + ")"};
           options.push(option);
       }
       return options;
@@ -161,17 +222,75 @@ class EditInformationProcessModal extends Component {
 
     handleSubmitEditProcess = (e) => {
       e.preventDefault();
-      document.getElementById('close-modal-add-new-process').click();
-      var information = {
-        id: this.state.id,
-        name :this.state.name,
-        description: this.state.description,
-        assign: this.state.selected,
-        time: this.getCurrentTime(),
-        deadline: this.convertDate(this.state.deadline),
-        type: this.state.type,
+      if((!this.state.assign && this.state.type !== 4 && this.state.type !== 5) || 
+      (this.state.type === 5 && !this.state.selectedEmployees) ||
+      (this.state.type === 5 && !this.state.selectedRoles && !this.state.selectedDepartments)
+      ){
+        
+      }else{
+        document.getElementById('close-modal-add-update-process').click();
+        var information = {
+          id: this.state.id,
+          name :this.state.name,
+          description: this.state.description,
+          time: this.getCurrentTime(),
+          deadline: this.convertDate(this.state.deadline),
+          type: this.state.type,
+          code: this.state.code,
+        }
+        if(this.state.type !== 5){
+          information.assign = this.state.selected;
+        }else{
+          var assignCollabration = {};
+          var typeCollabration;
+          assignCollabration.employees = this.state.selectedEmployees;
+          if(this.state.collabration === 1){
+            assignCollabration.roles = this.state.selectedRoles;
+            typeCollabration = 1;
+          }else if(this.state.collabration === 2){
+            assignCollabration.departments = this.state.selectedDepartments;
+            typeCollabration = 2;
+          }
+          information.assign = assignCollabration;
+          information.collabration = typeCollabration;
+        }
+        this.props.updateProcessInformation(information);
       }
-      this.props.updateProcessInformation(information);
+    }
+
+    handleChangeSelectEmployeeCollabration = selectedOption => {
+      var token = localStorage.getItem('token');
+      var data = {
+        listEmployees: selectedOption,
+        token: token,
+      }
+      this.setState({ selectedEmployees: selectedOption});
+      axios.post(host + `/api/company/organization/department/role/except/employee`,
+      data,
+      {
+          headers: { 'Authorization': 'Bearer ' + token}
+      }).then(res => {
+        if(res.data.error != null){
+            console.log(res.data.message);
+        }else{
+          this.setState({
+            rolesFilter: res.data.roles, 
+            departmentsFilter: res.data.departments,
+            selectedDepartments: '',
+            selectedRoles: '',
+          });
+        }
+      }).catch(function (error) {
+        alert(error);
+      });
+    }
+
+    handleChangeSelectRoleCollabration = selectedOption => {
+      this.setState({selectedRoles: selectedOption});
+    }
+
+    handleChangeSelectDepartmentCollabration = selectedOption => {
+      this.setState({selectedDepartments: selectedOption});
     }
 
     handleChangeDeadline = date => {
@@ -190,11 +309,23 @@ class EditInformationProcessModal extends Component {
         document.getElementById('check-type-assign-2').checked = false;
         document.getElementById('check-type-assign-3').checked = false;
         document.getElementById('check-type-assign-4').checked = false;
-        this.setState({type: 1 ,selected: ''});
+        document.getElementById('check-type-assign-5').checked = false;
+        this.setState({
+          type: 1 ,
+          selected: '',
+          selectedEmployees: '', 
+          selectedDepartments: '', 
+          selectedRoles: '', 
+          collabration: '',
+          rolesFilter: this.state.initRolesFilter,
+          departmentsFilter: this.state.initDepartmentsFilter,
+          employeesFilter: this.state.initEmployeesFilter,
+        });
       }else{
         document.getElementById('check-type-assign-2').checked = false;
         document.getElementById('check-type-assign-3').checked = false;
         document.getElementById('check-type-assign-4').checked = false;
+        document.getElementById('check-type-assign-5').checked = false;
         this.setState({type: '' ,selected: ''});
       }
     }
@@ -204,11 +335,23 @@ class EditInformationProcessModal extends Component {
         document.getElementById('check-type-assign-1').checked = false;
         document.getElementById('check-type-assign-3').checked = false;
         document.getElementById('check-type-assign-4').checked = false;
-        this.setState({type: 2, selected: ''});
+        document.getElementById('check-type-assign-5').checked = false;
+        this.setState({
+          type: 2 ,
+          selected: '',
+          selectedEmployees: '', 
+          selectedDepartments: '', 
+          selectedRoles: '', 
+          collabration: '',
+          rolesFilter: this.state.initRolesFilter,
+          departmentsFilter: this.state.initDepartmentsFilter,
+          employeesFilter: this.state.initEmployeesFilter,
+        });
       }else{
         document.getElementById('check-type-assign-1').checked = false;
         document.getElementById('check-type-assign-3').checked = false;
         document.getElementById('check-type-assign-4').checked = false;
+        document.getElementById('check-type-assign-5').checked = false;
         this.setState({type: '', selected: ''});
       }
     }
@@ -218,11 +361,23 @@ class EditInformationProcessModal extends Component {
         document.getElementById('check-type-assign-1').checked = false;
         document.getElementById('check-type-assign-2').checked = false;
         document.getElementById('check-type-assign-4').checked = false;
-        this.setState({type: 3, selected: ''});
+        document.getElementById('check-type-assign-5').checked = false;
+        this.setState({
+          type: 3,
+          selected: '',
+          selectedEmployees: '', 
+          selectedDepartments: '', 
+          selectedRoles: '', 
+          collabration: '',
+          rolesFilter: this.state.initRolesFilter,
+          departmentsFilter: this.state.initDepartmentsFilter,
+          employeesFilter: this.state.initEmployeesFilter,
+        });
       }else{
         document.getElementById('check-type-assign-1').checked = false;
         document.getElementById('check-type-assign-2').checked = false;
         document.getElementById('check-type-assign-4').checked = false;
+        document.getElementById('check-type-assign-5').checked = false;
         this.setState({type: '', selected: ''});      
       }
     }
@@ -232,12 +387,83 @@ class EditInformationProcessModal extends Component {
         document.getElementById('check-type-assign-1').checked = false;
         document.getElementById('check-type-assign-2').checked = false;
         document.getElementById('check-type-assign-3').checked = false;
-        this.setState({type: 4, selected: ''});
+        document.getElementById('check-type-assign-5').checked = false;
+        this.setState({
+          type: 4,
+          selected: '',
+          selectedEmployees: '', 
+          selectedDepartments: '', 
+          selectedRoles: '', 
+          collabration: '',
+          rolesFilter: this.state.initRolesFilter,
+          departmentsFilter: this.state.initDepartmentsFilter,
+          employeesFilter: this.state.initEmployeesFilter,
+        });
       }else{
         document.getElementById('check-type-assign-1').checked = false;
         document.getElementById('check-type-assign-2').checked = false;
         document.getElementById('check-type-assign-3').checked = false;
+        document.getElementById('check-type-assign-5').checked = false;
         this.setState({type: '', selected: ''});
+      }
+    }
+
+    handleChangeColabration = event => {
+      if(event.target.checked){
+        document.getElementById('check-type-assign-1').checked = false;
+        document.getElementById('check-type-assign-2').checked = false;
+        document.getElementById('check-type-assign-3').checked = false;
+        document.getElementById('check-type-assign-4').checked = false;
+        this.setState({
+          type: 5, 
+          selected: '',
+          selectedEmployees: '', 
+          selectedDepartments: '', 
+          selectedRoles: '', 
+          collabration: '',
+          rolesFilter: this.state.initRolesFilter,
+          departmentsFilter: this.state.initDepartmentsFilter,
+          employeesFilter: this.state.initEmployeesFilter,
+        });
+      }else{
+        document.getElementById('check-type-assign-1').checked = false;
+        document.getElementById('check-type-assign-2').checked = false;
+        document.getElementById('check-type-assign-3').checked = false;
+        document.getElementById('check-type-assign-4').checked = false;
+        this.setState({type: '', selected: ''});
+      }
+    }
+
+    
+    handleChangeTypeRoleCollabration = event => {
+      if(event.target.checked){
+        document.getElementById('check-type-collabration-2').checked = false;
+        this.setState({
+          collabration: 1,
+          selectedDepartments: '',
+        });
+      }else{
+        document.getElementById('check-type-collabration-2').checked = false;
+        this.setState({
+          collabration: '',
+          selectedRoles: '',
+        });
+      }
+    }
+
+    handleChangeTypeDepartmentCollabration = event => {
+      if(event.target.checked){
+        document.getElementById('check-type-collabration-1').checked = false;
+        this.setState({
+          collabration: 2,
+          selectedRoles: '',
+        });
+      }else{
+        document.getElementById('check-type-collabration-1').checked = false;
+        this.setState({
+          collabration: '',
+          selectedDepartments: '',
+        });
       }
     }
 
@@ -296,6 +522,86 @@ class EditInformationProcessModal extends Component {
             </div>
          </div>
         );
+      }else if(this.state.type === 5){
+        return(
+            <>
+              <div className="row form-group">
+                <div className="col col-md-3">
+                  <label
+                    htmlFor="disabled-input"
+                    className=" form-control-label"
+                  >
+                    Nhân viên
+                  </label>
+                </div>
+                <div className="col-12 col-md-9">
+                <Select placeholder="Lựa chọn nhân viên" id="select-employee-to-assign-1" required value={this.state.selectedEmployees} 
+                  isMulti options={this.convertEmployeesToOptions()} onChange={this.handleChangeSelectEmployeeCollabration} />
+                </div>
+              </div>
+              <div className="row form-group">
+                <div className="col col-md-3">
+                  <label
+                    htmlFor="disabled-input"
+                    className=" form-control-label"
+                  >
+                    Kiểu kết hợp
+                  </label>
+                </div>
+                <div className="col-12 col-md-9" style={{display:"flex"}} key={`custom-inline-radio-1`}>
+                  <Form.Check>
+                    <FormCheck.Input value="1" name="collabration1" id="check-type-collabration-1" type={"checkbox"} checked={this.state.collabration === 1 ? "checked": ""} onChange={this.handleChangeTypeRoleCollabration} />
+                    <FormCheck.Label className="form-check-label-1">Chức vụ</FormCheck.Label>
+                  </Form.Check>
+                  <Form.Check style={{marginLeft:"5%"}}>
+                    <FormCheck.Input value="2" name="collabration2" type={"checkbox"} id="check-type-collabration-2" checked={this.state.collabration === 2 ? "checked": ""} onChange={this.handleChangeTypeDepartmentCollabration} />
+                    <FormCheck.Label className="form-check-label-1">Phòng ban</FormCheck.Label>
+                  </Form.Check>
+                </div>
+              </div>
+              {this.renderAssignCollabration()}
+          </>
+        );
+      }
+    }
+
+    renderAssignCollabration = () =>{
+      if(this.state.collabration === 1){
+        return (
+          <div className="row form-group">
+            <div className="col col-md-3">
+              <label
+                htmlFor="disabled-input"
+                className=" form-control-label"
+              >
+                Chức vụ
+              </label>
+            </div>
+            <div className="col-12 col-md-9">
+              <Select placeholder="Lựa chọn chức vụ" id="select-role-to-assign-1" required value={this.state.selectedRoles} 
+                isMulti options={this.convertRolesToOptions()} onChange={this.handleChangeSelectRoleCollabration} />
+            </div>
+          </div>
+        );
+      }else if(this.state.collabration === 2){
+        return (
+          <div className="row form-group">
+            <div className="col col-md-3">
+              <label
+                htmlFor="disabled-input"
+                className=" form-control-label"
+              >
+                Phòng ban
+              </label>
+            </div>
+            <div className="col-12 col-md-9">
+              <Select placeholder="Lựa chọn phòng ban" id="select-department-to-assign-1" required value={this.state.selectedDepartments} 
+                isMulti options={this.convertDepartmentsToOptions()} onChange={this.handleChangeSelectDepartmentCollabration} />
+            </div>
+          </div>
+        );
+      }else {
+        return (<div></div>);
       }
     }
 
@@ -347,22 +653,6 @@ class EditInformationProcessModal extends Component {
       }
     }
 
-    resetDataOfProcess = (e) => {
-      e.preventDefault();
-      this.props.showAlert({
-        message: "Phục hổi mặc định thông tin của quy trình",
-        anchorOrigin:{
-            vertical: 'top',
-            horizontal: 'right'
-        },
-        title:'Thành công',
-        severity:'success'
-      });
-      setTimeout(function(){ 
-        window.location.reload();
-      }, 2000);
-    }
-
     render() {
         if(this.state.detail){
             return (
@@ -381,7 +671,7 @@ class EditInformationProcessModal extends Component {
                         Sửa quy trình
                       </h5>
                       <button
-                        id="close-modal-add-new-process"
+                        id="close-modal-add-update-process"
                         type="button"
                         className="close"
                         data-dismiss="modal"
@@ -401,7 +691,7 @@ class EditInformationProcessModal extends Component {
                                 <Form.Label>Tên quy trình</Form.Label>
                               </div>
                               <div className="col-12 col-md-9">
-                                <Form.Control onChange={(e) => this.handleChangeName(e)} defaultValue={this.state.name} type="text" id="name" required name="name" placeholder="Tên..." />
+                                <Form.Control onChange={(e) => this.handleChangeName(e)} value={this.state.name} type="text" id="name" required name="name" placeholder="Tên..." />
                                 <small className="form-text text-muted">
                                 </small>
                               </div>
@@ -419,7 +709,7 @@ class EditInformationProcessModal extends Component {
                                 <Form.Label>Mô tả ngắn</Form.Label>
                               </div>
                               <div className="col-12 col-md-9">
-                                <Form.Control as={"textarea"} onChange={(e) => this.handleChangeDescription(e)} defaultValue={this.state.description} type="text" required name="description" id="description" placeholder="Mô tả..." rows={9} />
+                                <Form.Control as={"textarea"} onChange={(e) => this.handleChangeDescription(e)} value={this.state.description} type="text" required name="description" id="description" placeholder="Mô tả..." rows={9} />
                               </div>
                             </div>
                             <div className="row form-group">
@@ -434,19 +724,23 @@ class EditInformationProcessModal extends Component {
                               <div className="col-12 col-md-9" style={{display:"flex"}} key={`custom-inline-radio`}>
                               <Form.Check>
                                   <FormCheck.Input value="1" name="type1" id="check-type-assign-1" checked={this.state.type === 1 ? "checked": ""} type={"checkbox"} onChange={this.handleChangeTypeEmployee} />
-                                  <FormCheck.Label>Cá nhân</FormCheck.Label>
+                                  <FormCheck.Label className="form-check-label-1">Cá nhân</FormCheck.Label>
                                 </Form.Check>
                                 <Form.Check style={{marginLeft:"5%"}}>
                                   <FormCheck.Input value="2" name="type2" type={"checkbox"} id="check-type-assign-2" checked={this.state.type === 2 ? "checked": ""} onChange={this.handleChangeTypeRole} />
-                                  <FormCheck.Label>Chức vụ</FormCheck.Label>
+                                  <FormCheck.Label className="form-check-label-1">Chức vụ</FormCheck.Label>
                                 </Form.Check>
                                 <Form.Check style={{marginLeft:"5%"}}>
+                                <FormCheck.Input value="5" name="type5" type={"checkbox"} id="check-type-assign-5" checked={this.state.type === 5 ? "checked": ""} onChange={this.handleChangeColabration} />
+                                <FormCheck.Label className="form-check-label-1">Kết hợp</FormCheck.Label>
+                              </Form.Check>
+                                <Form.Check style={{marginLeft:"5%"}}>
                                   <FormCheck.Input value="3" name="type3" type={"checkbox"} id="check-type-assign-3" checked={this.state.type === 3 ? "checked": ""} onChange={this.handleChangeTypeDepartment} />
-                                  <FormCheck.Label>Phòng ban</FormCheck.Label>
+                                  <FormCheck.Label className="form-check-label-1">Phòng ban</FormCheck.Label>
                                 </Form.Check>
                                 <Form.Check style={{marginLeft:"5%"}}>
                                   <FormCheck.Input value="4" name="type4" type={"checkbox"} id="check-type-assign-4" checked={this.state.type === 4 ? "checked": ""} onChange={this.handleChangeTypeCompany} />
-                                  <FormCheck.Label>Công ty</FormCheck.Label>
+                                  <FormCheck.Label className="form-check-label-1">Công ty</FormCheck.Label>
                                 </Form.Check>
                               </div>
                             </div>
@@ -470,10 +764,7 @@ class EditInformationProcessModal extends Component {
                               <div className="col-12 col-md-9">
                                 <div className="btn btn-group" style={{float:"left", padding: "0"}}>
                                   <button type="submit" className="btn btn-primary" style={{float:"left"}}>
-                                      Cập nhật
-                                  </button>
-                                  <button type="button" className="btn btn-danger" onClick={(e) => this.resetDataOfProcess(e)} style={{float:"left", marginLeft:"5px"}}>
-                                      Reset
+                                      Cập nhật <i className="fas fa-edit"></i>
                                   </button>
                                 </div>
                               </div>
@@ -503,6 +794,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
       idDepartmentAssign: state.addProcessReducers.changeDepartmentToAssignReducer.idDepartment,
       detail: state.addProcessReducers.informationProcessReducer.information,
+      clickOpenModal: state.processReducers.buttonReducers.clickOpenModal,
   }
 }
 
@@ -510,9 +802,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     updateProcessInformation: (information) => {
       dispatch(actions.updateProcessInformation(information));
-    },
-    showAlert: (properties) => {
-      dispatch(actionAlerts.showMessageAlert(properties))
     },
   }
 }

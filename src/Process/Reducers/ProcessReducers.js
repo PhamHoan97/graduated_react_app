@@ -5,6 +5,7 @@ import actionReducers from './Modeler/ActionReducers';
 import headerReducers from './Header/HeaderReducers';
 import assignReducers from './Element/AssignReducers';
 import templateReducers from './Template/TemplateReducers';
+import buttonReducers from './EditButton/ButtonReducers';
 
 const ProcessReducers = combineReducers({
     popupReduders,
@@ -13,5 +14,6 @@ const ProcessReducers = combineReducers({
     headerReducers,
     assignReducers,
     templateReducers,
+    buttonReducers,
 })
 export default ProcessReducers;

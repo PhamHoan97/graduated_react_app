@@ -10,6 +10,7 @@ import Detail from './Detail';
 import axios from 'axios';
 import {updateProcessInformation} from '../../../Organization/ManageProcess/Actions/Index';
 import host from '../../../Host/ServerDomain';
+import ViewTemplates from './ViewTemplates';
 
 class SystemViewProcess extends Component {
     constructor(props) {
@@ -52,6 +53,29 @@ class SystemViewProcess extends Component {
             for (let index = 0; index < departments.length; index++) {
                 assign.push({'value': departments[index].id, 'label': departments[index].name});
             }
+        }else if(type === 5){
+            var assignEmployees = [];
+            var assignRoles = [];
+            var assignDepartments = [];
+            for (let index = 0; index < employees.length; index++) {
+                assignEmployees.push({
+                    'value': employees[index].id, 
+                    'label': employees[index].name, 
+                });
+            }
+            for (let index = 0; index < roles.length; index++) {
+                assignRoles.push({
+                    'value': roles[index].id, 
+                    'label': roles[index].name, 
+                });
+            }
+            for (let index = 0; index < departments.length; index++) {
+                assignDepartments.push({
+                    'value': departments[index].id, 
+                    'label': departments[index].name
+                });
+            }
+            assign = {"employees" : assignEmployees, "roles" : assignRoles, "departments" : assignDepartments};
         }
         return assign;
     }
@@ -60,21 +84,29 @@ class SystemViewProcess extends Component {
         var detail = {
             id:process.id,
             code:process.code,
-            type:process.type,
             name:process.name,
             description: process.description,
+            type: process.type,
             time: process.update_at,
-            assign: this.convertToAssignInDataStore(process.type, process.employees, process.roles, process.departments),
+            assign: this.convertToAssignInDataStore(process.type, process.employeesDetail, process.rolesDetail, process.departments),
             deadline: process.deadline,
             document: process.document,
+            collabration: process.collabration,
         }
 
         var notes = [];
         var comments = [];
         var elements = [];
+        var assigns = [];
+        var files = [];
+        var names = [];
+        var issavenotes = [];
+        var templates = process.templates;
         for (var indexM = 0; indexM < process.elements.length; indexM++) {
             var eNotes = {};
             var eComments = [];
+            var eAssigns = [];
+            var eFiles = [];
             for (var indexN = 0; indexN < process.element_notes.length; indexN++) {
                 if(process.elements[indexM].id === process.element_notes[indexN].element_id){
                     eNotes = {
@@ -84,6 +116,23 @@ class SystemViewProcess extends Component {
                     notes.push({
                         id:process.elements[indexM].element, 
                         note: process.element_notes[indexN].content,
+                    });
+                    eAssigns = {
+                        id: process.elements[indexM].element, 
+                        assign: JSON.parse(process.element_notes[indexN].assign),
+                    };
+                    assigns.push({
+                        id:process.elements[indexM].element, 
+                        assign: JSON.parse(process.element_notes[indexN].assign),
+                    });
+
+                    eFiles = {
+                        id: process.elements[indexM].element, 
+                        file: process.element_notes[indexN].document,
+                    };
+                    files.push({
+                        id:process.elements[indexM].element, 
+                        file: process.element_notes[indexN].document,
                     });
                 }                
             }
@@ -95,6 +144,7 @@ class SystemViewProcess extends Component {
                         content: process.element_comments[indexP].comment,
                         id: process.element_comments[indexP].id,
                         employee_id: process.element_comments[indexP].employee_id,
+                        employee_name: process.element_comments[indexP].employee_name,
                     });
                 }                
             }
@@ -108,18 +158,35 @@ class SystemViewProcess extends Component {
                 id: process.elements[indexM].element,
                 type: process.elements[indexM].type,
                 comments: eComments,
+                name: process.elements[indexM].name,
             }
             if(eNotes.note){
                 element.note = eNotes.note;
             }else{
                 element.note = "";
             }
+            if(eAssigns.assign){
+                element.assign = eAssigns.assign;
+            }else{
+                element.assign = "";
+            }
+            if(eFiles.file){
+                element.file = eFiles.file;
+            }else{
+                element.file = "";
+            }
             
             elements.push(element);
+
+            names.push({
+                id: process.elements[indexM].element, 
+                name: process.elements[indexM].name,
+            });
         }
 
+        this.props.updateFileTemplatesInEditProcess(templates);
         this.props.updateProcessInformation(detail);
-        this.props.extractDataElementWhenEdit(elements, notes, comments);
+        this.props.extractDataElementWhenEdit(elements, notes, comments, assigns, files, issavenotes, names);
     }
 
     componentDidMount() {
@@ -174,8 +241,8 @@ class SystemViewProcess extends Component {
                             <div className="col-md-6">
                                 <Detail />
                             </div>
-                            <div className="col-md-3">
-
+                            <div className="col-md-4">
+                                <ViewTemplates />
                             </div>
                         </div>
                         <div className="space-area"></div>
@@ -204,8 +271,8 @@ class SystemViewProcess extends Component {
                             <div className="col-md-6">
                                 <Detail />
                             </div>
-                            <div className="col-md-3">
-
+                            <div className="col-md-4">
+                                <ViewTemplates />
                             </div>
                         </div>
                         <div className="space-area"></div>
@@ -232,6 +299,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         },
         updateProcessInformation: (information) => {
             dispatch(updateProcessInformation(information));
+        },
+        updateFileTemplatesInEditProcess: (templates) => {
+            dispatch(actions.updateFileTemplatesInEditProcess(templates));
         },
     }
 }

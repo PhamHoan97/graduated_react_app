@@ -45,7 +45,7 @@ class SelectEmployeeOfProcessType extends Component {
     convertToAssign (employees){
         var employeesAssign = [];
         for (let index = 0; index < employees.length; index++) {
-            var record = {'value': employees[index].id, 'label': employees[index].name + ' (' + employees[index].department_name + ')'};
+            var record = {'value': employees[index].id, 'label': employees[index].name + ' (' + employees[index].department_name + '-' + employees[index].role_name +')'};
             employeesAssign.push(record);      
         }
         return employeesAssign;

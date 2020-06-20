@@ -45,14 +45,71 @@ class SelectEmployeeOfProcessTypeInProcess extends Component {
     convertToAssign (employees){
         var employeesAssign = [];
         for (let index = 0; index < employees.length; index++) {
-            var record = {'value': employees[index].id, 'label': employees[index].name + ' (' + employees[index].department_name + ')'};
+            var record = {'value': employees[index].id, 'label': employees[index].name + ' (' + employees[index].department_name + '-' + employees[index].role_name +')'};
             employeesAssign.push(record);      
         }
         return employeesAssign;
     }
 
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        if(nextProps.detail.type){
+            this.setState({selected:nextProps.defaultSelect});
+            if(nextProps.detail.type === 1){
+                this.setState({employeesAssign: nextProps.detail.assign});
+            }else{
+                var tokenData = localStorage.getItem('token'); 
+                this._isMounted = true;
+                var self = this;
+                var data;
+                if( nextProps.detail.type !==5){
+                    data = {
+                        type: nextProps.detail.type,
+                        assign: nextProps.detail.assign,
+                        token: tokenData,
+                    }
+                }else{
+                    var assign = nextProps.detail.assign;
+                    var employees = assign.employees;
+                    var roles = assign.roles;
+                    var departments = assign.departments;
+                    if(assign.roles && assign.roles.length){
+                        assign = {
+                            "employees": employees,
+                            "roles": roles,
+                        }
+                    }else{
+                        assign = {
+                            "employees": employees,
+                            "departments": departments,
+                        }
+                    }
+                    data = {
+                        type: nextProps.detail.type,
+                        assign: assign,
+                        token: tokenData,
+                    }
+                }
+
+                axios.post(host + `/api/company/process/employee/assigned`, data,
+                {
+                    headers: { 'Authorization': 'Bearer ' + tokenData}
+                }).then(res => {
+                    if(self._isMounted){
+                        if(res.data.error != null){
+                            console.log(res.data.message);
+                        }else{
+                            var assign = self.convertToAssign(res.data.employees);
+                            self.setState({employeesAssign: assign});
+                        }
+                    }
+                }).catch(function (error) {
+                  alert(error);
+                });
+            }
+        }    
+    }
+
     componentDidMount() {
-        this._isMounted = true;
         if(this.props.detail.type){
             this.setState({selected:this.props.defaultSelect});
             if(this.props.detail.type === 1){
@@ -61,11 +118,36 @@ class SelectEmployeeOfProcessTypeInProcess extends Component {
                 var tokenData = localStorage.getItem('token'); 
                 this._isMounted = true;
                 var self = this;
-                var data = {
-                    type: this.props.detail.type,
-                    assign: this.props.detail.assign,
-                    token: tokenData,
+                var data;
+                if( self.props.detail.type !==5){
+                    data = {
+                        type: self.props.detail.type,
+                        assign: self.props.detail.assign,
+                        token: tokenData,
+                    }
+                }else{
+                    var assign = self.props.detail.assign;
+                    var employees = assign.employees;
+                    var roles = assign.roles;
+                    var departments = assign.departments;
+                    if(assign.roles && assign.roles.length){
+                        assign = {
+                            "employees": employees,
+                            "roles": roles,
+                        }
+                    }else{
+                        assign = {
+                            "employees": employees,
+                            "departments": departments,
+                        }
+                    }
+                    data = {
+                        type: self.props.detail.type,
+                        assign: assign,
+                        token: tokenData,
+                    }
                 }
+
                 axios.post(host + `/api/company/process/employee/assigned`, data,
                 {
                     headers: { 'Authorization': 'Bearer ' + tokenData}

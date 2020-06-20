@@ -48,6 +48,9 @@ class EmployeeProcess extends Component {
           case 4:
             result ="Công ty";
             break;
+          case 5:
+            result ="Kết hợp";
+            break;
           default:
             break;
         }
