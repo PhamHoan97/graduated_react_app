@@ -30,6 +30,7 @@ class ProcessTemplate extends Component {
             fieldDescriptionUpdate: '',
             fieldIdUpdate: '',
             search: '',
+            initFields: '',
         }
     }
 
@@ -264,7 +265,7 @@ class ProcessTemplate extends Component {
           if(res.data.error != null){
               console.log(res.data.error);
           }else{ 
-            self.setState({fields:res.data.fields});
+            self.setState({fields:res.data.fields, initFields: res.data.fields});
           }
         }
       }).catch(function (error) {
@@ -377,6 +378,8 @@ class ProcessTemplate extends Component {
           }).catch(function (error) {
             alert(error);
           });
+      }else{
+        this.setState({fields:this.state.initFields});
       }
   }
 

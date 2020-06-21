@@ -4,6 +4,34 @@ import ProcessItemCompany from "../../Component/DetailCompany/Process/ProcessIte
 import host from "../../../Host/ServerDomain";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
+import Select from 'react-select';
+
+const groupStyles = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+};
+
+const groupBadgeStyles = {
+  backgroundColor: '#EBECF0',
+  borderRadius: '2em',
+  color: '#172B4D',
+  display: 'inline-block',
+  fontSize: 12,
+  fontWeight: 'normal',
+  lineHeight: '1',
+  minWidth: 1,
+  padding: '0.16666666666667em 0.5em',
+  textAlign: 'center',
+};
+
+const formatGroupLabel = data => (
+  <div style={groupStyles}>
+    <span>{data.label}</span>
+    <span style={groupBadgeStyles}>{data.options.length}</span>
+  </div>
+);
+
 export default class ProcessDetailCompanyContainer extends Component {
   _isMounted = false;
   constructor(props) {
@@ -21,6 +49,17 @@ export default class ProcessDetailCompanyContainer extends Component {
     this.handleChangeSearchProcesses = this.handleChangeSearchProcesses.bind(
       this
     );
+  }
+  convertToOptionsSelect(){
+    var options = [
+      {value: 0, label: 'Thể loại'},
+      {value: 5, label: 'Kết hợp'},
+      {value: 4, label: 'Công ty'},
+      {value: 3, label: 'Phòng ban'},
+      {value: 2, label: 'Chức vụ'},
+      {value: 1, label: 'Nhân viên'},
+    ];
+    return options;
   }
   handlePageClick = (e) => {
     const selectedPage = e.selected;
@@ -75,8 +114,8 @@ export default class ProcessDetailCompanyContainer extends Component {
   }
 
   handleChangeSelectType(event) {
-    const name = event.target.name;
-    const value = event.target.value;
+    const name = event.label;
+    const value = event.value;
     // call api to fiter with type processes
     var self = this;
     var token = localStorage.getItem("token");
@@ -209,18 +248,12 @@ export default class ProcessDetailCompanyContainer extends Component {
             <div className="row">
               <div className="col-md-4">
                 <div className="rs-select2--dark rs-select2--md m-r-10 rs-select2--border">
-                  <select
-                    className="js-select2 select--department__detail_company"
-                    name="idChooseType"
-                    onChange={(e) => this.handleChangeSelectType(e)}
-                  >
-                    <option value="0">Thể loại</option>
-                    <option value="4">Công ty</option>
-                    <option value="3">Phòng ban</option>
-                    <option value="2">Chức vụ</option>
-                    <option value="1">Nhân viên</option>
-                  </select>
-                  <div className="dropDownSelect2" />
+                <Select
+                  options={this.convertToOptionsSelect()}
+                  formatGroupLabel={formatGroupLabel}
+                  onChange={(e) => this.handleChangeSelectType(e)}
+                  placeholder=""
+                />
                 </div>
               </div>
               <div className="col-md-1"></div>

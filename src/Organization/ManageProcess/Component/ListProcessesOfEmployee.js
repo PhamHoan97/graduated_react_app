@@ -22,6 +22,7 @@ class ListProcessesOfEmployee extends Component {
             isRedirectEditProcess: false,
             idProcess: '', 
             search: '',  
+            initProcesses: '',
         }
     }
     handleCssPage =(e,type,currentPage)=>{
@@ -213,7 +214,7 @@ class ListProcessesOfEmployee extends Component {
             console.log(res.data.message);
           }else{
             var processesResponse = this.mergeProcesses(res.data.processes1, res.data.processes2, res.data.processes3, res.data.processes4);
-            self.setState({processes: processesResponse, employee: res.data.employee});
+            self.setState({processes: processesResponse, employee: res.data.employee, initProcesses: processesResponse});
           }
         }
       }).catch(function (error) {
@@ -303,7 +304,9 @@ class ListProcessesOfEmployee extends Component {
       var search = this.state.search;
       var idEmployee = this.props.match.params.id;
       var token = localStorage.getItem('token');
-      if(search){
+      if(!search){
+        this.setState({processes: this.state.initProcesses});
+      }else{
         axios.get(host + `/api/company/employee/`+ idEmployee +`/search/process/` + search ,
         {
             headers: { 'Authorization': 'Bearer ' + token}

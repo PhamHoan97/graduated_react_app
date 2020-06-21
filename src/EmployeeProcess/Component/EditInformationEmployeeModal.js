@@ -5,6 +5,7 @@ import axios from 'axios';
 import * as actions from '../Actions/Index';
 import {connect} from 'react-redux';
 import host from '../../Host/ServerDomain'; 
+import * as actionAlerts from '../../Alert/Action/Index';
 
 class EditInformationEmployeeModal extends Component {
     constructor(props) {
@@ -83,10 +84,27 @@ class EditInformationEmployeeModal extends Component {
           headers: { 'Authorization': 'Bearer ' + token}
       }).then(res => {
         if(res.data.error != null){
-            console.log(res.data.message);
+          this.props.showAlert({
+            message: res.data.message,
+            anchorOrigin:{
+                vertical: 'top',
+                horizontal: 'right'
+            },
+            title:'Thất bại',
+            severity:'error'
+          });
         }else{
             document.getElementById("close-update-information-modal").click(); 
             this.props.reloadEmployeePage();
+            this.props.showAlert({
+              message: res.data.message,
+              anchorOrigin:{
+                  vertical: 'top',
+                  horizontal: 'right'
+              },
+              title:'Thành công',
+              severity:'success'
+            });
         }
       }).catch(function (error) {
         alert(error);
@@ -308,7 +326,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     reloadEmployeePage: () => {
       dispatch(actions.reloadEmployeePage());
-    }
+    },
+    showAlert: (properties) => {
+      dispatch(actionAlerts.showMessageAlert(properties))
+    },
   }
 }
 

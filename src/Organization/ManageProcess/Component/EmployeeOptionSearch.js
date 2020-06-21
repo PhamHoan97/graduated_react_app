@@ -48,7 +48,7 @@ class EmployeeOptionSearch extends Component {
     }
 
     convertToOptionsSelect(data){
-        var options = [];
+        var options = [{value: '', label: 'Tất cả nhân viên'}];
         for (let index = 0; index < data.length; index++) {
             options.push({value: data[index].id, label: data[index].name});    
         }
@@ -58,7 +58,8 @@ class EmployeeOptionSearch extends Component {
     render() {
         return (
             <Select options={this.state.options} 
-            placeholder="Chọn"
+            defaultValue={this.state.options[0]}
+            placeholder="Chọn nhân viên"
             onChange={(e) => this.changeEmployeeOptionSearch(e)}
            />
 

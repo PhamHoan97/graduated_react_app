@@ -21,7 +21,8 @@ class ManageRegistration extends Component {
             approvedCompany: "",
             rejectedCompany:"",
             loadTableData: false,
-            search: ''
+            search: '',
+            initRegistration: '',
         }
     } 
 
@@ -74,7 +75,7 @@ class ManageRegistration extends Component {
                     console.log(res.data.message);
                 }else{
                     if(JSON.stringify(this.state.registration) !== JSON.stringify(res.data.registrations)){
-                        this.setState({registration:res.data.registrations});
+                        this.setState({registration: res.data.registrations, initRegistration: res.data.registrations});
                     }
                 }
             }).catch(function (error) {
@@ -328,7 +329,7 @@ class ManageRegistration extends Component {
                 if(res.data.error != null){
                     console.log(res.data.message);
                 }else{
-                    self.setState({registration:res.data.registrations});
+                    self.setState({registration: res.data.registrations, initRegistration: res.data.registrations});
                 }
             }
         }).catch(function (error) {
@@ -379,6 +380,8 @@ class ManageRegistration extends Component {
             }).catch(function (error) {
               alert(error);
             });
+        }else{
+            this.setState({registation: this.state.initRegistration});
         }
     }
 
