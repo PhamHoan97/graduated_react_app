@@ -137,7 +137,7 @@ class DetailNotificationComponent extends Component {
         <form className="contact100-form validate-form">
           <span className="contact100-form-title"></span>
           <div className="description">
-            Tôi xin chân thành cảm ơn ông/bà đã dành thời gian phản hồi thư này
+            Cảm ơn bạn khi đã dành thời gian phản hồi thư này !
           </div>
           <div style={{ marginLeft:"160px"}}>
             <button type="button" className="btn btn-primary btn-back_response">
