@@ -5,15 +5,15 @@ import Header from "../../Header";
 import LinkPage from "../../LinkPage";
 import Menu from "../../Menu";
 import CompanyInformation from "./CompanyInformation";
-import ModalDetailProcess from './ModalDetailProcess';
+import ModalDetailProcess from "./ModalDetailProcess";
 import ChartOrganization from "./ChartOrganization";
 import axios from "axios";
 import host from "../../../Host/ServerDomain";
 import "../Style/DetailCompany.scss";
 import ReactPaginate from "react-paginate";
-import { Redirect } from 'react-router-dom';
-import {connect} from 'react-redux';
-import * as actionAlerts from '../../../Alert/Action/Index';
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import * as actionAlerts from "../../../Alert/Action/Index";
 
 class CompanyOrganization extends Component {
   _isMounted = false;
@@ -21,30 +21,140 @@ class CompanyOrganization extends Component {
     super(props, context);
     this.state = {
       dataChart: [],
-      listProcesses:[],
+      listProcesses: [],
       offset: 0,
       perPage: 5,
       currentPage: 0,
       pageCount: 0,
-      idProcess: '',
+      idProcess: "",
       isRedirectEditProcess: false,
+      listDepartment: [],
+      textNameSearch: "",
+      idDepartmentSearch: 0,
+      initDataOrganization:[]
     };
+    this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
     this.getDataOrganization();
+    this.getListDepartment();
     this.getProcessesTypeCompany();
   }
+  handleChange(event) {
+    const name = event.target.name;
+    const value = event.target.value;
+    this.setState({
+      [name]: value,
+    });
+    if(value === ""){
+      this.setState({
+        dataChart: this.state.initDataOrganization,
+      });
+    }
+  }
+  handleChangeSelect(event) {
+    const name = event.target.name;
+    const value = event.target.value;
+    if(parseInt(value) === 0){
+      this.setState({
+        [name]: value,
+        dataChart: this.state.initDataOrganization,
+      });
+    }else{
+      this._isMounted = true;
+      event.preventDefault();
+      let self = this;
+      var token = localStorage.getItem("token");
+      axios
+        .post(
+          host + "/api/company/organization/detail/search/department",{
+            idDepartmentSearch:value,
+            token:token
+          },
+          {
+            headers: { Authorization: "Bearer " + token },
+          }
+        )
+        .then(function (response) {
+          if (self._isMounted) {
+            if (response.data.error != null) {
+              console.log(response.data.error);
+            } else {
+              self.setState({
+                [name]: value,
+                dataChart: response.data.dataOrganization,
+              });
+            }
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+  }
+  getSearchDataOrganization = (e) =>{
+    this._isMounted = true;
+    e.preventDefault();
+    let self = this;
+    var token = localStorage.getItem("token");
+    axios
+      .post(
+        host + "/api/company/organization/detail/search/employee",{
+          textNameSearch:this.state.textNameSearch,
+          token:token
+        },
+        {
+          headers: { Authorization: "Bearer " + token },
+        }
+      )
+      .then(function (response) {
+        if (self._isMounted) {
+          if (response.data.error != null) {
+            console.log(response.data.error);
+          } else {
+            self.setState({
+              dataChart: response.data.dataOrganization,
+            });
+          }
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+  getListDepartment = () => {
+    this._isMounted = true;
+    let self = this;
+    var token = localStorage.getItem("token");
+    axios
+      .get(host + "/api/company/organization/department/" + token, {
+        headers: { Authorization: "Bearer " + token },
+      })
+      .then(function (response) {
+        if (self._isMounted) {
+          if (response.data.error != null) {
+            console.log(response.data.error);
+          } else {
+            self.setState({
+              listDepartment: JSON.parse(
+                JSON.stringify(response.data.departmentCompany)
+              ),
+            });
+          }
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
   getProcessesTypeCompany = () => {
     this._isMounted = true;
     var self = this;
     var token = localStorage.getItem("token");
     axios
-      .get(
-        host + "/api/company/process/type/all/"+token,
-        {
-          headers: { Authorization: "Bearer " + token },
-        }
-      )
+      .get(host + "/api/company/process/type/all/" + token, {
+        headers: { Authorization: "Bearer " + token },
+      })
       .then(function (response) {
         if (self._isMounted) {
           if (response.data.error != null) {
@@ -64,11 +174,10 @@ class CompanyOrganization extends Component {
       });
   };
 
-
   editProcess = (e, id) => {
     e.preventDefault();
-    this.setState({isRedirectEditProcess: true, idProcess: id});
-  }
+    this.setState({ isRedirectEditProcess: true, idProcess: id });
+  };
   handlePageClick = (e) => {
     const selectedPage = e.selected;
     const offset = selectedPage * this.state.perPage;
@@ -98,6 +207,7 @@ class CompanyOrganization extends Component {
           } else {
             self.setState({
               dataChart: response.data.dataOrganization,
+              initDataOrganization: response.data.dataOrganization,
               showModalDepartment: false,
               showModalRole: false,
               showModalUser: false,
@@ -110,47 +220,52 @@ class CompanyOrganization extends Component {
       });
   };
 
-  deleteProcessTypeCompany = (e,idProcess) =>{
+  deleteProcessTypeCompany = (e, idProcess) => {
     e.preventDefault();
     let self = this;
-    var token = localStorage.getItem('token');
-    axios.post(host + '/api/company/process/type/all/delete',{
-        token:token,
-        idProcess:idProcess,
-    },{
-        headers: { 'Authorization': 'Bearer ' + token }
-    })
-    .then(function (response) {
+    var token = localStorage.getItem("token");
+    axios
+      .post(
+        host + "/api/company/process/type/all/delete",
+        {
+          token: token,
+          idProcess: idProcess,
+        },
+        {
+          headers: { Authorization: "Bearer " + token },
+        }
+      )
+      .then(function (response) {
         if (response.data.error != null) {
         } else {
-            self.props.showAlert({
-              message:'Xóa quy trình công ty thành công ',
-              anchorOrigin:{
-                  vertical: 'top',
-                  horizontal: 'right'
-              },
-              title:'Thành công',
-              severity:'success'
-            });
-            self.getProcessesTypeCompany();
+          self.props.showAlert({
+            message: "Xóa quy trình công ty thành công ",
+            anchorOrigin: {
+              vertical: "top",
+              horizontal: "right",
+            },
+            title: "Thành công",
+            severity: "success",
+          });
+          self.getProcessesTypeCompany();
         }
-    })
-    .catch(function (error) {
+      })
+      .catch(function (error) {
         console.log(error);
-    });
-  }
+      });
+  };
   componentWillUnmount() {
     this._isMounted = false;
   }
   openDetailProcess = (e, id) => {
     e.preventDefault();
-    document.getElementById('clone-view-detail-process').click();
-    this.setState({idProcess: id});
-  }
+    document.getElementById("clone-view-detail-process").click();
+    this.setState({ idProcess: id });
+  };
 
   render() {
-    if(this.state.isRedirectEditProcess){
-      return <Redirect to={'/process/edit/' + this.state.idProcess} />
+    if (this.state.isRedirectEditProcess) {
+      return <Redirect to={"/process/edit/" + this.state.idProcess} />;
     }
     return (
       <div className="inner-wrapper manage-organization_template">
@@ -201,7 +316,7 @@ class CompanyOrganization extends Component {
                                 <table className="table custom-table table-hover table-process_type--company">
                                   <thead>
                                     <tr>
-                                    <th
+                                      <th
                                         style={{ width: "5%" }}
                                         className="cell-breakWord text-center"
                                       >
@@ -219,116 +334,138 @@ class CompanyOrganization extends Component {
                                       >
                                         Tên
                                       </th>
-                                      <th style={{ width: "45%" }}
-                                      className="cell-breakWord text-center"
-                                      >Miêu tả</th>
-                                      {/* <th style={{ width: "10%" }} className="text-center">Thể loại</th> */}
-                                      <th style={{ width: "25%" }}>
+                                      <th
+                                        style={{ width: "45%" }}
+                                        className="cell-breakWord text-center"
+                                      >
+                                        Miêu tả
                                       </th>
+                                      {/* <th style={{ width: "10%" }} className="text-center">Thể loại</th> */}
+                                      <th style={{ width: "25%" }}></th>
                                     </tr>
                                   </thead>
                                   <tbody>
-                                  {this.state.listProcesses.length !== 0 ? (
-                                    Object.values(
-                                      this.state.listProcesses.slice(
-                                        this.state.offset,
-                                        this.state.offset + this.state.perPage
-                                      )
-                                    ).map((process, index) => {
-                                      return (
-                                        <tr key={index}>
-                                        <td
-                                          style={{ width: "5%" }}
-                                          className="cell-breakWord text-center"
-                                        >
-                                          {index+1}
-                                        </td>
-                                        <td
-                                          style={{ width: "10%" }}
-                                          className="cell-breakWord text-center"
-                                        >
-                                          {process.code}{" "}
-                                        </td>
-                                        <td style={{ width: "15%" }} className="cell-breakWord text-center">
-                                        {process.name}
-                                        </td>
-                                        <td
-                                          style={{ width: "45%" }}
-                                          className="cell-breakWord text-center"
-                                        >
-                                           {process.description}
-                                        </td>
-                                        {/* <td style={{ width: "10%" }} className="text-center">
+                                    {this.state.listProcesses.length !== 0 ? (
+                                      Object.values(
+                                        this.state.listProcesses.slice(
+                                          this.state.offset,
+                                          this.state.offset + this.state.perPage
+                                        )
+                                      ).map((process, index) => {
+                                        return (
+                                          <tr key={index}>
+                                            <td
+                                              style={{ width: "5%" }}
+                                              className="cell-breakWord text-center"
+                                            >
+                                              {index + 1}
+                                            </td>
+                                            <td
+                                              style={{ width: "10%" }}
+                                              className="cell-breakWord text-center"
+                                            >
+                                              {process.code}{" "}
+                                            </td>
+                                            <td
+                                              style={{ width: "15%" }}
+                                              className="cell-breakWord text-center"
+                                            >
+                                              {process.name}
+                                            </td>
+                                            <td
+                                              style={{ width: "45%" }}
+                                              className="cell-breakWord text-center"
+                                            >
+                                              {process.description}
+                                            </td>
+                                            {/* <td style={{ width: "10%" }} className="text-center">
                                           Công ty
                                         </td> */}
-                                        <td style={{ width: "25%" }}>
-                                          <div className="table-action">
-                                            <a
-                                                href="##"
-                                                className="btn btn-sm btn-outline-success"
-                                                onClick={(e) => this.openDetailProcess(e, process.id)}
-                                            >
-                                                <span className="lnr lnr-pencil" />
-                                                Chi tiết
-                                            </a>
-                                            <a
-                                                href="##"
-                                                id="clone-view-detail-process"
-                                                data-toggle="modal"
-                                                data-target="#view-detail-process"
-                                                className="btn btn-sm btn-outline-success"
-                                                style={{display:"none"}}
-                                            >
-                                                <span className="lnr lnr-pencil" />{" "}
-                                                Chi tiết
-                                            </a>
-                                            <a
-                                              href="edit-review.html"
-                                              className="btn btn-sm btn-outline-success mr-2 ml-2"
-                                              onClick={(e) => this.editProcess(e,process.id)}
-                                            >
-                                              <span className="lnr lnr-pencil" />{" "}
-                                              Sửa
-                                            </a>
-                                            <a
-                                              href="##"
-                                              className="btn btn-sm btn-outline-danger"
-                                              onClick={(e) => this.deleteProcessTypeCompany(e,process.id)}
-                                            >
-                                              <span className="lnr lnr-trash" />{" "}
-                                              Xóa
-                                            </a>
-                                          </div>
-                                        </td>
-                                      </tr>
-                                      );
-                                    })
-                                  ) : (
-                                    <tr></tr>
-                                  )}
+                                            <td style={{ width: "25%" }}>
+                                              <div className="table-action">
+                                                <a
+                                                  href="##"
+                                                  className="btn btn-sm btn-outline-success"
+                                                  onClick={(e) =>
+                                                    this.openDetailProcess(
+                                                      e,
+                                                      process.id
+                                                    )
+                                                  }
+                                                >
+                                                  <span className="lnr lnr-pencil" />
+                                                  Chi tiết
+                                                </a>
+                                                <a
+                                                  href="##"
+                                                  id="clone-view-detail-process"
+                                                  data-toggle="modal"
+                                                  data-target="#view-detail-process"
+                                                  className="btn btn-sm btn-outline-success"
+                                                  style={{ display: "none" }}
+                                                >
+                                                  <span className="lnr lnr-pencil" />{" "}
+                                                  Chi tiết
+                                                </a>
+                                                <a
+                                                  href="edit-review.html"
+                                                  className="btn btn-sm btn-outline-success mr-2 ml-2"
+                                                  onClick={(e) =>
+                                                    this.editProcess(
+                                                      e,
+                                                      process.id
+                                                    )
+                                                  }
+                                                >
+                                                  <span className="lnr lnr-pencil" />{" "}
+                                                  Sửa
+                                                </a>
+                                                <a
+                                                  href="##"
+                                                  className="btn btn-sm btn-outline-danger"
+                                                  onClick={(e) =>
+                                                    this.deleteProcessTypeCompany(
+                                                      e,
+                                                      process.id
+                                                    )
+                                                  }
+                                                >
+                                                  <span className="lnr lnr-trash" />{" "}
+                                                  Xóa
+                                                </a>
+                                              </div>
+                                            </td>
+                                          </tr>
+                                        );
+                                      })
+                                    ) : (
+                                      <tr></tr>
+                                    )}
                                   </tbody>
                                 </table>
                                 <div className="row mt-5">
-                                    <div className="col-md-4"></div>
-                                    <div className="col-md-4 text-center">
-                                      <ReactPaginate
-                                        previousLabel={"Trước"}
-                                        nextLabel={"Sau"}
-                                        breakLabel={"..."}
-                                        breakClassName={"break-me"}
-                                        pageCount={this.state.pageCount}
-                                        marginPagesDisplayed={2}
-                                        pageRangeDisplayed={5}
-                                        onPageChange={this.handlePageClick}
-                                        containerClassName={"pagination"}
-                                        subContainerClassName={"pages pagination"}
-                                        activeClassName={"active"}
-                                      />
-                                    </div>
-                                    <div className="col-md-4"></div>
+                                  <div className="col-md-4"></div>
+                                  <div className="col-md-4 text-center">
+                                    <ReactPaginate
+                                      previousLabel={"Trước"}
+                                      nextLabel={"Sau"}
+                                      breakLabel={"..."}
+                                      breakClassName={"break-me"}
+                                      pageCount={this.state.pageCount}
+                                      marginPagesDisplayed={2}
+                                      pageRangeDisplayed={5}
+                                      onPageChange={this.handlePageClick}
+                                      containerClassName={"pagination"}
+                                      subContainerClassName={"pages pagination"}
+                                      activeClassName={"active"}
+                                    />
                                   </div>
+                                  <div className="col-md-4"></div>
+                                </div>
                               </div>
-                              <ModalDetailProcess  idProcess={this.state.idProcess} />
+                              <ModalDetailProcess
+                                idProcess={this.state.idProcess}
+                              />
                             </div>
                           </div>
                         </div>
@@ -345,6 +482,55 @@ class CompanyOrganization extends Component {
                         </h4>
                       </div>
                       <div className="card-body">
+                        <div className="row filter-row">
+                          <div className="col-sm-6 col-md-4">
+                            <div className="form-group form-focus">
+                              <select
+                                className="select floating form-control select-department"
+                                data-select2-id={1}
+                                tabIndex={-1}
+                                aria-hidden="true"
+                                value={this.state.idDepartmentSearch}
+                                onChange={(event) => this.handleChangeSelect(event)}
+                                name="idDepartmentSearch"
+                              >
+                                <option value={0}>Chọn phòng ban</option>
+                                {Object.values(this.state.listDepartment).map(
+                                  (department, key) => {
+                                    return (
+                                      <option value={department.id} key={key}>
+                                        {department.name}
+                                      </option>
+                                    );
+                                  }
+                                )}
+                              </select>
+                            </div>
+                          </div>
+                          <div className="col-sm-6 col-md-3">
+                          </div>
+                          <div className="col-sm-6 col-md-4">
+                            <div className="form-group form-focus">
+                              <input
+                                type="text"
+                                name="textNameSearch"
+                                className="form-control floating"
+                                placeholder="Tên nhân viên"
+                                value={this.state.textNameSearch}
+                                onChange={(event) => this.handleChange(event)}
+                              />
+                            </div>
+                          </div>
+                          <div className="col-sm-6 col-md-1">
+                            <a href="##" 
+                            className="btn btn-success btn-block"
+                            onClick={(e) =>this.getSearchDataOrganization(e)}
+                            >
+                              {" "}
+                              <i className="fa fa-search" aria-hidden="true"></i>{" "}
+                            </a>
+                          </div>
+                        </div>
                         <ChartOrganization nodes={this.state.dataChart} />
                       </div>
                     </div>
@@ -359,17 +545,17 @@ class CompanyOrganization extends Component {
   }
 }
 const mapStateToProps = (state, ownProps) => {
-  return {
-
-  }
-}
+  return {};
+};
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-
     showAlert: (properties) => {
       dispatch(actionAlerts.showMessageAlert(properties));
     },
-  }
-}
-export default connect(mapStateToProps, mapDispatchToProps) (CompanyOrganization);
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CompanyOrganization);
