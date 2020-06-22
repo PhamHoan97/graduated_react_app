@@ -79,7 +79,7 @@ class Account extends Component {
     listAccounts: [],
     employees: [],
     offset: 0,
-    perPage: 1,
+    perPage: 10,
     currentPage: 0,
     pageCount: 0,
   };
