@@ -7,8 +7,9 @@ import { isEmpty } from "validator";
 import axios from 'axios';
 import host from '../../../Host/ServerDomain';
 import Alert from '@material-ui/lab/Alert';
-
-export default class ModalCreateForm extends Component {
+import { connect } from "react-redux";
+import {showMessageAlert} from "../../../Alert/Action/Index";
+class ModalCreateForm extends Component {
     _isMounted = false;
     constructor(props) {
         super(props);
@@ -201,7 +202,7 @@ export default class ModalCreateForm extends Component {
                     console.log(response.data.error);
                 }else{
                     self.setState({
-                        isDisplayAlert:true,
+                        isDisplayAlert:false,
                         errorName: {},
                         errorDescription: {},
                         errorTemplate: {},
@@ -212,8 +213,18 @@ export default class ModalCreateForm extends Component {
                         newTemplateForm: 0,
                     });
                     setTimeout(() => {
+                        self.props.close();
                         self.setState({isDisplayAlert : false});
                     }, 2000);
+                    self.props.showAlert({
+                        message:'Tạo form thông báo thành công',
+                        anchorOrigin:{
+                            vertical: 'top',
+                            horizontal: 'right'
+                        },
+                        title:'Thành công',
+                        severity:'success'
+                      });
                     self.props.getlistForm()
                 }
             })
@@ -348,3 +359,11 @@ export default class ModalCreateForm extends Component {
         );
     }
 }
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+      showAlert: (properties) => {
+        dispatch(showMessageAlert(properties))
+      }
+    };
+  };
+export default connect(null, mapDispatchToProps)(ModalCreateForm);

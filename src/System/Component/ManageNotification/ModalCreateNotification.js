@@ -7,8 +7,9 @@ import { isEmpty } from "validator";
 import axios from 'axios';
 import host from '../../../Host/ServerDomain';
 import Alert from '@material-ui/lab/Alert';
-
-export default class ModalCreateNotification extends Component {
+import { connect } from "react-redux";
+import {showMessageAlert} from "../../../Alert/Action/Index";
+class ModalCreateNotification extends Component {
     _isMounted = false;
     constructor(props) {
         super(props);
@@ -116,7 +117,7 @@ export default class ModalCreateNotification extends Component {
                     console.log(response.data.error);
                 }else{
                     self.setState({
-                        isDisplayAlert:true,
+                        isDisplayAlert:false,
                         errorName: {},
                         errorDescription: {},
                         newNameNotification: "",
@@ -126,8 +127,18 @@ export default class ModalCreateNotification extends Component {
                         inputKey: Date.now(),
                     });
                     setTimeout(() => {
+                        self.props.close();
                         self.setState({isDisplayAlert : false});
                     }, 2000);
+                    self.props.showAlert({
+                        message:'Tạo thông báo thành công',
+                        anchorOrigin:{
+                            vertical: 'top',
+                            horizontal: 'right'
+                        },
+                        title:'Thành công',
+                        severity:'success'
+                      });
                     self.props.getListNotification()
                 }
             })
@@ -249,3 +260,11 @@ export default class ModalCreateNotification extends Component {
         );
     }
 }
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+      showAlert: (properties) => {
+        dispatch(showMessageAlert(properties))
+      }
+    };
+  };
+export default connect(null, mapDispatchToProps)(ModalCreateNotification);
