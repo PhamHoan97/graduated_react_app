@@ -190,7 +190,7 @@ class ListProcessesOfCompany extends Component {
     removeProcess = (e, id) => {
       e.preventDefault();
       var token = localStorage.getItem('token');
-      axios.post(host + `/api/company/process/remove/`,
+      axios.post(host + `/api/company/process/remove`,
       {
         token: token,
         idProcess : id,
