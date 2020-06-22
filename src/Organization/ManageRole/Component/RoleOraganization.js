@@ -353,12 +353,12 @@ class RoleOraganization extends Component {
                                   <tr>
                                     <th style={{ width: "20%" }} className="cell-breakWord">Tên</th>
                                     <th
-                                      style={{ width: "35%" }}
+                                      style={{ width: "25%" }}
                                       className="cell-breakWord"
                                     >
                                       Miêu tả
                                     </th>
-                                    <th style={{ width: "20%" }}>Phòng ban</th>
+                                    <th style={{ width: "35%" }}>Phòng ban</th>
                                     {/* <th style={{ width: "15%" }}>
                                       Quyền tạo quy trình
                                     </th> */}
@@ -380,12 +380,12 @@ class RoleOraganization extends Component {
                                               <h2>{role.name}</h2>
                                             </td>
                                             <td
-                                              style={{ width: "35%" }}
+                                              style={{ width: "25%" }}
                                               className="cell-breakWord"
                                             >
                                               {role.description}
                                             </td>
-                                            <td style={{ width: "20%" }}>
+                                            <td style={{ width: "35%" }}>
                                               <NavLink
                                                   to={"/company/organization/department/"+
                                                   role.department_id}
