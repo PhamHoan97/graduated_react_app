@@ -145,10 +145,10 @@ class DashboardCompany extends Component {
             return (
             <React.Fragment key={key}>
                        <tr className="tr-shadow">
-                        <td className="text-center cell-breakWord"  style={{ width: "5%" }} >{key+1}</td>
-                        <td className="text-center cell-breakWord"  style={{ width: "15%" }} >{value.name}</td>
-                        <td className="text-center cell-breakWord"  style={{ width: "50%" }}>{value.description}</td>
-                        <td className="text-center cell-breakWord"  style={{ width: "20%" }}>{value.field.name}</td>
+                        <td className="cell-breakWord left-text"  style={{ width: "5%" }} >{key+1}</td>
+                        <td className="cell-breakWord left-text"  style={{ width: "15%" }} >{value.name}</td>
+                        <td className="cell-breakWord left-text"  style={{ width: "50%" }}>{value.description}</td>
+                        <td className="cell-breakWord left-text"  style={{ width: "20%" }}>{value.field.name}</td>
                         <td style={{ width: "10%" }}>
                           <div className="table-data-feature">
                             <button
@@ -334,10 +334,10 @@ class DashboardCompany extends Component {
                             <table className="table custom-table table-hover table-template_system">
                               <thead>
                               <tr>
-                              <th className="text-center cell-breakWord"  style={{ width: "5%" }} ></th>
-                                <th className="text-center cell-breakWord"  style={{ width: "15%" }} >tên</th>
-                                <th className="text-center cell-breakWord" style={{ width: "50%" }} >mô tả ngắn</th>
-                                <th className="text-center cell-breakWord" style={{ width: "20%" }} >lĩnh vực</th>
+                              <th className="cell-breakWord"  style={{ width: "5%", textAlign:"left"}} >#</th>
+                                <th className="cell-breakWord"  style={{ width: "15%", textAlign:"left"}} >tên</th>
+                                <th className="cell-breakWord" style={{ width: "50%", textAlign:"left"}} >mô tả ngắn</th>
+                                <th className="cell-breakWord" style={{ width: "20%", textAlign:"left"}} >lĩnh vực</th>
                                 <th style={{ width: "10%" }}/>
                               </tr>
                             </thead>
@@ -348,7 +348,7 @@ class DashboardCompany extends Component {
                           </div>
                         </div>
                         {/* Paginate */}
-                        <div className="row justify-content-center">
+                        <div className="row justify-content-center" style={{marginTop: "20px"}}>
                             <div className="col-md-3 text-center">
                                 <div className="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
                                     <ul className="pagination">

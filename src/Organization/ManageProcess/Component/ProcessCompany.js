@@ -188,13 +188,13 @@ class ProcessCompany extends Component {
             return (
             <React.Fragment key={key}>
                        <tr className="tr-shadow">
-                        <td className="desc">{key+1}</td>
-                        <td className="desc">{this.renderAvatarEmployee(value)}</td>
-                        <td className="desc">{value.name}</td>
-                        <td className="desc">{value.department_name}</td>
-                        <td className="desc">{value.role_name}</td>
-                        <td className="desc">{value.phone}</td>
-                        <td >
+                        <td className="desc text-left" style={{ width: "2%" }}>{key+1}</td>
+                        <td className="desc text-center" style={{ width: "3%" }}>{this.renderAvatarEmployee(value)}</td>
+                        <td className="desc text-left" style={{ width: "20%" }}>{value.name}</td>
+                        <td className="desc text-left" style={{ width: "25%" }}>{value.department_name}</td>
+                        <td className="desc text-left" style={{ width: "15%" }}>{value.role_name}</td>
+                        <td className="desc text-left" style={{ width: "10%" }}>{value.phone}</td>
+                        <td style={{ width: "25%" }}>
                           <div className="table-data-feature">
                             <button
                               className="item"
@@ -422,13 +422,13 @@ class ProcessCompany extends Component {
                             <table className="table custom-table table-hover table-department_organization">
                               <thead>
                               <tr>
-                                <th className="text-center"></th>
-                                <th className="text-center">hình ảnh</th>
-                                <th className="text-center">tên</th>
-                                <th className="text-center">phòng ban</th>
-                                <th className="text-center">vai trò</th>
-                                <th className="text-center">số điện thoại</th>
-                                <th />
+                                <th className="text-left" style={{ width: "2%" }} >#</th>
+                                <th className="text-center" style={{ width: "3%" }} >hình ảnh</th>
+                                <th className="text-left" style={{ width: "20%" }} >tên</th>
+                                <th className="text-left" style={{ width: "25%" }} >phòng ban</th>
+                                <th className="text-left" style={{ width: "15%" }} >vai trò</th>
+                                <th className="text-left" style={{ width: "10%" }} >số điện thoại</th>
+                                <th style={{ width: "25%" }} />
                               </tr>
                             </thead>
                             <tbody>
@@ -437,26 +437,26 @@ class ProcessCompany extends Component {
                           </table>
                           </div>
                         </div>
+                        {/* Paginate */}
+                        <div className="row justify-content-center" style={{marginTop: "20px"}}>
+                            <div className="col-md-3 text-center">
+                                <div className="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                                    <ul className="pagination">
+                                        <li className="paginate_button page-item previous disabled" id="dataTable_previous"><a href="#4AE" aria-controls="dataTable" data-dt-idx={0} tabIndex={0} className="page-link" onClick={(e) => this.handlePrevious(e)}>Trước</a>
+                                        </li>
+                                        {/** Hiện thị số lượng page */}
+                                        {this.displayPaging()}
+                                        {/** Hiện thị nút next */}
+                                        {this.displayNextPaging()}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        {/* End Paginate */}
                       </div>
                     </div>
                   </div>
                 </div>
-                {/* Paginate */}
-                <div className="row justify-content-center">
-                    <div className="col-md-3 text-center">
-                        <div className="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                            <ul className="pagination">
-                                <li className="paginate_button page-item previous disabled" id="dataTable_previous"><a href="#4AE" aria-controls="dataTable" data-dt-idx={0} tabIndex={0} className="page-link" onClick={(e) => this.handlePrevious(e)}>Trước</a>
-                                </li>
-                                {/** Hiện thị số lượng page */}
-                                {this.displayPaging()}
-                                {/** Hiện thị nút next */}
-                                {this.displayNextPaging()}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                {/* End Paginate */}
               <DetailEmployeeModal currentEmployee={this.state.currentEmployee} />
               <FormAddProcessModal />
               </div>
