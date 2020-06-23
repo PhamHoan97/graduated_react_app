@@ -239,12 +239,12 @@ class ListProcessesOfEmployee extends Component {
             return (
             <React.Fragment key={key}>
                         <tr className="tr-shadow">
-                        <td className="desc">{key+1}</td>
-                        <td className="desc">{value.code}</td>
-                        <td className="desc">{value.name}</td>
-                        <td className="desc">{value.description.substring(0,30) + '...' }</td>
-                        <td className="desc">{this.convertTypeOfProcesses(value.type)}</td>
-                        <td >
+                        <td className="desc left-text" style={{width: "2%"}}>{key+1}</td>
+                        <td className="desc left-text" style={{width: "15%"}}>{value.code}</td>
+                        <td className="desc left-text" style={{width: "20%"}}>{value.name}</td>
+                        <td className="desc left-text" style={{width: "35%"}}>{value.description.substring(0,400) + '...' }</td>
+                        <td className="desc left-text" style={{width: "8%"}}>{this.convertTypeOfProcesses(value.type)}</td>
+                        <td style={{width: "20%"}}>
                         <div className="table-action">
                             <a
                                 href="##"
@@ -277,7 +277,7 @@ class ListProcessesOfEmployee extends Component {
                                 href="##"
                                 className="btn btn-sm btn-outline-danger"
                                 data-toggle="modal"
-                                onClick={(e) => this.removeProcess(e,value.id)}
+                                onClick={(e) => {if(window.confirm('Bạn có chắc chắn muốn xóa quy trình này?')){this.removeProcess(e,value.id)};}}
                             >
                                 <span className="lnr lnr-trash" />{" "}
                                 Xóa
@@ -394,12 +394,12 @@ class ListProcessesOfEmployee extends Component {
                                   <table className="table custom-table table-hover table-department_organization">
                                     <thead>
                                     <tr>
-                                      <th className="text-center"></th>
-                                      <th className="text-center">mã quy trình</th>
-                                      <th className="text-center">tên quy trình</th>
-                                      <th className="text-center">mô tả ngắn</th>
-                                      <th className="text-center">thể loại</th>
-                                      <th />
+                                      <th className="text-left" style={{width: "2%"}}>#</th>
+                                      <th className="text-left" style={{width: "15%"}}>mã quy trình</th>
+                                      <th className="text-left" style={{width: "20%"}}>tên quy trình</th>
+                                      <th className="text-left" style={{width: "35%"}}>mô tả ngắn</th>
+                                      <th className="text-left" style={{width: "8%"}}>thể loại</th>
+                                      <th style={{width: "20%"}} />
                                     </tr>
                                   </thead>
                                   <tbody>

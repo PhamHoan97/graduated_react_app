@@ -39,7 +39,6 @@ class ModalDetailProcess extends Component {
     }
 
     renderAssign = (process) => {
-      console.log(process)
         var content = '';
         var employees = process.employeesDetail;
         var departments = process.departments;
