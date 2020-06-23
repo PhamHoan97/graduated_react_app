@@ -20,6 +20,7 @@ class Note extends Component {
             savedNote: false,
             fileElement: '',
             assignElement: '',
+            nameFileElement: '',
         }
     }
 
@@ -67,6 +68,7 @@ class Note extends Component {
     }
 
     UNSAFE_componentWillReceiveProps (nextProps) {
+        // trường hợp đã save note
         if(nextProps.currentElement.isSaveNote){
             this.setState({
                 currentElement: nextProps.currentElement,
@@ -74,22 +76,50 @@ class Note extends Component {
                 savedNote: true,
             });
         }else{
+            // trường hợp đã có assign
             if(nextProps.assignElement){
-                this.setState({
-                    assignElement: nextProps.assignElement,
-                    currentElement: nextProps.currentElement,
-                    savedNote:false,
-                });
+                //cập nhật note
+                if(nextProps.currentElement.id === this.state.currentElement.id){
+                    this.setState({
+                        assignElement: nextProps.assignElement,
+                        currentElement: nextProps.currentElement,
+                        savedNote:false,
+                    });
+                }else{
+                    //chuyển element khác
+                    this.props.updateDefaultAssignedEmployeeElement("reset");
+                    this.setState({
+                        currentElement: nextProps.currentElement,
+                        savedNote:false,
+                        note: "",
+                        assignElement: "",
+                        fileElement: "",
+                        nameFileElement: "",
+                    });  
+                    if(document.getElementById("note-element")){
+                        document.getElementById("note-element").value = "";
+                    }
+                    if(document.getElementById("file-name")){
+                        document.getElementById("file-name").value = "";
+                    }
+                    if(document.getElementById("file-input")){
+                        document.getElementById("file-input").value = "";
+                    }
+                }
             }else{
+                //click sang element mới và không lựa chọn assign
                 this.setState({
                     currentElement: nextProps.currentElement,
                     savedNote:false,
                     note: "",
-                    assignElement: "",
                     fileElement: "",
+                    nameFileElement: "",
                 });
                 if(document.getElementById("note-element")){
                     document.getElementById("note-element").value = "";
+                }
+                if(document.getElementById("file-name")){
+                    document.getElementById("file-name").value = "";
                 }
                 if(document.getElementById("file-input")){
                     document.getElementById("file-input").value = "";
@@ -102,6 +132,10 @@ class Note extends Component {
         this.setState({note:event.target.value});
     } 
 
+    handleChangeFileName = event => {
+        this.setState({nameFileElement : event.target.value});
+    }
+
     allowSaveNote = function() {
         if((typeof this.state.currentElement.id === "undefined")){
             return true;
@@ -113,7 +147,10 @@ class Note extends Component {
     
     saveNoteForElement = (event) => {
         event.preventDefault();
-        var file = this.state.fileElement;
+        var file = {
+            name : this.state.nameFileElement,
+            url : this.state.fileElement
+        };
         var assign = this.state.assignElement;
         var note = this.state.note;
         this.props.saveNoteForElement(note, assign, file);
@@ -124,7 +161,7 @@ class Note extends Component {
         event.preventDefault();
         this.props.updateDefaultAssignedEmployeeElement(this.state.assignElement);
         this.props.changeIsSaveNoteToFalse(this.state.currentElement);
-        this.setState({savedNote:false});
+        this.setState({savedNote:false, fileElement: this.state.currentElement.file.url});
     }
 
     deleteNoteForElement = (event) => {
@@ -183,9 +220,13 @@ class Note extends Component {
         return content;
     } 
 
-    renderLinkDownloadDocument(url) {
-        if(url){
-            return (<a className="link-download-document" target="_blank"  rel="noopener noreferrer" href={host + '/' + url}> Tải tài liệu tại đây</a>);
+    renderLinkDownloadDocument(file) {
+        if(file && file.url){
+            return (
+                <>
+                    <span className="name-file-document">{file.name}: </span><a className="link-download-document" target="_blank"  rel="noopener noreferrer" href={host + '/' + file.url}> Tải tài liệu tại đây</a>
+                </>
+            );
         }else{
             return (<span className="form-control">Không có tài liệu</span>);
         }
@@ -212,6 +253,14 @@ class Note extends Component {
            return (<></>);
         }
     }
+
+    renderOldFileName = () => {
+        if(this.state.currentElement && this.state.currentElement.file){
+            return this.state.currentElement.file.name;
+        }else{
+            return "";
+        }
+    } 
 
     render() {
         if(this.state.savedNote){
@@ -247,7 +296,7 @@ class Note extends Component {
                                 htmlFor="note-element"
                                 className="form-control-label-note"
                             >
-                                Tài liệu
+                               Tài liệu/Biểu mẫu
                             </label>
                         </div>
                         <div className="note-content-show-name">
@@ -282,7 +331,7 @@ class Note extends Component {
                                     Nội dung
                                 </label>
                             </div>
-                            <textarea onChange={this.changeNoteContent} className="note-content-textarea form-control" rows="12" 
+                            <textarea onChange={this.changeNoteContent} className="note-content-textarea form-control" rows="10" 
                                 id="note-element" defaultValue={this.state.currentElement.note} placeholder="Ghi chú...">
                             </textarea>
                             <div className="row">
@@ -290,11 +339,12 @@ class Note extends Component {
                                     htmlFor="file-input"
                                     className="form-control-label-note"
                                 >
-                                    Tài liệu
+                                    Tài liệu/Biểu mẫu
                                 </label>
                             </div>
-                            <Form.File.Input id="file-input" onChange={this.handleChangeFile} name="file-input"/>
-                        
+                            <Form.Control type="text" onChange={this.handleChangeFileName} defaultValue={this.renderOldFileName()}  id="file-name" name="file-name" placeholder="Tên biểu mẫu" />
+                            <div className="row"></div>
+                            <Form.File.Input id="file-input" style={{marginTop:"10px"}} onChange={this.handleChangeFile} name="file-input"/>
                             <Button id="save-note-button" onClick={(e) => this.saveNoteForElement(e)} disabled={this.allowSaveNote()} variant="primary" className="save-note-button">Lưu ghi chú</Button>
                         </form>
                     </div>

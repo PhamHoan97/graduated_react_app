@@ -141,7 +141,7 @@ class Templates extends Component {
                             <tr>
                                 <th></th>
                                 <td >
-                                    <button className="btn btn-success" onClick={(e) => this.openModalCreateTemplate(e)}>Thêm mới <i class="fas fa-plus-square"></i></button>
+                                    <button className="btn btn-success" onClick={(e) => this.openModalCreateTemplate(e)}>Thêm mới <i className="fas fa-plus-square"></i></button>
                                 </td>
                             </tr>
                         </tbody>

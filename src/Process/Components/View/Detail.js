@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import host from "../../../Host/ServerDomain"; 
+import '../../Css/Detail.css';
 
 class Detail extends Component {
     constructor(props) {
@@ -63,93 +64,72 @@ class Detail extends Component {
                         </div>
                         <div className="row">
                             <div className="col-md-3">
-                            <label
-                                htmlFor="text-input"
-                                className=" form-control-label"
-                            >
-                                Mã quy trình
-                            </label>
+                                <p className=" form-control-label content-note-detail">
+                                    Mã quy trình
+                                </p>
                             </div>
                             <div className="col-md-9 letf-colum-detail">
-                                <p> {this.props.detail.code}</p>
+                                <p className="content-note-detail"> {this.props.detail.code}</p>
                             </div>
                         </div> 
-                        <div className="row">
+                        <div className="row row-detail">
                             <div className="col-md-3">
-                            <label
-                                htmlFor="text-input"
-                                className=" form-control-label"
-                            >
-                                Tên quy trình
-                            </label>
+                                <p className=" form-control-label content-note-detail">
+                                    Tên quy trình
+                                </p>
                             </div>
                             <div className="col-md-9 letf-colum-detail">
-                                <p> {this.props.detail.name}</p>
+                                <p className="content-note-detail"> {this.props.detail.name}</p>
                             </div>
                         </div>           
-                        <div className="row">
+                        <div className="row row-detail">
                             <div className="col-md-3">
-                            <label
-                                htmlFor="text-input"
-                                className=" form-control-label"
-                            >
-                                Thời gian
-                            </label>
+                                <p className=" form-control-label content-note-detail">
+                                    Thời gian
+                                </p>
                             </div>
                             <div className="col-md-9 letf-colum-detail">
-                                <p> {this.props.detail.time}</p>
+                                <p className="content-note-detail"> {this.props.detail.time}</p>
                             </div>
                         </div>
-                        <div className="row">
+                        <div className="row row-detail">
                             <div className="col-md-3">
-                            <label
-                                htmlFor="text-input"
-                                className=" form-control-label"
-                            >
-                                Deadline
-                            </label>
+                            <p className="form-control-label content-note-detail">
+                                Ban hành
+                            </p>
                             </div>
-                            <div className="col-md-9 letf-colum-detail form">
-                                <p> {this.props.detail.deadline}</p>
+                            <div className="col-md-9 letf-colum-detail">
+                                <p className="content-note-detail"> {this.props.detail.deadline}</p>
                             </div>
                         </div>
-                        <div className="row">
+                        <div className="row row-detail">
                             <div className="col-md-3">
-                            <label
-                                htmlFor="text-input"
-                                className=" form-control-label"
-                            >
-                                Giao cho
-                            </label>
+                                <p className=" form-control-label content-note-detail">
+                                    Giao cho
+                                </p>
                             </div>
-                            <div className="col-md-9 letf-colum-detail form"  
+                            <div className="col-md-9 content-note-detail"  
                                 dangerouslySetInnerHTML={{__html: this.renderEmployee(this.props.detail.assign, this.props.detail.type)}}>
                             </div>
                         </div>
-                        <div className="row" style={{marginTop:"10px"}}>
+                        <div className="row row-detail">
                             <div className="col-md-3">
-                            <label
-                                htmlFor="text-input"
-                                className=" form-control-label"
-                            >
-                                Mô tả
-                            </label>
+                                <p className=" form-control-label content-note-detail">
+                                    Mô tả
+                                </p>
                             </div>
                             <div className="col-md-9 letf-colum-detail">
-                                <p> {this.props.detail.description}. </p>
+                                <p className="content-note-detail"> {this.props.detail.description}. </p>
                             </div>
                         </div>
-                        <div className="row">
+                        <div className="row row-detail">
                             <div className="col-md-3">
-                            <label
-                                htmlFor="text-input"
-                                className=" form-control-label"
-                            >
+                            <p className=" form-control-label content-note-detail">
                                 Tài liệu
-                            </label>
+                            </p>
                             </div>
                             <div className="col-md-9 letf-colum-detail">
-                                <p> {this.renderLinkDownloadDocument(this.props.detail)}</p>
+                                <p className="content-note-detail"> {this.renderLinkDownloadDocument(this.props.detail)}</p>
                             </div>
                         </div>
                     </form>

@@ -173,9 +173,9 @@ class ManageEmail extends Component {
                     <td className="desc">{value.type}</td>
                     <td className="desc">{this.renderUserName(value)}</td>
                     <td className="desc">{this.convertStatusEmail(value.status)}</td>
-                    <td className="desc">
+                    {/* <td className="desc">
                         {value.created_at}
-                    </td>
+                    </td> */}
                     <td className="desc">
                         {value.updated_at}
                     </td>
@@ -335,7 +335,7 @@ class ManageEmail extends Component {
                                     <th>Loại</th>
                                     <th>Người nhận</th>
                                     <th>Trạng thái</th>
-                                    <th>Tạo lúc </th>
+                                    {/* <th>Tạo lúc </th> */}
                                     <th>Cập nhật  </th>
                                     <th />
                                     </tr>

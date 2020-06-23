@@ -64,9 +64,13 @@ class ViewNote extends Component {
         }
     }
 
-    renderLinkDownloadDocument(url) {
-        if(url){
-            return (<a className="link-download-document" target="_blank"  rel="noopener noreferrer" href={host + '/' + url}> Tải tài liệu tại đây</a>);
+    renderLinkDownloadDocument(file) {
+        if(file && file.url){
+            return (
+                <>
+                    <span className="name-file-document">{file.name}: </span><a className="link-download-document" target="_blank"  rel="noopener noreferrer" href={host + '/' + file.url}> Tải tài liệu tại đây</a>
+                </>
+            );
         }else{
             return (<span className="form-control">Không có tài liệu</span>);
         }
@@ -138,7 +142,7 @@ class ViewNote extends Component {
                                 htmlFor="note-element"
                                 className="form-control-label-note"
                             >
-                                Tài liệu
+                                Tài liệu/Biểu mẫu
                             </label>
                         </div>
                         <div className="note-content-show-name">

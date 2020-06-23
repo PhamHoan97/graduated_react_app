@@ -101,7 +101,7 @@ var elementReducers = (state = initialState, action) => {
                     if(action.assign){
                         x.assign = action.assign;
                     }
-                    if(action.file){
+                    if(action.file.url){
                         x.file = action.file;
                     }
                     x.isSaveNote = true;
@@ -121,7 +121,7 @@ var elementReducers = (state = initialState, action) => {
                 if(action.assign){
                     state.assigns[mark] = {id:state.current.id, assign: action.assign};
                 }
-                if(action.file){
+                if(action.file.url){
                     state.files[mark] = {id:state.current.id, file: action.file};
                 }
                 state.isSaveNotes[mark] = {id:state.current.id, isSaveNote: true};
@@ -131,7 +131,7 @@ var elementReducers = (state = initialState, action) => {
                 if(action.assign){
                     state.assigns.push({id:state.current.id, assign: action.assign});
                 }
-                if(action.file){
+                if(action.file.url){
                     state.files.push({id:state.current.id, file: action.file});
                 }
                 state.isSaveNotes.push({id:state.current.id, isSaveNote: true});
@@ -291,7 +291,9 @@ var elementReducers = (state = initialState, action) => {
                     comments: [],
                     isSaveNote: false,
                 }
-                oldelementsInUpdateName.push(element);
+                if(!isExistElementInStore(oldelementsInUpdateName, element)){
+                    oldelementsInUpdateName.push(element);
+                }
                 return {...state, elements: oldelementsInUpdateName}
             }
             //get index of names if update name for element

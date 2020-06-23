@@ -85,6 +85,12 @@ class SelectEmployeeOfProcessType extends Component {
         }
     }
 
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        if(nextProps.defaultSelect === "reset"){
+            this.setState({selected: []});
+        }
+    }
+
     componentWillUnmount() {
         this._isMounted = false;
     }
@@ -97,6 +103,7 @@ class SelectEmployeeOfProcessType extends Component {
     render() {
         return (
             <Select
+                id="assign-element"
                 value={this.state.selected}
                 options={this.state.employeesAssign}
                 formatGroupLabel={formatGroupLabel}

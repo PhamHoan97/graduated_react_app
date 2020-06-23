@@ -131,11 +131,11 @@ class EditProcess extends Component {
 
                     eFiles = {
                         id: process.elements[indexM].element, 
-                        file: process.element_notes[indexN].document,
+                        file: JSON.parse(process.element_notes[indexN].document),
                     };
                     files.push({
                         id:process.elements[indexM].element, 
-                        file: process.element_notes[indexN].document,
+                        file: JSON.parse(process.element_notes[indexN].document),
                     });
                 }                
             }
@@ -259,7 +259,7 @@ class EditProcess extends Component {
                         </div>
                         <div className="space-area"></div>
                         <div className="row footer-view-process">  
-                            <div className="col-md-6">
+                            <div className="col-md-5">
                                 <EditDetail />
                             </div>
                             <div className="col-md-4">
@@ -289,7 +289,7 @@ class EditProcess extends Component {
                         </div>
                         <div className="space-area"></div>
                         <div className="row footer-view-process">  
-                            <div className="col-md-6">
+                            <div className="col-md-5">
                                 <EditDetail />
                             </div>
                             <div className="col-md-4">

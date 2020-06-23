@@ -128,11 +128,11 @@ class ViewProcess extends Component {
 
                     eFiles = {
                         id: process.elements[indexM].element, 
-                        file: process.element_notes[indexN].document,
+                        file: JSON.parse(process.element_notes[indexN].document),
                     };
                     files.push({
                         id:process.elements[indexM].element, 
-                        file: process.element_notes[indexN].document,
+                        file: JSON.parse(process.element_notes[indexN].document),
                     });
                 }                
             }

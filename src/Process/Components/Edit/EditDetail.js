@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import EditInformationProcessModal from './EditInformationProcessModal';
 import * as actions from '../../Actions/Index';
 import * as actionAlerts from '../../../Alert/Action/Index';
+import '../../Css/Detail.css'
 
 class EditDetail extends Component {
     constructor(props) {
@@ -16,29 +17,29 @@ class EditDetail extends Component {
     renderAssign = (assign, type) =>{
         var content = '';
         if(type === 4){
-            return "Toàn bộ công ty";
+            return '<p className="form-control content-note-detail">Toàn bộ công ty</p>';
         }else if(type === 5){
             var employees = assign.employees;
             for (let index = 0; index < employees.length; index++) {
-                content += '<p className="form-control">' + employees[index].label + '</p>';
+                content += '<p className="form-control content-note-detail">' + employees[index].label + '</p>';
             }
             if(assign.roles){
                 var roles = assign.roles;
                 for (let index = 0; index < roles.length; index++) {
-                    content += '<p className="form-control">' + roles[index].label + '</p>';
+                    content += '<p className="form-control content-note-detail">' + roles[index].label + '</p>';
                 }
             }
             if(assign.departments){
                 var departments = assign.departments;
                 for (let index = 0; index < departments.length; index++) {
-                    content += '<p className="form-control">' + departments[index].label + '</p>';
+                    content += '<p className="form-control content-note-detail">' + departments[index].label + '</p>';
                 }
             }
             return content;
         }
         else{
             for (let index = 0; index < assign.length; index++) {
-                content += '<p className="form-control">' + assign[index].label + '</p>';
+                content += '<p className="form-control content-note-detail">' + assign[index].label + '</p>';
             }
             return content;
         }
@@ -82,80 +83,62 @@ class EditDetail extends Component {
                         </div> 
                         <div className="row">
                             <div className="col-md-3">
-                            <label
-                                htmlFor="text-input"
-                                className=" form-control-label"
-                            >
+                            <p className="form-control-label content-note-detail">
                                 Mã quy trình
-                            </label>
+                            </p>
                             </div>
                             <div className="col-md-9 letf-colum-detail">
-                                <p> {this.props.detail.code}</p>
+                                <p className="content-note-detail"> {this.props.detail.code}</p>
                             </div>
                         </div>   
-                        <div className="row">
+                        <div className="row row-detail">
                             <div className="col-md-3">
-                            <label
-                                htmlFor="text-input"
-                                className=" form-control-label"
-                            >
+                            <p className="form-control-label content-note-detail">
                                 Tên quy trình
-                            </label>
+                            </p>
                             </div>
                             <div className="col-md-9 letf-colum-detail">
-                                <p>{this.props.detail.name}</p>
+                                <p className="content-note-detail">{this.props.detail.name}</p>
                             </div>
                         </div>         
-                        <div className="row">
+                        <div className="row row-detail">
                             <div className="col-md-3">
-                            <label
-                                htmlFor="text-input"
-                                className=" form-control-label"
-                            >
+                            <p className="form-control-label content-note-detail">
                                 Thời gian
-                            </label>
+                            </p>
                             </div>
                             <div className="col-md-9 letf-colum-detail">
-                                <p> {this.props.detail.time}</p>
+                                <p className="content-note-detail"> {this.props.detail.time}</p>
                             </div>
                         </div>
-                        <div className="row">
+                        <div className="row row-detail">
                             <div className="col-md-3">
-                            <label
-                                htmlFor="text-input"
-                                className=" form-control-label"
-                            >
-                                Deadline
-                            </label>
+                            <p className="form-control-label content-note-detail">
+                                Ban hành
+                            </p>
                             </div>
                             <div className="col-md-9 letf-colum-detail">
-                                <p> {this.props.detail.deadline}</p>
+                                <p className="content-note-detail"> {this.props.detail.deadline}</p>
                             </div>
                         </div>
-                        <div className="row">
+                        <div className="row row-detail">
                             <div className="col-md-3">
-                            <label
-                                htmlFor="text-input"
-                                className=" form-control-label"
-                            >
+                            <p className=" form-control-label content-note-detail">
                                 Giao cho
-                            </label>
+                            </p>
                             </div>
                             <div className="col-md-9 letf-colum-detail"  
                                 dangerouslySetInnerHTML={{__html: this.renderAssign(this.props.detail.assign, this.props.detail.type)}}>
                             </div>
                         </div>
-                        <div className="row" style={{marginTop:"10px"}}>
+                        <div className="row row-detail" style={{marginTop:"10px"}}>
                             <div className="col-md-3">
-                            <label
-                                htmlFor="text-input"
-                                className=" form-control-label"
-                            >
+                            <p className=" form-control-label content-note-detail ">
                                 Mô tả
-                            </label>
+                            </p>
                             </div>
                             <div className="col-md-9 letf-colum-detail">
-                                <p> {this.props.detail.description}. </p>
+                                <p className="content-note-detail"> {this.props.detail.description}. </p>
                             </div>
                         </div>
                         <div className="row" style={{marginTop:"10px"}}>

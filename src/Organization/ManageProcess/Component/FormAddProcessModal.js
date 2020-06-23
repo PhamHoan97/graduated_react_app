@@ -24,6 +24,7 @@ class FormAddProcessModal extends Component {
           rolesFilter: '',
           departmentsFilter: '',
           selected: '', 
+          code: '',
           name: '',
           description: '',
           assign: '',
@@ -232,7 +233,6 @@ class FormAddProcessModal extends Component {
       }else{
         document.getElementById('close-modal-add-new-process').click();
         var information = {
-          code : Math.random().toString(36).substring(7) + Math.random().toString(36).substring(7),
           name :this.state.name,
           description: this.state.description,
           time: this.getCurrentTime(),
@@ -256,6 +256,11 @@ class FormAddProcessModal extends Component {
           information.assign = assignCollabration;
           information.collabration = typeCollabration;
         }
+        if(!this.state.code){
+          information.code = Math.random().toString(36).substring(7) + Math.random().toString(36).substring(7);
+        }else{
+          information.code = this.state.code
+        }
         localStorage.setItem("processInfo",  JSON.stringify(information));
         this.props.updateProcessInformation(information);
         this.setState({redirect: true});
@@ -267,6 +272,11 @@ class FormAddProcessModal extends Component {
       this.setState({name: event.target.value});
     }
 
+    handleChangeCode = (event) => {
+      event.preventDefault();
+      this.setState({code: event.target.value});
+    }
+    
     handleChangeDescription = (event) => {
       event.preventDefault();
       this.setState({description: event.target.value});
@@ -588,6 +598,9 @@ class FormAddProcessModal extends Component {
             </div>
             <div className="col-12 col-md-9">
               <SelectDepartmentToAssign />
+              <Form.Text className="text-muted">
+                Sử dụng để tìm kiếm nhân viên và chức vụ
+              </Form.Text>
             </div>
           </div>
         );
@@ -636,20 +649,34 @@ class FormAddProcessModal extends Component {
                       >
                         <div className="row form-group">
                           <div className="col col-md-3">
+                            <Form.Label>Mã quy trình</Form.Label>
+                          </div>
+                          <div className="col-12 col-md-9">
+                            <Form.Control onChange={(e) => this.handleChangeCode(e)} type="text" id="code" name="code" placeholder="Mã quy trình" />
+                              <Form.Text className="text-muted">
+                              Tự động sinh mã quy trình nếu để trống
+                            </Form.Text>
+                          </div>
+                        </div>
+                        <div className="row form-group">
+                          <div className="col col-md-3">
                             <Form.Label>Tên quy trình</Form.Label>
                           </div>
                           <div className="col-12 col-md-9">
-                            <Form.Control onChange={(e) => this.handleChangeName(e)} type="text" id="name" required name="name" placeholder="Tên" />
+                            <Form.Control onChange={(e) => this.handleChangeName(e)} type="text" id="name" required name="name" placeholder="Tên quy trình" />
                             <small className="form-text text-muted">
                             </small>
                           </div>
                         </div>
                         <div className="row form-group">
                           <div className="col col-md-3">
-                            <Form.Label>Deadline</Form.Label>
+                            <Form.Label>Ban hành</Form.Label>
                           </div>
                           <div className="col-12 col-md-9">
                             <DatePicker onChange={this.handleChangeDeadline} selected={this.state.deadline} className="form-control" dateFormat="dd-MM-yyyy"  id="deadline" required name="deadline" placeholder="Deadline" />
+                            <Form.Text className="text-muted">
+                              Thời gian đưa vào sử dụng quy trình
+                            </Form.Text>
                           </div>
                         </div>
                         <div className="row form-group">
@@ -670,7 +697,7 @@ class FormAddProcessModal extends Component {
                             </label>
                           </div>
                           <div className="col-12 col-md-9" style={{display:"flex"}} key={`custom-inline-radio`}>
-                          <Form.Check>
+                            <Form.Check>
                               <FormCheck.Input value="1" name="type1" id="check-type-assign-1" type={"checkbox"} onChange={this.handleChangeTypeEmployee} />
                               <FormCheck.Label className="form-check-label-1">Cá nhân</FormCheck.Label>
                             </Form.Check>

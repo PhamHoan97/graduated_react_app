@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import  { Redirect } from 'react-router-dom';
-import ReactPaginate from 'react-paginate';
 import axios from 'axios';
 import host from '../../Host/ServerDomain'; 
 import * as actionAlerts from '../../Alert/Action/Index';

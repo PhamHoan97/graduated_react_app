@@ -21,12 +21,12 @@ class EditInformationProcessModal extends Component {
           selected: '', 
           detail: '',
           name: '',
+          code: '',
           description: '',
           deadline: '',
           file: '',
           type: '',
           assign: '',
-          code: '',
           selectedEmployees: '', 
           selectedDepartments: '', 
           selectedRoles: '', 
@@ -236,7 +236,6 @@ class EditInformationProcessModal extends Component {
           time: this.getCurrentTime(),
           deadline: this.convertDate(this.state.deadline),
           type: this.state.type,
-          code: this.state.code,
         }
         if(this.state.type !== 5){
           information.assign = this.state.selected;
@@ -253,6 +252,11 @@ class EditInformationProcessModal extends Component {
           }
           information.assign = assignCollabration;
           information.collabration = typeCollabration;
+        }
+        if(!this.state.code){
+          information.code = Math.random().toString(36).substring(7) + Math.random().toString(36).substring(7);
+        }else{
+          information.code = this.state.code;
         }
         this.props.updateProcessInformation(information);
       }
@@ -297,6 +301,11 @@ class EditInformationProcessModal extends Component {
       this.setState({
         deadline: date
       });
+    }
+
+    handleChangeCode = (event) => {
+      event.preventDefault();
+      this.setState({code: event.target.value});
     }
 
     handleChangeName = (event) => {
@@ -644,6 +653,9 @@ class EditInformationProcessModal extends Component {
             </div>
             <div className="col-12 col-md-9">
               <SelectDepartmentToAssign />
+              <Form.Text className="text-muted">
+                Sử dụng để tìm kiếm nhân viên và chức vụ
+              </Form.Text>
             </div>
           </div>
         );
@@ -688,6 +700,17 @@ class EditInformationProcessModal extends Component {
                           >
                             <div className="row form-group">
                               <div className="col col-md-3">
+                                <Form.Label>Mã quy trình</Form.Label>
+                              </div>
+                              <div className="col-12 col-md-9">
+                                <Form.Control onChange={(e) => this.handleChangeCode(e)}  value={this.state.code} type="text" id="code" name="code" placeholder="Mã quy trình" />
+                                  <Form.Text className="text-muted">
+                                  Tự động sinh mã quy trình nếu để trống
+                                </Form.Text>
+                              </div>
+                            </div>
+                            <div className="row form-group">
+                              <div className="col col-md-3">
                                 <Form.Label>Tên quy trình</Form.Label>
                               </div>
                               <div className="col-12 col-md-9">
@@ -698,10 +721,13 @@ class EditInformationProcessModal extends Component {
                             </div>
                             <div className="row form-group">
                               <div className="col col-md-3">
-                                <Form.Label>Deadline</Form.Label>
+                                <Form.Label>Ban hành</Form.Label>
                               </div>
                               <div className="col-12 col-md-9">
                                 <DatePicker onChange={this.handleChangeDeadline} selected={this.state.deadline} className="form-control" dateFormat="dd-MM-yyyy"  id="deadline" required name="deadline" placeholder="Deadline" />
+                                <Form.Text className="text-muted">
+                                  Thời gian đưa vào sử dụng quy trình
+                                </Form.Text>
                               </div>
                             </div>
                             <div className="row form-group">
