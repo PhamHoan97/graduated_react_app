@@ -258,7 +258,7 @@ class ManageNotification extends Component {
                                   .notificationUser
                               }
                             </h2>
-                            <span className="desc">Người dùng</span>
+                            <span className="desc">Tài khoản nhân viên</span>
                             <div className="icon">
                               <i className="zmdi zmdi-account-o" />
                             </div>
@@ -272,7 +272,7 @@ class ManageNotification extends Component {
                                   .notificationAdmin
                               }
                             </h2>
-                            <span className="desc">Công ty</span>
+                            <span className="desc">Tài khoản công ty</span>
                             <div className="icon">
                               <i className="zmdi zmdi-shopping-cart" />
                             </div>
@@ -303,6 +303,13 @@ class ManageNotification extends Component {
                         </div>
                       </div>
                       <div className="row">
+                        <div className="col-md-12">
+                          <h3 className="title-5 m-b-35 manage__company--notification">
+                            Biểu đồ kết quả phản hồi
+                          </h3>
+                        </div>
+                      </div>
+                      <div className="row mb-5">
                         <div className="col-md-12">
                           <ChartStatistic dataChart={this.state.dataChart}/>
                         </div>
