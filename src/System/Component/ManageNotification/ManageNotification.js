@@ -178,26 +178,26 @@ class ManageNotification extends Component {
       if(name !== "submit"){
         let numberYes = 0;
         let numberNo = 0;
-        let numberOther = 0;
+        // let numberOther = 0;
         for(let i = 0;i<dataResponseChart.length;i++){
           var arrayResponseChart = Object.entries(dataResponseChart[i]);
-          arrayResponseChart.forEach(([key, value]) => {
-            if(key === name && value === "Đồng ý"){
+          for(var index = 0;index <arrayResponseChart.length;index++){
+            if(arrayResponseChart[index][0] === name && arrayResponseChart[index][1] === "Đồng ý"){
               numberYes++;
             }
-            if(key === name && value === "Không đồng ý"){
+            if(arrayResponseChart[index][0] === name && arrayResponseChart[index][1] === "Không đồng ý"){
               numberNo++;
             }
-            if(key === name && value === null){
-              numberOther++;
-            }
-          });
+            // if(arrayResponseChart[index][0] === name && arrayResponseChart[index][1] === null){
+            //   numberOther++;
+            // }
+          }
         }
         var colChart = {
           "name": name,
             'Đồng ý': numberYes,
             "Không đồng ý": numberNo,
-            "Không đánh giá":numberOther
+            // "Không đánh giá":numberOther
         }
         dataChart.push(colChart)
       }

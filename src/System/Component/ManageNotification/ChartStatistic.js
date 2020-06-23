@@ -20,7 +20,7 @@ export default class ChartStatistic extends PureComponent {
         <Legend />
         <Bar dataKey="Đồng ý" stackId="a" fill="#8884d8" />
         <Bar dataKey="Không đồng ý" stackId="a" fill="#82ca9d" />
-        <Bar dataKey="Không đánh giá" stackId="a" fill="#f56642" />
+        {/* <Bar dataKey="Không đánh giá" stackId="a" fill="#f56642" /> */}
       </BarChart>
     );
   }
