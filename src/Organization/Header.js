@@ -232,7 +232,6 @@ class Header extends Component {
               <div className="row align-items-center">
                 <div className="col-lg-3 col-md-3 col-sm-3 col-6">
                   <div className="logo my-3 my-sm-0">
-                    <a href="index.html"></a>
                   </div>
                 </div>
                 <div className="col-lg-9 col-md-9 col-sm-9 col-6 text-right">
