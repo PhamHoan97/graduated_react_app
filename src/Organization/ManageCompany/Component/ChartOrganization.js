@@ -6,33 +6,53 @@ class ChartOrganization extends Component {
   }
   componentDidUpdate() {
     this.chart = new OrgChart(this.refs.tree, {
+      enableSearch: false,
+      collapse: {
+        level: 3,
+        allChildren: true
+      },
+      zoom: {
+        speed: 80,
+        smooth: 10
+      },
+      showXScroll: OrgChart.scroll.visible,
+      showYScroll: OrgChart.scroll.visible,
+      mouseScrool: OrgChart.action.zoom,
+      layout: OrgChart.mixed,
+      nodeMouseClick: OrgChart.action.none,
       menu: {
-        pdf: { text: "Export PDF" },
-        png: { text: "Export PNG" },
-        svg: { text: "Export SVG" },
-        csv: { text: "Export CSV" }
+        pdf: { text: "Xuất PDF" },
+        png: { text: "Xuất PNG" },
+        csv: { text: "Xuất CSV" }
       },
       tags: {
-        "Company": {
+        "Công ty": {
             template: "ula"
         },
-        "Department": {
+        "Phòng ban": {
             template: "belinda"
         },
-        "Role": {
+        "Chức vụ": {
             template: "mery"
         },
-        "Employee": {
+        "Nhân viên": {
             template: "diva"
         }
       },
-      layout: OrgChart.mixed,
       nodeBinding: {
-        img_0: "img",
-        field_0: "name",
-        field_1: "title",
+        img_0: "ảnh",
+        field_0: "tên",
+        field_1: "tiêu đề",
       },
       nodes: this.props.nodes,
+    });
+    this.chart.editUI.on('field', function(sender, args){
+      if (args.name === 'email'){
+              return false;
+      }
+      if (args.name === 'ảnh'){
+        return false;
+      }
     });
   }
   render() {

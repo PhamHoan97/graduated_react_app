@@ -10,6 +10,7 @@ import { getIdNotificationChoose } from "../../Action/Notification/Index";
 import "../../Style/Notification/manageNotification.css";
 import ReactExport from "react-export-excel";
 import {showMessageAlert} from "../../../Alert/Action/Index";
+import ChartStatistic from "./ChartStatistic";
 const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
 const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
@@ -22,6 +23,7 @@ class ManageNotification extends Component {
       listNotification: [],
       statisticNotification: [],
       listResponses: [],
+      dataChart: [],
       isDisplayStatistic: false,
       showModalCreateNotification: false,
       showModalSendNotification: false,
@@ -159,12 +161,51 @@ class ManageNotification extends Component {
           self.setState({
             listResponses: response.data.responseNotificationSystem,
           });
+          self.setDataChartStatic(response.data.responseDataChartNotification)
         }
       })
       .catch(function (error) {
         console.log(error);
       });
   };
+
+  setDataChartStatic = (dataResponseChart) =>{
+    var keys = [];
+    for(var label in dataResponseChart[0]) keys.push(label);
+    var dataChart = [];
+    for(let j = 0;j<keys.length;j++){
+      let name = keys[j];
+      if(name !== "submit"){
+        let numberYes = 0;
+        let numberNo = 0;
+        // let numberOther = 0;
+        for(let i = 0;i<dataResponseChart.length;i++){
+          var arrayResponseChart = Object.entries(dataResponseChart[i]);
+          for(var index = 0;index <arrayResponseChart.length;index++){
+            if(arrayResponseChart[index][0] === name && arrayResponseChart[index][1] === "Đồng ý"){
+              numberYes++;
+            }
+            if(arrayResponseChart[index][0] === name && arrayResponseChart[index][1] === "Không đồng ý"){
+              numberNo++;
+            }
+            // if(arrayResponseChart[index][0] === name && arrayResponseChart[index][1] === null){
+            //   numberOther++;
+            // }
+          }
+        }
+        var colChart = {
+          "name": name,
+            'Đồng ý': numberYes,
+            "Không đồng ý": numberNo,
+            // "Không đánh giá":numberOther
+        }
+        dataChart.push(colChart)
+      }
+    }
+    this.setState({
+      dataChart: dataChart
+    });
+  }
   componentDidUpdate(prevProps, prevState) {
     if(this.state.isDisplayStatistic === true){
       document.getElementById("btn_export-excel").childNodes[0].childNodes[0].classList.add("addCssButtonExcel");
@@ -180,7 +221,6 @@ class ManageNotification extends Component {
         );
     });
   }
-
   render() {
     return (
       <div className="page-wrapper">
@@ -262,6 +302,11 @@ class ManageNotification extends Component {
                           </div>
                         </div>
                       </div>
+                      <div className="row">
+                        <div className="col-md-12">
+                          <ChartStatistic dataChart={this.state.dataChart}/>
+                        </div>
+                      </div>
                     </>
                   )}
                   <div className="row">
@@ -289,13 +334,11 @@ class ManageNotification extends Component {
                         <table className="table table-data2 table-notification_system">
                           <thead className="thead-dark">
                             <tr>
-                              <th />
-                              <th>Tên</th>
-                              <th>Mẫu</th>
-                              <th>Ngày tạo</th>
-                              <th>Trạng thái</th>
-                              <th></th>
-                              <th />
+                              <th style={{ width: "40%" }}>Tên</th>
+                              <th style={{ width: "20%" }}>Mẫu</th>
+                              <th style={{ width: "15%" }}>Ngày tạo</th>
+                              <th style={{ width: "15%" }}>Trạng thái</th>
+                              <th style={{ width: "10%" }}></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -304,23 +347,17 @@ class ManageNotification extends Component {
                                 (notification, index) => {
                                   return (
                                     <tr key={notification.id}>
-                                      <td>
-                                        <label className="au-checkbox">
-                                          <input type="checkbox" />
-                                          <span className="au-checkmark" />
-                                        </label>
-                                      </td>
-                                      <td>{notification.name}</td>
-                                      <td>{notification.template_name}</td>
-                                      <td className="desc">
+                                      <td style={{ width: "40%" }}>{notification.name}</td>
+                                      <td style={{ width: "20%" }}>{notification.template_name}</td>
+                                      <td className="desc" style={{ width: "15%" }}>
                                         {notification.date}
                                       </td>
-                                      <td className="desc">
+                                      <td className="desc" style={{ width: "15%" }}>
                                         {parseInt(notification.status) === 1
                                           ? "Gửi"
                                           : "Chờ"}
                                       </td>
-                                      <td>
+                                      <td style={{ width: "10%" }}>
                                         <div className="table-data-feature">
                                           {parseInt(notification.status) ===
                                           1 ? (
