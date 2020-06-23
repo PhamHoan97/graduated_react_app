@@ -11,7 +11,8 @@ import EmployeeOptionSearch from './EmployeeOptionSearch';
 import {connect} from 'react-redux';
 import * as actionAlerts from '../../../Alert/Action/Index';
 import host from '../../../Host/ServerDomain'; 
-
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 class ListProcessesOfCompany extends Component {
     _isMounted = false;
     constructor(props) {
@@ -187,6 +188,23 @@ class ListProcessesOfCompany extends Component {
       this.setState({isRedirectEdit: true, idEdit: id});
     } 
 
+    submitDelete = (e,idProcess) => {
+      e.preventDefault();
+      confirmAlert({
+        title: '',
+        message: 'Bạn có chắc muốn xóa quy trình ?',
+        buttons: [
+          {
+            label: 'Yes',
+            onClick: () => this.removeProcess(e,idProcess)
+          },
+          {
+            label: 'No',
+            onClick: () => console.log('Click No')
+          }
+        ]
+      })
+    };
     removeProcess = (e, id) => {
       e.preventDefault();
       var token = localStorage.getItem('token');
@@ -317,7 +335,11 @@ class ListProcessesOfCompany extends Component {
                                 href="##"
                                 className="btn btn-sm btn-outline-danger"
                                 data-toggle="modal"
-                                onClick={(e) => {if(window.confirm('Bạn có chắc chắn muốn xóa quy trình này?')){this.removeProcess(e,value.id)};}}
+                                onClick={(e) =>
+                                  this.submitDelete(
+                                    e,value.id
+                                  )
+                                }
                               >
                                 <span className="lnr lnr-trash" />{" "}
                                 Xóa

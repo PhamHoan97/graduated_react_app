@@ -17,6 +17,8 @@ import { showMessageAlert } from "../../../Alert/Action/Index";
 import ReactPaginate from "react-paginate";
 import ModalDetailProcess from './ModalDetailProcess';
 import { Redirect } from 'react-router-dom';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 function isEmpty(obj) {
   for (var key in obj) {
     if (obj.hasOwnProperty(key)) return false;
@@ -161,6 +163,23 @@ class DetailRole extends Component {
     });
   };
 
+  submitDelete = (e,idProcess) => {
+    e.preventDefault();
+   confirmAlert({
+     title: '',
+     message: 'Bạn có chắc muốn xóa quy trình ?',
+     buttons: [
+       {
+         label: 'Yes',
+         onClick: () => this.deleteProcessTypeRole(e,idProcess)
+       },
+       {
+         label: 'No',
+         onClick: () => console.log('Click No')
+       }
+     ]
+   })
+  };
   deleteProcessTypeRole = (e,idProcess) =>{
     e.preventDefault();
     let self = this;
@@ -184,7 +203,7 @@ class DetailRole extends Component {
           });
         } else {
             self.props.showAlert({
-              message:'Xóa quy trình chức vụ thành công ',
+              message:response.data.message,
               anchorOrigin:{
                   vertical: 'top',
                   horizontal: 'right'
@@ -683,7 +702,7 @@ class DetailRole extends Component {
                                                     <a
                                                       href="##"
                                                       className="btn btn-sm btn-outline-danger"
-                                                      onClick={(e) => this.deleteProcessTypeRole(e,process.id)}
+                                                      onClick={(e) => this.submitDelete(e,process.id)}
                                                     >
                                                       <span className="lnr lnr-trash" />{" "}
                                                       Xóa

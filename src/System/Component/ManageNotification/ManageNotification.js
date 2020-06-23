@@ -10,7 +10,7 @@ import { getIdNotificationChoose } from "../../Action/Notification/Index";
 import "../../Style/Notification/manageNotification.css";
 import ReactExport from "react-export-excel";
 import {showMessageAlert} from "../../../Alert/Action/Index";
-import ChartStatistic from "./ChartStatistic";
+import PieChartStatistic from "./PieChartStatistic";
 const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
 const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
@@ -23,7 +23,7 @@ class ManageNotification extends Component {
       listNotification: [],
       statisticNotification: [],
       listResponses: [],
-      dataChart: [],
+      dataChartQuestions: [],
       isDisplayStatistic: false,
       showModalCreateNotification: false,
       showModalSendNotification: false,
@@ -161,50 +161,70 @@ class ManageNotification extends Component {
           self.setState({
             listResponses: response.data.responseNotificationSystem,
           });
-          self.setDataChartStatic(response.data.responseDataChartNotification)
+          self.setDataChartStatic(response.data.responseDataChartNotification,response.data.templateContentNotification)
         }
       })
       .catch(function (error) {
         console.log(error);
       });
   };
-
-  setDataChartStatic = (dataResponseChart) =>{
+  setDataChartStatic = (dataResponseChart,dataTemplate) =>{
     var keys = [];
+    const colors = [
+      '#0080ff','#0040ff','#0000ff',
+      '#4000ff','#8000ff','#bf00ff',
+      '#ff00ff','#ff00bf','#ff0080',
+      '#ff0040','#ff0000'];
+    var dataChartQuestions = [];
     for(var label in dataResponseChart[0]) keys.push(label);
-    var dataChart = [];
     for(let j = 0;j<keys.length;j++){
-      let name = keys[j];
-      if(name !== "submit"){
-        let numberYes = 0;
-        let numberNo = 0;
-        // let numberOther = 0;
-        for(let i = 0;i<dataResponseChart.length;i++){
-          var arrayResponseChart = Object.entries(dataResponseChart[i]);
-          for(var index = 0;index <arrayResponseChart.length;index++){
-            if(arrayResponseChart[index][0] === name && arrayResponseChart[index][1] === "Đồng ý"){
-              numberYes++;
-            }
-            if(arrayResponseChart[index][0] === name && arrayResponseChart[index][1] === "Không đồng ý"){
-              numberNo++;
-            }
-            // if(arrayResponseChart[index][0] === name && arrayResponseChart[index][1] === null){
-            //   numberOther++;
-            // }
+      var dataChartQuestion = [];
+      let key = keys[j];
+      let listLabelValues = [];
+      let nameQuestion = '';
+      if(key !== "submit"){
+        // Get {label,value} and nameQuestion in template with key
+        for(let indexTemplate = 0;indexTemplate<dataTemplate.length;indexTemplate++){
+          if(dataTemplate[indexTemplate].key === key){
+            nameQuestion = dataTemplate[indexTemplate].label;
+            var templateValues = dataTemplate[indexTemplate].values;
+            templateValues.forEach(function(templateValue){
+              listLabelValues.push({
+                "label":templateValue.label,
+                "value":templateValue.value
+              })
+            });
           }
         }
-        var colChart = {
-          "name": name,
-            'Đồng ý': numberYes,
-            "Không đồng ý": numberNo,
-            // "Không đánh giá":numberOther
+        for(let indexLabelValue = 0;indexLabelValue<listLabelValues.length;indexLabelValue++){
+          var name = listLabelValues[indexLabelValue].label;
+          var value = listLabelValues[indexLabelValue].value;
+          var number = 0;
+          for(let i = 0;i<dataResponseChart.length;i++){
+            var arrayResponses = Object.entries(dataResponseChart[i]);
+            for(var indexResponse = 0;indexResponse <arrayResponses.length;indexResponse++){
+              if(arrayResponses[indexResponse][0] === key && arrayResponses[indexResponse][1] === value){
+                number++;
+              }
+            }
+          }
+          // Add to dataChart
+          dataChartQuestion.push({
+            "name": name,
+            "value": number
+          });
         }
-        dataChart.push(colChart)
+        // Create chart with question
+        dataChartQuestions.push({
+          'data':dataChartQuestion,
+          'nameQuestion':nameQuestion,
+          'color':colors[Math.floor(Math.random() * colors.length)],
+        })
       }
     }
     this.setState({
-      dataChart: dataChart
-    });
+      dataChartQuestions:dataChartQuestions
+    })
   }
   componentDidUpdate(prevProps, prevState) {
     if(this.state.isDisplayStatistic === true){
@@ -222,6 +242,7 @@ class ManageNotification extends Component {
     });
   }
   render() {
+    console.log(this.state.dataChartQuestions);
     return (
       <div className="page-wrapper">
         <MenuHorizontal />
@@ -305,14 +326,29 @@ class ManageNotification extends Component {
                       <div className="row">
                         <div className="col-md-12">
                           <h3 className="title-5 m-b-35 manage__company--notification">
-                            Biểu đồ kết quả phản hồi
+                            Thống kế kết quả câu hỏi trong bản đánh giá
                           </h3>
                         </div>
                       </div>
                       <div className="row mb-5">
-                        <div className="col-md-12">
-                          <ChartStatistic dataChart={this.state.dataChart}/>
-                        </div>
+                        {this.state.dataChartQuestions.length !== 0 ? (
+                              Object.values(this.state.dataChartQuestions).map(
+                                (dataChart, index) => {
+                                  return (
+                                    <div className="col-4">
+                                      <PieChartStatistic
+                                      key={index}
+                                      index = {index+1}
+                                      data={dataChart.data}
+                                      color={dataChart.color}
+                                      title={dataChart.nameQuestion}
+                                      />
+                                    </div>
+                                  )
+                                }
+                              )
+                            ):(<div></div>)
+                        }
                       </div>
                     </>
                   )}

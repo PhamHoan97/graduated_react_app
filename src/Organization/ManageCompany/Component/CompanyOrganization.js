@@ -14,6 +14,8 @@ import ReactPaginate from "react-paginate";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actionAlerts from "../../../Alert/Action/Index";
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
 class CompanyOrganization extends Component {
   _isMounted = false;
@@ -220,6 +222,23 @@ class CompanyOrganization extends Component {
       });
   };
 
+  submitDelete = (e,idProcess) => {
+     e.preventDefault();
+    confirmAlert({
+      title: '',
+      message: 'Bạn có chắc muốn xóa quy trình ?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => this.deleteProcessTypeCompany(e,idProcess)
+        },
+        {
+          label: 'No',
+          onClick: () => console.log('Click No')
+        }
+      ]
+    })
+  };
   deleteProcessTypeCompany = (e, idProcess) => {
     e.preventDefault();
     let self = this;
@@ -358,7 +377,7 @@ class CompanyOrganization extends Component {
                                               style={{ width: "5%" }}
                                               className="cell-breakWord text-center"
                                             >
-                                              {index + 1}
+                                              #{index + 1}
                                             </td>
                                             <td
                                               style={{ width: "10%" }}
@@ -424,7 +443,7 @@ class CompanyOrganization extends Component {
                                                   href="##"
                                                   className="btn btn-sm btn-outline-danger"
                                                   onClick={(e) =>
-                                                    this.deleteProcessTypeCompany(
+                                                    this.submitDelete(
                                                       e,
                                                       process.id
                                                     )

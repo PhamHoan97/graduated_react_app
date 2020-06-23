@@ -194,7 +194,7 @@ export default class CompanyInformation extends Component {
                         {this.getImageCompany()}
                       </div>
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-md-9">
                       <p>
                         <span className="title-detail_company">
                           Lãnh đạo :{" "}
@@ -211,11 +211,8 @@ export default class CompanyInformation extends Component {
                         </span>
                         {this.state.detailCompany.workforce}
                       </p>
-                    </div>
-                    <div className="col-md-5">
                       <p>
-                        <span className="title-detail_company">Địa chỉ:</span>
-                        <br />
+                        <span className="title-detail_company">Địa chỉ :{" "}</span>
                         {this.state.detailCompany.address}
                       </p>
                     </div>

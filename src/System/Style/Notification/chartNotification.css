@@ -1,0 +1,14 @@
+.title-question{
+    font-weight: 700;
+    font-size: 17px;
+    font-family: initial;
+}
+.name-question{
+    font-weight: 700;
+    font-size: 15px;
+    font-family: initial;
+}
+.title{
+    height: 60px;
+    margin-left: 30px;
+}

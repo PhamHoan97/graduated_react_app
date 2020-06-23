@@ -15,6 +15,8 @@ import { showMessageAlert } from "../../../Alert/Action/Index";
 import ReactPaginate from "react-paginate";
 import { Redirect } from 'react-router-dom';
 import ModalDetailProcess from './ModalDetailProcess';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 class DetailEmployeeOraganization extends Component {
   _isMounted = false;
   constructor(props, context) {
@@ -229,6 +231,23 @@ class DetailEmployeeOraganization extends Component {
       .catch(function (error) {
         console.log(error);
       });
+  };
+  submitDelete = (e,idProcess) => {
+    e.preventDefault();
+   confirmAlert({
+     title: '',
+     message: 'Bạn có chắc muốn xóa quy trình ?',
+     buttons: [
+       {
+         label: 'Yes',
+         onClick: () => this.deleteProcessTypeDepartment(e,idProcess)
+       },
+       {
+         label: 'No',
+         onClick: () => console.log('Click No')
+       }
+     ]
+   })
   };
   deleteProcessTypeDepartment = (e,idProcess) =>{
     e.preventDefault();
@@ -513,7 +532,7 @@ class DetailEmployeeOraganization extends Component {
                                           style={{ width: "5%" }}
                                           className="cell-breakWord text-center"
                                         >
-                                          {index + 1}
+                                          #{index + 1}
                                         </td>
                                         <td
                                           style={{ width: "10%" }}
@@ -571,7 +590,7 @@ class DetailEmployeeOraganization extends Component {
                                             <a
                                               href="##"
                                               className="btn btn-sm btn-outline-danger"
-                                              onClick={(e) =>this.deleteProcessTypeDepartment(e,process.id)}
+                                              onClick={(e) =>this.submitDelete(e,process.id)}
                                             >
                                               <span className="lnr lnr-trash" />{" "}
                                               Xóa
