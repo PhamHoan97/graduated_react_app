@@ -37,6 +37,7 @@ class ContentEmployeeInformation extends Component {
 
     UNSAFE_componentWillReceiveProps(nextProps) {
       if(nextProps.employee){
+        console.log(nextProps.employee);
         var processes = this.combineProcesses(
             nextProps.employee.processes_employees,
             nextProps.employee.processes_roles,

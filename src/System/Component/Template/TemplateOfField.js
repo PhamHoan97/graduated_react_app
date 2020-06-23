@@ -316,7 +316,7 @@ class TemplateOfField extends Component {
                                 <table className="table table-borderless table-data3">
                                     <thead>
                                     <tr>
-                                    <th className="text-center"></th>
+                                    <th className="text-center">#</th>
                                     <th className="text-center">Quy trình</th>
                                     <th className="text-center">Mô tả ngắn</th>
                                     <th className="text-center">Cập nhật</th>

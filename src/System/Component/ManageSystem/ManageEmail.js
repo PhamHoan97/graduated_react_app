@@ -331,7 +331,7 @@ class ManageEmail extends Component {
                                 <table className="table table-borderless table-data3">
                                 <thead>
                                     <tr>
-                                    <th></th>
+                                    <th>#</th>
                                     <th>Loại</th>
                                     <th>Người nhận</th>
                                     <th>Trạng thái</th>

@@ -415,7 +415,7 @@ class ManageRegistration extends Component {
                                 <table className="table table-borderless table-data3">
                                 <thead>
                                     <tr>
-                                        <th style={{ width: "5%" }}></th>
+                                        <th style={{ width: "5%" }}>#</th>
                                         <th style={{ width: "45%" }}>Tên</th>
                                         <th style={{ width: "15%" }}>Liên hệ</th>
                                         <th style={{ width: "15%" }}>Địa chỉ</th>

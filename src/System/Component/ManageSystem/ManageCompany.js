@@ -353,7 +353,7 @@ class ManageCompany extends Component {
                             <div className="col-md-4">
                             <div className="statistic__item statistic__item--green">
                                 <h2 className="number">{this.state.statistic.departments}</h2>
-                                <span className="desc">departments</span>
+                                <span className="desc">Phòng ban</span>
                                 <div className="icon">
                                 <i className="zmdi zmdi-account-o" />
                                 </div>
@@ -362,7 +362,7 @@ class ManageCompany extends Component {
                             <div className="col-md-4">
                             <div className="statistic__item statistic__item--orange">
                                 <h2 className="number">{this.state.statistic.companies}</h2>
-                                <span className="desc">Members</span>
+                                <span className="desc">Thành viên</span>
                                 <div className="icon">
                                 <i className="zmdi zmdi-shopping-cart" />
                                 </div>
@@ -371,7 +371,7 @@ class ManageCompany extends Component {
                             <div className="col-md-4">
                             <div className="statistic__item statistic__item--blue">
                                 <h2 className="number">{this.state.statistic.processes}</h2>
-                                <span className="desc">Process</span>
+                                <span className="desc">Quy trình</span>
                                 <div className="icon">
                                 <i className="zmdi zmdi-calendar-note" />
                                 </div>
@@ -399,7 +399,7 @@ class ManageCompany extends Component {
                                 <table className="table table-borderless table-data3">
                                 <thead>
                                     <tr>
-                                        <th style={{ width: "5%" }}></th>
+                                        <th style={{ width: "5%" }}>#</th>
                                         <th style={{ width: "45%" }}>Tên</th>
                                         <th style={{ width: "15%" }}>Liên hệ</th>
                                         <th style={{ width: "15%" }}>Địa chỉ</th>

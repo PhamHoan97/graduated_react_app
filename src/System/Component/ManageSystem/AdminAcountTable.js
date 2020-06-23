@@ -198,7 +198,7 @@ class AdminAcountTable extends Component {
                 <table className="table table-data2">
                     <thead>
                         <tr>
-                            <th/>
+                            <th>#</th>
                             <th>Tài khoản</th>
                             <th>Mật khẩu</th>
                             {/* <th>Cập nhật </th> */}
