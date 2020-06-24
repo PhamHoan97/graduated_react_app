@@ -1,0 +1,44 @@
+#notification_company-page {
+  .dropdown-menu {
+    width: 600px;
+    font-size: 13px;
+  }
+  .clear-noti {
+    color: #f83f37;
+    float: right;
+    font-size: 11px;
+    text-transform: uppercase;
+  }
+  .topnav-dropdown-footer {
+    font-size: 12px;
+    height: 32px;
+    line-height: 32px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .noti-details {
+    color: #989c9e;
+    margin-bottom: 0;
+  }
+  .media-body{
+      margin-left: 30px;
+  }
+  .user-avatar{
+      position: relative;
+  }
+  .user-avatar img{
+    width: 26px;
+  }
+  .badge-pill{
+    position: absolute;
+    font-family: inherit;
+    font-size: 13px;
+    color: red;
+    top: -12px;
+    left: 13px;
+  }
+  .notification-title{
+    font-size: 20px;
+    font-weight: 700;
+  }
+}

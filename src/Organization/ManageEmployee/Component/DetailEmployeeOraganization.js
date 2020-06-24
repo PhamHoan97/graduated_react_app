@@ -13,6 +13,8 @@ import {connect} from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import ModalDetailProcess from './ModalDetailProcess';
 import ReactPaginate from "react-paginate";
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 function isEmpty(obj) {
   for (var key in obj) {
     if (obj.hasOwnProperty(key)) return false;
@@ -33,6 +35,7 @@ class DetailEmployeeOraganization extends Component {
       perPage: 7,
       currentPage: 0,
       pageCount: 0,
+      initProcesses:[]
     };
   }
   convertTypeOfProcesses(type) {
@@ -142,6 +145,7 @@ class DetailEmployeeOraganization extends Component {
               res.data.processes4
             );
             self.setState({
+              initProcesses:processesResponse,
               processes: processesResponse,
               pageCount: Math.ceil(
                 processesResponse.length / self.state.perPage
@@ -170,7 +174,15 @@ class DetailEmployeeOraganization extends Component {
 
   handleSearch = (event) => {
     var searchValue = event.target.value;
-    this.setState({ search: searchValue });
+    console.log(searchValue ==='')
+    if(searchValue ===''){
+      this.setState({
+          search: searchValue,
+          processes:this.state.initProcesses
+      });
+    }else{
+      this.setState({ search: searchValue });
+    }
   };
 
   searchProcesses = (e) => {
@@ -202,15 +214,6 @@ class DetailEmployeeOraganization extends Component {
               severity: "error",
             });
           } else {
-            this.props.showAlert({
-              message: 'Xóa thành công quy trình',
-              anchorOrigin: {
-                vertical: "top",
-                horizontal: "right",
-              },
-              title: "Thành công",
-              severity: "success",
-            });
             var processesResponse = this.mergeProcesses(
               res.data.processes1,
               res.data.processes2,
@@ -218,7 +221,7 @@ class DetailEmployeeOraganization extends Component {
               res.data.processes4
             );
             this.setState({ 
-              processes: processesResponse,
+              processes:processesResponse,
               pageCount: Math.ceil(
                 processesResponse.length / this.state.perPage
               ),
@@ -232,7 +235,23 @@ class DetailEmployeeOraganization extends Component {
         });
     }
   };
-
+  submitDelete = (e,idProcess) => {
+    e.preventDefault();
+    confirmAlert({
+      title: '',
+      message: 'Bạn có chắc muốn xóa quy trình ?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => this.removeProcess(e,idProcess)
+        },
+        {
+          label: 'No',
+          onClick: () => console.log('Click No')
+        }
+      ]
+    })
+  };
   removeProcess = (e, id) => {
     e.preventDefault();
     var self = this;
@@ -463,6 +482,8 @@ class DetailEmployeeOraganization extends Component {
                           <form className="form-search-employee">
                             <input
                               className="form-control"
+                              name="search"
+                              value={this.state.search}
                               onChange={this.handleSearch}
                               placeholder="Tìm kiếm quy trình..."
                             />
@@ -557,7 +578,7 @@ class DetailEmployeeOraganization extends Component {
                                           className="btn btn-sm btn-outline-danger"
                                           data-toggle="modal"
                                           onClick={(e) =>
-                                            this.removeProcess(e, process.id)
+                                            this.submitDelete(e, process.id)
                                           }
                                         >
                                           <span className="lnr lnr-trash" /> Xóa
