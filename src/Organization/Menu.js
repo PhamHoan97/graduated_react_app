@@ -13,6 +13,11 @@ class Menu extends Component {
     e.preventDefault();
     this.props.history.goBack();
   }
+
+  renderToday = () => {
+    return new Date().toDateString();
+  }
+
   render() {
     return (
       <div
@@ -56,9 +61,9 @@ class Menu extends Component {
               </div>
               <div className="user-details">
                 <h4>
-                  <b>Chào mừng đến với phần mềm</b>
+                  <b>Chào mừng đến với phần mềm SOICT ISO</b>
                 </h4>
-                <p>Sun, 29 Nov 2019</p>
+                <p>{this.renderToday()}</p>
               </div>
             </div>
           </div>
