@@ -1,0 +1,17 @@
+.manage-process--company_organization {
+    .table-department_organization {
+      width: 100%;
+      border-collapse: collapse !important;
+      table-layout: fixed !important;
+    }
+    .table-department_organization .cell-breakWord {
+      overflow-wrap: break-word;
+      white-space: pre-wrap;
+    }
+    .table-department_organization td {
+      border-top: 1px solid #dee2e6;
+    }
+    .table-department_organization .btn-sm {
+      margin-right: 10px;
+    }
+  }

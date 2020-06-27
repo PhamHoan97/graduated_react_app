@@ -10,7 +10,8 @@ import ModalDetailProcess from './ModalDetailProcess';
 import EmployeeOptionSearch from './EmployeeOptionSearch';
 import {connect} from 'react-redux';
 import * as actionAlerts from '../../../Alert/Action/Index';
-import host from '../../../Host/ServerDomain'; 
+import host from '../../../Host/ServerDomain';
+import "../Style/Process.scss";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 class ListProcessesOfCompany extends Component {
@@ -297,11 +298,11 @@ class ListProcessesOfCompany extends Component {
               return (
               <React.Fragment key={key}>
                          <tr className="tr-shadow">
-                          <td className="desc text-left" style={{width:"2%"}}>{key+1}</td>
-                          <td className="desc text-left" style={{width:"15%"}}>{value.code}</td>
-                          <td className="desc text-left" style={{width:"20%"}}>{value.name}</td>
-                          <td className="desc text-left" style={{width:"35%"}}>{value.description.substring(0,400) + '...' }</td>
-                          <td className="desc text-left" style={{width:"8%"}}>{this.convertTypeOfProcesses(value.type)}</td>
+                          <td className="desc text-left " style={{width:"2%"}}>{key+1}</td>
+                          <td className="desc text-left cell-breakWord" style={{width:"15%"}}>{value.code}</td>
+                          <td className="desc text-left cell-breakWord" style={{width:"20%"}}>{value.name}</td>
+                          <td className="desc text-left cell-breakWord" style={{width:"35%"}}>{value.description.substring(0,400) + '...' }</td>
+                          <td className="desc text-left cell-breakWord" style={{width:"8%"}}>{this.convertTypeOfProcesses(value.type)}</td>
                           <td style={{width:"20%"}}>
                           <div className="table-action">
                               <a
@@ -428,7 +429,7 @@ class ListProcessesOfCompany extends Component {
                       <div className="quicklink-sidebar-menu ctm-border-radius shadow-sm bg-white card ">
                          <LinkPage linkPage=" Quản lí quy trình"/>
                       </div>
-                      <div className="row">
+                      <div className="row manage-process--company_organization">
                         <div className="col-md-12 d-flex">
                           <div className="card ctm-border-radius shadow-sm flex-fill ">
                             <div className="card-header">
@@ -461,9 +462,9 @@ class ListProcessesOfCompany extends Component {
                                       <thead>
                                       <tr>
                                         <th className="text-left" style={{width:"2%"}}>#</th>
-                                        <th className="text-left" style={{width:"15%"}}>mã quy trình</th>
-                                        <th className="text-left" style={{width:"20%"}}>tên quy trình</th>
-                                        <th className="text-left" style={{width:"35%"}}>mô tả ngắn</th>
+                                        <th className="text-left cell-breakWord" style={{width:"15%"}}>mã quy trình</th>
+                                        <th className="text-left cell-breakWord" style={{width:"20%"}}>tên quy trình</th>
+                                        <th className="text-left cell-breakWord" style={{width:"35%"}}>mô tả ngắn</th>
                                         <th className="text-left" style={{width:"8%"}}>thể loại</th>
                                         <th style={{width:"20%"}}></th>
                                       </tr>

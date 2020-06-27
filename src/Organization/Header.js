@@ -297,7 +297,7 @@ class Header extends Component {
                                         )
                                       ).map((notification, index) => {
                                         return (
-                                          <div className="media">
+                                          <div className="media" key={index}>
                                             <span className="avatar">
                                               <img
                                                 alt="notification"
