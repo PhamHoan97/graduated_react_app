@@ -42,7 +42,7 @@ class Detail extends Component {
 
     renderLinkDownloadDocument(info) {
         if(info && info.document){
-            return (<a className="link-download-document" href={host + '/' + info.document}> Tải tài liệu tại đây</a>);
+            return (<a className="btn btn-info download-document" target="_blank"  rel="noopener noreferrer" href={host + '/' + info.document}> Tải về <i className="fas fa-download"></i></a>);
         }else{
             return (<></>)
         }
@@ -119,7 +119,7 @@ class Detail extends Component {
                                 </p>
                             </div>
                             <div className="col-md-9 letf-colum-detail">
-                                <p className="content-note-detail"> {this.props.detail.description}. </p>
+                                <p className="content-note-detail"> {this.props.detail.description} </p>
                             </div>
                         </div>
                         <div className="row row-detail">

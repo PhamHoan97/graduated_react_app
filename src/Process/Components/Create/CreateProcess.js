@@ -6,7 +6,7 @@ import Header from './Header';
 import '../../Css/Process.css';
 import {connect} from 'react-redux';
 import * as actions from '../../Actions/Index';
-import Detail from "../View/Detail";
+import CreateDetail from "../Create/CreateDetail";
 import {updateProcessInformation} from '../../../Organization/ManageProcess/Actions/Index';
 import Templates from './Templates';
 
@@ -76,7 +76,7 @@ class CreateProcess extends Component {
                         <div className="space-area"></div>
                         <div className="row footer-view-process">  
                             <div className="col-md-5">
-                                <Detail />
+                                <CreateDetail />
                             </div>
                             <div className="col-md-4">
                                 <Templates />
@@ -106,7 +106,7 @@ class CreateProcess extends Component {
                         <div className="space-area"></div>
                         <div className="row footer-view-process">  
                             <div className="col-md-5">
-                                <Detail />
+                                <CreateDetail />
                             </div>
                             <div className="col-md-4">
                                 <Templates />

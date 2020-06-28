@@ -8,6 +8,7 @@ import * as actions from '../../../Organization/ManageProcess/Actions/Index';
 import DatePicker from "react-datepicker";
 import FormCheck from 'react-bootstrap/FormCheck';
 import host from '../../../Host/ServerDomain';
+import * as actionAlerts from '../../../Alert/Action/Index';
 
 class EditInformationProcessModal extends Component {
     _isMounted = false;
@@ -70,6 +71,7 @@ class EditInformationProcessModal extends Component {
               deadline: this.convertddMMyyyyToDate(nextProps.detail.deadline),
               assign: nextProps.detail.assign,
               code: nextProps.detail.code,
+              file: nextProps.detail.document,
             });
           }else{
             var assign = nextProps.detail.assign;
@@ -103,6 +105,7 @@ class EditInformationProcessModal extends Component {
                   deadline: this.convertddMMyyyyToDate(nextProps.detail.deadline),
                   assign: nextProps.detail.assign,
                   code: nextProps.detail.code,
+                  file: nextProps.detail.document,
                   selectedEmployees: employees, 
                   selectedDepartments: departments, 
                   selectedRoles: roles, 
@@ -236,6 +239,7 @@ class EditInformationProcessModal extends Component {
           time: this.getCurrentTime(),
           deadline: this.convertDate(this.state.deadline),
           type: this.state.type,
+          document: this.state.file,
         }
         if(this.state.type !== 5){
           information.assign = this.state.selected;
@@ -616,7 +620,44 @@ class EditInformationProcessModal extends Component {
 
     handleChangeFile = event => {
       event.preventDefault();
-      this.setState({file: event.target.files[0]});
+      document.getElementById("update-infomation-process").disabled = true;
+      var file = event.target.files[0];
+      var tokenData = localStorage.getItem('token');
+      let data = new FormData();
+      data.append('token', tokenData);
+      data.append('file',  file);
+
+      axios.post(host + `/api/company/process/upload/document`,
+      data,
+      {
+          headers: { 'Authorization': 'Bearer ' + tokenData}
+      }).then(res => {
+        if(res.data.error != null){
+          this.props.showAlert({
+            message: res.data.message,
+            anchorOrigin:{
+                vertical: 'top',
+                horizontal: 'right'
+            },
+            title:'Thất bại',
+            severity:'error'
+          });
+        }else{
+          this.props.showAlert({
+            message: res.data.message,
+            anchorOrigin:{
+                vertical: 'top',
+                horizontal: 'right'
+            },
+            title:'Thành công',
+            severity:'success'
+          });
+          this.setState({file: res.data.url});
+          document.getElementById("update-infomation-process").disabled = false;
+        }
+      }).catch(function (error) {
+        alert(error);
+      });
     }
 
     convertDate(str){
@@ -789,7 +830,7 @@ class EditInformationProcessModal extends Component {
                               </div>
                               <div className="col-12 col-md-9">
                                 <div className="btn btn-group" style={{float:"left", padding: "0"}}>
-                                  <button type="submit" className="btn btn-primary" style={{float:"left"}}>
+                                  <button type="submit" id="update-infomation-process" className="btn btn-primary" style={{float:"left"}}>
                                       Cập nhật <i className="fas fa-edit"></i>
                                   </button>
                                 </div>
@@ -828,6 +869,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     updateProcessInformation: (information) => {
       dispatch(actions.updateProcessInformation(information));
+    },
+    showAlert: (properties) => {
+      dispatch(actionAlerts.showMessageAlert(properties));
     },
   }
 }

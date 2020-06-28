@@ -469,7 +469,6 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-
     showAlert: (properties) => {
       dispatch(actionAlerts.showMessageAlert(properties));
     },
