@@ -1,76 +1,48 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import EditInformationProcessModal from './EditInformationProcessModal';
-import * as actions from '../../Actions/Index';
-import * as actionAlerts from '../../../Alert/Action/Index';
-import '../../Css/Detail.css';
+import { connect } from 'react-redux';
 import host from "../../../Host/ServerDomain"; 
+import '../../Css/Detail.css';
 
-class EditDetail extends Component {
+class CreateDetail extends Component {
     constructor(props) {
         super(props)
-
         this.state = {
-                 
         }
     }
 
-    renderAssign = (assign, type) =>{
+    renderEmployee = (assign, type) =>{
         var content = '';
         if(type === 4){
-            return '<p className="form-control content-note-detail">Toàn bộ công ty</p>';
-        }else if(type === 5){
+            return "Toàn bộ công ty";
+        }if(type === 5){
             var employees = assign.employees;
+            var roles = assign.roles;
+            var departments = assign.departments;
             for (let index = 0; index < employees.length; index++) {
-                content += '<p className="form-control content-note-detail">' + employees[index].label + '</p>';
+                content += '<p className="form-control">' + employees[index].label + '</p>';
             }
-            if(assign.roles){
-                var roles = assign.roles;
+            if(roles){
                 for (let index = 0; index < roles.length; index++) {
-                    content += '<p className="form-control content-note-detail">' + roles[index].label + '</p>';
-                }
+                    content += '<p className="form-control">' + roles[index].label + '</p>';
+                } 
             }
-            if(assign.departments){
-                var departments = assign.departments;
+            if(departments){
                 for (let index = 0; index < departments.length; index++) {
-                    content += '<p className="form-control content-note-detail">' + departments[index].label + '</p>';
-                }
+                    content += '<p className="form-control">' + departments[index].label + '</p>';
+                } 
             }
             return content;
-        }
-        else{
+        }else{
             for (let index = 0; index < assign.length; index++) {
-                content += '<p className="form-control content-note-detail">' + assign[index].label + '</p>';
+                content += '<p className="form-control">' + assign[index].label + '</p>';
             }
             return content;
         }
     } 
 
-    openEditProcessModal = (e) => {
-        e.preventDefault();
-        document.getElementById('clone-button-edit-process').click();
-        this.props.clickOpenModalEditProcessInfo();
-    }
-
-    resetDataOfProcess = (e) => {
-        e.preventDefault();
-        this.props.showAlert({
-          message: "Phục hổi mặc định thông tin của quy trình",
-          anchorOrigin:{
-              vertical: 'top',
-              horizontal: 'right'
-          },
-          title:'Thành công',
-          severity:'success'
-        });
-        setTimeout(function(){ 
-          window.location.reload();
-        }, 1000);
-    }
-
     renderLinkDownloadDocument(info) {
-        if(info && info.document){
-            return (<a className="btn btn-info download-document" target="_blank"  rel="noopener noreferrer" href={host + '/' + info.document}> Tải về <i className="fas fa-download"></i></a>);
+        if(info && info.file){
+            return (<a className="btn btn-info download-document" target="_blank"  rel="noopener noreferrer" href={host + '/' + info.file}> Tải về <i className="fas fa-download"></i></a>);
         }else{
             return (<></>)
         }
@@ -89,32 +61,32 @@ class EditDetail extends Component {
                             <div className="col-md-5 title-footer">
                                 <h4>Thông tin</h4>
                             </div>
-                        </div> 
+                        </div>
                         <div className="row">
                             <div className="col-md-3">
-                            <p className="form-control-label content-note-detail">
-                                Mã quy trình
-                            </p>
+                                <p className=" form-control-label content-note-detail">
+                                    Mã quy trình
+                                </p>
                             </div>
                             <div className="col-md-9 letf-colum-detail">
                                 <p className="content-note-detail"> {this.props.detail.code}</p>
                             </div>
-                        </div>   
+                        </div> 
                         <div className="row row-detail">
                             <div className="col-md-3">
-                            <p className="form-control-label content-note-detail">
-                                Tên quy trình
-                            </p>
+                                <p className=" form-control-label content-note-detail">
+                                    Tên quy trình
+                                </p>
                             </div>
                             <div className="col-md-9 letf-colum-detail">
-                                <p className="content-note-detail">{this.props.detail.name}</p>
+                                <p className="content-note-detail"> {this.props.detail.name}</p>
                             </div>
-                        </div>         
+                        </div>           
                         <div className="row row-detail">
                             <div className="col-md-3">
-                            <p className="form-control-label content-note-detail">
-                                Thời gian
-                            </p>
+                                <p className=" form-control-label content-note-detail">
+                                    Thời gian
+                                </p>
                             </div>
                             <div className="col-md-9 letf-colum-detail">
                                 <p className="content-note-detail"> {this.props.detail.time}</p>
@@ -132,19 +104,19 @@ class EditDetail extends Component {
                         </div>
                         <div className="row row-detail">
                             <div className="col-md-3">
-                            <p className=" form-control-label content-note-detail">
-                                Giao cho
-                            </p>
+                                <p className=" form-control-label content-note-detail">
+                                    Giao cho
+                                </p>
                             </div>
-                            <div className="col-md-9 letf-colum-detail"  
-                                dangerouslySetInnerHTML={{__html: this.renderAssign(this.props.detail.assign, this.props.detail.type)}}>
+                            <div className="col-md-9 content-note-detail"  
+                                dangerouslySetInnerHTML={{__html: this.renderEmployee(this.props.detail.assign, this.props.detail.type)}}>
                             </div>
                         </div>
-                        <div className="row row-detail" style={{marginTop:"10px"}}>
+                        <div className="row row-detail">
                             <div className="col-md-3">
-                            <p className=" form-control-label content-note-detail ">
-                                Mô tả
-                            </p>
+                                <p className=" form-control-label content-note-detail">
+                                    Mô tả
+                                </p>
                             </div>
                             <div className="col-md-9 letf-colum-detail">
                                 <p className="content-note-detail"> {this.props.detail.description} </p>
@@ -160,36 +132,7 @@ class EditDetail extends Component {
                                 <p className="content-note-detail"> {this.renderLinkDownloadDocument(this.props.detail)}</p>
                             </div>
                         </div>
-                        <div className="row" style={{marginTop:"10px"}}>
-                            <div className="col-md-3">
-                            </div>
-                            <div className="col-md-9 letf-colum-detail">
-                                <div className="btn-group">
-                                    <button 
-                                        type="button"
-                                        className="btn btn-primary iso-btn"                   
-                                        onClick={(e) => this.openEditProcessModal(e)}
-                                    >
-                                        Sửa <i className="far fa-edit"></i>
-                                    </button>
-                                    <button 
-                                        id = "clone-button-edit-process"
-                                        type="button"
-                                        className="btn btn-primary iso-btn"                   
-                                        data-toggle="modal"
-                                        data-target="#form-edit-process"
-                                        style={{display: "none"}}
-                                    >
-                                        Sửa 
-                                    </button>
-                                    <button type="button" className="btn btn-danger" onClick={(e) => this.resetDataOfProcess(e)} style={{float:"left", marginLeft:"5px"}}>
-                                        Phục hồi <i className="fas fa-undo"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
                     </form>
-                    <EditInformationProcessModal />
                 </div>
             )
         }else{
@@ -204,7 +147,7 @@ class EditDetail extends Component {
                             <div className="col-md-5 title-footer">
                                 <h4>Thông tin</h4>
                             </div>
-                        </div>
+                        </div> 
                         <div className="row">
                             <div className="col-md-3">
                             <label
@@ -215,7 +158,7 @@ class EditDetail extends Component {
                             </label>
                             </div>
                             <div className="col-md-9 letf-colum-detail">
-                                <p> </p>
+                                <p> {this.props.detail.code}</p>
                             </div>
                         </div>
                         <div className="row">
@@ -227,10 +170,9 @@ class EditDetail extends Component {
                                 Tên quy trình
                             </label>
                             </div>
-                            <div className="col-md-9 letf-colum-detail">
-                                <p></p>
+                            <div className="col-md-9 letf-colum-detail form"  >
                             </div>
-                        </div>            
+                        </div>           
                         <div className="row">
                             <div className="col-md-3">
                             <label
@@ -241,7 +183,7 @@ class EditDetail extends Component {
                             </label>
                             </div>
                             <div className="col-md-9 letf-colum-detail">
-                            <p></p>
+                                <p></p>
                             </div>
                         </div>
                         <div className="row">
@@ -253,10 +195,9 @@ class EditDetail extends Component {
                                 Deadline
                             </label>
                             </div>
-                            <div className="col-md-9 letf-colum-detail">
-                                <p></p>
+                            <div className="col-md-9 letf-colum-detail form"  >
                             </div>
-                        </div>
+                        </div> 
                         <div className="row">
                             <div className="col-md-3">
                             <label
@@ -284,39 +225,18 @@ class EditDetail extends Component {
                         </div>
                         <div className="row">
                             <div className="col-md-3">
-                            <p className=" form-control-label content-note-detail">
+                            <label
+                                htmlFor="text-input"
+                                className=" form-control-label"
+                            >
                                 Tài liệu
-                            </p>
+                            </label>
                             </div>
                             <div className="col-md-9 letf-colum-detail">
-                                <p className="content-note-detail"> </p>
-                            </div>
-                        </div>
-                        <div className="row" style={{marginTop:"10px"}}>
-                            <div className="col-md-3">
-                            </div>
-                            <div className="col-md-9 letf-colum-detail">
-                                <button 
-                                    type="button"
-                                    className="btn btn-primary iso-btn"                   
-                                    onClick={(e) => this.openEditProcessModal(e)}
-                                >
-                                    Sửa <i className="far fa-edit"></i>
-                                </button>
-                                <button 
-                                    id = "clone-button-edit-process"
-                                    type="button"
-                                    className="btn btn-primary iso-btn"                   
-                                    data-toggle="modal"
-                                    data-target="#form-edit-process"
-                                    style={{display: "none"}}
-                                >
-                                    Sửa
-                                </button>
+                                <p> </p>
                             </div>
                         </div>
                     </form>
-                    <EditInformationProcessModal />
                 </div>
             )
         }
@@ -329,15 +249,4 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-    return {
-        clickOpenModalEditProcessInfo: () => {
-            dispatch(actions.clickOpenModalEditProcessInfo())
-        },
-        showAlert: (properties) => {
-            dispatch(actionAlerts.showMessageAlert(properties))
-          },
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(EditDetail)
+export default connect(mapStateToProps)(CreateDetail)

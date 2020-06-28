@@ -11,6 +11,7 @@ import DatePicker from "react-datepicker";
 import FormCheck from 'react-bootstrap/FormCheck';
 import "../Css/FormAddProcess.css";
 import host from '../../../Host/ServerDomain'; 
+import * as actionAlerts from '../../../Alert/Action/Index';
 
 const animatedComponents = makeAnimated();
 
@@ -162,7 +163,6 @@ class FormAddProcessModal extends Component {
     };
 
     handleChangeSelectEmployeeCollabration = selectedOption => {
-      console.log(selectedOption);
       var token = localStorage.getItem('token');
       var data = {
         listEmployees: selectedOption,
@@ -205,7 +205,44 @@ class FormAddProcessModal extends Component {
 
     handleChangeFile = event => {
       event.preventDefault();
-      this.setState({file: event.target.files[0]});
+      document.getElementById("next-step-create-process").disabled = true;
+      var file = event.target.files[0];
+      var tokenData = localStorage.getItem('token');
+      let data = new FormData();
+      data.append('token', tokenData);
+      data.append('file',  file);
+
+      axios.post(host + `/api/company/process/upload/document`,
+      data,
+      {
+          headers: { 'Authorization': 'Bearer ' + tokenData}
+      }).then(res => {
+        if(res.data.error != null){
+          this.props.showAlert({
+            message: res.data.message,
+            anchorOrigin:{
+                vertical: 'top',
+                horizontal: 'right'
+            },
+            title:'Thất bại',
+            severity:'error'
+          });
+        }else{
+          this.props.showAlert({
+            message: res.data.message,
+            anchorOrigin:{
+                vertical: 'top',
+                horizontal: 'right'
+            },
+            title:'Thành công',
+            severity:'success'
+          });
+          this.setState({file: res.data.url});
+          document.getElementById("next-step-create-process").disabled = false;
+        }
+      }).catch(function (error) {
+        alert(error);
+      });
     }
 
     convertDate(str){
@@ -737,7 +774,7 @@ class FormAddProcessModal extends Component {
                           <div className="col col-md-3">
                           </div>
                           <div className="col-12 col-md-9">
-                            <button type="submit" className="btn btn-primary" style={{float:"left"}}>
+                            <button type="submit" id="next-step-create-process" className="btn btn-primary" style={{float:"left"}}>
                               Bước tiếp theo
                             </button>
                           </div>
@@ -772,6 +809,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     updateProcessInformation: (information) => {
       dispatch(actions.updateProcessInformation(information));
+    },
+    showAlert: (properties) => {
+      dispatch(actionAlerts.showMessageAlert(properties));
     },
   }
 }
