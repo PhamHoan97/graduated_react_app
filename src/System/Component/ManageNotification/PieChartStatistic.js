@@ -16,7 +16,7 @@ export default class PieChartStatistic extends PureComponent {
                 outerRadius={80} fill={this.props.color} label />
                 <Tooltip />
             </PieChart>
-            <div className="title">
+            <div className="question">
                 <span className="title-question">Câu {this.props.index} :</span> 
                 <span className="name-question">{this.props.title}</span>
             </div>

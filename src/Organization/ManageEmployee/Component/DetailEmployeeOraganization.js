@@ -432,7 +432,7 @@ class DetailEmployeeOraganization extends Component {
                                             <br></br>
                                           </li> */}
                                           <li>
-                                            <div className="title">Gender:</div>
+                                            <div className="title">Giới tính:</div>
                                             <div className="text">
                                               <a href="##">
                                                 {" "}

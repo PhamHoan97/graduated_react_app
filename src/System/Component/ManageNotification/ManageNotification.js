@@ -171,10 +171,10 @@ class ManageNotification extends Component {
   setDataChartStatic = (dataResponseChart,dataTemplate) =>{
     var keys = [];
     const colors = [
-      '#0080ff','#0040ff','#0000ff',
-      '#4000ff','#8000ff','#bf00ff',
-      '#ff00ff','#ff00bf','#ff0080',
-      '#ff0040','#ff0000'];
+      '#ff0000','#ff8000','#bfff00',
+      '#00bfff','#0000ff','#8000ff','#ff00ff',
+      '#ff0040','#ffff00'
+    ];
     var dataChartQuestions = [];
     for(var label in dataResponseChart[0]) keys.push(label);
     for(let j = 0;j<keys.length;j++){

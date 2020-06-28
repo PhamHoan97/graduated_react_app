@@ -131,7 +131,7 @@ class ModalDetailProcess extends Component {
                         </div>
                         <div className="row form-group">
                           <div className="col col-md-3">
-                            <Form.Label>Thời gian</Form.Label>
+                            <Form.Label>Ngày tạo</Form.Label>
                           </div>
                           <div className="col-12 col-md-9">
                             <span className="">{this.state.process.update_at}</span>
@@ -139,7 +139,7 @@ class ModalDetailProcess extends Component {
                         </div>
                         <div className="row form-group">
                           <div className="col col-md-3">
-                            <Form.Label>Deadline</Form.Label>
+                            <Form.Label>Ngày ban hành</Form.Label>
                           </div>
                           <div className="col-12 col-md-9">
                             {this.state.process.deadline}
