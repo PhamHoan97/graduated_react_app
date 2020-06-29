@@ -209,11 +209,11 @@ export default class Notification extends Component {
                             <table className="table custom-table table-hover table-notification_organization">
                               <thead>
                                 <tr>
-                                  <th style={{ width: "15%" }}>Tên</th>
-                                  <th style={{ width: "15%" }}>Template</th>
-                                  <th style={{ width: "15%" }}>Ngày tạo</th>
-                                  <th style={{ width: "10%" }}>Trạng thái</th>
-                                  <th style={{ width: "20%" }}>Hành động</th>
+                                  <th style={{ width: "15%" }} className="text-left">Tên</th>
+                                  <th style={{ width: "15%" }} className="text-left">Template</th>
+                                  <th style={{ width: "15%" }} className="text-left">Ngày tạo</th>
+                                  <th style={{ width: "10%" }} className="text-left">Trạng thái</th>
+                                  <th style={{ width: "20%" }} className="text-left">Hành động</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -225,20 +225,20 @@ export default class Notification extends Component {
                                       <tr key={key}>
                                         <td
                                           style={{ width: "15%" }}
-                                          className="cell-breakWord"
+                                          className="cell-breakWord text-left"
                                         >
                                           {notification.name}{" "}
                                         </td>
                                         <td
                                           style={{ width: "15%" }}
-                                          className="cell-breakWord"
+                                          className="cell-breakWord text-left"
                                         >
                                           {notification.template_name}
                                         </td>
-                                        <td style={{ width: "15%" }}>
+                                        <td style={{ width: "15%" }} className="text-left">
                                           {notification.date}
                                         </td>
-                                        <td style={{ width: "10%" }}>
+                                        <td style={{ width: "10%" }} className="text-left">
                                           <div className="dropdown action-label drop-active">
                                             <a
                                               href="##"
@@ -252,7 +252,7 @@ export default class Notification extends Component {
                                             </a>
                                           </div>
                                         </td>
-                                        <td style={{ width: "20%" }}>
+                                        <td style={{ width: "20%" }} className="text-left">
                                           <div className="table-action">
                                             {parseInt(notification.status) ===
                                             1 ? (

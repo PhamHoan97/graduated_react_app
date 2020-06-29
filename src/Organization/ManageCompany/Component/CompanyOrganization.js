@@ -29,7 +29,6 @@ class CompanyOrganization extends Component {
       currentPage: 0,
       pageCount: 0,
       idProcess: "",
-      isRedirectEditProcess: false,
       listDepartment: [],
       textNameSearch: "",
       idDepartmentSearch: 0,
@@ -283,6 +282,10 @@ class CompanyOrganization extends Component {
   };
 
   render() {
+    console.log(this.props.linkRedirectClickNode)
+    if(this.props.linkRedirectClickNode !== ''){
+      return <Redirect to={this.props.linkRedirectClickNode} />;
+    }
     if (this.state.isRedirectEditProcess) {
       return <Redirect to={"/process/edit/" + this.state.idProcess} />;
     }
@@ -337,25 +340,25 @@ class CompanyOrganization extends Component {
                                     <tr>
                                       <th
                                         style={{ width: "5%" }}
-                                        className="cell-breakWord text-center"
+                                        className="cell-breakWord text-left"
                                       >
                                         STT
                                       </th>
                                       <th
                                         style={{ width: "15%" }}
-                                        className="cell-breakWord text-center"
+                                        className="cell-breakWord text-left"
                                       >
                                         Mã
                                       </th>
                                       <th
                                         style={{ width: "15%" }}
-                                        className="cell-breakWord text-center"
+                                        className="cell-breakWord text-left"
                                       >
                                         Tên
                                       </th>
                                       <th
                                         style={{ width: "45%" }}
-                                        className="cell-breakWord text-center"
+                                        className="cell-breakWord text-left"
                                       >
                                         Miêu tả
                                       </th>
@@ -375,25 +378,25 @@ class CompanyOrganization extends Component {
                                           <tr key={index}>
                                             <td
                                               style={{ width: "5%" }}
-                                              className="cell-breakWord text-center"
+                                              className="cell-breakWord text-left"
                                             >
                                               #{index + 1}
                                             </td>
                                             <td
                                               style={{ width: "10%" }}
-                                              className="cell-breakWord text-center"
+                                              className="cell-breakWord text-left"
                                             >
                                               {process.code}{" "}
                                             </td>
                                             <td
                                               style={{ width: "15%" }}
-                                              className="cell-breakWord text-center"
+                                              className="cell-breakWord text-left"
                                             >
                                               {process.name}
                                             </td>
                                             <td
                                               style={{ width: "45%" }}
-                                              className="cell-breakWord text-center"
+                                              className="cell-breakWord text-left"
                                             >
                                               {process.description}
                                             </td>
@@ -563,8 +566,13 @@ class CompanyOrganization extends Component {
     );
   }
 }
+
 const mapStateToProps = (state, ownProps) => {
-  return {};
+  return {
+    linkRedirectClickNode:
+      state.organizationReducers.companyOrganizationReducer
+        .linkRedirectPage,
+  };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {

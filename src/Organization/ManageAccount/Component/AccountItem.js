@@ -80,7 +80,7 @@ class AccountItem extends Component {
     render() {
         return (
             <tr className="row100 body">
-                <td className="cell100 column4 text-center">
+                <td className="cell100 column4 text-left">
                 {this.props.avatar !== null &&
                     this.props.avatar !== "" ? (
                     <img
@@ -109,10 +109,10 @@ class AccountItem extends Component {
                     />
                     )}
                 </td>
-                <td className="cell100 column3 text-center">{this.props.name}</td>
-                <td className="cell100 column1 text-center">{this.props.email}</td>
-                <td className="cell100 column2 text-center">{this.props.username}</td>
-                <td className="cell100 column5 text-center">
+                <td className="cell100 column3 text-left">{this.props.name}</td>
+                <td className="cell100 column1 text-left">{this.props.email}</td>
+                <td className="cell100 column2 text-left">{this.props.username}</td>
+                <td className="cell100 column5 text-left">
                 <a
                     className="btn--trash__department mr-5"
                     href="###"

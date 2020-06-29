@@ -231,7 +231,6 @@ class ModalCreateEmployeeRole extends Component {
             newEmailEmployee: this.state.newEmailEmployee,
             newGender: this.state.newGender,
             newRoleEmployee: this.props.idRole,
-            newDepartmentEmployee: this.props.idDepartment,
             newPhoneEmployee: this.state.newPhoneEmployee,
             newAvatarEmployee: this.state.newAvatarEmployee,
           },

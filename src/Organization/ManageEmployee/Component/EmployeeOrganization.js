@@ -504,8 +504,8 @@ class EmployeeOrganization extends Component {
                                               </a>
                                               <div className="dropdown-menu">
                                               <NavLink
-                                                  to={"/company/organization/department/"+
-                                                  employee.id_department+"/role/"+employee.id_role+"/employee/"+employee.id_employee}
+                                                  to={"/company/organization/employee/"+
+                                                  employee.id_employee}
                                                   exact
                                                   className="dropdown-item"
                                                 >

@@ -351,21 +351,21 @@ class RoleOraganization extends Component {
                               <table className="table custom-table table-hover table-hover table-role_organization">
                                 <thead>
                                   <tr>
-                                    <th style={{ width: "20%" }} className="cell-breakWord">Tên</th>
+                                    <th style={{ width: "20%" }} className="cell-breakWord text-left">Tên</th>
                                     <th
                                       style={{ width: "25%" }}
-                                      className="cell-breakWord"
+                                      className="cell-breakWord text-left"
                                     >
                                       Miêu tả
                                     </th>
-                                    <th style={{ width: "35%" }}>Phòng ban</th>
+                                    <th style={{ width: "35%" }} className="text-left">Phòng ban</th>
                                     {/* <th style={{ width: "15%" }}>
                                       Quyền tạo quy trình
                                     </th> */}
                                     <th style={{ width: "25%" }}>Hành động</th>
                                   </tr>
                                 </thead>
-                                <tbody className="text-center">
+                                <tbody className="text-left">
                                   {this.state.listRole.length !== 0 ? (
                                     Object.values(
                                       this.state.listRole.slice(
@@ -405,7 +405,7 @@ class RoleOraganization extends Component {
                                               <div className="table-action">
                                                 <NavLink
                                                   to={
-                                                    "/company/organization/department/"+role.department_id+"/role/" +
+                                                    "/company/organization/role/"+
                                                     role.id
                                                   }
                                                   exact

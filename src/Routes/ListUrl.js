@@ -82,11 +82,11 @@ class ListUrl extends Component {
                         <Route path="/company/detail" exact component={CompanyOrganization} />
                         <Route path="/company/personal/information" exact component={PersonalInformation} />
                         <Route path="/company/organization/employee" exact component={EmployeeOrganization} />
-                        <Route path="/company/organization/department/:idDepartment/role/:idRole/employee/:idEmployee" exact component={DetailEmployeeOraganization} />
+                        <Route path="/company/organization/employee/:idEmployee" exact component={DetailEmployeeOraganization} />
                         <Route path="/company/organization/department" exact component={DepartmentOrganization} />
                         <Route path="/company/organization/department/:id" exact component={DetailDepartmentOraganization} />
                         <Route path="/company/organization/role" exact component={RoleOraganization} />
-                        <Route path="/company/organization/department/:idDepartment/role/:idRole" exact component={DetailRole} />
+                        <Route path="/company/organization/role/:idRole" exact component={DetailRole} />
                         <Route path="/company/template" exact component={Template} />
                         <Route path="/company/organization/account" exact component={Account} />
                         <Route path="/company/notification" exact component={Notification} />
