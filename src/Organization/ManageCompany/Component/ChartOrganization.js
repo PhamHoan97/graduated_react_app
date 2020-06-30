@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import OrgChart from "@balkangraph/orgchart.js/orgchart";
+import {clickRedirectPageNode} from "../Action/Index";
+import { connect } from "react-redux";
 class ChartOrganization extends Component {
   shouldComponentUpdate() {
     return true;
   }
   componentDidUpdate() {
+    var self =  this;
     this.chart = new OrgChart(this.refs.tree, {
       enableSearch: false,
       collapse: {
@@ -42,6 +45,12 @@ class ChartOrganization extends Component {
       nodeBinding: {
         img_0: "ảnh",
         field_0: "tên",
+        // field_0: function (sender, node) {
+        //   var data = sender.get(node.id);
+        //   var name = data["tên"];
+        //   var link = data["link"];
+        //   return '<a target="_self" href="' + link + '">' + name + '</a>'
+        // },
         field_1: "tiêu đề",
       },
       nodes: this.props.nodes,
@@ -54,10 +63,21 @@ class ChartOrganization extends Component {
         return false;
       }
     });
+    this.chart.on('click', function (sender, args) {
+      var data = sender.get(args.node.id);
+      self.props.redirectPage(data.link);
+    });
   }
   render() {
     return <div id="tree" ref="tree"></div>;
   }
 }
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    redirectPage: (properties) => {
+      dispatch(clickRedirectPageNode(properties))
+    }
+  };
+};
+export default connect(null, mapDispatchToProps) (ChartOrganization);
 
-export default ChartOrganization;

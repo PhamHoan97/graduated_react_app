@@ -234,7 +234,6 @@ class ModalEditEmployeeRole extends Component {
             editGender: this.state.editGender,
             idChooseRole: this.props.idRole,
             idChooseEmployee: this.props.editEmployee.id,
-            idChooseDepartment: this.props.idDepartment,
             editAvatarEmployee: this.state.editAvatarEmployee,
           },
           {

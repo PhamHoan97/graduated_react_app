@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import avatar from "./Image/logo-company.jpg";
 import { NavLink } from "react-router-dom";
 import { withRouter } from "react-router-dom";
-
+import {resetRedirectPageNode} from "./ManageCompany/Action/Index";
+import { connect } from "react-redux";
+import { compose } from 'redux'
 class Menu extends Component {
   constructor(props) {
     super(props);
-    this.goBack = this.goBack.bind(this); // i think you are missing this
+    this.goBack = this.goBack.bind(this);
   }
 
   goBack(e) {
@@ -61,7 +63,7 @@ class Menu extends Component {
               </div>
               <div className="user-details">
                 <h4>
-                  <b>Chào mừng đến với phần mềm SOICT ISO</b>
+                  <b>Chào mừng đến với hệ thống ISOX</b>
                 </h4>
                 <p>{this.renderToday()}</p>
               </div>
@@ -92,7 +94,7 @@ class Menu extends Component {
                   <div className="col-6 align-items-center shadow-none text-center">
                     <NavLink
                       to="/company/detail"
-                      exact
+                      onClick={this.props.resetRedirectPage()}
                       className="text-black p-4 first-slider-btn ctm-border-right ctm-border-left ctm-border-top"
                       activeStyle={{
                         fontWeight: "bold",
@@ -174,57 +176,6 @@ class Menu extends Component {
                       <span>Chức vụ</span>
                     </NavLink>
                   </div>
-                  {/* <div className="col-6 align-items-center shadow-none text-center">
-                    <NavLink
-                      to="/company/form"
-                      exact
-                      className="text-black p-4 first-slider-btn ctm-border-right ctm-border-left ctm-border-top"
-                      activeStyle={{
-                        fontWeight: "bold",
-                        color: "#ffffff",
-                      }}
-                    >
-                      <i
-                        className="fa fa-area-chart pr-0 pb-lg-2 font-23"
-                        aria-hidden="true"
-                      />
-                      <span>Form thông báo</span>
-                    </NavLink>
-                  </div> */}
-                  {/* <div className="col-6 align-items-center shadow-none text-center">
-                    <NavLink
-                      to="/company/notification"
-                      exact
-                      className="text-black p-4 first-slider-btn ctm-border-right ctm-border-left ctm-border-top"
-                      activeStyle={{
-                        fontWeight: "bold",
-                        color: "#ffffff",
-                      }}
-                    >
-                      <i
-                        className="fa fa-bell-o pr-0 pb-lg-2 font-23"
-                        aria-hidden="true"
-                      />
-                      <span>Thông báo</span>
-                    </NavLink>
-                  </div> */}
-                  {/* <div className="col-6 align-items-center shadow-none text-center">
-                    <NavLink
-                      to="/company/template"
-                      exact
-                      className="text-black p-4 first-slider-btn ctm-border-right ctm-border-left ctm-border-top"
-                      activeStyle={{
-                        fontWeight: "bold",
-                        color: "#ffffff",
-                      }}
-                    >
-                      <i
-                        className="fa fa-bar-chart pr-0 pb-lg-2 font-23"
-                        aria-hidden="true"
-                      ></i>
-                      <span>Template form thông báo</span>
-                    </NavLink>
-                  </div> */}
                    <div className="col-6 align-items-center shadow-none text-center">
                     <NavLink
                       to="/company/notification/system"
@@ -293,35 +244,6 @@ class Menu extends Component {
                       <span>Quản lý quy trình</span>
                     </NavLink>
                   </div>
-                  {/* <div className="col-6 align-items-center shadow-none text-center">
-                    <NavLink
-                      to="/company/personal/information"
-                      exact
-                      className="text-black p-4 first-slider-btn ctm-border-right ctm-border-left ctm-border-top"
-                      activeStyle={{
-                        fontWeight: "bold",
-                        color: "#ffffff",
-                      }}
-                    >
-                      <i
-                        className="fa fa-user-circle pr-0 pb-lg-2 font-23"
-                        aria-hidden="true"
-                      ></i>
-                      <span>Tài khoản</span>
-                    </NavLink>
-                  </div> */}
-                  {/* <div className="col-6 align-items-center shadow-none text-center">
-                    <a
-                      href="settings.html"
-                      className="text-dark p-4 last-slider-btn1 ctm-border-right ctm-border-left"
-                    >
-                      <i
-                        className="fa fa-cog pb-lg-2 font-23"
-                        aria-hidden="true"
-                      />
-                      <span>Cài đặt</span>
-                    </a>
-                  </div> */}
                 </div>
               </div>
             </div>
@@ -394,4 +316,15 @@ class Menu extends Component {
     );
   }
 }
-export default withRouter(Menu);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    resetRedirectPage: () => {
+      dispatch(resetRedirectPageNode())
+    }
+  };
+};
+export default compose(
+  withRouter,
+  connect(null, mapDispatchToProps)
+)(Menu);
+

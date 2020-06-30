@@ -207,14 +207,14 @@ class DepartmentOrganization extends Component {
                             <table className="table custom-table table-hover table-department_organization">
                               <thead>
                                 <tr>
-                                  <th style={{ width: "15%" }} className="cell-breakWord">Tên</th>
+                                  <th style={{ width: "15%" }} className="cell-breakWord text-left">Tên</th>
                                   <th
                                     style={{ width: "40%" }}
-                                    className="cell-breakWord"
+                                    className="cell-breakWord text-left"
                                   >
                                     Miêu tả
                                   </th>
-                                  <th style={{ width: "10%" }}>Viết tắt</th>
+                                  <th style={{ width: "10%" }} className="text-left">Viết tắt</th>
                                   <th style={{ width: "35%" }}>Hành động</th>
                                 </tr>
                               </thead>
@@ -224,16 +224,16 @@ class DepartmentOrganization extends Component {
                                     (department, index) => {
                                       return (
                                         <tr key={index}>
-                                          <td style={{ width: "15%" }} className="cell-breakWord">
+                                          <td style={{ width: "15%" }} className="cell-breakWord text-left">
                                       {department.name}{" "}
                                           </td>
                                           <td
                                             style={{ width: "40%" }}
-                                            className="cell-breakWord"
+                                            className="cell-breakWord text-left"
                                           >
                                             {department.description}
                                           </td>
-                                          <td style={{ width: "10%" }}>{department.signature}</td>
+                                          <td style={{ width: "10%" }} className="text-left">{department.signature}</td>
                                           <td style={{ width: "35%" }}>
                                             <div className="table-action">
                                               <NavLink

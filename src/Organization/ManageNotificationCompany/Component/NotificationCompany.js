@@ -112,17 +112,17 @@ class NotificationCompany extends Component {
                                 <tr>
                                   <th
                                   style={{ width: "15%" }}
-                                  className="cell-breakWord"
+                                  className="cell-breakWord text-left"
                                   >Tên</th>
                                   <th
                                     style={{ width: "40%" }}
-                                    className="cell-breakWord"
+                                    className="cell-breakWord text-left"
                                   >
                                     Miêu tả
                                   </th>
-                                  <th style={{ width: "20%" }} className="cell-breakWord">Ngày</th>
-                                  <th style={{ width: "10%" }}>Trạng thái</th>
-                                  <th style={{ width: "25%" }}></th>
+                                  <th style={{ width: "20%" }} className="cell-breakWord text-left">Ngày</th>
+                                  <th style={{ width: "15%" }} className="text-left">Trạng thái</th>
+                                  <th style={{ width: "20%" }}></th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -133,17 +133,17 @@ class NotificationCompany extends Component {
                                         <tr key={index}>
                                           <td
                                           style={{ width: "15%" }}
-                                          className="cell-breakWord"
+                                          className="cell-breakWord text-left"
                                           >
                                       {notification.name}{" "}
                                           </td>
                                           <td
                                             style={{ width: "40%" }}
-                                            className="cell-breakWord"
+                                            className="cell-breakWord text-left"
                                           >
                                             {notification.description}
                                           </td>
-                                          <td style={{ width: "10%" }}>{notification.date}</td>
+                                          <td style={{ width: "15%" }} className="text-left">{notification.date}</td>
                                           {
                                             parseInt(notification.status)===1 ? (
                                               <td style={{ width: "20%",color: "red" }}>
@@ -153,7 +153,7 @@ class NotificationCompany extends Component {
                                               Chưa xem
                                              </td>)
                                           }
-                                          <td style={{ width: "25%" }} className="cell-breakWord text-center">
+                                          <td style={{ width: "20%" }} className="cell-breakWord text-left">
                                             <div className="table-action">
                                                 <NavLink
                                                     to={"/company/notification/detail/"+notification.id}

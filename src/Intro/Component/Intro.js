@@ -32,7 +32,10 @@ class Intro extends Component {
                     id="navbarTogglerDemo01"
                   >
                     <a className="navbar-brand" href="/">
-                      <img src='./intro/images/Logo.png' alt="logo" />
+                      <img src='./intro/images/logo-system.jpg'
+                      alt="logo"
+                      className="logo-system"
+                      />
                     </a>
                     <ul className="navbar-nav mr-auto mt-2 mt-lg-0 menu-left">
                       <li className="nav-item active">
@@ -229,7 +232,9 @@ class Intro extends Component {
               <div className="col-md-4 mx-auto">
                 {/* Links */}
                 <div className="mb-5 mt-5">
-                  <img src="./intro/images/Logo.png" alt="Logo--company" />
+                  <img src='./intro/images/logo-system.jpg'
+                  alt="logo"
+                  className="logo-system"/>
                 </div>
                 {/* Copyright */}
                 <div>

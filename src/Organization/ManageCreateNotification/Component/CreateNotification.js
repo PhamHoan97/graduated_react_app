@@ -176,10 +176,10 @@ class CreateNotification extends Component {
                             <table className="table custom-table table-hover table-notification_organization">
                               <thead>
                                 <tr>
-                                  <th style={{ width: "15%" }}>Tên</th>
-                                  <th style={{ width: "30%" }}>Miêu tả</th>
-                                  <th style={{ width: "20%" }}>Ngày tạo</th>
-                                  <th style={{ width: "10%" }}>Trạng thái</th>
+                                  <th style={{ width: "15%" }} className="text-left">Tên</th>
+                                  <th style={{ width: "30%" }} className="text-left">Miêu tả</th>
+                                  <th style={{ width: "20%" }} className="text-left">Ngày tạo</th>
+                                  <th style={{ width: "10%" }} className="text-left">Trạng thái</th>
                                   <th style={{ width: "25%" }} className="text-left ml-4"></th>
                                 </tr>
                               </thead>
@@ -192,20 +192,24 @@ class CreateNotification extends Component {
                                       <tr key={key}>
                                         <td
                                           style={{ width: "15%" }}
-                                          className="cell-breakWord"
+                                          className="cell-breakWord text-left"
                                         >
                                           {notification.name}{" "}
                                         </td>
                                         <td
                                           style={{ width: "30%" }}
-                                          className="cell-breakWord"
+                                          className="cell-breakWord text-left"
                                         >
                                           {notification.description}
                                         </td>
-                                        <td style={{ width: "20%" }}>
+                                        <td 
+                                          className="text-left"
+                                          style={{ width: "20%" }}>
                                           {notification.update_at}
                                         </td>
-                                        <td style={{ width: "10%" }}>
+                                        <td
+                                          className="text-left"
+                                          style={{ width: "10%" }}>
                                           <div className="dropdown action-label drop-active">
                                             <a
                                               href="##"

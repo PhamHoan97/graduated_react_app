@@ -11,6 +11,7 @@ import "../../Style/Notification/manageNotification.css";
 import ReactExport from "react-export-excel";
 import {showMessageAlert} from "../../../Alert/Action/Index";
 import PieChartStatistic from "./PieChartStatistic";
+//import QuestionChartStatistic from "./QuestionChartStatistic";
 const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
 const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
@@ -374,13 +375,13 @@ class ManageNotification extends Component {
                         </div>
                       </div>
                       <div className="table-responsive table-responsive-data2">
-                        <table className="table table-data2 table-notification_system">
+                        <table className="table table-data2 table-notification_system text-left">
                           <thead className="thead-dark">
                             <tr>
-                              <th style={{ width: "40%" }}>Tên</th>
-                              <th style={{ width: "20%" }}>Mẫu</th>
-                              <th style={{ width: "15%" }}>Ngày tạo</th>
-                              <th style={{ width: "15%" }}>Trạng thái</th>
+                              <th style={{ width: "40%" }} className="text-left">Tên</th>
+                              <th style={{ width: "20%" }} className="text-left">Mẫu</th>
+                              <th style={{ width: "15%" }} className="text-left">Ngày tạo</th>
+                              <th style={{ width: "15%" }} className="text-left">Trạng thái</th>
                               <th style={{ width: "10%" }}></th>
                             </tr>
                           </thead>

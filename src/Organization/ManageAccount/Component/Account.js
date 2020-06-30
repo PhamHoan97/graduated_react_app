@@ -474,19 +474,19 @@ class Account extends Component {
                               <table>
                                 <thead>
                                   <tr className="row100 head">
-                                    <th className="cell100 column4 text-center">
+                                    <th className="cell100 column4 text-left">
                                       Hình ảnh
                                     </th>
-                                    <th className="cell100 column3 text-center">
+                                    <th className="cell100 column3 text-left">
                                       Tên nhân viên
                                     </th>
-                                    <th className="cell100 column1 text-center">
+                                    <th className="cell100 column1 text-left">
                                       Email
                                     </th>
-                                    <th className="cell100 column2 text-center">
+                                    <th className="cell100 column2 text-left">
                                       Tên tài khoản
                                     </th>
-                                    <th className="cell100 column5 text-center"></th>
+                                    <th className="cell100 column5 text-left"></th>
                                   </tr>
                                 </thead>
                               </table>

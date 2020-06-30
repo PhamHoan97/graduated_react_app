@@ -372,9 +372,6 @@ class DetailRole extends Component {
                                       this.getInformationDetailRole
                                     }
                                     idRole={this.props.match.params.idRole}
-                                    idDepartment={
-                                      this.props.match.params.idDepartment
-                                    }
                                     showModal={this.state.showModalNewEmployee}
                                     close={() => this.closeModalAddEmployee()}
                                   />
@@ -384,9 +381,6 @@ class DetailRole extends Component {
                                         this.getInformationDetailRole
                                       }
                                       idRole={this.props.match.params.idRole}
-                                      idDepartment={
-                                        this.props.match.params.idDepartment
-                                      }
                                       showModal={
                                         this.state.showModalEditEmployee
                                       }
@@ -520,11 +514,7 @@ class DetailRole extends Component {
                                                   </a>
                                                   <NavLink
                                                     to={
-                                                      "/company/organization/department/" +
-                                                      employee.department_id +
-                                                      "/role/" +
-                                                      employee.role_id +
-                                                      "/employee/" +
+                                                      "/company/organization/employee/"+
                                                       employee.id
                                                     }
                                                     exact
@@ -597,25 +587,25 @@ class DetailRole extends Component {
                                         <tr>
                                           <th
                                             style={{ width: "5%" }}
-                                            className="cell-breakWord text-center"
+                                            className="cell-breakWord text-left"
                                           >
                                             STT
                                           </th>
                                           <th
                                             style={{ width: "15%" }}
-                                            className="cell-breakWord text-center"
+                                            className="cell-breakWord text-left"
                                           >
                                             Mã
                                           </th>
                                           <th
                                             style={{ width: "15%" }}
-                                            className="cell-breakWord text-center"
+                                            className="cell-breakWord text-left"
                                           >
                                             Tên
                                           </th>
                                           <th
                                             style={{ width: "45%" }}
-                                            className="cell-breakWord text-center"
+                                            className="cell-breakWord text-left"
                                           >
                                             Miêu tả
                                           </th>
@@ -642,25 +632,25 @@ class DetailRole extends Component {
                                               <tr key={index}>
                                                 <td
                                                   style={{ width: "5%" }}
-                                                  className="cell-breakWord text-center"
+                                                  className="cell-breakWord text-left"
                                                 >
                                                   {index + 1}
                                                 </td>
                                                 <td
                                                   style={{ width: "10%" }}
-                                                  className="cell-breakWord text-center"
+                                                  className="cell-breakWord text-left"
                                                 >
                                                   {process.code}{" "}
                                                 </td>
                                                 <td
                                                   style={{ width: "15%" }}
-                                                  className="cell-breakWord text-center"
+                                                  className="cell-breakWord text-left"
                                                 >
                                                   {process.name}
                                                 </td>
                                                 <td
                                                   style={{ width: "45%" }}
-                                                  className="cell-breakWord text-center"
+                                                  className="cell-breakWord text-left"
                                                 >
                                                   {process.description}
                                                 </td>

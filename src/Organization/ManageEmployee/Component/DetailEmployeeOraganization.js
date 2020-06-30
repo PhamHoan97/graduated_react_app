@@ -376,17 +376,13 @@ class DetailEmployeeOraganization extends Component {
                                             {this.state.detailEmployee.name}
                                           </h3>
                                           <div className="staff-id">
-                                            Employee ID :{" "}
-                                            {this.state.detailEmployee.id}
+                                            Phòng ban :{" "}
+                                            {this.state.detailEmployee.department_name}
                                           </div>
-                                          {/* <div className="staff-msg">
-                                            <a
-                                              className="btn btn-custom"
-                                              href="chat.html"
-                                            >
-                                              Send Message
-                                            </a>
-                                          </div> */}
+                                          <div className="staff-id">
+                                            Chức vụ :{" "}
+                                            {this.state.detailEmployee.role_name}
+                                          </div>
                                         </div>
                                       </div>
                                       <div className="col-md-7">
@@ -413,24 +409,6 @@ class DetailEmployeeOraganization extends Component {
                                               </a>
                                             </div>
                                           </li>
-                                          {/* <li>
-                                            <div className="title">
-                                              Birthday:
-                                            </div>
-                                            <div className="text">
-                                            {this.state.detailEmployee.birth}
-                                            </div>
-                                            <br></br>
-                                          </li>
-                                          <li>
-                                            <div className="title">
-                                              Address:
-                                            </div>
-                                            <div className="text">
-                                            {this.state.detailEmployee.address}
-                                            </div>
-                                            <br></br>
-                                          </li> */}
                                           <li>
                                             <div className="title">Giới tính:</div>
                                             <div className="text">
@@ -505,13 +483,13 @@ class DetailEmployeeOraganization extends Component {
                           <thead>
                             <tr>
                               <th style={{ width: "5%" }}
-                                        className="cell-breakWord text-center">STT</th>
+                                        className="cell-breakWord text-left">STT</th>
                               <th style={{ width: "15%" }}
-                                        className="cell-breakWord text-center">Mã</th>
+                                        className="cell-breakWord text-left">Mã</th>
                               <th style={{ width: "15%" }}
-                                        className="cell-breakWord text-center">Tên</th>
+                                        className="cell-breakWord text-left">Tên</th>
                               <th style={{ width: "45%" }}
-                                      className="cell-breakWord text-center">Mô tả</th>
+                                      className="cell-breakWord text-left">Mô tả</th>
                               {/* <th style={{ width: "10%" }} className="text-center">Thể loại</th> */}
                               <th style={{ width: "25%" }}>
                                       </th>
@@ -528,13 +506,13 @@ class DetailEmployeeOraganization extends Component {
                                 return (
                                   <tr className="tr-shadow" key={index}>
                                     <td style={{ width: "5%" }}
-                                        className="cell-breakWord text-center">{index + 1}</td>
+                                        className="cell-breakWord text-left">{index + 1}</td>
                                     <td style={{ width: "15%" }}
-                                        className="cell-breakWord text-center">{process.code}</td>
+                                        className="cell-breakWord text-left">{process.code}</td>
                                     <td style={{ width: "15%" }}
-                                        className="cell-breakWord text-center">{process.name}</td>
+                                        className="cell-breakWord text-left">{process.name}</td>
                                     <td style={{ width: "45%" }}
-                                        className="cell-breakWord text-center">
+                                        className="cell-breakWord text-left">
                                       {process.description}
                                     </td>
                                     {/* <td style={{ width: "10%" }}>
