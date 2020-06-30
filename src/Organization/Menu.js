@@ -63,7 +63,7 @@ class Menu extends Component {
               </div>
               <div className="user-details">
                 <h4>
-                  <b>Chào mừng đến với hệ thống SOICT ISO</b>
+                  <b>Chào mừng đến với hệ thống ISOX</b>
                 </h4>
                 <p>{this.renderToday()}</p>
               </div>

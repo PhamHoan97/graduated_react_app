@@ -110,7 +110,7 @@ class CompanyLogin extends Component {
         }).catch(function (error) {
           alert(error);
         });
-      }    
+      }
     }
 
     componentWillUnmount(){
@@ -131,7 +131,9 @@ class CompanyLogin extends Component {
                   <div className="login-content">
                     <div className="login-logo">
                       <a href="/">
-                        <img src="../intro/images/Logo.png" alt="Cool Admin" />
+                        <img src="../intro/images/logo-system.jpg"
+                        style={{ width:"150px",height:"50px"}}
+                        alt="Cool Admin" />
                       </a>
                     </div>
                     <div className="login-form">
