@@ -4686,6 +4686,7 @@ section {
     text-transform: capitalize;
     padding: 18px 40px;
     padding-right: 10px;
+    text-align: left;
 }
 
 .table-data3 thead tr th:first-child {
@@ -4734,6 +4735,7 @@ section {
     color: #808080;
     padding: 12px 40px;
     padding-right: 10px;
+    text-align: left;
 }
 
 .table-data3 tbody td.process {

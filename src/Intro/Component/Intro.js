@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import '../Style/Intro.css';
 class Intro extends Component {
-  //WARNING! To be deprecated in React v17. Use componentDidMount instead.
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (localStorage.getItem("token") !== null) {
       console.log(localStorage.getItem("token"))
     }

@@ -111,7 +111,7 @@ class ViewNote extends Component {
     render() {
         return (
             <section className="note-element">
-                <h4 className="note-title"> {this.convertTitleOfElement(this.state.currentElement)}</h4>
+                <h4 className="note-title"> {this.convertTitleOfElement(this.state.currentElement)} <i className="fas fa-tasks"></i></h4>
                 <div className="note-content form-group">
                     <form>
                         {this.renderName(this.state.currentElement)}

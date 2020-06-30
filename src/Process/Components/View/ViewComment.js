@@ -256,7 +256,7 @@ class Comment extends Component {
         if(Array.isArray(this.state.currentElement.comments) && this.state.currentElement.comments.length){
             return (
                 <section className="comment-element">
-                    <h4 className="comment-title"> Bình luận</h4>
+                    <h4 className="comment-title"> Bình luận <i className="fas fa-comment"></i></h4>
                     <div className="comment-content form-group">
                         <div className="conversation-content-has-comment">
                             {this.renderListComment(this.state.currentElement.comments)}
@@ -281,7 +281,7 @@ class Comment extends Component {
         }else{
             return (
                 <section className="comment-element">
-                    <h4 className="comment-title"> Bình luận</h4>
+                    <h4 className="comment-title"> Bình luận <i className="fas fa-comment"></i></h4>
                     <div className="comment-content form-group">
                         <div className="conversation-content">
                             <div className="no-conversation">

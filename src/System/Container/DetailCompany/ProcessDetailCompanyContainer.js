@@ -287,7 +287,7 @@ export default class ProcessDetailCompanyContainer extends Component {
                 <td></td>
                 <td>Mã quy trình</td>
                 <td>Quy trình</td>
-                <td>Hạn</td>
+                <td>Ban hành</td>
                 <td>Thể loại</td>
                 <td></td>
               </tr>
