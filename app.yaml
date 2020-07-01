@@ -13,4 +13,7 @@
 # [START app_yaml]
 env: flex
 runtime: nodejs
+automatic_scaling:
+  min_num_instances: 1
+  max_num_instances: 7
 # [END app_yaml]
