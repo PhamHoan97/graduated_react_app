@@ -87,7 +87,7 @@ class EditDetail extends Component {
                     >
                         <div className="row">
                             <div className="col-md-5 title-footer">
-                                <h4>Thông tin</h4>
+                                <h4 className="title-section">Thông tin</h4>
                             </div>
                         </div> 
                         <div className="row">

@@ -240,7 +240,7 @@ class ViewProcess extends Component {
                         </div>
                         <div className="space-area"></div>
                         <div className="row footer-view-process">  
-                            <div className="col-md-6">
+                            <div className="col-md-5">
                                 <Detail />
                             </div>
                             <div className="col-md-4">
@@ -270,7 +270,7 @@ class ViewProcess extends Component {
                         </div>
                         <div className="space-area"></div>
                         <div className="row footer-view-process">  
-                            <div className="col-md-6">
+                            <div className="col-md-5">
                                 <Detail />
                             </div>
                             <div className="col-md-4">

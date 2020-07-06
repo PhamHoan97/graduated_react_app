@@ -9,7 +9,8 @@ import Form from 'react-bootstrap/Form';
 import  { Redirect } from 'react-router-dom';
 import host from '../../../Host/ServerDomain';
 import {connect} from 'react-redux';
-import * as actions from '../../../Alert/Action/Index';
+import * as actionsAlert from '../../../Alert/Action/Index';
+import * as actions from '../../Action/System/Index';
 
 class TemplateOfField extends Component {
     _isMounted = false;
@@ -149,6 +150,7 @@ class TemplateOfField extends Component {
 
     redirectToCreateProcess = (e) =>{
         e.preventDefault();
+        this.props.resetStatusTempalte();
         this.setState({isRedirectCreateProcess : true});
     }
 
@@ -181,11 +183,11 @@ class TemplateOfField extends Component {
                 return (
                 <React.Fragment key={key}>
                            <tr className="tr-shadow">
-                           <td className="desc">{key+1}</td>
-                            <td className="desc">{value.name}</td>
-                            <td className="desc">{value.description}</td>
-                            <td className="desc">{value.updated_at}</td>
-                            <td >
+                           <td className="desc"  style={{width: "5%"}}>{key+1}</td>
+                            <td className="desc"  style={{width: "20%"}}>{value.name}</td>
+                            <td className="desc"  style={{width: "50%"}}>{value.description}</td>
+                            <td className="desc"  style={{width: "10%"}}>{value.updated_at}</td>
+                            <td  style={{width: "15%"}}>
                               <div className="table-data-feature">
                                 <button
                                   className="item"
@@ -286,7 +288,7 @@ class TemplateOfField extends Component {
                   <div className="container-fluid">
                     <div className="row">
                       <div className="col-md-12">
-                            <h3 className="title-field">Quy trình mẫu của lĩnh vực <span class="text-danger">{this.state.field.name}</span></h3>
+                            <h3 className="title-field">Quy trình mẫu của lĩnh vực <span className="text-danger">{this.state.field.name}</span></h3>
                         </div>
                     </div>
                     <div className="row field-form">
@@ -316,11 +318,11 @@ class TemplateOfField extends Component {
                                 <table className="table table-borderless table-data3">
                                     <thead>
                                     <tr>
-                                    <th className="text-center">#</th>
-                                    <th className="text-center">Quy trình</th>
-                                    <th className="text-center">Mô tả ngắn</th>
-                                    <th className="text-center">Cập nhật</th>
-                                    <th className="text-center"></th>
+                                    <th className="text-center" style={{width: "5%"}}>#</th>
+                                    <th className="text-center" style={{width: "20%"}}>Quy trình</th>
+                                    <th className="text-center" style={{width: "50%"}}>Mô tả ngắn</th>
+                                    <th className="text-center" style={{width: "10%"}}>Cập nhật</th>
+                                    <th className="text-center" style={{width: "15%"}}></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -403,7 +405,10 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         showAlert: (properties) => {
-            dispatch(actions.showMessageAlert(properties))
+            dispatch(actionsAlert.showMessageAlert(properties))
+        },
+        resetStatusTempalte: () => {
+            dispatch(actions.resetStatusTemplate())
         }
     }
 }

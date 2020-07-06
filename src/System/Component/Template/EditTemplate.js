@@ -10,6 +10,7 @@ import * as actions from '../../Action/System/Index';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import host from '../../../Host/ServerDomain';
+import * as alertActions from '../../../Alert/Action/Index';
 
 class EditTemplate extends Component {
   _isMounted = false;
@@ -75,6 +76,67 @@ class EditTemplate extends Component {
       });
     }
 
+    getExtension(filename) {
+      var parts = filename.split('.');
+      return parts[parts.length - 1];
+    }
+
+    handleImportFileBPMN = event => {
+      var files = event.target.files;
+      var fileName = files[0].name;
+      var type = this.getExtension(fileName);
+      if(files && files.length !== 1){
+          this.props.showAlert({
+              message: "Chỉ được import một file",
+              anchorOrigin:{
+                  vertical: 'top',
+                  horizontal: 'right'
+              },
+              title:'Thất bại',
+              severity:'error'
+          });
+          event.target.value = null;
+      }
+      else if(type !== "bpmn"){
+          this.props.showAlert({
+              message: "Chỉ được import file có định dạng bpmn",
+              anchorOrigin:{
+                  vertical: 'top',
+                  horizontal: 'right'
+              },
+              title:'Thất bại',
+              severity:'error'
+          });
+          event.target.value = null; 
+      }else{
+        try{
+          var reader = new FileReader();
+        }catch(e){
+            this.props.showAlert({
+                message: "Trình duyệt không hỗ trợ đọc file bpmn",
+                anchorOrigin:{
+                    vertical: 'top',
+                    horizontal: 'right'
+                },
+                title:'Thất bại',
+                severity:'error'
+            });
+        }
+        reader.readAsText(files[0], "UTF-8");
+        reader.onloadend = this.loadedReaderFile;
+
+        this.props.showAlert({
+            message: "Import thành công file bpmn",
+            anchorOrigin:{
+                vertical: 'top',
+                horizontal: 'right'
+            },
+            title:'Thành công',
+            severity:'success'
+        });
+      }
+  }
+
     componentWillUnmount(){
       this._isMounted = false;
     }
@@ -95,10 +157,13 @@ class EditTemplate extends Component {
                     </div>
                     <div className="row">
                       <div className="col-md-4"></div>
-                      <div className="col-md-4"></div>
-                      <div className="col-md-4">
+                      <div className="col-md-6"></div>
+                      <div className="col-md-2">
                         <ButtonGroup aria-label="Basic example">
-                            <Button variant="primary">Import quy trình <i className="fas fa-plus"></i> </Button>
+                            {/* <Button variant="primary">Import quy trình 
+                              <input onChange={this.handleImportFileBPMN} className="input-import-file-bpmn-template" type="file" id="file" /> 
+                              <i className="fas fa-plus"></i> 
+                            </Button> */}
                             <Button variant="success save-right-button" style={{marginLeft:"2%"}} onClick={(e) => this.handleOpenUpdateProcessModal(e)}>
                                 Lưu quy trình <i className="fas fa-save"></i></Button>
                         </ButtonGroup>
@@ -159,7 +224,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         updateProcessTemplateInformationUpdate: (process) => {
             dispatch(actions.updateProcessTemplateInformationUpdate(process));
-        }
+        },
+        showAlert: (properties) => {
+          dispatch(alertActions.showMessageAlert(properties));
+        },
     }
 }
 

@@ -271,7 +271,6 @@ class EmployeeOrganization extends Component {
       });
   }
   render() {
-    console.log(this.state.listEmployee);
     return (
       <div className="inner-wrapper manage-organization_template">
         <Header />

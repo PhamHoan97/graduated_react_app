@@ -40,7 +40,6 @@ class ModalEditDepartment extends Component {
         ];
         this.validator = new Validator(rules);
         this.handleChange = this.handleChange.bind(this);
-        console.log(this.props.editDepartment);
     }
 
     handleChange(event) {
