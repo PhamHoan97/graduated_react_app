@@ -79,7 +79,10 @@ class AccountItem extends Component {
     render() {
         return (
             <tr className="row100 body">
-                <td className="cell100 column4 text-left">
+                <td style={{ width: "5%" }} className="cell-breakWord text-center ">
+                {this.props.stt}
+                </td>
+                <td style={{ width: "15%" }} className="cell-breakWord text-left">
                 {this.props.avatar !== null &&
                     this.props.avatar !== "" ? (
                     <img
@@ -108,10 +111,10 @@ class AccountItem extends Component {
                     />
                     )}
                 </td>
-                <td className="cell100 column3 text-left">{this.props.name}</td>
-                <td className="cell100 column1 text-left">{this.props.email}</td>
-                <td className="cell100 column2 text-left">{this.props.username}</td>
-                <td className="cell100 column5 text-left">
+                <td style={{ width: "20%" }} className="cell-breakWord text-left">{this.props.name}</td>
+                <td style={{ width: "20%" }} className="cell-breakWord text-left">{this.props.email}</td>
+                <td style={{ width: "20%" }} className="cell-breakWord text-left">{this.props.username}</td>
+                <td style={{ width: "20%" }} className="cell-breakWord text-left">
                 <a
                     className="btn--trash__department mr-5"
                     href="###"
