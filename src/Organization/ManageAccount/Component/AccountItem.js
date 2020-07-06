@@ -70,7 +70,6 @@ class AccountItem extends Component {
                 title:'Thành công',
                 severity:'success'
               })
-            console.log(res.data);
         }
         }).catch(function (error) {
             alert(error);

@@ -79,7 +79,6 @@ export default class ProcessDetailCompanyContainer extends Component {
 
   handleChangeSearchProcesses(event) {
     const searchText = event.target.value;
-    console.log(searchText);
     this.setState({
       searchText: searchText,
     });

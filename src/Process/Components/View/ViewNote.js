@@ -89,7 +89,7 @@ class ViewNote extends Component {
                     </label>
                 </div>
                 <div className="note-content-show-name">
-                    <p className="form-control">{element.name}</p>
+                    <p className="form-control element-name">{element.name}</p>
                 </div>
                 </>
             )

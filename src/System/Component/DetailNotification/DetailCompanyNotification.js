@@ -25,7 +25,6 @@ class DetailCompanyNotification extends Component {
 
   handleClick = (e, idNotificationAdmin) => {
     e.preventDefault();
-    console.log(JSON.parse(localStorage.getItem("dataForm")).data);
     var self = this;
     var idAdmin = localStorage.getItem("admin_id");
     var token = localStorage.getItem("token");

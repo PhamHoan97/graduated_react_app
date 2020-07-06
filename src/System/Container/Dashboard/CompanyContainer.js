@@ -75,7 +75,6 @@ export default class CompanyContainer extends Component {
     
     handlePageClick = (e) => {
         const selectedPage = e.selected;
-        console.log(selectedPage);
         const offset = selectedPage * this.state.perPage;
 
         this.setState({
