@@ -430,7 +430,7 @@ class ListProcessesOfCompany extends Component {
                          <LinkPage linkPage=" Quản lí quy trình"/>
                       </div>
                       <div className="row manage-process--company_organization">
-                        <div className="col-md-12 d-flex">
+                        <div className="col-md-12 d-flex text-left">
                           <div className="card ctm-border-radius shadow-sm flex-fill ">
                             <div className="card-header">
                               <h4 className="card-title mb-0">Quản lí quy trình</h4>

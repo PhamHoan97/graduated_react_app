@@ -282,7 +282,6 @@ class CompanyOrganization extends Component {
   };
 
   render() {
-    console.log(this.props.linkRedirectClickNode)
     if(this.props.linkRedirectClickNode !== ''){
       return <Redirect to={this.props.linkRedirectClickNode} />;
     }

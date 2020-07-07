@@ -397,7 +397,7 @@ class ManageRegistration extends Component {
                         <div className="container-fluid">
                         {/* MANAGER Company*/}
                         <div className="row">
-                            <div className="col-md-12">
+                            <div className="col-md-12 text-left">
                             <h3 className="title-5 m-b-35 manage__company--notification">
                                 Quản lý đăng kí sử dụng
                             </h3>
