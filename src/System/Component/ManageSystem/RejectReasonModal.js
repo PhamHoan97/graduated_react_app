@@ -129,7 +129,7 @@ class RejectReasonModal extends Component {
                         <div className="col col-md-3">
                         <label
                             htmlFor="text-input"
-                            className=" form-control-label"
+                            className=" form-control-label required"
                         >
                             Lý do
                         </label>

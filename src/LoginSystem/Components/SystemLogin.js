@@ -143,14 +143,14 @@ class SystemLogin extends Component{
                         Đăng nhập
                         </span>
                         <div className="wrap-input100 validate-input m-b-23" data-validate="Username is required">
-                        <span className="label-input100">Email</span>
+                        <span className="label-input100 required">Email</span>
                         <Input className="input100" type="text" name="username" placeholder="Nhập email" 
                             validations={[required, email]} onChange={this.handleChangeEmail}
                         />
                         <span className="focus-input100" data-symbol="" />
                         </div>
                         <div className="wrap-input100 validate-input" data-validate="Password is required">
-                        <span className="label-input100">Mật khẩu</span>
+                        <span className="label-input100 required">Mật khẩu</span>
                         <Input className="input100" type="password" name="password" placeholder="Nhập mật khẩu"
                             validations={[required, minLength]} onChange={this.handleChangePassword}
                         />

@@ -430,10 +430,10 @@ class ProcessTemplate extends Component {
                                 <table className="table table-borderless table-data3">
                                     <thead>
                                     <tr>
-                                    <th className="text-center">#</th>
-                                    <th className="text-center">Lĩnh vực</th>
-                                    <th className="text-center">Mô tả</th>
-                                    <th className="text-center"></th>
+                                    <th >#</th>
+                                    <th >Lĩnh vực</th>
+                                    <th >Mô tả</th>
+                                    <th ></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -478,11 +478,11 @@ class ProcessTemplate extends Component {
                         <Modal.Body>
                             <Form onSubmit={(e) => this.handleSubmitFieldForm(e)}>
                                 <Form.Group controlId="formGroupPassword1">
-                                    <Form.Label>Tên lĩnh vực</Form.Label>
+                                    <Form.Label className="required">Tên lĩnh vực</Form.Label>
                                     <Form.Control type="text" onChange={this.handleChangeFieldName} required placeholder="Tên lĩnh vực" />
                                 </Form.Group>
                                 <Form.Group controlId="formGroupEmail-updateaccount">
-                                    <Form.Label>Mô tả ngắn</Form.Label>
+                                    <Form.Label className="required">Mô tả ngắn</Form.Label>
                                     <textarea className="form-control" rows={"5"} onChange={this.handleChangeFieldDescription} required></textarea>
                                 </Form.Group>
                                 <Button variant="primary" type="submit">
@@ -505,11 +505,11 @@ class ProcessTemplate extends Component {
                         <Modal.Body>
                             <Form onSubmit={(e) => this.handleSubmitFieldFormUpdate(e)}>
                                 <Form.Group controlId="formGroupPassword1">
-                                    <Form.Label>Tên lĩnh vực</Form.Label>
+                                    <Form.Label className="required">Tên lĩnh vực</Form.Label>
                                     <Form.Control type="text" defaultValue={this.state.fieldNameUpdate} onChange={this.handleChangeFieldNameUpdate} required placeholder="Tên lĩnh vực" />
                                 </Form.Group>
                                 <Form.Group controlId="formGroupEmail-updateaccount">
-                                    <Form.Label>Mô tả ngắn</Form.Label>
+                                    <Form.Label className="required">Mô tả ngắn</Form.Label>
                                     <textarea className="form-control" rows={"5"} defaultValue={this.state.fieldDescriptionUpdate} onChange={this.handleChangeFieldDescriptionUpdate} required></textarea>
                                 </Form.Group>
                                 <Button variant="primary" type="submit">

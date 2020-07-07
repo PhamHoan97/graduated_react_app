@@ -194,7 +194,7 @@ class MoreAdminAccountModal extends Component {
                         <div className="col col-md-3">
                         <label
                             htmlFor="text-input"
-                            className=" form-control-label"
+                            className=" form-control-label required"
                         >
                             Tài khoản
                         </label>
@@ -223,7 +223,7 @@ class MoreAdminAccountModal extends Component {
                         <div className="col col-md-3">
                         <label
                             htmlFor="text-input"
-                            className=" form-control-label"
+                            className=" form-control-label required"
                         >
                             Mật khẩu
                         </label>
