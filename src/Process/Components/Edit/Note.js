@@ -296,7 +296,7 @@ class Note extends Component {
                         <div className="row">
                             <label
                                 htmlFor="note-element"
-                                className="form-control-label-note"
+                                className="form-control-label-note required"
                             >
                                 Nội dung
                             </label>

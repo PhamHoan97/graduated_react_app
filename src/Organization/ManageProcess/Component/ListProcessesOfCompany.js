@@ -292,9 +292,9 @@ class ListProcessesOfCompany extends Component {
 
     renderTableRow = (pageNumber) => {
       var processes = this.state.processes;
-      var locationStart = pageNumber * 8 - 8;
+      var locationStart = pageNumber * 6 - 6;
       return Object.values(processes).map((value, key) => {
-          if ((key >= locationStart)&&(key<= (locationStart + 7))){
+          if ((key >= locationStart)&&(key<= (locationStart + 5))){
               return (
               <React.Fragment key={key}>
                          <tr className="tr-shadow">
