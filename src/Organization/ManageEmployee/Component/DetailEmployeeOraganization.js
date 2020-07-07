@@ -483,7 +483,7 @@ class DetailEmployeeOraganization extends Component {
                           <thead>
                             <tr>
                               <th style={{ width: "5%" }}
-                                        className="cell-breakWord text-left">STT</th>
+                                        className="cell-breakWord text-left">#</th>
                               <th style={{ width: "15%" }}
                                         className="cell-breakWord text-left">Mã</th>
                               <th style={{ width: "15%" }}

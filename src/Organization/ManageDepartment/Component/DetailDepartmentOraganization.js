@@ -374,7 +374,7 @@ class DetailEmployeeOraganization extends Component {
                               >
                                 <div className="card ctm-border-radius shadow-sm  h-100">
                                   <div className="card-header">
-                                    <div className="d-inline-block text-center">
+                                    <div className="d-inline-block text-left">
                                       <h4
                                         className="card-title mb-0 mb-3"
                                         style={{
@@ -464,8 +464,8 @@ class DetailEmployeeOraganization extends Component {
                   )}
                 </div>
                 <div className="card shadow-sm ctm-border-radius  manage-department_organization">
-                  <div className="card-header text-center">
-                    <h4 className="card-title mb-0 d-inline-block text-center">
+                  <div className="card-header text-left">
+                    <h4 className="card-title mb-0 d-inline-block text-left">
                       Danh sách quy trình
                     </h4>
                   </div>
@@ -487,7 +487,7 @@ class DetailEmployeeOraganization extends Component {
                                     style={{ width: "5%" }}
                                     className="cell-breakWord text-left"
                                   >
-                                    STT
+                                    #
                                   </th>
                                   <th
                                     style={{ width: "15%" }}
@@ -530,7 +530,7 @@ class DetailEmployeeOraganization extends Component {
                                           style={{ width: "5%" }}
                                           className="cell-breakWord text-left"
                                         >
-                                          #{index + 1}
+                                          {index + 1}
                                         </td>
                                         <td
                                           style={{ width: "10%" }}

@@ -65,7 +65,9 @@ class ChartOrganization extends Component {
     });
     this.chart.on('click', function (sender, args) {
       var data = sender.get(args.node.id);
-      self.props.redirectPage(data.link);
+      if(data.tags[0] !== "Công ty"){
+        self.props.redirectPage(data.link);
+      }
     });
   }
   render() {

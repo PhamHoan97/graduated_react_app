@@ -134,7 +134,7 @@ class ModalUpdateCompany extends Component {
                 >
                     <div className="row form-group">
                     <div className="col col-md-3">
-                        <label htmlFor="text-input" className=" form-control-label">
+                        <label htmlFor="text-input" className=" form-control-label required">
                         Tên
                         </label>
                     </div>
@@ -152,7 +152,7 @@ class ModalUpdateCompany extends Component {
                     </div>
                     <div className="row form-group">
                     <div className="col col-md-3">
-                        <label htmlFor="hf-email" className=" form-control-label">
+                        <label htmlFor="hf-email" className=" form-control-label required">
                         Viết tắt
                         </label>
                     </div>
@@ -162,13 +162,14 @@ class ModalUpdateCompany extends Component {
                         name="editSigntureCompany"
                         className="form-control"
                         value={this.state.editSigntureCompany}
+                        validations={[required]}
                         onChange={(event) => this.handleChange(event)}
                         />
                     </div>
                     </div>
                     <div className="row form-group">
                     <div className="col col-md-3">
-                        <label htmlFor="hf-email" className=" form-control-label">
+                        <label htmlFor="hf-email" className=" form-control-label required">
                         Địa chỉ
                         </label>
                     </div>
@@ -177,6 +178,7 @@ class ModalUpdateCompany extends Component {
                         type="text"
                         name="editAddressCompany"
                         className="form-control"
+                        validations={[required]}
                         value={this.state.editAddressCompany}
                         onChange={(event) => this.handleChange(event)}
                         />
@@ -184,7 +186,7 @@ class ModalUpdateCompany extends Component {
                     </div>
                     <div className="row form-group">
                     <div className="col col-md-3">
-                        <label htmlFor="hf-email" className=" form-control-label">
+                        <label htmlFor="hf-email" className=" form-control-label required">
                         Lĩnh vực
                         </label>
                     </div>
@@ -193,6 +195,7 @@ class ModalUpdateCompany extends Component {
                         type="text"
                         name="editFieldCompany"
                         className="form-control"
+                        validations={[required]}
                         value={this.state.editFieldCompany}
                         onChange={(event) => this.handleChange(event)}
                         />
@@ -202,7 +205,7 @@ class ModalUpdateCompany extends Component {
                     <div className="col col-md-3">
                         <label
                         htmlFor="disabled-input"
-                        className=" form-control-label"
+                        className=" form-control-label required"
                         >
                         Liên hệ
                         </label>
@@ -212,6 +215,7 @@ class ModalUpdateCompany extends Component {
                         type="text"
                         name="editContactCompany"
                         className="form-control"
+                        validations={[required]}
                         value={this.state.editContactCompany}
                         onChange={(event) => this.handleChange(event)}
                         />

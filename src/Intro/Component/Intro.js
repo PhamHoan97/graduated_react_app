@@ -8,7 +8,7 @@ class Intro extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="intro-system">
         {/* Natigation */}
         <div className="natigation">
           <div className="container-fluid">
@@ -32,7 +32,7 @@ class Intro extends Component {
                     id="navbarTogglerDemo01"
                   >
                     <a className="navbar-brand" href="/">
-                      <img src='./intro/images/logo-system.jpg'
+                      <img src='./intro/images/logo.png'
                       alt="logo"
                       className="logo-system"
                       />
@@ -43,26 +43,26 @@ class Intro extends Component {
                           Nhân viên <span className="sr-only">(current)</span>
                         </a>
                       </li>
-                      <li className="nav-item">
+                      <li className="nav-item active">
                         <a className="nav-link" href="/">
-                          Giới thiệu
+                          Giới thiệu <span className="sr-only">(current)</span>
                         </a>
                       </li>
-                      <li className="nav-item">
+                      <li className="nav-item active">
                         <a className="nav-link" href="/">
-                          Hướng dẫn
+                          Hướng dẫn <span className="sr-only">(current)</span>
                         </a>
                       </li>
                     </ul>
                     <ul className="navbar-nav ml-auto menu-right">
-                      <li className="nav-item">
+                      <li className="nav-item active">
                         <a className="nav-link" href="/">
-                          Liên hệ
+                          Liên hệ <span className="sr-only">(current)</span>
                         </a>
                       </li>
-                      <li className="nav-item">
+                      <li className="nav-item active">
                         <a className="nav-link" href="/company/login">
-                          Công ty
+                          Công ty <span className="sr-only">(current)</span>
                         </a>
                       </li>
                       <li className="nav-item">
@@ -87,11 +87,10 @@ class Intro extends Component {
         <div className="intro">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-md-4" />
-              <div className="col-md-4 text-center">
+              <div className="col-md-1" />
+              <div className="col-md-10 text-center">
                 <div className="intro-description" >
-                  <h1>Fearless leaders know</h1>
-                  <h1> they can win</h1>
+                  <h1>Hệ thống quản lý quy trình doanh nghiệp</h1>
                   <a
                     href="/register"
                     className="btn btn-primary btn-lg active btn--get__started btn-intro"
@@ -102,7 +101,7 @@ class Intro extends Component {
                   </a>
                 </div>
               </div>
-              <div className="col-md-4" />
+              <div className="col-md-1" />
             </div>
           </div>
         </div>
@@ -114,10 +113,9 @@ class Intro extends Component {
               <div className="row">
                 <div className="col-md-1"></div>
                 <div className="col-md-10">
-                  <h1 className="display-5">See the big picture at a glance</h1>
-                  <p className="lead">
-                    Gain key insights across multiple boards from your projects,
-                    teams, and processes.
+                  <h1 className="display-5">Quy trình doanh nghiệp</h1>
+                  <p className="lead mt-2">
+                  Một chuỗi các bước được liên kết với nhau được chỉ định cho mọi bên liên quan cho một công việc cụ thể để cung cấp sản phẩm hoặc dịch vụ cho khách hàng.
                   </p>
                 </div>
                 <div className="col-md-1"></div>
@@ -132,90 +130,78 @@ class Intro extends Component {
             <div className="row">
               <div className="col-md-5 text-center feature--description">
                 <div className="feature--description__content">
-                  <h2>Đưa ra quyết định với sự tự tin</h2>
+                  <h1 className="mb-5">Quy trình mẫu</h1>
                   <div>
-                    Hành động trên dữ liệu thời gian thực, không phỏng đoán. Chúng tôi cung cấp cho bạn một
-                    Tổng quan cấp cao về nơi mọi thứ đứng trong nháy mắt để bạn
-                    biết nhóm của bạn đang đi đúng hướng.
+                  Tiêu chuẩn Ký hiệu và mô hình hóa quy trình nghiệp vụ (Business Process Model and Notation - BPMN) với mục đích chính là làm cầu nối khoảng cách về thông tin giữa các bên liên quan thường xuyên xảy ra trong việc thiết kế và triển khai quy trình nghiệp vụ, đã và đang được sử dụng rộng rãi để mô hình hóa quy trình nghiệp vụ trong nhiều tổ chức. BPMN hỗ trợ cho cả người dùng kỹ thuật và người dùng nghiệp vụ trong việc quản lý các quy trình nghiệp vụ bằng cách đưa ra một tập các ký hiệu chung, có tính trực quan và dễ hiểu cho người dùng nghiệp vụ.
                   </div>
-                  {/* <h2>Make decisions with confidence</h2>
-                  <div>
-                    Act on real-time data, not guesses. monday.com gives you a
-                    high-level overview of where things stand at glance so you
-                    know your team is moving in the right direction.
-                  </div> */}
                 </div>
               </div>
               <div className="col-md-7">
-                <img src="./intro/images/auto--form.png" alt="feature1" />
+                <img src="./intro/images/process-company.png" alt="feature1" />
               </div>
             </div>
             <br />
             <br />
             <div className="row">
+              <div className="col-md-7">
+                <img src="./intro/images/organization-company.jpg" alt="feature2" />
+              </div>
               <div className="col-md-5 text-center feature--description">
                 <div className="feature--description__content">
-                  <h2>Làm thế nào để đưa ra quyết định kinh doanh</h2>
+                  <h1 className="mb-5">Cơ cấu tổ chức</h1>
                   <div>
-                  Quy trình là khuôn khổ để cho các công việc được diễn ra đúng phép tắc trong hoạt động của doanh nghiệp, tổ chức. Phương pháp quản lý theo quy trình là phương pháp quản lý mà ở đó doanh nghiệp đưa ra các quy tắc, các công việc mẫu và đưa ra thứ tự thực hiện chuẩn để thực hiện công việc.  
-                  Quy trình quản lý giúp:
-                  Thống nhất cách thức và thứ tự làm việc của doanh nghiệp và
-                  các công việc được diễn ra nhịp nhàng, tránh gián đoạn.
+                  Tổng hợp các bộ phận khác nhau có mối liên hệ và quan hệ phụ thuộc lẫn nhau được chuyên môn hoá và có những trách nhiệm, quyền hạn nhất định được bố trí theo những cấp, những khâu khác nhau nhằm bảo đảm thực hiện các chức năng quản trị và phục vụ mục đích chung đã xác định của doanh nghiệp
                   </div>
-                  {/* <h2>How to Make Business Decisions with Purpose</h2>
-                  <div>
-                  You’ve heard the old saying: “If it ain’t broke, don’t fix it.” 
-                  But with process management, you may want to throw that saying out the window. 
-                  In business, things don’t have to be broken in order to benefit from regular 
-                  and even constant improvement. In fact, constant improvement is often the best 
-                  way for businesses to grow and streamline operations.
-                  By implementing process management, businesses are persistently evaluating and 
-                  re-evaluating the status quo, leading to short- and long-term process improvement. 
-                  So what is process management, and how can you use it to improve processes now and 
-                  in the future?
-                  </div> */}
                 </div>
-              </div>
-              <div className="col-md-7">
-                <img src="./intro/images/process-feature.png" alt="feature2" />
               </div>
             </div>
           </div>
         </div>
         {/* End Feature*/}
+         {/* Banner */}
+         <div className="banner">
+          <div className="jumbotron jumbotron-fluid">
+            <div className="container">
+              <div className="row">
+                <div className="col-md-1"></div>
+                <div className="col-md-10">
+                  <h1 className="display-5">Chức năng chính</h1>
+                  <p className="lead mt-2">
+                  Hệ thống xây dựng đầy đủ các chức năng cho phép doanh nghiệp quản lý toàn bộ quy trình tại các cấp của cơ cấu tổ chức
+                  </p>
+                </div>
+                <div className="col-md-1"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* End banner */}
         {/* Blocks*/}
         <div className="blocks mt-4">
           <div className="container-fluid">
-            <div className="row mb-5">
-              <div className="col-md-4" />
-              <div className="col-md-5">
-                <h1>Cách thức xây dựng hữu ích </h1>
-              </div>
-              <div className="col-md-3" />
-            </div>
             <div className="row">
               <div className="col-md-3 text-center">
                 <div className="block--icon">
-                  <img src="./intro/images/dashboard.png" alt="" />
-                  <h3>Giao diện công ty</h3>
+                  <img src="./intro/images/process.png" alt="" />
+                  <h3  className="mt-3">Quản lý quy trình</h3>
                 </div>
               </div>
               <div className="col-md-3 text-center">
                 <div className="block--icon">
-                  <img src="./intro/images/forms.png" alt="" />
-                  <h3>Mẫu có sẵn</h3>
+                  <img src="./intro/images/manage-org.png" alt="" />
+                  <h3  className="mt-3">Quản lý cơ cấu tổ chức</h3>
                 </div>
               </div>
               <div className="col-md-3 text-center">
                 <div className="block--icon">
-                  <img src="./intro/images/workflow.png" alt="" />
-                  <h3>Quy trình</h3>
+                  <img src="./intro/images/files.png" alt="" />
+                  <h3 className="mt-3">Quản lý tài liệu quy trình</h3>
                 </div>
               </div>
               <div className="col-md-3 text-center">
                 <div className="block--icon">
-                  <img src="./intro/images/filesharing.png" alt="" />
-                  <h3>File mẫu</h3>
+                  <img src="./intro/images/notification.png" alt="" />
+                  <h3  className="mt-3">Quản lý thông báo</h3>
                 </div>
               </div>
             </div>
@@ -232,7 +218,7 @@ class Intro extends Component {
               <div className="col-md-4 mx-auto">
                 {/* Links */}
                 <div className="mb-5 mt-5">
-                  <img src='./intro/images/logo-system.jpg'
+                  <img src='./intro/images/logo.png'
                   alt="logo"
                   className="logo-system"/>
                 </div>
@@ -243,44 +229,11 @@ class Intro extends Component {
                 </div>
                 {/* Copyright */}
                 <br />
-                {/* <div className="icon--soict">
-                  <div className="container-fluid">
-                    <div className="row">
-                      <div className="col-md-3">
-                         <i className="fab fa-facebook-f fa-2x"></i>
-                      </div>
-                      <div className="col-md-3">
-                        <i className="fab fa-twitter fa-2x"></i>
-                      </div>
-                      <div className="co-md-3">
-                        <i className="fas fa-comments fa-2x"></i>
-                      </div>
-                      <div className="col-md-3">
-                        <i className="fab fa-youtube fa-2x"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div> */}
               </div>
               {/* Grid column */}
               <hr className="clearfix w-100 d-md-none" />
               {/* Grid column */}
               <div className="col-md-4 mt-4">
-                {/* Links */}
-                {/* <h5 className="font-weight-bold text-uppercase mt-3 mb-4">
-                  HH2 Company
-                </h5>
-                <ul className="list-unstyled">
-                  <li>
-                    <a href="#!">Giới thiệu</a>
-                  </li>
-                  <li>
-                    <a href="#!">Đối tác</a>
-                  </li>
-                  <li>
-                    <a href="#!">Liên hệ</a>
-                  </li>
-                </ul> */}
               </div>
               {/* Grid column */}
               <hr className="clearfix w-100 d-md-none" />
@@ -292,7 +245,7 @@ class Intro extends Component {
                 </h5>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="#!">Số 1, Đại Cồ Việt Giải Phóng </a>
+                    <a href="#!">Số 1, Đại Cồ Việt Giải Phóng Hà Nội </a>
                   </li>
                   {/* <li>
                     <a href="#!">2020</a>

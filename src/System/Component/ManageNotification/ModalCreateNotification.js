@@ -17,6 +17,7 @@ class ModalCreateNotification extends Component {
             isDisplayAlert: false,
             errorDescription: {},
             errorName: {},
+            errorForm: {},
             listForm: [],
             newNameNotification: "",
             newDescriptionNotification: "",
@@ -36,6 +37,7 @@ class ModalCreateNotification extends Component {
         this.setState({
             errorDescription: {},
             errorName: {},
+            errorForm: {},
         })
     }
     componentWillUnmount() {
@@ -78,6 +80,7 @@ class ModalCreateNotification extends Component {
         this.setState({
             errorName: {},
             errorDescription: {},
+            errorForm: {},
         });
         if (isEmpty(this.state.newNameNotification)) {
             var errorName = {
@@ -95,9 +98,18 @@ class ModalCreateNotification extends Component {
                 errorDescription: errorDescription,
             });
         }
+        if (this.state.newFormNotification === 0) {
+            var errorForm = {
+                selectedForm: "Form đánh giá không được trống.",
+            };
+            this.setState({
+                errorForm: errorForm,
+            });
+        }
         if(
             !isEmpty(this.state.newDescriptionNotification)
             &&!isEmpty(this.state.newNameNotification)
+            &&(this.state.newFormNotification !==0)
         ){
             var self =  this;
             var token = localStorage.getItem('token');
@@ -160,6 +172,7 @@ class ModalCreateNotification extends Component {
     render() {
         const {errorName} = this.state;
         const {errorDescription} = this.state;
+        const {errorForm} = this.state;
         return (
         <Modal
             size="lg"
@@ -180,7 +193,7 @@ class ModalCreateNotification extends Component {
                 }}
             >
                 <div className="form-group">
-                <label htmlFor="name">Tên</label>
+                <label htmlFor="name" className="required">Tên</label>
                 <Input
                     type="text"
                     className="form-control"
@@ -195,7 +208,7 @@ class ModalCreateNotification extends Component {
                 )}
                 </div>
                 <div className="form-group">
-                    <label htmlFor="name">Miêu tả</label>
+                    <label htmlFor="name" className="required">Mô tả</label>
                     <textarea
                         className="form-control"
                         name="newDescriptionNotification"
@@ -211,7 +224,7 @@ class ModalCreateNotification extends Component {
                     )}
                 </div>
                 <div className="form-group mb-3">
-                    <label htmlFor="exampleFormControlSelect1">Form</label>
+                    <label htmlFor="exampleFormControlSelect1" className="required">Form</label>
                     <br></br>
                     <select
                         className="form-control"
@@ -228,6 +241,9 @@ class ModalCreateNotification extends Component {
                             })
                         }
                     </select>
+                    <div className="validation" style={{ display: "block",color: "red"}}>
+                    {errorForm.selectedForm}
+                    </div>
                 </div>
                 <div className="form-group mb-3">
                     <label htmlFor="exampleFormControlSelect1">File</label>

@@ -134,7 +134,7 @@ export default class CreateTemplateForm extends Component {
   getDataForm = () => {
     if (isEmpty(this.state.newNameTemplate)) {
       var errorName = {
-          selectedName: "Select name is required.",
+          selectedName: "Tên là bắt buộc.",
       };
       this.setState({
           errorName: errorName,
@@ -146,7 +146,7 @@ export default class CreateTemplateForm extends Component {
     }
     if(parseInt(this.state.newTypeTemplate) === 0){
         var errorType = {
-            selectedType: "Thể loại không được trống.",
+            selectedType: "Thể loại là bắt buộc",
         };
         this.setState({
             errorType: errorType,
@@ -287,7 +287,7 @@ export default class CreateTemplateForm extends Component {
                     </div>
                     <div className="template pt-5">
                       <div className="label">
-                        <label>Templates</label>
+                        {/* <label>Mẫu câu hỏi</label> */}
                         <select
                           className="form-control mb-5"
                           name="idChooseType"
@@ -335,7 +335,7 @@ export default class CreateTemplateForm extends Component {
                     {this.state.isDisplayNewForm === true ? (
                       <div className="create-template">
                         <div className="form-group">
-                          <label htmlFor="name">Tên</label>
+                          <label htmlFor="name" className="required">Tên</label>
                           <input
                               value = {this.state.newNameTemplate}
                               type="text"
@@ -350,7 +350,7 @@ export default class CreateTemplateForm extends Component {
                           )}
                           </div>
                         <div className="form-group mb-3">
-                          <label htmlFor="exampleFormControlSelect1">Thể loại</label>
+                          <label htmlFor="exampleFormControlSelect1" className="required">Thể loại</label>
                           <br></br>
                           <select
                               className="form-control"
@@ -374,6 +374,7 @@ export default class CreateTemplateForm extends Component {
                           )}
                         </div>
                         <div className="form-group">
+                          <label htmlFor="exampleFormControlSelect1" className="required">Nội dung</label>
                           <div id="builder"></div>
                           <div id="errorNoComponent" style={{ color: 'red',display:'none'}}>
                             Thêm component là bắt buộc

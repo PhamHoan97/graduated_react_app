@@ -196,7 +196,7 @@ class ModalCreateEmployee extends Component {
           <>
             <form>
               <div className="form-group">
-                <label htmlFor="name">Tên nhân viên</label>
+                <label htmlFor="name" className="required">Tên nhân viên</label>
                 <input
                   type="text"
                   className="form-control"
@@ -214,7 +214,7 @@ class ModalCreateEmployee extends Component {
                 )}
               </div>
               <div className="form-group">
-                <label htmlFor="name">Email</label>
+                <label htmlFor="name" className="required">Email</label>
                 <input
                   type="email"
                   className="form-control"
@@ -232,7 +232,7 @@ class ModalCreateEmployee extends Component {
                 )}
               </div>
               <div className="form-group">
-                <label htmlFor="field">Số điện thoại</label>
+                <label htmlFor="field" className="required">Số điện thoại</label>
                 <input
                   type="number"
                   className="form-control"
@@ -272,7 +272,7 @@ class ModalCreateEmployee extends Component {
                 </div>
               </div>
               <div className="form-group mb-3">
-                <label htmlFor="exampleFormControlSelect1">Phòng ban</label>
+                <label htmlFor="exampleFormControlSelect1" className="required">Phòng ban</label>
                 <br></br>
                 <select
                   className="form-control"
@@ -301,7 +301,7 @@ class ModalCreateEmployee extends Component {
                 )}
               </div>
               <div className="form-group mb-3">
-                <label htmlFor="exampleFormControlSelect1">Vai trò</label>
+                <label htmlFor="exampleFormControlSelect1" className="required">Chức vụ</label>
                 <br></br>
                 <select
                   className="form-control"
@@ -309,7 +309,7 @@ class ModalCreateEmployee extends Component {
                   value={this.state.newRoleEmployee}
                   onChange={this.handleChange}
                 >
-                  <option value={0}>Chọn vai trò</option>
+                  <option value={0}>Chọn chức vụ</option>
                   {Object.values(this.state.listRoleDepartment).map(
                     (role, key) => {
                       return (

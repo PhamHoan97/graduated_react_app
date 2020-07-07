@@ -131,7 +131,7 @@ class CompanyLogin extends Component {
                   <div className="login-content">
                     <div className="login-logo">
                       <a href="/">
-                        <img src="../intro/images/logo-system.jpg"
+                        <img src="../intro/images/logo.png"
                         style={{ width:"150px",height:"50px"}}
                         alt="Cool Admin" />
                       </a>

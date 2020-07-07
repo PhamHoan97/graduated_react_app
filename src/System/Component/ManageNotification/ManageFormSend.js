@@ -122,11 +122,12 @@ class ManageFormSend extends Component {
                       <table className="table custom-table table-hover table-notification_organization">
                               <thead className="thead-dark">
                                 <tr>
+                                  <th style={{ width: "5%" }} className="text-left">#</th>
                                   <th style={{ width: "15%" }} className="text-left">Tên</th>
                                   <th style={{ width: "30%" }} className="text-left">Miêu tả</th>
-                                  <th style={{ width: "15%" }} className="text-left">Template</th>
+                                  <th style={{ width: "15%" }} className="text-left">Mẫu câu hỏi</th>
                                   <th style={{ width: "15%" }} className="text-left">Ngày tạo</th>
-                                  <th style={{ width: "25%" }} className="text-left">Hành động</th>
+                                  <th style={{ width: "20%" }} className="text-left"></th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -135,6 +136,12 @@ class ManageFormSend extends Component {
                                     (form, key) => {
                                       return (
                                         <tr key={key}>
+                                          <td
+                                            style={{ width: "5%" }}
+                                            className="cell-breakWord text-left"
+                                          >
+                                            {key+1}{" "}
+                                          </td>
                                           <td
                                             style={{ width: "15%" }}
                                             className="cell-breakWord text-left"
@@ -159,7 +166,7 @@ class ManageFormSend extends Component {
                                           >
                                             {form.date}
                                           </td>
-                                          <td style={{ width: "25%" }} className="text-left">
+                                          <td style={{ width: "20%" }} className="text-left">
                                             <div className="table-action">
                                               <a
                                                 href="##"

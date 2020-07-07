@@ -84,7 +84,7 @@ class ModalCreateEmployeeRole extends Component {
           <>
             <form>
               <div className="form-group">
-                <label htmlFor="name">Tên nhân viên</label>
+                <label htmlFor="name" className="required">Tên nhân viên</label>
                 <input
                   type="text"
                   className="form-control"
@@ -102,7 +102,7 @@ class ModalCreateEmployeeRole extends Component {
                 )}
               </div>
               <div className="form-group">
-                <label htmlFor="name">Email</label>
+                <label htmlFor="name" className="required">Email</label>
                 <input
                   type="email"
                   className="form-control"
@@ -120,7 +120,7 @@ class ModalCreateEmployeeRole extends Component {
                 )}
               </div>
               <div className="form-group">
-                <label htmlFor="field">Số điện thoại</label>
+                <label htmlFor="field" className="required">Số điện thoại</label>
                 <input
                   type="number"
                   className="form-control"
@@ -138,7 +138,7 @@ class ModalCreateEmployeeRole extends Component {
                 )}
               </div>
               <div className="form-group">
-                <label htmlFor="field">Giới tính</label>
+                <label htmlFor="field" className="required">Giới tính</label>
                 <div className="form-check">
                 <input
                     type="radio"

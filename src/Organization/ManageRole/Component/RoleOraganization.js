@@ -351,6 +351,7 @@ class RoleOraganization extends Component {
                               <table className="table custom-table table-hover table-hover table-role_organization">
                                 <thead>
                                   <tr>
+                                    <th style={{ width: "5%" }} className="text-left">#</th>
                                     <th style={{ width: "20%" }} className="cell-breakWord text-left">Tên</th>
                                     <th
                                       style={{ width: "25%" }}
@@ -358,7 +359,7 @@ class RoleOraganization extends Component {
                                     >
                                       Miêu tả
                                     </th>
-                                    <th style={{ width: "35%" }} className="text-left">Phòng ban</th>
+                                    <th style={{ width: "30%" }} className="text-left">Phòng ban</th>
                                     {/* <th style={{ width: "15%" }}>
                                       Quyền tạo quy trình
                                     </th> */}
@@ -376,6 +377,9 @@ class RoleOraganization extends Component {
                                       (role, index) => {
                                         return (
                                           <tr key={index}>
+                                            <td style={{ width: "5%" }} className="cell-breakWord">
+                                              <h2>{index+1}</h2>
+                                            </td>
                                             <td style={{ width: "20%" }} className="cell-breakWord">
                                               <h2>{role.name}</h2>
                                             </td>
@@ -385,7 +389,7 @@ class RoleOraganization extends Component {
                                             >
                                               {role.description}
                                             </td>
-                                            <td style={{ width: "35%" }}>
+                                            <td style={{ width: "30%" }}>
                                               <NavLink
                                                   to={"/company/organization/department/"+
                                                   role.department_id}

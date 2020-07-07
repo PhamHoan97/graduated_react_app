@@ -318,7 +318,7 @@ class CompanyOrganization extends Component {
                 <div className="row">
                   <div className="col-md-12 d-flex">
                     <div className="card ctm-border-radius shadow-sm flex-fill ">
-                      <div className="card-header">
+                      <div className="card-header text-left">
                         <h4 className="card-title mb-0">
                           Quy trình chung của công ty
                         </h4>
@@ -341,7 +341,7 @@ class CompanyOrganization extends Component {
                                         style={{ width: "5%" }}
                                         className="cell-breakWord text-left"
                                       >
-                                        STT
+                                        #
                                       </th>
                                       <th
                                         style={{ width: "15%" }}
@@ -379,7 +379,7 @@ class CompanyOrganization extends Component {
                                               style={{ width: "5%" }}
                                               className="cell-breakWord text-left"
                                             >
-                                              #{index + 1}
+                                              {index + 1}
                                             </td>
                                             <td
                                               style={{ width: "10%" }}
@@ -497,7 +497,7 @@ class CompanyOrganization extends Component {
                 <div className="row">
                   <div className="col-md-12 d-flex">
                     <div className="card ctm-border-radius shadow-sm flex-fill ">
-                      <div className="card-header">
+                      <div className="card-header text-left">
                         <h4 className="card-title mb-0">
                           Hình vẽ cơ cấu tổ chức
                         </h4>

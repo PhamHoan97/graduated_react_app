@@ -262,7 +262,7 @@ class ModalCreateForm extends Component {
                 }}
             >
                 <div className="form-group">
-                <label htmlFor="name">Tên</label>
+                <label htmlFor="name" className="required">Tên</label>
                 <Input
                     type="text"
                     className="form-control"
@@ -277,7 +277,7 @@ class ModalCreateForm extends Component {
                 )}
                 </div>
                 <div className="form-group">
-                    <label htmlFor="name">Miêu tả</label>
+                    <label htmlFor="name" className="required">Miêu tả</label>
                     <textarea
                         className="form-control"
                         name="newDescriptionForm"
@@ -293,7 +293,7 @@ class ModalCreateForm extends Component {
                     )}
                 </div>
                 <div className="form-group mb-3">
-                    <label htmlFor="exampleFormControlSelect1">Thể loại</label>
+                    <label htmlFor="exampleFormControlSelect1" className="required">Thể loại</label>
                     <br></br>
                     <select
                         className="form-control"
@@ -301,7 +301,7 @@ class ModalCreateForm extends Component {
                         value = {this.state.newTypeForm}
                         onChange={this.handleChange}
                     >
-                        <option value={0}>Chọn type</option>
+                        <option value={0}>Chọn thể loại</option>
                         {
                             Object.values(this.state.listType).map((type, key) => {
                                 return (
@@ -317,7 +317,7 @@ class ModalCreateForm extends Component {
                     )}
                 </div>
                 <div className="form-group mb-3">
-                    <label htmlFor="exampleFormControlSelect1">Template</label>
+                    <label htmlFor="exampleFormControlSelect1" className="required">Mẫu</label>
                     <br></br>
                     <select
                         className="form-control"
@@ -325,7 +325,7 @@ class ModalCreateForm extends Component {
                         onChange={this.handleChange}
                         value = {this.state.newTemplateForm}
                     >
-                        <option value={0}>Chọn template</option>
+                        <option value={0}>Chọn mẫu câu hỏi</option>
                         {
                             Object.values(this.state.listTemplate).map((template, key) => {
                                 return (

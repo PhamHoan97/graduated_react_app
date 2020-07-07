@@ -111,7 +111,7 @@ class ModalCreateRole extends Component {
           <>
             <form>
               <div className="form-group">
-                <label htmlFor="name">Tên</label>
+                <label htmlFor="name" className="required">Tên</label>
                 <input
                   type="text"
                   className="form-control"
@@ -129,7 +129,7 @@ class ModalCreateRole extends Component {
                 )}
               </div>
               <div className="form-group">
-                <label htmlFor="description">Miêu tả</label>
+                <label htmlFor="description" className="required">Miêu tả</label>
                 <textarea
                   className="form-control"
                   name="newDescriptionRole"
@@ -148,7 +148,7 @@ class ModalCreateRole extends Component {
                 )}
               </div>
               <div className="form-group mb-3">
-                <label htmlFor="exampleFormControlSelect1">Phòng ban</label>
+                <label htmlFor="exampleFormControlSelect1" className="required">Phòng ban</label>
                 <br></br>
                 <select
                   className="form-control"
