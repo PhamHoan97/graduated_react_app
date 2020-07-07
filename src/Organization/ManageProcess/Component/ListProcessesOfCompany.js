@@ -292,9 +292,9 @@ class ListProcessesOfCompany extends Component {
 
     renderTableRow = (pageNumber) => {
       var processes = this.state.processes;
-      var locationStart = pageNumber * 8 - 8;
+      var locationStart = pageNumber * 6 - 6;
       return Object.values(processes).map((value, key) => {
-          if ((key >= locationStart)&&(key<= (locationStart + 7))){
+          if ((key >= locationStart)&&(key<= (locationStart + 5))){
               return (
               <React.Fragment key={key}>
                          <tr className="tr-shadow">
@@ -430,7 +430,7 @@ class ListProcessesOfCompany extends Component {
                          <LinkPage linkPage=" Quản lí quy trình"/>
                       </div>
                       <div className="row manage-process--company_organization">
-                        <div className="col-md-12 d-flex">
+                        <div className="col-md-12 d-flex text-left">
                           <div className="card ctm-border-radius shadow-sm flex-fill ">
                             <div className="card-header">
                               <h4 className="card-title mb-0">Quản lí quy trình</h4>

@@ -399,7 +399,7 @@ class ProcessTemplate extends Component {
                 <div className="section__content section__content--p30">
                   <div className="container-fluid">
                     <div className="row">
-                      <div className="col-md-12">
+                      <div className="col-md-12 text-left">
                         <h3 className="title-field">Danh sách các lĩnh vực </h3>
                         </div>
                     </div>

@@ -306,7 +306,7 @@ class DashboardCompany extends Component {
                    <LinkPage linkPage=""/>
                 </div>
                 <div className="row">
-                  <div className="col-md-12 d-flex">
+                  <div className="col-md-12 d-flex text-left">
                     <div className="card ctm-border-radius shadow-sm flex-fill manage-template_system-company">
                       <div className="card-header">
                         <h4 className="card-title mb-0">Quy trình mẫu</h4>

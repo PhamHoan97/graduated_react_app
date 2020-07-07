@@ -343,7 +343,7 @@ class ManageCompany extends Component {
                     <div className="section__content section__content--p30">
                         <div className="container-fluid">
                         <div className="row">
-                            <div className="col-md-12">
+                            <div className="col-md-12 text-left">
                             <h3 className="title-5 m-b-35 manage__company--notification">
                                 Thống kê
                             </h3>
@@ -380,7 +380,7 @@ class ManageCompany extends Component {
                         </div>
                         {/* MANAGER Company*/}
                         <div className="row">
-                            <div className="col-md-12">
+                            <div className="col-md-12 text-left">
                             <h3 className="title-5 m-b-35 manage__company--notification">
                                 Quản lý công ty
                             </h3>

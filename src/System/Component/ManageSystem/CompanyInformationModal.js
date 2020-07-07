@@ -80,7 +80,7 @@ class CompanyInformationModal extends Component {
                             className="form-horizontal"
                         >
                         <div className="row form-group">
-                            <div className="col col-md-3">
+                            <div className="col col-md-3 text-left">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
@@ -95,7 +95,7 @@ class CompanyInformationModal extends Component {
                             </div>
                         </div>
                         <div className="row form-group">
-                            <div className="col col-md-3">
+                            <div className="col col-md-3 text-left">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
@@ -110,7 +110,7 @@ class CompanyInformationModal extends Component {
                             </div>
                         </div>
                         <div className="row form-group">
-                            <div className="col col-md-3">
+                            <div className="col col-md-3 text-left">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
@@ -125,7 +125,7 @@ class CompanyInformationModal extends Component {
                             </div>
                         </div>
                         <div className="row form-group">
-                            <div className="col col-md-3">
+                            <div className="col col-md-3 text-left">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
@@ -140,7 +140,7 @@ class CompanyInformationModal extends Component {
                             </div>
                         </div>
                         <div className="row form-group">
-                            <div className="col col-md-3">
+                            <div className="col col-md-3 text-left">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
@@ -155,7 +155,7 @@ class CompanyInformationModal extends Component {
                             </div>
                         </div>
                         <div className="row form-group">
-                            <div className="col col-md-3">
+                            <div className="col col-md-3 text-left">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
@@ -171,7 +171,7 @@ class CompanyInformationModal extends Component {
                         </div>
     
                         <div className="row form-group">
-                            <div className="col col-md-3">
+                            <div className="col col-md-3 text-left">
                             <label
                                 htmlFor="text-input"
                                 className=" form-control-label"
@@ -185,30 +185,6 @@ class CompanyInformationModal extends Component {
                                 </small>
                             </div>
                         </div>
-                        {/* <div className="row form-group">
-                            <div className="col col-md-3">
-                            <label
-                                htmlFor="text-input"
-                                className=" form-control-label"
-                            >
-                                Approved By 
-                            </label>
-                            </div>
-                            <div className="col-12 col-md-6">
-                                <p>Trần Viết Huy</p>
-                                <small className="form-text text-muted">
-                                </small>
-                            </div>
-                        </div> */}
-                        {/* <div className="row form-group">
-                            <div className="col col-md-3">
-    
-                            </div>
-                            <div className="col-12 col-md-9">
-                                <button type="button" style={{float: 'left',}} className="btn btn-success">Generate Account</button>
-                                <button type="button" style={{float: 'left', marginLeft: '10px'}} className="btn btn-primary">Send</button>
-                            </div>
-                        </div> */}
                         </form>
                     </div>
                     </div>

@@ -287,7 +287,7 @@ class TemplateOfField extends Component {
                 <div className="section__content section__content--p30">
                   <div className="container-fluid">
                     <div className="row">
-                      <div className="col-md-12">
+                      <div className="col-md-12 text-left">
                             <h3 className="title-field">Quy trình mẫu của lĩnh vực <span className="text-danger">{this.state.field.name}</span></h3>
                         </div>
                     </div>

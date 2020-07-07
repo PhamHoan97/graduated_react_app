@@ -55,7 +55,7 @@ class EmailInformationModal extends Component {
                     className="form-horizontal"
                     >
                     <div className="row form-group">
-                        <div className="col col-md-3">
+                        <div className="col col-md-3 text-left">
                         <label
                             htmlFor="text-input"
                             className=" form-control-label"
@@ -70,7 +70,7 @@ class EmailInformationModal extends Component {
                         </div>
                     </div>
                     <div className="row form-group">
-                        <div className="col col-md-3">
+                        <div className="col col-md-3 text-left">
                         <label
                             htmlFor="text-input"
                             className=" form-control-label"
@@ -85,7 +85,7 @@ class EmailInformationModal extends Component {
                         </div>
                     </div>
                     <div className="row form-group">
-                        <div className="col col-md-3">
+                        <div className="col col-md-3 text-left">
                         <label
                             htmlFor="text-input"
                             className=" form-control-label"
@@ -100,7 +100,7 @@ class EmailInformationModal extends Component {
                         </div>
                     </div>
                     <div className="row form-group">
-                        <div className="col col-md-3">
+                        <div className="col col-md-3 text-left">
                         <label
                             htmlFor="text-input"
                             className=" form-control-label"
@@ -115,7 +115,7 @@ class EmailInformationModal extends Component {
                         </div>
                     </div>
                     <div className="row form-group">
-                        <div className="col col-md-3">
+                        <div className="col col-md-3 text-left">
                         <label
                             htmlFor="text-input"
                             className=" form-control-label"
@@ -130,7 +130,7 @@ class EmailInformationModal extends Component {
                         </div>
                     </div>
                     <div className="row form-group">
-                        <div className="col col-md-3">
+                        <div className="col col-md-3 text-left">
                         <label
                             htmlFor="text-input"
                             className=" form-control-label"
@@ -146,7 +146,7 @@ class EmailInformationModal extends Component {
                     </div>
 
                     <div className="row form-group">
-                        <div className="col col-md-3">
+                        <div className="col col-md-3 text-left">
                         <label
                             htmlFor="text-input"
                             className=" form-control-label"

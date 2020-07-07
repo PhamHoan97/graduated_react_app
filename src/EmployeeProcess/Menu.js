@@ -372,19 +372,19 @@ class Menu extends Component {
                 </div>
                 <Form onSubmit={(e) => this.handleSubmitForm(e)}>
                     <Form.Group controlId="formGroupPassword1">
-                        <Form.Label>Mật khẩu hiện tại</Form.Label>
+                        <Form.Label className="required">Mật khẩu hiện tại</Form.Label>
                         <Form.Control type="password" onChange={this.handleChangePassword} required placeholder="Mật khẩu hiện tại" />
                     </Form.Group>
                     <Form.Group controlId="formGroupEmail-updateaccount">
-                        <Form.Label>Tài khoản mới</Form.Label>
+                        <Form.Label className="required">Tài khoản mới</Form.Label>
                         <Form.Control type="text" onChange={this.handleChangeUsername} required placeholder="Tài khoản mới" defaultValue={this.state.username}/>
                     </Form.Group>
                     <Form.Group controlId="formGroupPassword2">
-                        <Form.Label>Mật khẩu mới</Form.Label>
+                        <Form.Label className="required">Mật khẩu mới</Form.Label>
                         <Form.Control type="password" onChange={this.handleChangeNewPassword} required placeholder="Mật khẩu mới" />
                     </Form.Group>
                     <Form.Group controlId="formGroupPassword3">
-                        <Form.Label>Nhập lại mật khẩu</Form.Label>
+                        <Form.Label className="required">Nhập lại mật khẩu</Form.Label>
                         <Form.Control type="password"  onChange={this.handleChangeConfirmPassword} required placeholder="Nhập lại" />
                     </Form.Group>
                     <Button variant="primary" type="submit" onClick={(e) => this.handleValidateForm(e)}>

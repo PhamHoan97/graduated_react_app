@@ -161,11 +161,11 @@ class EditTemplates extends Component {
                     <ModalBody>
                         <Form onSubmit={(e) => this.handleSubmitForm(e)}>
                             <Form.Group>
-                                <Form.Label>Tên biểu mẫu</Form.Label>
+                                <Form.Label className="required">Tên biểu mẫu</Form.Label>
                                 <Form.Control type="text" id="template-name" onChange={this.handleChangeName} required placeholder="Tên biểu mẫu" />
                             </Form.Group>
                             <Form.Group controlId="formGroupEmail-updateaccount">
-                                <Form.Label>Upload</Form.Label>
+                                <Form.Label className="required">Upload</Form.Label>
                                 <Form.File.Input id="file-input-update-template" required onChange={this.handleChangeFile} name="file-input-update-template"/>
                             </Form.Group>
                             <Button variant="primary" type="submit">
