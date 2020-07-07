@@ -287,7 +287,7 @@ export default class CreateTemplateForm extends Component {
                     </div>
                     <div className="template pt-5">
                       <div className="label">
-                        <label>Templates</label>
+                        {/* <label>Mẫu câu hỏi</label> */}
                         <select
                           className="form-control mb-5"
                           name="idChooseType"

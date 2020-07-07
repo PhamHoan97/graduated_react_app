@@ -7,6 +7,9 @@ html,body{
     width: 100%;
     height: 100%;
 }
+.intro-system{
+    font-family: initial !important;
+}
 .collapse ul li{
     padding-right: 20px;
 }
@@ -21,18 +24,19 @@ html,body{
 }
 .btn--get__started{
     color: white !important;
-    font-size: 16px;
+    font-size: 21px;
     border-radius: 30px;
+    font-family: 'Noto Sans JP', sans-serif;
 }
 .intro{
     width: 100%;
-    height: 100%;
+    height: 700px;
     background-image: url('../Image/Intro.png');
     background-repeat: no-repeat;
     background-size: cover;
 }
 .intro-description{
-    margin-top: 50%;
+    margin-top: 33%;
     line-height: 50px;
 }
 .intro-description h1{
@@ -45,17 +49,21 @@ html,body{
     padding: 15px 15px;
     font-size: 21px;
     font-weight: 700;
+    font-family: 'Noto Sans JP', sans-serif;
 }
 .banner{
-    margin: 90px 0 90px 0;
+    margin: 40px 0 90px 0;
 }
 .feature{
+    background-color: white;
     width: 100%;
+    font-family: initial !important;
     /* height: 100%; */
 }
 
 .feature img{
     width: 100%;
+    height: 600px;
 }
 .feature--description{
     position: relative;
@@ -65,6 +73,9 @@ html,body{
     z-index: 1;
     top: 20%;
     text-align: left;
+}
+.feature--description__content div{
+   font-size: 20px;
 }
 .page-footer{
     background-color: #f3f3f3 !important;
@@ -79,5 +90,23 @@ html,body{
 .logo-system{
     width: 160px;
     height: 50px;
+}
+.natigation .nav-link{
+    font-size: 20px;
+    font-family: 'Noto Sans JP', sans-serif !important;
+}
+
+.banner .display-5{
+    font-size: 45px;
+    font-weight: 700 !important;
+    margin-bottom: 5px !important;
+}
+.banner .lead{
+    font-family: initial !important;
+    font-size: 25px;
+}
+.block--icon img{
+    width: 100px;
+    height: 100px;
 }
 
