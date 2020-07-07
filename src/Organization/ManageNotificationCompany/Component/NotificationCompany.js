@@ -93,7 +93,7 @@ class NotificationCompany extends Component {
                 <div className="row">
                   <div className="col-md-12 d-flex">
                     <div className="card ctm-border-radius shadow-sm flex-fill manage-notification_system--admin">
-                      <div className="card-header">
+                      <div className="card-header text-left">
                         <h4 className="card-title mb-0">Danh sách thông báo</h4>
                       </div>
                       <div className="card-body align-center">
@@ -110,6 +110,10 @@ class NotificationCompany extends Component {
                             <table className="table custom-table table-hover table-notification_company">
                               <thead>
                                 <tr>
+                                <th
+                                  style={{ width: "5%" }}
+                                  className="cell-breakWord text-left"
+                                  >#</th>
                                   <th
                                   style={{ width: "15%" }}
                                   className="cell-breakWord text-left"
@@ -122,7 +126,7 @@ class NotificationCompany extends Component {
                                   </th>
                                   <th style={{ width: "20%" }} className="cell-breakWord text-left">Ngày</th>
                                   <th style={{ width: "15%" }} className="text-left">Trạng thái</th>
-                                  <th style={{ width: "20%" }}></th>
+                                  <th style={{ width: "15%" }}></th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -131,6 +135,12 @@ class NotificationCompany extends Component {
                                     (notification, index) => {
                                       return (
                                         <tr key={index}>
+                                          <td
+                                          style={{ width: "5%" }}
+                                          className="cell-breakWord text-left"
+                                          >
+                                      {index+1}{" "}
+                                          </td>
                                           <td
                                           style={{ width: "15%" }}
                                           className="cell-breakWord text-left"
@@ -146,10 +156,10 @@ class NotificationCompany extends Component {
                                           <td style={{ width: "15%" }} className="text-left">{notification.date}</td>
                                           {
                                             parseInt(notification.status)===1 ? (
-                                              <td style={{ width: "20%",color: "red" }}>
+                                              <td style={{ width: "20%",color: "red" }} className="text-left">
                                                Đã xem
                                               </td>
-                                              ):(<td style={{ width: "20%",color: "orange" }}>
+                                              ):(<td style={{ width: "20%",color: "orange" }} className="text-left">
                                               Chưa xem
                                              </td>)
                                           }

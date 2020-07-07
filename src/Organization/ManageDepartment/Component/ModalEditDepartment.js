@@ -72,7 +72,7 @@ class ModalEditDepartment extends Component {
             <>
                 <form>
                 <div className="form-group">
-                    <label htmlFor="name">Tên</label>
+                    <label htmlFor="name" className="required">Tên</label>
                     <input
                         type="text"
                         className="form-control"
@@ -90,7 +90,7 @@ class ModalEditDepartment extends Component {
                     )}
                 </div>
                 <div className="form-group">
-                    <label htmlFor="role">Viết tắt</label>
+                    <label htmlFor="role" className="required">Viết tắt</label>
                     <input
                         type="text"
                         className="form-control"
@@ -108,7 +108,7 @@ class ModalEditDepartment extends Component {
                     )}
                 </div>
                 <div className="form-group">
-                    <label htmlFor="description">Miêu tả</label>
+                    <label htmlFor="description" className="required">Miêu tả</label>
                     <textarea
                     className="form-control"
                     name="editDescriptionDepartment"

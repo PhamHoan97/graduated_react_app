@@ -182,7 +182,7 @@ export default class CompanyInformation extends Component {
           <div className="row manage-detailCompany_organization">
             <div className="col-xl-8 col-lg-12 col-md-7 d-flex">
               <div className="card ctm-border-radius shadow-sm flex-fill">
-                <div className="card-header">
+                <div className="card-header text-left">
                   <h4 className="card-title mb-0">
                     {this.state.detailCompany.name}
                   </h4>
@@ -242,7 +242,7 @@ export default class CompanyInformation extends Component {
             </div>
             <div className="col-xl-4 col-lg-12 col-md-4 d-flex">
               <div className="card ctm-border-radius shadow-sm flex-fill">
-                <div className="card-header">
+                <div className="card-header text-left">
                   <h4 className="card-title mb-0">Liên lạc</h4>
                 </div>
                 <div className="card-body">

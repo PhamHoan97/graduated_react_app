@@ -31,12 +31,12 @@ html,body{
 .intro{
     width: 100%;
     height: 700px;
-    background-image: url('../Image/Intro.png');
+    background-image: url('../Image/Intro.jpg');
     background-repeat: no-repeat;
     background-size: cover;
 }
 .intro-description{
-    margin-top: 33%;
+    margin-top: 10%;
     line-height: 50px;
 }
 .intro-description h1{

@@ -475,8 +475,8 @@ class Account extends Component {
                               <table>
                                 <thead>
                                   <tr>
-                                    <th style={{ width: "5%" }} className="cell-breakWord text-left">
-                                     STT
+                                    <th style={{ width: "5%" }} className="cell-breakWord text-center">
+                                     #
                                     </th>
                                     <th style={{ width: "15%" }} className="cell-breakWord text-left">
                                       Hình ảnh

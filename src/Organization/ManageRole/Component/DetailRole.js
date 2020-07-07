@@ -408,6 +408,7 @@ class DetailRole extends Component {
                                 <table className="table custom-table table-hover table-hover">
                                   <thead>
                                     <tr>
+                                      <th>#</th>
                                       <th>Tên</th>
                                       <th>Phòng ban</th>
                                       <th>Vai trò</th>
@@ -426,6 +427,7 @@ class DetailRole extends Component {
                                       ).map((employee, index) => {
                                         return (
                                           <tr key={index}>
+                                            <td> {index+1} </td>
                                             <td>
                                               <a
                                                 href="employment.html"
@@ -563,7 +565,7 @@ class DetailRole extends Component {
                     <div className="row">
                       <div className="col-md-12 d-flex">
                         <div className="card ctm-border-radius shadow-sm flex-fill manage-detailrole_organization">
-                          <div className="card-header">
+                          <div className="card-header text-left">
                             <h4 className="card-title mb-0">
                               Danh sách quy trình
                             </h4>
@@ -589,7 +591,7 @@ class DetailRole extends Component {
                                             style={{ width: "5%" }}
                                             className="cell-breakWord text-left"
                                           >
-                                            STT
+                                            #
                                           </th>
                                           <th
                                             style={{ width: "15%" }}

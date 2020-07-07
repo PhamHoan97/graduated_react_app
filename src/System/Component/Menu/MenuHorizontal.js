@@ -20,7 +20,7 @@ export default class MenuHorizontal extends Component {
       <aside className="menu-sidebar d-none d-lg-block text-left">
         <div className="logo">
           <a href="/system/dashboard">
-            <img src={logo} alt="Cool Admin" />
+            <img src={logo} alt="Cool Admin" style={{ width:"200px",height:"40px"}}/>
           </a>
         </div>
         <div className="menu-sidebar__content js-scrollbar1">

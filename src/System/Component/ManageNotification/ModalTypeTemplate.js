@@ -108,7 +108,7 @@ export default class ModalTypeTemplate extends Component {
                 <Modal.Body>
                     <form>
                         <div className="form-group">
-                            <label htmlFor="name">Tên</label>
+                            <label htmlFor="name" className="required">Tên</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -119,7 +119,7 @@ export default class ModalTypeTemplate extends Component {
                             {errors.newNameTypeTemplate && <div className="validation" style={{display: 'block',color:'red'}}>{errors.newNameTypeTemplate}</div>}
                         </div>
                         <div className="form-group">
-                            <label htmlFor="description">Miêu tả</label>
+                            <label htmlFor="description" className="required">Miêu tả</label>
                             <textarea
                                 className="form-control"
                                 name="newDescriptionTypeTemplate"

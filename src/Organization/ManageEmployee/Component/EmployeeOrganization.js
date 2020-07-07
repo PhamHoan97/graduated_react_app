@@ -415,11 +415,12 @@ class EmployeeOrganization extends Component {
                               <table className="table custom-table table-hover table-hover table-employee_organization">
                                 <thead>
                                   <tr>
-                                    <th style={{ width: "20%" }} className="cell-breakWord">Tên</th>
-                                    <th style={{ width: "25%" }} className="cell-breakWord">Email</th>
-                                    <th style={{ width: "20%" }}>Phòng ban</th>
-                                    <th style={{ width: "20%" }}>Vai trò</th>
-                                    <th style={{ width: "15%" }} className="cell-breakWord text-left"></th>
+                                    <th style={{ width: "5%" }} className="cell-breakWord text-left">#</th>
+                                    <th style={{ width: "25%" }} className="cell-breakWord text-left">Tên</th>
+                                    <th style={{ width: "25%" }} className="cell-breakWord text-left">Email</th>
+                                    <th style={{ width: "15%" }} className="cell-breakWord text-left">Phòng ban</th>
+                                    <th style={{ width: "18%" }} className="cell-breakWord text-left">Chức vụ</th>
+                                    <th style={{ width: "12%" }} className="cell-breakWord text-left"></th>
                                   </tr>
                                 </thead>
                                 <tbody className="text-left">
@@ -432,7 +433,8 @@ class EmployeeOrganization extends Component {
                                     ).map((employee, index) => {
                                       return (
                                         <tr key={index}>
-                                          <td style={{ width: "20%" }} className="cell-breakWord">
+                                          <td style={{ width: "5%" }} className="cell-breakWord">{index+1}</td>
+                                          <td style={{ width: "25%" }} className="cell-breakWord">
                                             <a
                                               href="employment.html"
                                               className="avatar"
@@ -469,7 +471,7 @@ class EmployeeOrganization extends Component {
                                             </h2>
                                           </td>
                                           <td style={{ width: "25%" }} className="cell-breakWord">{employee.email}</td>
-                                          <td style={{ width: "20%" }} >
+                                          <td style={{ width: "15%" }} >
                                             <NavLink
                                                 to={"/company/organization/department/"+
                                                 employee.id_department}
@@ -480,10 +482,10 @@ class EmployeeOrganization extends Component {
                                               {employee.department_name}{" "}
                                             </NavLink>
                                           </td>
-                                          <td style={{ width: "20%" }}>
+                                          <td style={{ width: "18%" }}>
                                             <NavLink
-                                                to={"/company/organization/department/"+
-                                                employee.id_department+"/role/"+employee.id_role}
+                                                to={"/company/organization/role/"+
+                                                employee.id_role}
                                                 exact
                                                 className="btn btn-outline-warning btn-sm cell-breakWord"
                                               >
@@ -491,7 +493,7 @@ class EmployeeOrganization extends Component {
                                               {employee.role}{" "}
                                             </NavLink>
                                           </td>
-                                          <td style={{ width: "15%" }} className="cell-breakWord text-left">
+                                          <td style={{ width: "12%" }} className="cell-breakWord text-left">
                                             <div className="dropdown action-label drop-active">
                                               <a
                                                 href="##"

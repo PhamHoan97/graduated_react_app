@@ -259,7 +259,7 @@ class ManageNotification extends Component {
                     <>
                       <div className="row">
                         <div className="col-md-12">
-                          <h3 className="title-5 m-b-35 manage__company--notification">
+                          <h3 className="title-5 m-b-35 manage__company--notification text-left">
                             Thống kê
                           </h3>
                         </div>
@@ -326,7 +326,7 @@ class ManageNotification extends Component {
                       </div>
                       <div className="row">
                         <div className="col-md-12">
-                          <h3 className="title-5 m-b-35 manage__company--notification">
+                          <h3 className="title-5 m-b-35 manage__company--notification text-left">
                             Thống kế kết quả câu hỏi trong bản đánh giá
                           </h3>
                         </div>
@@ -355,7 +355,7 @@ class ManageNotification extends Component {
                   )}
                   <div className="row">
                     <div className="col-md-12">
-                      <h3 className="title-5 m-b-35 manage__company--notification">
+                      <h3 className="title-5 m-b-35 manage__company--notification text-left">
                         Danh sách thông báo
                       </h3>
                       <div className="table-data__tool">
@@ -378,10 +378,11 @@ class ManageNotification extends Component {
                         <table className="table table-data2 table-notification_system text-left">
                           <thead className="thead-dark">
                             <tr>
+                              <th style={{ width: "5%" }} className="text-left">#</th>
                               <th style={{ width: "40%" }} className="text-left">Tên</th>
                               <th style={{ width: "20%" }} className="text-left">Mẫu</th>
                               <th style={{ width: "15%" }} className="text-left">Ngày tạo</th>
-                              <th style={{ width: "15%" }} className="text-left">Trạng thái</th>
+                              <th style={{ width: "10%" }} className="text-left">Trạng thái</th>
                               <th style={{ width: "10%" }}></th>
                             </tr>
                           </thead>
@@ -391,6 +392,7 @@ class ManageNotification extends Component {
                                 (notification, index) => {
                                   return (
                                     <tr key={notification.id}>
+                                      <td style={{ width: "5%" }}>{index+1}</td>
                                       <td style={{ width: "40%" }}>{notification.name}</td>
                                       <td style={{ width: "20%" }}>{notification.template_name}</td>
                                       <td className="desc" style={{ width: "15%" }}>

@@ -87,8 +87,8 @@ class Intro extends Component {
         <div className="intro">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-md-4" />
-              <div className="col-md-4 text-center">
+              <div className="col-md-1" />
+              <div className="col-md-10 text-center">
                 <div className="intro-description" >
                   <h1>Hệ thống quản lý quy trình doanh nghiệp</h1>
                   <a
@@ -101,7 +101,7 @@ class Intro extends Component {
                   </a>
                 </div>
               </div>
-              <div className="col-md-4" />
+              <div className="col-md-1" />
             </div>
           </div>
         </div>
@@ -143,16 +143,16 @@ class Intro extends Component {
             <br />
             <br />
             <div className="row">
+              <div className="col-md-7">
+                <img src="./intro/images/organization-company.jpg" alt="feature2" />
+              </div>
               <div className="col-md-5 text-center feature--description">
                 <div className="feature--description__content">
-                  <h1 className="mb-5">Cơ cấu tổ chúc</h1>
+                  <h1 className="mb-5">Cơ cấu tổ chức</h1>
                   <div>
                   Tổng hợp các bộ phận khác nhau có mối liên hệ và quan hệ phụ thuộc lẫn nhau được chuyên môn hoá và có những trách nhiệm, quyền hạn nhất định được bố trí theo những cấp, những khâu khác nhau nhằm bảo đảm thực hiện các chức năng quản trị và phục vụ mục đích chung đã xác định của doanh nghiệp
                   </div>
                 </div>
-              </div>
-              <div className="col-md-7">
-                <img src="./intro/images/organization-company.jpg" alt="feature2" />
               </div>
             </div>
           </div>
