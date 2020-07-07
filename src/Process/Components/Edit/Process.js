@@ -68,7 +68,7 @@ class Process extends Component {
         data.append('xml', xmlRender);
         data.append('information',  JSON.stringify(this.props.detail));
         data.append('token', tokenData);
-        data.append('file',  this.props.detail.file);
+        data.append('file',  this.props.detail.document);
         data.append('templates',  JSON.stringify(this.props.editTemplates));
         
         axios.post(host + `/api/company/process/edit`,

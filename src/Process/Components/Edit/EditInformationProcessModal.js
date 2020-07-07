@@ -752,7 +752,7 @@ class EditInformationProcessModal extends Component {
                             </div>
                             <div className="row form-group">
                               <div className="col col-md-3">
-                                <Form.Label>Tên quy trình</Form.Label>
+                                <Form.Label className="required">Tên quy trình</Form.Label>
                               </div>
                               <div className="col-12 col-md-9">
                                 <Form.Control onChange={(e) => this.handleChangeName(e)} value={this.state.name} type="text" id="name" required name="name" placeholder="Tên..." />
@@ -762,7 +762,7 @@ class EditInformationProcessModal extends Component {
                             </div>
                             <div className="row form-group">
                               <div className="col col-md-3">
-                                <Form.Label>Ban hành</Form.Label>
+                                <Form.Label className="required">Ban hành</Form.Label>
                               </div>
                               <div className="col-12 col-md-9">
                                 <DatePicker onChange={this.handleChangeDeadline} selected={this.state.deadline} className="form-control" dateFormat="dd-MM-yyyy"  id="deadline" required name="deadline" placeholder="Deadline" />
@@ -773,7 +773,7 @@ class EditInformationProcessModal extends Component {
                             </div>
                             <div className="row form-group">
                               <div className="col col-md-3">
-                                <Form.Label>Mô tả ngắn</Form.Label>
+                                <Form.Label className="required">Mô tả ngắn</Form.Label>
                               </div>
                               <div className="col-12 col-md-9">
                                 <Form.Control as={"textarea"} onChange={(e) => this.handleChangeDescription(e)} value={this.state.description} type="text" required name="description" id="description" placeholder="Mô tả..." rows={9} />
@@ -783,7 +783,7 @@ class EditInformationProcessModal extends Component {
                               <div className="col col-md-3">
                                 <label
                                   htmlFor="disabled-input"
-                                  className=" form-control-label"
+                                  className=" form-control-label required"
                                 >
                                   Kiểu giao
                                 </label>

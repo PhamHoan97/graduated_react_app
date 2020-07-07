@@ -139,12 +139,12 @@ class CompanyLogin extends Component {
                     <div className="login-form">
                       <Form method="post" onSubmit={e => this.onSubmit(e)} ref={c => { this.form = c }}>
                         <div className="form-group">
-                          <label>Tài khoản</label>
+                          <label className="required">Tài khoản</label>
                           <Input validations={[required, minLengthAccount]} onChange={this.handleChangeAccount}
                             className="au-input au-input--full" type="text" name="account" placeholder="Tài khoản" />
                         </div>
                         <div className="form-group">
-                          <label>Mật khẩu</label>
+                          <label className="required">Mật khẩu</label>
                           <Input validations={[required, minLength]} onChange={this.handleChangePassword}
                              className="au-input au-input--full" type="password" name="password" placeholder="Mật khẩu" />
                         </div>

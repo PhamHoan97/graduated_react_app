@@ -70,12 +70,23 @@ class Note extends Component {
     UNSAFE_componentWillReceiveProps (nextProps) {
         // trường hợp đã save note
         if(nextProps.currentElement.isSaveNote){
-            this.setState({
-                currentElement: nextProps.currentElement,
-                assignElement: nextProps.assignElement,
-                note: nextProps.currentElement.note,
-                savedNote: true,
-            });
+            if(nextProps.currentElement.file){
+                this.setState({
+                    currentElement: nextProps.currentElement,
+                    assignElement: nextProps.assignElement,
+                    note: nextProps.currentElement.note,
+                    savedNote: true,
+                    fileElement: nextProps.currentElement.file.url,
+                    nameFileElement: nextProps.currentElement.file.name,
+                });
+            }else{
+                this.setState({
+                    currentElement: nextProps.currentElement,
+                    assignElement: nextProps.assignElement,
+                    note: nextProps.currentElement.note,
+                    savedNote: true,
+                });
+            }
         }else{
             if(nextProps.assignElement){
                 if(nextProps.currentElement.id === this.state.currentElement.id){

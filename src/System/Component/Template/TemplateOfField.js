@@ -183,11 +183,11 @@ class TemplateOfField extends Component {
                 return (
                 <React.Fragment key={key}>
                            <tr className="tr-shadow">
-                           <td className="desc"  style={{width: "5%"}}>{key+1}</td>
-                            <td className="desc"  style={{width: "20%"}}>{value.name}</td>
-                            <td className="desc"  style={{width: "50%"}}>{value.description}</td>
-                            <td className="desc"  style={{width: "10%"}}>{value.updated_at}</td>
-                            <td  style={{width: "15%"}}>
+                           <td className="desc" style={{width: "5%"}}>{key+1}</td>
+                            <td className="desc" style={{width: "20%"}}>{value.name}</td>
+                            <td className="desc" style={{width: "50%"}}>{value.description}</td>
+                            <td className="desc" style={{width: "15%"}}>{value.updated_at}</td>
+                            <td style={{width: "10%"}}>
                               <div className="table-data-feature">
                                 <button
                                   className="item"
@@ -318,11 +318,11 @@ class TemplateOfField extends Component {
                                 <table className="table table-borderless table-data3">
                                     <thead>
                                     <tr>
-                                    <th className="text-center" style={{width: "5%"}}>#</th>
-                                    <th className="text-center" style={{width: "20%"}}>Quy trình</th>
-                                    <th className="text-center" style={{width: "50%"}}>Mô tả ngắn</th>
-                                    <th className="text-center" style={{width: "10%"}}>Cập nhật</th>
-                                    <th className="text-center" style={{width: "15%"}}></th>
+                                    <th style={{width: "5%"}}>#</th>
+                                    <th style={{width: "20%"}}>Quy trình</th>
+                                    <th style={{width: "50%"}}>Mô tả ngắn</th>
+                                    <th style={{width: "15%"}}>Cập nhật</th>
+                                    <th style={{width: "10%"}}></th>
                                     </tr>
                                 </thead>
                                 <tbody>

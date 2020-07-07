@@ -166,11 +166,11 @@ class CreateTemplate extends Component {
                         <Modal.Body>
                             <Form onSubmit={(e) => this.handleSubmitFieldForm(e)}>
                                 <Form.Group controlId="formGroupPassword1">
-                                    <Form.Label>Tên quy trình</Form.Label>
+                                    <Form.Label className="required">Tên quy trình</Form.Label>
                                     <Form.Control type="text" onChange={this.handleChangeName} required placeholder="Tên quy trình" />
                                 </Form.Group>
                                 <Form.Group controlId="formGroupEmail-updateaccount">
-                                    <Form.Label>Mô tả ngắn</Form.Label>
+                                    <Form.Label className="required">Mô tả ngắn</Form.Label>
                                     <textarea className="form-control" rows={"5"} onChange={this.handleChangeDescription} required></textarea>
                                 </Form.Group>
                                 <Button variant="primary" type="submit">
