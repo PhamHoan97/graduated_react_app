@@ -488,10 +488,10 @@ class FormAddProcessModal extends Component {
       else if(this.state.type === 1){
         return (
           <div className="row form-group">
-            <div className="col col-md-3">
+            <div className="col col-md-3 text-left">
               <label
                 htmlFor="disabled-input"
-                className=" form-control-label"
+                className=" form-control-label required"
               >
                 Giao cho
               </label>
@@ -505,10 +505,10 @@ class FormAddProcessModal extends Component {
       }else if(this.state.type === 2){
         return(
           <div className="row form-group">
-            <div className="col col-md-3">
+            <div className="col col-md-3 text-left">
               <label
                 htmlFor="disabled-input"
-                className=" form-control-label"
+                className=" form-control-label required"
               >
                 Giao cho
               </label>
@@ -522,10 +522,10 @@ class FormAddProcessModal extends Component {
       }else if(this.state.type === 3){
         return(
           <div className="row form-group">
-            <div className="col col-md-3">
+            <div className="col col-md-3 text-left">
               <label
                 htmlFor="disabled-input"
-                className=" form-control-label"
+                className=" form-control-label required"
               >
                 Giao cho
               </label>
@@ -541,10 +541,10 @@ class FormAddProcessModal extends Component {
         return(
             <>
               <div className="row form-group">
-                <div className="col col-md-3">
+                <div className="col col-md-3 text-left">
                   <label
                     htmlFor="disabled-input"
-                    className=" form-control-label"
+                    className=" form-control-label required"
                   >
                     Nhân viên
                   </label>
@@ -555,10 +555,10 @@ class FormAddProcessModal extends Component {
                 </div>
               </div>
               <div className="row form-group">
-                <div className="col col-md-3">
+                <div className="col col-md-3 text-left">
                   <label
                     htmlFor="disabled-input"
-                    className=" form-control-label"
+                    className=" form-control-label required"
                   >
                     Kiểu kết hợp
                   </label>
@@ -584,10 +584,10 @@ class FormAddProcessModal extends Component {
       if(this.state.collabration === 1){
         return (
           <div className="row form-group">
-            <div className="col col-md-3">
+            <div className="col col-md-3 text-left">
               <label
                 htmlFor="disabled-input"
-                className=" form-control-label"
+                className=" form-control-label required"
               >
                 Chức vụ
               </label>
@@ -601,10 +601,10 @@ class FormAddProcessModal extends Component {
       }else if(this.state.collabration === 2){
         return (
           <div className="row form-group">
-            <div className="col col-md-3">
+            <div className="col col-md-3 text-left">
               <label
                 htmlFor="disabled-input"
-                className=" form-control-label"
+                className=" form-control-label required"
               >
                 Phòng ban
               </label>
@@ -620,12 +620,11 @@ class FormAddProcessModal extends Component {
       }
     }
 
-
     renderFilterDepartment = () =>{
       if(!this.state.type || this.state.type === 1 || this.state.type === 2){
         return (
           <div className="row form-group">
-            <div className="col col-md-3">
+            <div className="col col-md-3 text-left">
               <label
                 htmlFor="disabled-input"
                 className=" form-control-label"
@@ -685,8 +684,8 @@ class FormAddProcessModal extends Component {
                         onSubmit={(e) => this.handleSubmitAddProcess(e)}
                       >
                         <div className="row form-group">
-                          <div className="col col-md-3">
-                            <Form.Label>Mã quy trình</Form.Label>
+                          <div className="col col-md-3 text-left">
+                            <Form.Label className="">Mã quy trình</Form.Label>
                           </div>
                           <div className="col-12 col-md-9">
                             <Form.Control onChange={(e) => this.handleChangeCode(e)} type="text" id="code" name="code" placeholder="Mã quy trình" />
@@ -696,7 +695,7 @@ class FormAddProcessModal extends Component {
                           </div>
                         </div>
                         <div className="row form-group">
-                          <div className="col col-md-3">
+                          <div className="col col-md-3 text-left">
                             <Form.Label className="required">Tên quy trình</Form.Label>
                           </div>
                           <div className="col-12 col-md-9">
@@ -706,7 +705,7 @@ class FormAddProcessModal extends Component {
                           </div>
                         </div>
                         <div className="row form-group">
-                          <div className="col col-md-3">
+                          <div className="col col-md-3 text-left">
                             <Form.Label className="required">Ban hành</Form.Label>
                           </div>
                           <div className="col-12 col-md-9">
@@ -717,15 +716,15 @@ class FormAddProcessModal extends Component {
                           </div>
                         </div>
                         <div className="row form-group">
-                          <div className="col col-md-3">
-                            <Form.Label className="required">Mô tả ngắn</Form.Label>
+                          <div className="col col-md-3 text-left">
+                            <Form.Label className="required text-left">Mô tả ngắn</Form.Label>
                           </div>
                           <div className="col-12 col-md-9">
                             <Form.Control as={"textarea"} onChange={(e) => this.handleChangeDescription(e)}  type="text" required name="description" id="description" placeholder="Nội dung" />
                           </div>
                         </div>
                         <div className="row form-group">
-                          <div className="col col-md-3">
+                          <div className="col col-md-3 text-left">
                             <label
                               htmlFor="disabled-input"
                               className=" form-control-label required"
@@ -763,8 +762,8 @@ class FormAddProcessModal extends Component {
                           {this.renderRowAssign()}
                         {/* renderAssign */}
                         <div className="row form-group">
-                          <div className="col col-md-3">
-                            <Form.Label>Tài liệu</Form.Label>
+                          <div className="col col-md-3 text-left">
+                            <Form.Label className="">Tài liệu</Form.Label>
                           </div>
                           <div className="col-12 col-md-9">
                             <Form.File.Input id="file-input" onChange={this.handleChangeFile} name="file-input"/>

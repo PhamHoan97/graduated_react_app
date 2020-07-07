@@ -159,10 +159,10 @@ class EditInformationEmployeeModal extends Component {
                         className="form-horizontal"
                       >
                         <div className="row form-group">
-                          <div className="col col-md-3">
+                          <div className="col col-md-3 text-left">
                             <label
                               htmlFor="text-input"
-                              className=" form-control-label"
+                              className=" form-control-label required"
                             >
                               Tên 
                             </label>
@@ -172,6 +172,7 @@ class EditInformationEmployeeModal extends Component {
                               type="text"
                               id="name"
                               name="name"
+                              required
                               className="form-control"
                               defaultValue={this.state.name}
                               onChange={this.handleChangeName}
@@ -181,10 +182,10 @@ class EditInformationEmployeeModal extends Component {
                           </div>
                         </div>
                         <div className="row form-group">
-                          <div className="col col-md-3">
+                          <div className="col col-md-3 text-left">
                             <label
                               htmlFor="hf-email"
-                              className=" form-control-label"
+                              className=" form-control-label required"
                             >
                               Email
                             </label>
@@ -193,6 +194,7 @@ class EditInformationEmployeeModal extends Component {
                             <input
                               type="email"
                               name="hf-email"
+                              required
                               className="form-control"
                               defaultValue={this.state.email}
                               onChange={this.handleChangeEmail}
@@ -202,7 +204,7 @@ class EditInformationEmployeeModal extends Component {
                           </div>
                         </div>
                         <div className="row form-group">
-                          <div className="col col-md-3">
+                          <div className="col col-md-3 text-left">
                             <label
                               htmlFor="hf-email"
                               className=" form-control-label"
@@ -215,7 +217,7 @@ class EditInformationEmployeeModal extends Component {
                           </div>
                         </div>
                         <div className="row form-group">
-                          <div className="col col-md-3">
+                          <div className="col col-md-3 text-left">
                             <label
                               htmlFor="hf-email"
                               className=" form-control-label"
@@ -234,7 +236,7 @@ class EditInformationEmployeeModal extends Component {
                           </div>
                         </div>
                         <div className="row form-group">
-                          <div className="col col-md-3">
+                          <div className="col col-md-3 text-left">
                             <label
                               htmlFor="hf-email"
                               className=" form-control-label"
@@ -253,7 +255,7 @@ class EditInformationEmployeeModal extends Component {
                           </div>
                         </div>
                         <div className="row form-group">
-                          <div className="col col-md-3">
+                          <div className="col col-md-3 text-left">
                             <label
                               htmlFor="hf-email"
                               className=" form-control-label"
@@ -268,7 +270,7 @@ class EditInformationEmployeeModal extends Component {
                           </div>
                         </div>
                         <div className="row form-group">
-                          <div className="col col-md-3">
+                          <div className="col col-md-3 text-left">
                             <label
                               htmlFor="file-input"
                               className=" form-control-label"

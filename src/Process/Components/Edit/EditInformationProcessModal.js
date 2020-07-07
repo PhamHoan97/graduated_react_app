@@ -487,10 +487,10 @@ class EditInformationProcessModal extends Component {
       else if(this.state.type === 1){
         return (
           <div className="row form-group">
-            <div className="col col-md-3">
+            <div className="col col-md-3 text-left">
               <label
                 htmlFor="disabled-input"
-                className=" form-control-label"
+                className=" form-control-label required"
               >
                 Giao cho
               </label>
@@ -504,10 +504,10 @@ class EditInformationProcessModal extends Component {
       }else if(this.state.type === 2){
         return(
           <div className="row form-group">
-            <div className="col col-md-3">
+            <div className="col col-md-3 text-left">
               <label
                 htmlFor="disabled-input"
-                className=" form-control-label"
+                className=" form-control-label required"
               >
                 Giao cho
               </label>
@@ -521,10 +521,10 @@ class EditInformationProcessModal extends Component {
       }else if(this.state.type === 3){
         return(
           <div className="row form-group">
-            <div className="col col-md-3">
+            <div className="col col-md-3 text-left">
               <label
                 htmlFor="disabled-input"
-                className=" form-control-label"
+                className=" form-control-label required"
               >
                 Giao cho
               </label>
@@ -539,7 +539,7 @@ class EditInformationProcessModal extends Component {
         return(
             <>
               <div className="row form-group">
-                <div className="col col-md-3">
+                <div className="col col-md-3 text-left">
                   <label
                     htmlFor="disabled-input"
                     className=" form-control-label"
@@ -553,7 +553,7 @@ class EditInformationProcessModal extends Component {
                 </div>
               </div>
               <div className="row form-group">
-                <div className="col col-md-3">
+                <div className="col col-md-3 text-left">
                   <label
                     htmlFor="disabled-input"
                     className=" form-control-label"
@@ -582,7 +582,7 @@ class EditInformationProcessModal extends Component {
       if(this.state.collabration === 1){
         return (
           <div className="row form-group">
-            <div className="col col-md-3">
+            <div className="col col-md-3 text-left">
               <label
                 htmlFor="disabled-input"
                 className=" form-control-label"
@@ -599,7 +599,7 @@ class EditInformationProcessModal extends Component {
       }else if(this.state.collabration === 2){
         return (
           <div className="row form-group">
-            <div className="col col-md-3">
+            <div className="col col-md-3 text-left">
               <label
                 htmlFor="disabled-input"
                 className=" form-control-label"
@@ -684,10 +684,10 @@ class EditInformationProcessModal extends Component {
       if(!this.state.type || this.state.type === 1 || this.state.type === 2){
         return (
           <div className="row form-group">
-            <div className="col col-md-3">
+            <div className="col col-md-3 text-left">
               <label
                 htmlFor="disabled-input"
-                className=" form-control-label"
+                className=" form-control-label text-left"
               >
                 Phòng ban
               </label>
@@ -740,7 +740,7 @@ class EditInformationProcessModal extends Component {
                             onSubmit={(e) => this.handleSubmitEditProcess(e)}
                           >
                             <div className="row form-group">
-                              <div className="col col-md-3">
+                              <div className="col col-md-3 text-left">
                                 <Form.Label>Mã quy trình</Form.Label>
                               </div>
                               <div className="col-12 col-md-9">
@@ -751,7 +751,7 @@ class EditInformationProcessModal extends Component {
                               </div>
                             </div>
                             <div className="row form-group">
-                              <div className="col col-md-3">
+                              <div className="col col-md-3 text-left">
                                 <Form.Label className="required">Tên quy trình</Form.Label>
                               </div>
                               <div className="col-12 col-md-9">
@@ -761,7 +761,7 @@ class EditInformationProcessModal extends Component {
                               </div>
                             </div>
                             <div className="row form-group">
-                              <div className="col col-md-3">
+                              <div className="col col-md-3 text-left">
                                 <Form.Label className="required">Ban hành</Form.Label>
                               </div>
                               <div className="col-12 col-md-9">
@@ -772,7 +772,7 @@ class EditInformationProcessModal extends Component {
                               </div>
                             </div>
                             <div className="row form-group">
-                              <div className="col col-md-3">
+                              <div className="col col-md-3 text-left">
                                 <Form.Label className="required">Mô tả ngắn</Form.Label>
                               </div>
                               <div className="col-12 col-md-9">
@@ -780,7 +780,7 @@ class EditInformationProcessModal extends Component {
                               </div>
                             </div>
                             <div className="row form-group">
-                              <div className="col col-md-3">
+                              <div className="col col-md-3 text-left">
                                 <label
                                   htmlFor="disabled-input"
                                   className=" form-control-label required"
@@ -818,7 +818,7 @@ class EditInformationProcessModal extends Component {
                             {this.renderRowAssign()}
                           {/* renderAssign */}
                           <div className="row form-group">
-                            <div className="col col-md-3">
+                            <div className="col col-md-3 text-left">
                               <Form.Label>Tài liệu</Form.Label>
                             </div>
                             <div className="col-12 col-md-9">
@@ -826,7 +826,7 @@ class EditInformationProcessModal extends Component {
                             </div>
                           </div>
                             <div className="row form-group">
-                              <div className="col col-md-3">
+                              <div className="col col-md-3 text-left">
                               </div>
                               <div className="col-12 col-md-9">
                                 <div className="btn btn-group" style={{float:"left", padding: "0"}}>
