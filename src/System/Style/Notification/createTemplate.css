@@ -97,8 +97,12 @@ body {
 .description-template label{
   font-size: 12px;
 }
-.required:after {
+.page-template_notfication .required:after {
   content:" ";
+  color: red;
+}
+.create-template .required:after {
+  content:" *" !important;
   color: red;
 }
 
