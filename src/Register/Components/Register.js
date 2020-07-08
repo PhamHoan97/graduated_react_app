@@ -122,20 +122,20 @@ class Register extends Component {
                     </div>
                     <div className="login-form">
                       <Form method="post" onSubmit={e => this.onSubmit(e)} ref={c => { this.form = c }}>
-                        <div className="form-group required">
-                          <label className="control-label">Công ty</label>
+                        <div className="form-group">
+                          <label className="control-label required">Công ty</label>
                           <Input validations={[required]} onChange={this.handleChangeCompany} className="au-input au-input--full" type="text" name="name-company" placeholder="Công ty trách nghiệm hữu hạn Kinh Đô" />
                         </div>
-                        <div className="form-group required">
-                          <label className="control-label">Kí hiệu</label>
+                        <div className="form-group">
+                          <label className="control-label required">Kí hiệu</label>
                           <Input validations={[required]} onChange={this.handleChangeSignature} className="au-input au-input--full" type="text" name="name-company" placeholder="CTTNHH KĐ" />
                         </div>
-                        <div className="form-group required">
-                          <label className="control-label">Người đứng đầu</label>
+                        <div className="form-group">
+                          <label className="control-label required">Người đứng đầu</label>
                           <Input validations={[required]} onChange={this.handleChangeCeo} className="au-input au-input--full" type="text" name="ceo-company" placeholder="Sam Smith" />
                         </div>
-                        <div className="form-group required">
-                          <label value="" className="control-label">Lĩnh vực</label>
+                        <div className="form-group">
+                          <label value="" className="control-label required">Lĩnh vực</label>
                           <Select validations={[required]} onChange={this.handleChangeField} className="form-control" name="field-company" id="field-company">
                             <option value="">Lựa chọn lĩnh vực</option>
                             <option value="Sale">Bán hàng</option>
@@ -145,8 +145,8 @@ class Register extends Component {
                             <option value="Others">Khác</option>
                           </Select>
                         </div>
-                        <div className="form-group required">
-                          <label className="control-label">Nhân lực</label>
+                        <div className="form-group">
+                          <label className="control-label required">Nhân lực</label>
                           <Select validations={[required]} onChange={this.handleChangeWorkforce} className="form-control" name="people-company" id="workforce-company">
                           <option value="">Lựa chọn khoảng nhân lực của công ty</option>
                             <option value="1">Ít hơn 50 nhân viên</option>
@@ -156,12 +156,12 @@ class Register extends Component {
                             <option value="5">Nhiều hơn 300 nhân viên</option>
                           </Select>
                         </div>
-                        <div className="form-group required">
-                          <label validations={[required]} className="control-label">Địa chỉ</label>
+                        <div className="form-group">
+                          <label validations={[required]} className="control-label required">Địa chỉ</label>
                           <Input onChange={this.handleChangeAddress} className="au-input au-input--full" type="text" name="address-company" placeholder="Đê La Thành" />
                         </div>
-                        <div className="form-group required">
-                          <label className="control-label">Email liên hệ </label>
+                        <div className="form-group">
+                          <label className="control-label required">Email liên hệ </label>
                           <Input validations={[required, email]} onChange={this.handleChangeContact} className="au-input au-input--full" type="email" name="email" placeholder="jsmith@example.com" />
                         </div>
                         <div className="login-checkbox-register">
